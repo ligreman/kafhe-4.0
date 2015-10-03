@@ -131,12 +131,16 @@
             </div>
         </div>
     </div>
+
+    <p id="result"></p>
+
     <div class="footer-copyright">
         <div class="container">
             Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
         </div>
     </div>
 </footer>
+
 
 <!-- Third party scripts -->
 <!-- build:js js/plugins.js -->
@@ -149,5 +153,11 @@
 <script src="js/main.js"></script>
 <!-- endbuild -->
 
+
+<script>
+    $.get("http://localhost:3000/api/hola", function (data) {
+        $("#result").html(data);
+    });
+</script>
 </body>
 </html>
