@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (app) {
+    var console = process.console;
+
     var express          = require('express'),
         passport         = require('passport'),
         bodyParser       = require('body-parser'),

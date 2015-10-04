@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (app) {
+    var console = process.console;
+
     //Cargo las estrategias de las rutas
     require('./strategies')(app);
 

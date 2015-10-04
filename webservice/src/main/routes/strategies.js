@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (app) {
+    var console = process.console;
+
     var passport       = require('passport'),
         LocalStrategy  = require('passport-local').Strategy,
         BearerStrategy = require('passport-http-bearer').Strategy,

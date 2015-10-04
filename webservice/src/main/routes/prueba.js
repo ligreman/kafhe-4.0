@@ -1,13 +1,15 @@
 'use strict';
 
 module.exports = function (app) {
+    var console = process.console;
+
     var express      = require('express'),
         passport     = require('passport'),
         bodyParser   = require('body-parser'),
         //urlencodedParser = bodyParser.urlencoded({extended: false}),
         pruebaRouter = express.Router(),
         failRouter   = express.Router();
-    var console = process.console;
+
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
     //pruebaRouter.use(urlencodedParser);
