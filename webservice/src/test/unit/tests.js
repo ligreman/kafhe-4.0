@@ -1,86 +1,90 @@
-//Cargo la librería chai y los módulos que necesite
-var expect = require('chai').expect,
-    mockery = require('mockery');
+/*
 
-describe('Test Utils library', function () {
-    //Tests de la función 'getRespuesta'
-    describe('TestGetRespuesta', function () {
-        var utils = require('../../main/modules/utils');
-        it('Debería existir la función', function () {
-            expect(utils.getRespuesta).to.be.a('function');
-        });
+ //Cargo la librería chai y los módulos que necesite
+ var expect = require('chai').expect,
+ mockery = require('mockery');
 
-        it('Lo que devuelve getRespuesta', function () {
-            expect(utils.getRespuesta('Manolo')).to.be.equal('Hola Manolo');
-        });
-    });
+ describe('Test Utils library', function () {
+ //Tests de la función 'getRespuesta'
+ describe('TestGetRespuesta', function () {
+ var utils = require('../../main/modules/utils');
+ it('Debería existir la función', function () {
+ expect(utils.getRespuesta).to.be.a('function');
+ });
 
-    //Tests de la función 'getFuncionAMockear' sin mockear
-    describe('TestGetFuncionAMockear sin mock', function () {
-        var utils = require('../../main/modules/utils');
+ it('Lo que devuelve getRespuesta', function () {
+ expect(utils.getRespuesta('Manolo')).to.be.equal('Hola Manolo');
+ });
+ });
 
-        //Los tests
-        it('Debería existir la función', function () {
-            expect(utils.getFuncionAMockear).to.be.a('function');
-        });
+ //Tests de la función 'getFuncionAMockear' sin mockear
+ describe('TestGetFuncionAMockear sin mock', function () {
+ var utils = require('../../main/modules/utils');
 
-        it('Lo que devuelve getRespuesta', function () {
-            expect(utils.getFuncionAMockear('Pedrito')).to.be.equal('Original Pedrito');
-        });
-    });
+ //Los tests
+ it('Debería existir la función', function () {
+ expect(utils.getFuncionAMockear).to.be.a('function');
+ });
 
-    //Tests de la función 'getFuncionAMockear' mockeada
-    describe('TestGetFuncionAMockear mockeada', function () {
-        var utils;
+ it('Lo que devuelve getRespuesta', function () {
+ expect(utils.getFuncionAMockear('Pedrito')).to.be.equal('Original Pedrito');
+ });
+ });
 
-        //Creo el mock de la función que me interesa
-        var utilsMock = {
-            getFuncionAMockear: function (parametro) {
-                return 'Soy un mock ' + parametro;
-            }
-        };
+ //Tests de la función 'getFuncionAMockear' mockeada
+ describe('TestGetFuncionAMockear mockeada', function () {
+ var utils;
 
-        //Antes de nada activo el mockery y lo configuro
-        before(function () {
-            mockery.enable({
-                warnOnReplace: false,
-                warnOnUnregistered: false,
-                useCleanCache: true
-            });
+ //Creo el mock de la función que me interesa
+ var utilsMock = {
+ getFuncionAMockear: function (parametro) {
+ return 'Soy un mock ' + parametro;
+ }
+ };
 
-            //Registro mi librería utilsMock como utils
-            mockery.registerMock('../../main/modules/utils', utilsMock);
+ //Antes de nada activo el mockery y lo configuro
+ before(function () {
+ mockery.enable({
+ warnOnReplace: false,
+ warnOnUnregistered: false,
+ useCleanCache: true
+ });
 
-            //Cargo aquí los módulos que necesito para que el Mock haga el
-            // "man-in-the-middle" correctamente. Si no, al intentar registrar el mock
-            // ya estaría cargada la librería original y no se podría sobrescribir.
-            // Puedo cargarlo en los it, si necesitase diferentes módulos para cada uno.
-            utils = require('../../main/modules/utils');
-        });
+ //Registro mi librería utilsMock como utils
+ mockery.registerMock('../../main/modules/utils', utilsMock);
 
-        //Antes de cada test podría hacer cosas. Se ejecuta después del before.
-        beforeEach(function () {
-        });
+ //Cargo aquí los módulos que necesito para que el Mock haga el
+ // "man-in-the-middle" correctamente. Si no, al intentar registrar el mock
+ // ya estaría cargada la librería original y no se podría sobrescribir.
+ // Puedo cargarlo en los it, si necesitase diferentes módulos para cada uno.
+ utils = require('../../main/modules/utils');
+ });
 
-        //Después de cada test podría hacer cosas
-        afterEach(function () {
-        });
+ //Antes de cada test podría hacer cosas. Se ejecuta después del before.
+ beforeEach(function () {
+ });
 
-        //Al terminar hago lo siguiente
-        after(function () {
-            //Desactivo mockery
-            mockery.disable();
-        });
+ //Después de cada test podría hacer cosas
+ afterEach(function () {
+ });
 
-        //Los tests
-        it('Debería existir la función', function () {
-            expect(utils.getFuncionAMockear).to.be.a('function');
-        });
+ //Al terminar hago lo siguiente
+ after(function () {
+ //Desactivo mockery
+ mockery.disable();
+ });
 
-        it('Lo que devuelve getRespuesta', function () {
-            //Espero que me devuelva el resultado del mock
-            expect(utils.getFuncionAMockear('Manolo')).to.be.equal('Soy un mock Manolo');
-        });
-    });
+ //Los tests
+ it('Debería existir la función', function () {
+ expect(utils.getFuncionAMockear).to.be.a('function');
+ });
 
-});
+ it('Lo que devuelve getRespuesta', function () {
+ //Espero que me devuelva el resultado del mock
+ expect(utils.getFuncionAMockear('Manolo')).to.be.equal('Soy un mock Manolo');
+ });
+ });
+
+ });
+
+ */
