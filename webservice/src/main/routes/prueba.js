@@ -7,7 +7,7 @@ module.exports = function (app) {
         //urlencodedParser = bodyParser.urlencoded({extended: false}),
         pruebaRouter = express.Router(),
         failRouter   = express.Router();
-
+    var console = process.console;
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
     //pruebaRouter.use(urlencodedParser);

@@ -9,6 +9,25 @@ var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     serverHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoHost  = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/kafhe';
 
+// LOGS
+var scribe  = require('scribe-js')(), //loads Scribe
+    console = process.console;
+app.use(scribe.express.logger()); //Log each request
+app.use('/logs', scribe.webPanel()); //Log web console
+
+/*
+ // With log(...)
+ console.log("Hello World!");
+ console.info("Hello World!");
+ console.error("Hello World!");
+ console.warning("Hello World!");
+ // Now with an Object
+ console.log({hello: "world"});
+ //Now with tag
+ console.tag("Demo").log("Hello all");
+ */
+
+
 //Cargo mis módulos internos
 //var utils = require('./modules/utils');
 
