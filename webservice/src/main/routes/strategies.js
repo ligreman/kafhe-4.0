@@ -48,9 +48,10 @@ module.exports = function (app) {
                      * de la anterior.
                      * En el done se ejecuta tanto si todo es correcto como si hay error, en dos funciones diferentes.
                      */
-                    Q.fcall(function () {
-                        return username;
-                    })
+                    Q.fcall(
+                        function () {
+                            return username;
+                        })
                         .then(sessionUtils.deleteSessions)
                         .then(sessionUtils.createSession)
                         .done(function (access_token) {
