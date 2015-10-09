@@ -32,8 +32,8 @@ module.exports = function (app) {
                 }
                 console.log("Miro si pass es correcto");
 
-                //Cifro la contraseña con SHA1
-                //TODO tendrá que venir del frontend ya cifrada para que no viaje en claro
+                //Cifro la contraseÃ±a con SHA1
+                //TODO tendrÃ¡ que venir del frontend ya cifrada para que no viaje en claro
                 var shasum = crypto.createHash('sha1');
                 shasum.update(password);
 
@@ -43,8 +43,8 @@ module.exports = function (app) {
                     console.log('Login OK');
 
                     /**
-                     * Lo primero de todo es una función que devuelva el parámetro de la primera async que quiero ejecutar.
-                     * Los then no llevan parámetros en la llamada a la función, aunque siempre se pasa 1 que es el return
+                     * Lo primero de todo es una funciÃ³n que devuelva el parÃ¡metro de la primera async que quiero ejecutar.
+                     * Los then no llevan parÃ¡metros en la llamada a la funciÃ³n, aunque siempre se pasa 1 que es el return
                      * de la anterior.
                      * En el done se ejecuta tanto si todo es correcto como si hay error, en dos funciones diferentes.
                      */
@@ -56,31 +56,31 @@ module.exports = function (app) {
                         .done(function (access_token) {
                             console.log('Devuelvo el token de acceso: ' + access_token);
 
-                            //Hago un return que resuelve el return general al ser el último
+                            //Hago un return que resuelve el return general al ser el Ãºltimo
                             return done(null, user, {"access_token": access_token});
                         }, function (error) {
                             // We get here if any fails
                             console.error('Error creando la sesion del usuario: ' + error);
-                            return done(null, false, {message: 'No se ha podido iniciar la sesión'});
+                            return done(null, false, {message: 'No se ha podido iniciar la sesiÃ³n'});
                         });
                 } else {
                     console.log('PASSWORD malo');
-                    return done(null, false, {message: 'Contraseña incorrecta'});
+                    return done(null, false, {message: 'ContraseÃ±a incorrecta'});
                 }
             });
         }
     ));
 
-    // Estrategia Bearer de Passport - Utilizada para cualquier petición al API que tenga que ir autenticada
+    // Estrategia Bearer de Passport - Utilizada para cualquier peticiÃ³n al API que tenga que ir autenticada
     passport.use(new BearerStrategy(
         function (access_token, done) {
-            // Proceso el access_token para extraer el username y el token de autenticación
+            // Proceso el access_token para extraer el username y el token de autenticaciÃ³n
             var sessionData = sessionUtils.extractSessionFromAccessToken(access_token);
             console.tag('datos sesion').log(sessionData);
-            //Si pasa algún error
+            //Si pasa algÃºn error
             if (!sessionData) {
-                //Falla ya que no pude extraer la sesión. Envío un false y mensaje de error
-                return done(null, false, {message: 'El token de sesión no es válido'});
+                //Falla ya que no pude extraer la sesiÃ³n. EnvÃ­o un false y mensaje de error
+                return done(null, false, {message: 'El token de sesiÃ³n no es vÃ¡lido'});
             }
 
             modelos.Session.findOne({
@@ -94,7 +94,7 @@ module.exports = function (app) {
 
                 if (session) {
                     console.log('Login BIEN');
-                    //TODO devolveré la información del usuario ¿y un nuevo token?
+                    //TODO devolverÃ© la informaciÃ³n del usuario Â¿y un nuevo token?
                     return done(null, session);
                 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-//Este módulo es simplemente para poder cargar todos los modelos haciendo un require a este módulo y no ir uno a uno
+//Este mÃ³dulo es simplemente para poder cargar todos los modelos haciendo un require a este mÃ³dulo y no ir uno a uno
 module.exports = function (mongoose) {
 
     //Expongo los modelos

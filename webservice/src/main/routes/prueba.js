@@ -18,7 +18,7 @@ module.exports = function (app) {
         //successRedirect: '/ok',
         failureRedirect: '/failete'
     }));
-    //Si se hace login correctamente, pasar· aquÌ
+    //Si se hace login correctamente, pasar√° aqu√≠
     pruebaRouter.get('/', function (req, res, next) {
         console.log("POST");
         console.log(req.user);
@@ -27,7 +27,7 @@ module.exports = function (app) {
     });
 
     //**************** LOGIN FAIL ROUTER **********************
-    //GET sobre el raÌz del failete router (es decir sobre /failete)
+    //GET sobre el ra√≠z del failete router (es decir sobre /failete)
     failRouter.get('/', function (req, res, next) {
         console.log("FAILETE");
         res.json({login: 'failete'});

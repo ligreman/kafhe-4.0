@@ -8,7 +8,7 @@ var console  = process.console,
     crypto   = require('crypto');
 
 /**
- * Crea una sesi髇 de usuario tras un login correcto. Para ello genera un token de acceso que devuelve, y guarda la sesi髇 en Mongo
+ * Crea una sesi贸n de usuario tras un login correcto. Para ello genera un token de acceso que devuelve, y guarda la sesi贸n en Mongo
  * @param username
  * @returns {*}
  */
@@ -18,7 +18,7 @@ var createSession = function (username) {
         defer        = Q.defer(),
         fecha        = new Date();
 
-    console.log('Creo la sesi髇');
+    console.log('Creo la sesi贸n');
 
     modelos.Session.create({
         "username": username,
@@ -45,7 +45,7 @@ var createSession = function (username) {
 var deleteSessions = function (username) {
     var defer = Q.defer();
 
-    console.log('Borro la sesi髇: ' + username);
+    console.log('Borro la sesi贸n: ' + username);
 
     modelos.Session.remove({"username": username}, function (err) {
         if (err) {

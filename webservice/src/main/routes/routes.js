@@ -12,6 +12,6 @@ module.exports = function (app) {
 
     //Cualquier otra ruta a la que se acceda, devuelve error
     app.get('/!*', function (req, res) {
-        res.status(404).send('Aquí no hay nada');
+        res.status(404).send('AquÃ­ no hay nada');
     });
 };

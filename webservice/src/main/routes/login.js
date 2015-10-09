@@ -18,7 +18,7 @@ module.exports = function (app) {
         //successRedirect: '/ok',
         failureRedirect: '/fail'
     }));
-    //Si se hace login correctamente, pasar· aquÌ
+    //Si se hace login correctamente, pasar√° aqu√≠
     loginRouter.post('/', function (req, res, next) {
         console.log("POST");
         console.log(req.user);
@@ -32,7 +32,7 @@ module.exports = function (app) {
     });
 
     //**************** LOGIN FAIL ROUTER **********************
-    //GET sobre el raÌz del fail router (es decir sobre /fail)
+    //GET sobre el ra√≠z del fail router (es decir sobre /fail)
     failRouter.get('/', function (req, res, next) {
         console.log("FAIL");
         res.json({"login": false});
