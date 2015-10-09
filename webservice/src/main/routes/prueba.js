@@ -5,7 +5,7 @@ module.exports = function (app) {
 
     var express      = require('express'),
         passport     = require('passport'),
-        bodyParser   = require('body-parser'),
+        //bodyParser   = require('body-parser'),
         //urlencodedParser = bodyParser.urlencoded({extended: false}),
         pruebaRouter = express.Router(),
         failRouter   = express.Router();
@@ -27,7 +27,7 @@ module.exports = function (app) {
     });
 
     //**************** LOGIN FAIL ROUTER **********************
-    //GET sobre el raíz del fail router (es decir sobre /fail)
+    //GET sobre el raíz del failete router (es decir sobre /failete)
     failRouter.get('/', function (req, res, next) {
         console.log("FAILETE");
         res.json({login: 'failete'});

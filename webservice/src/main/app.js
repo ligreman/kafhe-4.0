@@ -3,7 +3,8 @@
 //Cargo los módulos que voy a usar y los inicializo
 var express  = require('express'),
     app      = express(),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    Q        = require('q');
 
 var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     serverHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
@@ -15,6 +16,7 @@ var scribe  = require('scribe-js')(), //loads Scribe
 app.use(scribe.express.logger()); //Log each request
 app.use('/logs', scribe.webPanel()); //Log web console
 
+Q.longStackSupport = true;
 /*
  // With log(...)
  console.log("Hello World!");
@@ -39,6 +41,10 @@ mongoose.connect(mongoHost, {
     //user: 'myUserName',
     //pass: 'myPassword'
 });
+
+//Creo los modelos de Mongo. Sólo he de hacerlo una vez
+require('./models/createModels')(mongoose);
+
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function (callback) {
     console.log("Mongo conectado");
@@ -57,8 +63,24 @@ require('./routes/routes')(app);
 
 //Capturo los errores no controlados para devolver un json de error al usuario (esto ha de ser el último .use de todos)
 app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+    console.error(err);
+    var msg = 'SERVER ERROR',
+        error;
+
+    try {
+        error = JSON.parse(err);
+        console.log("ll:");
+        console.log(error);
+    } catch (error) {
+        console.log("E:" + error);
+    }
+
+    if (error && error.json) {
+        console.log("json");
+        msg = error.json;
+    }
+
+    res.status(500).send(msg);
 });
 //Si salta alguna excepción rara, saco error en vez de cerrar la aplicación. Creo que es redundante con el anterior
 /*process.on('uncaughtException', function (err) {
@@ -68,12 +90,13 @@ app.use(function (err, req, res, next) {
 //Controlamos el cierre para desconectar mongo
 process.stdin.resume();//so the program will not close instantly
 //do something when app is closing, catches ctrl+c event
-process.on('exit', exitHandler.bind(null, {closeMongo: true, exit: true}));
-process.on('SIGINT', exitHandler.bind(null, {closeMongo: true, exit: true}));
-process.on('SIGTERM', exitHandler.bind(null, {closeMongo: true, exit: true}));
+process.on('exit', exitHandler.bind(null, {closeMongo: true, exit: true, msg: 'exit'}));
+process.on('SIGINT', exitHandler.bind(null, {closeMongo: true, exit: true, msg: 'SIGINT'}));
+process.on('SIGTERM', exitHandler.bind(null, {closeMongo: true, exit: true, msg: 'SIGTERM'}));
 
 
 function exitHandler(options, err) {
+    console.log('Salgo ' + options.msg + '. Error: ' + err);
     if (options.closeMongo) {
         mongoose.disconnect();
     }

@@ -23,14 +23,19 @@ module.exports = function (app) {
         console.log("POST");
         console.log(req.user);
         console.log(req.authInfo);
-        res.json({message: 'Welcome home', user: req.user});
+        res.json({
+            "login": true,
+            "session": {
+                "access_token": req.authInfo.access_token
+            }
+        });
     });
 
     //**************** LOGIN FAIL ROUTER **********************
     //GET sobre el raíz del fail router (es decir sobre /fail)
     failRouter.get('/', function (req, res, next) {
         console.log("FAIL");
-        res.json({login: 'fail'});
+        res.json({"login": false});
     });
 
     // Asigno los router a sus rutas
