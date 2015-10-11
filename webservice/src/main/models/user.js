@@ -6,7 +6,9 @@ module.exports = function (mongoose) {
     //Modelo para los usuarios, coleccion Users
     var UserSchema = mongoose.Schema({
         username: {type: String, unique: true, required: true},
-        password: {type: String, select: false, required: true}
+        password: {type: String, select: false, required: true},
+        alias: String,
+        lastActivity: String
     });
 
     //Declaro y devuelvo el modelo

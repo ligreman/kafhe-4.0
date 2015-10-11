@@ -23,14 +23,19 @@ module.exports = function (app) {
         console.log("POST");
         console.log(req.user);
         console.log(req.authInfo);
-        res.json({message: 'Welcome again pesao', user: req.user});
+        //TODO aquí haría lo que fuera que me han pedido
+        res.json({
+            "message": 'Welcome again pesao',
+            //"user": req.user,
+            "error": ""
+        });
     });
 
     //**************** LOGIN FAIL ROUTER **********************
     //GET sobre el raíz del failete router (es decir sobre /failete)
     failRouter.get('/', function (req, res, next) {
         console.log("FAILETE");
-        res.json({login: 'failete'});
+        res.json({"error": "err405"});
     });
 
     // Asigno los router a sus rutas

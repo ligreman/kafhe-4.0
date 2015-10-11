@@ -28,7 +28,7 @@ module.exports = function (app) {
 
                 if (!user) {
                     console.log("USERNAME malo");
-                    return done(null, false, {message: 'Nombre de usuario incorrecto'});
+                    return done(null, false);
                 }
                 console.log("Miro si pass es correcto");
 
@@ -62,11 +62,11 @@ module.exports = function (app) {
                         }, function (error) {
                             // We get here if any fails
                             console.error('Error creando la sesion del usuario: ' + error);
-                            return done(null, false, {message: 'No se ha podido iniciar la sesión'});
+                            return done(null, false);
                         });
                 } else {
                     console.log('PASSWORD malo');
-                    return done(null, false, {message: 'Contraseña incorrecta'});
+                    return done(null, false);
                 }
             });
         }
@@ -95,13 +95,25 @@ module.exports = function (app) {
 
                 if (session) {
                     console.log('Login BIEN');
-                    //TODO devolveré la información del usuario ¿y un nuevo token?
-                    return done(null, session);
+                    //return done(null, session);
+
+                    // Devolveré la información del usuario
+                    modelos.User.findOne({"username": sessionData.username},
+                        function (err2, user) {
+                            if (err2) {
+                                return done(err2);
+                            }
+
+                            if (user) {
+                                return done(null, user);
+                            } else {
+                                return done(null, false, {message: 'No existe el token'});
+                            }
+                        });
+                } else {
+                    console.log('TOKEN malo');
+                    return done(null, false, {message: 'No existe el token'});
                 }
-
-                console.log('TOKEN malo');
-                return done(null, false, {message: 'No existe el token'});
-
             });
         }
     ));
