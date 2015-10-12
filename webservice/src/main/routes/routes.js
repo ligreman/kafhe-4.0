@@ -10,9 +10,11 @@ module.exports = function (app) {
 
     //Cargo los diferentes ficheros de rutas
     require('./login')(app);
-    require('./prueba')(app);
+    require('./user')(app);
+    require('./mealanddrink')(app);
 
-    // Ruta de error general
+    //Fichero de rutas de error
+    require('./error')(app);
 
     //Cualquier otra ruta a la que se acceda, devuelve error
     app.get('/!*', function (req, res) {

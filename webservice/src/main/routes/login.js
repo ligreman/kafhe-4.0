@@ -10,8 +10,7 @@ module.exports = function (app) {
         urlencodedParser = bodyParser.urlencoded({extended: false}),
         sessionUtils     = require('../modules/sessionUtils'),
         loginRouter      = express.Router(),
-        logoutRouter     = express.Router(),
-        failRouter       = express.Router();
+        logoutRouter     = express.Router();
 
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
@@ -19,7 +18,7 @@ module.exports = function (app) {
     loginRouter.use(passport.authenticate('local', {
         session: false,
         //successRedirect: '/ok',
-        failureRedirect: '/loginfailed'
+        failureRedirect: '/error/login'
     }));
 
     //Si se hace login correctamente, pasará aquí
@@ -62,18 +61,7 @@ module.exports = function (app) {
             });
     });
 
-    //**************** LOGIN FAIL ROUTER **********************
-    //GET sobre el raíz del fail router (es decir sobre /fail)
-    failRouter.get('/', function (req, res, next) {
-        console.log("FAIL");
-        res.json({
-            "login": false,
-            "error": "Login error"
-        });
-    });
-
     // Asigno los router a sus rutas
     app.use('/login', loginRouter);
-    app.use('/loginfailed', failRouter);
     app.use('/logout', logoutRouter);
 };

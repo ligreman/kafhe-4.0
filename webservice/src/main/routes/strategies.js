@@ -98,10 +98,12 @@ module.exports = function (app) {
                     //return done(null, session);
 
                     // Devolveré la información del usuario
-                    modelos.User.findOne({"username": sessionData.username},
-                        function (err2, user) {
-                            if (err2) {
-                                return done(err2);
+                    modelos.User
+                        .findOne({"username": sessionData.username})
+                        .populate('game.data')
+                        .exec(function (error, user) {
+                            if (error) {
+                                return done(error);
                             }
 
                             if (user) {

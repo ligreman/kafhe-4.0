@@ -4,13 +4,12 @@
 module.exports = function (mongoose) {
 
     //Expongo los modelos
-    /*return {
-     User: require('./user')(mongoose),
-     Session: require('./session')(mongoose)
-     };*/
-
     return {
+        Game: mongoose.model('Game'),
         User: mongoose.model('User'),
-        Session: mongoose.model('Session')
+        Session: mongoose.model('Session'),
+        Meal: mongoose.model('Meal'),
+        Drink: mongoose.model('Drink'),
+        Skill: mongoose.model('Skill')
     };
 };

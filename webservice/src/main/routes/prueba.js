@@ -8,7 +8,9 @@ module.exports = function (app) {
         //bodyParser   = require('body-parser'),
         //urlencodedParser = bodyParser.urlencoded({extended: false}),
         pruebaRouter = express.Router(),
-        failRouter   = express.Router();
+        failRouter   = express.Router(),
+        mongoose     = require('mongoose'),
+        modelos      = require('../models/models')(mongoose);
 
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
@@ -24,11 +26,24 @@ module.exports = function (app) {
         console.log(req.user);
         console.log(req.authInfo);
         //TODO aquí haría lo que fuera que me han pedido
-        res.json({
-            "message": 'Welcome again pesao',
-            //"user": req.user,
-            "error": ""
-        });
+
+        //Voy a intentar rescatar un usuario de base de datos
+        modelos.User
+            .findOne({"username": "pepe"})
+            .populate('game.data')
+            .exec(function (error, user) {
+                if (error) {
+                    res.status(500).json({
+                        "error": error
+                    });
+                }
+
+                res.json({
+                    "message": 'Welcome again pesao',
+                    "user": user,
+                    "error": ""
+                });
+            });
     });
 
     //**************** LOGIN FAIL ROUTER **********************
@@ -42,3 +57,5 @@ module.exports = function (app) {
     app.use('/prueba', pruebaRouter);
     app.use('/failete', failRouter);
 };
+
+//Use new Aggregate({ $match: { _id: mongoose.Schema.Types.ObjectId('00000000000000000000000a') } }); instead.

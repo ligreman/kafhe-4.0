@@ -1,6 +1,6 @@
 'use strict';
 
-//M�dulo para un modelo de Mongoose. Hay que pasarle el objeto mongoose ya creado antes.
+//Módulo para un modelo de Mongoose. Hay que pasarle el objeto mongoose ya creado antes.
 module.exports = function (mongoose) {
 
     //Modelo para las sesiones de usuario, coleccion Session
