@@ -13,7 +13,7 @@ module.exports = function (app) {
     //Middleware para estas rutas
     userRouter.use(passport.authenticate('bearer', {
         session: false,
-        failureRedirect: '/error'
+        failureRedirect: '/error/session'
     }));
 
     /**
@@ -22,7 +22,9 @@ module.exports = function (app) {
      */
     userRouter.get('/', function (req, res, next) {
         res.json({
-            "data": req.user,
+            "data": {
+                "user": req.user
+            },
             "error": ""
         });
     });

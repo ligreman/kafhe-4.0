@@ -19,15 +19,15 @@ module.exports = function (app) {
         var answer = function (meals, drinks) {
             if (!meals || !drinks) {
                 res.redirect('/error');
+            } else {
+                res.json({
+                    "data": {
+                        "meals": meals,
+                        "drinks": drinks
+                    },
+                    "error": ""
+                });
             }
-
-            res.json({
-                "data": {
-                    "meals": meals,
-                    "drinks": drinks
-                },
-                "error": ""
-            });
         };
 
         // Lanzo las dos consultas a Mongo

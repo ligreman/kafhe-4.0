@@ -22,6 +22,7 @@ module.exports = function (app) {
     // Ruta de error general
     app.all('/error', function (req, res) {
         res.status(500).json({
+            "data": "",
             "error": "Error en el servicio"
         });
     });

@@ -12,6 +12,7 @@ module.exports = function (app) {
     require('./login')(app);
     require('./user')(app);
     require('./mealanddrink')(app);
+    require('./skill')(app);
 
     //Fichero de rutas de error
     require('./error')(app);

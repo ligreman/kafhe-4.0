@@ -100,6 +100,7 @@ module.exports = function (app) {
                     // Devolveré la información del usuario
                     modelos.User
                         .findOne({"username": sessionData.username})
+                        .select('-_id -__v')
                         .populate('game.data')
                         .exec(function (error, user) {
                             if (error) {

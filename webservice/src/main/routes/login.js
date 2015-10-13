@@ -39,7 +39,7 @@ module.exports = function (app) {
     //**************** LOGOUT ROUTER **********************
     logoutRouter.use(passport.authenticate('bearer', {
         session: false,
-        failureRedirect: '/error'
+        failureRedirect: '/error/session'
     }));
     logoutRouter.get('/', function (req, res, next) {
         // Una vez identificado con el token, hago logout borrando la sesión
