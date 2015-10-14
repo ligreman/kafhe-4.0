@@ -3,7 +3,7 @@
 module.exports = function (app) {
     var console = process.console,
         express = require('express'),
-        router = express.Router();
+        router  = express.Router();
 
     //Cargo las estrategias de las rutas
     require('./strategies')(app);
@@ -14,6 +14,7 @@ module.exports = function (app) {
     require('./mealanddrink')(app);
     require('./skill')(app);
     require('./order')(app);
+    require('./mongoHelper')(app);
 
     //Fichero de rutas de error
     require('./error')(app);
