@@ -3,11 +3,11 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         skillRouter = express.Router(),
-        mongoose    = require('mongoose'),
-        modelos     = require('../models/models')(mongoose);
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -17,12 +17,12 @@ module.exports = function (app) {
     }));
 
     /**
-     * /skill/list
+     * GET /skill/list
      * Obtiene la lista de habilidades
      */
     skillRouter.get('/list', function (req, res, next) {
         // Saco la lista de habilidades y la devuelvo
-        modelos.Skill.find({})
+        models.Skill.find({})
             .exec(function (error, skills) {
                 if (error) {
                     res.redirect('/error');
@@ -40,10 +40,10 @@ module.exports = function (app) {
 
 
     /**
-     * /skill/fury
+     * POST /skill/fury
      * Activa la habilidad de furia
      */
-    skillRouter.get('/fury', function (req, res, next) {
+    skillRouter.post('/fury', function (req, res, next) {
         // El objeto user
         var usuario = req.user;
 

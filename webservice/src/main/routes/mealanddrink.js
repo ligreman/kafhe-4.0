@@ -3,15 +3,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express    = require('express'),
+    var express = require('express'),
         mealRouter = express.Router(),
-        Q          = require('q'),
-        mongoose   = require('mongoose'),
-        modelos    = require('../models/models')(mongoose);
+        Q = require('q'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** MEAL ROUTER **********************
     /**
-     * /mealanddrink
+     * GET /mealanddrink
      * Devuelvo la lista de comidas y bebidas de mongo
      */
     mealRouter.get('/', function (req, res, next) {
@@ -32,8 +32,8 @@ module.exports = function (app) {
 
         // Lanzo las dos consultas a Mongo
         Q.all([
-            modelos.Meal.find({}).exec(),
-            modelos.Drink.find({}).exec()
+            models.Meal.find({}).exec(),
+            models.Drink.find({}).exec()
         ]).spread(answer);
     });
 

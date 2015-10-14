@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express          = require('express'),
-        passport         = require('passport'),
-        bodyParser       = require('body-parser'),
-        Q                = require('q'),
+    var express = require('express'),
+        passport = require('passport'),
+        bodyParser = require('body-parser'),
+        Q = require('q'),
         urlencodedParser = bodyParser.urlencoded({extended: false}),
-        sessionUtils     = require('../modules/sessionUtils'),
-        loginRouter      = express.Router(),
-        logoutRouter     = express.Router();
+        sessionUtils = require('../modules/sessionUtils'),
+        loginRouter = express.Router(),
+        logoutRouter = express.Router();
 
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
@@ -21,7 +21,10 @@ module.exports = function (app) {
         failureRedirect: '/error/login'
     }));
 
-    //Si se hace login correctamente, pasará aquí
+    /**
+     * POST /login
+     * Si se hace login correctamente, pasará aquí
+     */
     loginRouter.post('/', function (req, res, next) {
         console.log("POST");
         console.log(req.user);
@@ -41,6 +44,11 @@ module.exports = function (app) {
         session: false,
         failureRedirect: '/error/session'
     }));
+
+    /**
+     * GET /logout
+     * Hace logout del servicio
+     */
     logoutRouter.get('/', function (req, res, next) {
         // Una vez identificado con el token, hago logout borrando la sesión
         Q.fcall(

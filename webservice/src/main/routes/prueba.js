@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express      = require('express'),
-        passport     = require('passport'),
-        //bodyParser   = require('body-parser'),
-        //urlencodedParser = bodyParser.urlencoded({extended: false}),
+    var express = require('express'),
+        passport = require('passport'),
+    //bodyParser   = require('body-parser'),
+    //urlencodedParser = bodyParser.urlencoded({extended: false}),
         pruebaRouter = express.Router(),
-        failRouter   = express.Router(),
-        mongoose     = require('mongoose'),
-        modelos      = require('../models/models')(mongoose);
+        failRouter = express.Router(),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
@@ -28,7 +28,7 @@ module.exports = function (app) {
         //TODO aquí haría lo que fuera que me han pedido
 
         //Voy a intentar rescatar un usuario de base de datos
-        modelos.User
+        models.User
             .findOne({"username": "pepe"})
             .populate('game.data')
             .exec(function (error, user) {

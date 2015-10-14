@@ -3,20 +3,20 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var passport       = require('passport'),
-        LocalStrategy  = require('passport-local').Strategy,
+    var passport = require('passport'),
+        LocalStrategy = require('passport-local').Strategy,
         BearerStrategy = require('passport-http-bearer').Strategy,
-        crypto         = require('crypto'),
-        mongoose       = require('mongoose'),
-        sessionUtils   = require('../modules/sessionUtils'),
-        Q              = require('q'),
-        modelos        = require('../models/models')(mongoose);
+        crypto = require('crypto'),
+        mongoose = require('mongoose'),
+        sessionUtils = require('../modules/sessionUtils'),
+        Q = require('q'),
+        models = require('../models/models')(mongoose);
 
     // Estrategia Local de Passport - Se usa para hacer login
     passport.use(new LocalStrategy(
         function (username, password, done) {
             console.log("strategy");
-            modelos.User.findOne({"username": username}, 'username password', function (err, user) {
+            models.User.findOne({"username": username}, 'username password', function (err, user) {
                 console.log("MONGOSEADO");
                 console.log('Error: ' + err);
                 console.log(user);
@@ -84,7 +84,7 @@ module.exports = function (app) {
                 return done(null, false, {message: 'El token de sesión no es válido'});
             }
 
-            modelos.Session.findOne({
+            models.Session.findOne({
                 "username": sessionData.username,
                 "token": sessionData.token
             }, function (err, session) {
@@ -98,10 +98,10 @@ module.exports = function (app) {
                     //return done(null, session);
 
                     // Devolveré la información del usuario
-                    modelos.User
+                    models.User
                         .findOne({"username": sessionData.username})
                         .select('-_id -__v')
-                        .populate('game.data')
+                        .populate('game.gamedata game.order.meal game.order.drink game.lastOrder.meal game.lastOrder.drink')
                         .exec(function (error, user) {
                             if (error) {
                                 return done(error);
