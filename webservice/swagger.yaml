@@ -1,0 +1,122 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'OKAPI'
+  description: 'API de `Kafhe 4.0`'
+basePath: /
+
+paths:
+  /login:
+    post:
+      summary: 'Login de usuario'
+      description: 'Realiza el login de un usuario comprobando su username y contraseña en base de datos. Si todo es correcto devolverá el access_token.'
+      tags:
+        - session
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: formData
+          description: 'Nombre de usuario'
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 'Contraseña del usuario'
+          type: string
+          required: true
+      responses:
+        '200':
+          description: 'Login correcto'
+          schema:
+            type: object
+            required:
+              - login
+              - session
+              - error
+            properties:
+              login:
+                type: boolean
+              session:
+                type: object
+                required:
+                  - access_token
+                properties:
+                  access_token:
+                    type: string
+              error:
+                type: string
+                default: ""
+          examples:
+            application/json:
+              login: true
+              session:
+                access_token: cGVwZSMzMjljOTJhMjEzYmJlZDUxMzllZjNiNGI1ZTIxMzg1NzhiMWQ4MWI4
+              error: ''
+        '401':
+          description: 'Login incorrecto, bien por username que no existe o contraseña mal introducida'
+          schema:
+            type: object
+            required:
+              - login
+              - error
+            properties:
+              login:
+                type: boolean
+              error:
+                type: string
+          examples:
+            application/json:
+              login: false
+              error: 'Usuario o contraseña incorrectos'
+  
+  /logout:
+    get:
+      summary: 'Logout de usuario'
+      description: 'Elimina la sesión del usuario de base de datos.'
+      tags:
+        - session
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Token de autorización tipo `Bearer`'
+          type: string
+          required: true
+      responses:
+        '200':
+          description: 'Logout correcto'
+          schema:
+            type: object
+            required:
+              - logout
+              - error
+            properties:
+              logout:
+                type: boolean
+              error:
+                type: string
+                default: ""
+          examples:
+            application/json:
+              logout: true
+              error: ''
+        '401':
+          description: 'Error derivado de enviar un access_token inválido'
+          schema:
+            type: object
+            required:
+              - login
+              - error
+            properties:
+              login:
+                type: boolean
+              error:
+                type: string
+          examples:
+            application/json:
+              login: false
+              error: 'Error en la sesión'
