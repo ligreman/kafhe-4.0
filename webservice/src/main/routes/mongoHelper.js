@@ -27,7 +27,7 @@ module.exports = function (app) {
         var userFakery = fakery.fake('user');
         fakery.fake('user', models.User, {
             username: fakery.g.name(),
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43",
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
             alias: fakery.g.surname()
         });
 
