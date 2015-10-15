@@ -74,6 +74,28 @@ module.exports = function (app) {
         }
     });
 
+    // 2 Drinks
+    pruebaRouter.get('/drink', function (req, res, next) {
+        var cuantos = 10, van = 0, ids = [];
+
+        models.Drink.remove({}, function (e) {
+            for (var i = 1; i <= cuantos; i++) {
+                fakery.makeAndSave('meal', {}, function (err, drink) {
+                    ids.push(drink._id);
+                    cuentaCuentos();
+                });
+            }
+        });
+
+        function cuentaCuentos() {
+            van++;
+            console.log("Y van " + van);
+            if (van === cuantos) {
+                res.json({"mongo": true, "drinks_created": ids});
+            }
+        }
+    });
+
     // Genera modelos de mongo
     pruebaRouter.get('/user/:count', function (req, res, next) {
         var cuantos = req.params.count;
