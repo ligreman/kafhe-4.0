@@ -98,38 +98,30 @@ module.exports = function (app) {
 
     // Genera modelos de mongo
     pruebaRouter.get('/user/:count', function (req, res, next) {
-        var cuantos = req.params.count;
-
-        var userFakery = fakery.fake('user');
-        fakery.fake('user', models.User, {
-            username: fakery.g.name(),
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
-            alias: fakery.g.surname()
-        });
-
-        console.log(userFakery);
+        var cuantos = req.params.count, van = 0, ids = [];
 
         if (!cuantos) {
             cuantos = 1;
         }
 
         //Limpio la colección antes
-        var ids = [];
         models.User.remove({}, function (err) {
             //Meto los nuevos valores
             for (var i = 1; i <= cuantos; i++) {
-                fakery.makeAndSave('user', {username: 'pepe' + i, 'game.level': i}, function (err, user) {
-                    console.log('Creado usuario: ' + user.username + ' - ' + user._id);
+                fakery.makeAndSave('user', {username: 'pepe' + i}, function (err, user) {
                     ids.push(user._id);
-
-                    //Termino
-                    if (user.game.level == cuantos) {
-                        console.log(JSON.stringify(ids));
-                        res.json({"mongo": true, "users_created": ids});
-                    }
+                    cuentaCuentos();
                 });
             }
         });
+
+        function cuentaCuentos() {
+            van++;
+            console.log("Y van " + van);
+            if (van === cuantos) {
+                res.json({"mongo": true, "users_created": ids});
+            }
+        }
     });
     // Asigno los router a sus rutas
     app.use('/mongo/fake', pruebaRouter);
