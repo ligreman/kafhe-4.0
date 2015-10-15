@@ -30,12 +30,23 @@ module.exports = function (app) {
         alias: fakery.g.surname()
     });
 
-    fakery.fake('meal', models.User, {
+    fakery.fake('meal', models.Meal, {
         name: fakery.g.name(),
         ito: fakery.g.rndbool()
     });
 
-    fakery.fake('drink', models.User, {
+    fakery.fake('drink', models.Drink, {
+        name: fakery.g.name(),
+        ito: fakery.g.rndbool()
+    });
+
+    fakery.fake('skill', models.Skill, {
+        name: fakery.g.name(),
+        element: fakery.g.pick(['water', 'earth', 'fire', 'light']),
+        equipment: fakery.g.pick(['weapon', 'armor'])
+    });
+
+    fakery.fake('game', models.Game, {
         name: fakery.g.name(),
         ito: fakery.g.rndbool()
     });
@@ -55,7 +66,7 @@ module.exports = function (app) {
 
         function cuentaCuentos() {
             van++;
-
+            console.log("Y van " + van);
             if (van === cuantos) {
                 res.json({"mongo": true, "meals_created": ids});
             }

@@ -9,7 +9,6 @@ module.exports = function (mongoose) {
         password: {type: String, select: false, required: true},
         alias: String,
         leader: Boolean,
-        lastActivity: Number,
         avatar: String,
         game: {
             gamedata: {type: mongoose.Schema.Types.ObjectId, ref: 'Game'},
@@ -18,9 +17,9 @@ module.exports = function (mongoose) {
             stats: {
                 life: Number,
                 fury: Number,
-                furyMode: Boolean,
+                fury_mode: Boolean,
                 reputation: Number,
-                actionPoints: Number
+                action_points: Number
             },
             equipment: {
                 weapon: String,
@@ -31,60 +30,67 @@ module.exports = function (mongoose) {
                     id: String,
                     type: String,
                     level: Number,
+                    frecuency: String,
                     stats: {
-                        precision: Number,
-                        damage: Number
+                        one: Number,
+                        two: Number
                     },
+                    skills: [],
                     equipped: Boolean
                 }],
                 runes: [{
                     id: String,
                     type: String,
                     level: Number,
+                    frecuency: String,
                     stats: {
+                        damage: Number,
                         precision: Number,
-                        damage: Number
+                        protection: Number,
+                        parry: Number
                     },
                     equipped: Boolean
                 }],
                 weapons: [{
                     id: String,
-                    type: String,
-                    level: Number,
+                    name: String,
+                    frecuency: String,
                     stats: {
-                        precision: Number,
-                        damage: Number
+                        damage: Number,
+                        precision: Number
                     },
                     materials: {
                         rune: String,
                         tostem: String
                     },
+                    skills: [],
                     equipped: Boolean
                 }],
                 armors: [{
                     id: String,
-                    type: String,
-                    level: Number,
+                    name: String,
+                    frecuency: String,
                     stats: {
-                        precision: Number,
-                        damage: Number
+                        protection: Number,
+                        parry: Number
                     },
                     materials: {
                         rune: String,
                         tostem: String
                     },
+                    skills: [],
                     equipped: Boolean
                 }],
                 stones: Number
             },
             afk: Boolean,
-            lastActivity: Number,
+            last_activity: Number,
             order: {
                 meal: {type: mongoose.Schema.Types.ObjectId, ref: 'Meal'},
                 drink: {type: mongoose.Schema.Types.ObjectId, ref: 'Drink'},
                 ito: Boolean
             },
-            lastOrder: {
+            last_order: {
                 meal: {type: mongoose.Schema.Types.ObjectId, ref: 'Meal'},
                 drink: {type: mongoose.Schema.Types.ObjectId, ref: 'Drink'},
                 ito: Boolean

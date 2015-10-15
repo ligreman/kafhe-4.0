@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Starter Template - Materialize</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Starter Template</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 
     <!-- Third party CSS -->
     <!-- build:css css/vendor.css -->
@@ -15,9 +15,18 @@
     <!-- endbuild -->
 
     <!-- Own CSS -->
-    <!-- build:css css/main.css -->
+    <!-- build:css css/styles.css -->
     <link href="css/main.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <!-- endbuild -->
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -160,9 +169,11 @@
 
 
     <!-- Third party scripts -->
-    <!-- build:js js/plugins.js -->
-    <script src="../../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../../bower_components/materialize/dist/js/materialize.js"></script>
+    <!-- build:js js/vendor.js -->
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../../bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="../../bower_components/angular-material/angular-material.min.js"></script>
     <!-- endbuild -->
 
     <!-- Own scripts -->
@@ -172,9 +183,9 @@
 
 
     <script>
-        $.get("http://localhost:3000/api/hola", function (data) {
-            $("#result").html(data);
-        });
+        //        $.get("http://localhost:3000/api/hola", function (data) {
+        //            $("#result").html(data);
+        //        });
     </script>
 </body>
 </html>
