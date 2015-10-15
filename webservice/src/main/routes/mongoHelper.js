@@ -3,13 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express      = require('express'),
-        passport     = require('passport'),
-        events       = require('events'),
+    var express = require('express'),
+        passport = require('passport'),
+        events = require('events'),
         eventEmitter = new events.EventEmitter(),
         pruebaRouter = express.Router(),
-        mongoose     = require('mongoose'),
-        models       = require('../models/models')(mongoose);
+        mongoose = require('mongoose'),
+        fakery = require('mongoose-fakery'),
+        models = require('../models/models')(mongoose);
     /**
      * 1 meter meals
      * 2 meter drinks
@@ -17,12 +18,42 @@ module.exports = function (app) {
      * 4 crear partida
      * 5 crear usuarios
      * 6 actualizar partida con ids de usuarios
+     *
+     * una función por cada crear colección nueva
+     * una función que vaya pasando por eventos para actualizar las relaciones de ids
      */
 
-        // Genera modelos de mongo
+    /******************************* MODELOS ********************************************/
+    fakery.fake('user', models.User, {
+        username: fakery.g.name(),
+        password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+        alias: fakery.g.surname()
+    });
+
+    fakery.fake('meal', models.User, {
+        name: fakery.g.name(),
+        ito: fakery.g.rndbool()
+    });
+
+    fakery.fake('drink', models.User, {
+        name: fakery.g.name(),
+        ito: fakery.g.rndbool()
+    });
+
+    /******************************* GENERADORES ********************************************/
+        // 1 Meals
+    pruebaRouter.get('/', function (req, res, next) {
+        /*models.Meal.remove({}, function (e) {
+         for (var i = 1; i <= 5; i++) {
+         fakery.makeAndSave('meal', {}, function (err, user) {
+         });
+         }
+         });*/
+    });
+
+    // Genera modelos de mongo
     pruebaRouter.get('/user/:count', function (req, res, next) {
         var cuantos = req.params.count;
-        var fakery = require('mongoose-fakery');
 
         var userFakery = fakery.fake('user');
         fakery.fake('user', models.User, {
