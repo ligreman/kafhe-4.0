@@ -60,6 +60,7 @@ module.exports = function (app) {
             for (var i = 1; i <= cuantos; i++) {
                 fakery.makeAndSave('meal', {}, function (err, meal) {
                     ids.push(meal._id);
+                    cuentaCuentos();
                 });
             }
         });
