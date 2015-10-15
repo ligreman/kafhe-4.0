@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        events = require('events'),
+    var express      = require('express'),
+        passport     = require('passport'),
+        events       = require('events'),
         eventEmitter = new events.EventEmitter(),
         pruebaRouter = express.Router(),
-        mongoose = require('mongoose'),
-        fakery = require('mongoose-fakery'),
-        models = require('../models/models')(mongoose);
+        mongoose     = require('mongoose'),
+        fakery       = require('mongoose-fakery'),
+        models       = require('../models/models')(mongoose);
     /**
      * 1 meter meals
      * 2 meter drinks
@@ -42,13 +42,24 @@ module.exports = function (app) {
 
     /******************************* GENERADORES ********************************************/
         // 1 Meals
-    pruebaRouter.get('/', function (req, res, next) {
-        /*models.Meal.remove({}, function (e) {
-         for (var i = 1; i <= 5; i++) {
-         fakery.makeAndSave('meal', {}, function (err, user) {
-         });
-         }
-         });*/
+    pruebaRouter.get('/meal', function (req, res, next) {
+        var cuantos = 10, van = 0, ids = [];
+
+        models.Meal.remove({}, function (e) {
+            for (var i = 1; i <= cuantos; i++) {
+                fakery.makeAndSave('meal', {}, function (err, meal) {
+                    ids.push(meal._id);
+                });
+            }
+        });
+
+        function cuentaCuentos() {
+            van++;
+
+            if (van === cuantos) {
+                res.json({"mongo": true, "meals_created": ids});
+            }
+        }
     });
 
     // Genera modelos de mongo
