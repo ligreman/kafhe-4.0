@@ -255,7 +255,7 @@ module.exports = function (app) {
                 timestamp: date.getTime() + 10
             }
         ],
-        repeat: 'week'
+        repeat: true
     });
 
     /******************************* GENERADORES ********************************************/
