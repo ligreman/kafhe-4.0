@@ -303,7 +303,40 @@ module.exports = function (app) {
         }
     });
 
-    // Genera modelos de mongo
+    // 3 Skill
+    pruebaRouter.get('/skill', function (req, res, next) {
+        var cuantos = 10, van = 0, ids = [];
+
+        models.Skill.remove({}, function (e) {
+            for (var i = 1; i <= cuantos; i++) {
+                fakery.makeAndSave('skill', {}, function (err, skill) {
+                    ids.push(skill._id);
+                    cuentaCuentos();
+                });
+            }
+        });
+
+        function cuentaCuentos() {
+            van++;
+            console.log("Y van " + van);
+            if (van === cuantos) {
+                res.json({"mongo": true, "skills_created": ids});
+            }
+        }
+    });
+
+    // 4 Game
+    pruebaRouter.get('/game', function (req, res, next) {
+        models.Game.remove({}, function (e) {
+            fakery.makeAndSave('game', {}, function (err, game) {
+                res.json({"mongo": true, "game_created": game._id});
+
+            });
+        });
+
+    });
+
+    // 5 User
     pruebaRouter.get('/user/:count', function (req, res, next) {
         var cuantos = req.params.count, van = 0, ids = [];
 
