@@ -287,7 +287,7 @@ module.exports = function (app) {
 
         models.Drink.remove({}, function (e) {
             for (var i = 1; i <= cuantos; i++) {
-                fakery.makeAndSave('meal', {}, function (err, drink) {
+                fakery.makeAndSave('drink', {}, function (err, drink) {
                     ids.push(drink._id);
                     cuentaCuentos();
                 });
