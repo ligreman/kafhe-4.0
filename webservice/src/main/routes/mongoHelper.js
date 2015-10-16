@@ -33,7 +33,7 @@ module.exports = function (app) {
         leader: fakery.g.rndbool(),
         avatar: fakery.g.str(10),
         game: {
-            gamedata: 'FILL-ME',
+            gamedata: null,
             level: fakery.g.rndint(1, 10),
             tostolares: fakery.g.rndint(1, 1000),
             stats: {
@@ -48,64 +48,64 @@ module.exports = function (app) {
                 armor: 'a001'
             },
             inventory: {
-                tostems: [
-                    {
-                        id: 't001',
-                        type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            one: fakery.g.rndint(1, 10),
-                            two: fakery.g.rndint(1, 10)
-                        },
-                        skills: [],
-                        equipped: true
-                    }, {
-                        id: 't002',
-                        type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            one: fakery.g.rndint(1, 10),
-                            two: fakery.g.rndint(1, 10)
-                        },
-                        skills: [],
-                        equipped: true
-                    }, {
-                        id: 't003',
-                        type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            one: fakery.g.rndint(1, 10),
-                            two: fakery.g.rndint(1, 10)
-                        },
-                        skills: [],
-                        equipped: true
-                    }, {
-                        id: 't004',
-                        type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            one: fakery.g.rndint(1, 10),
-                            two: fakery.g.rndint(1, 10)
-                        },
-                        skills: [],
-                        equipped: false
-                    }, {
-                        id: 't005',
-                        type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            one: fakery.g.rndint(1, 10),
-                            two: fakery.g.rndint(1, 10)
-                        },
-                        skills: [],
-                        equipped: false
-                    }
-                ],
+                /*tostems: [
+                 {
+                 id: 't001',
+                 type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
+                 level: fakery.g.rndint(1, 10),
+                 frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                 stats: {
+                 one: fakery.g.rndint(1, 10),
+                 two: fakery.g.rndint(1, 10)
+                 },
+                 skills: [],
+                 equipped: true
+                 }, {
+                 id: 't002',
+                 type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
+                 level: fakery.g.rndint(1, 10),
+                 frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                 stats: {
+                 one: fakery.g.rndint(1, 10),
+                 two: fakery.g.rndint(1, 10)
+                 },
+                 skills: [],
+                 equipped: true
+                 }, {
+                 id: 't003',
+                 type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
+                 level: fakery.g.rndint(1, 10),
+                 frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                 stats: {
+                 one: fakery.g.rndint(1, 10),
+                 two: fakery.g.rndint(1, 10)
+                 },
+                 skills: [],
+                 equipped: true
+                 }, {
+                 id: 't004',
+                 type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
+                 level: fakery.g.rndint(1, 10),
+                 frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                 stats: {
+                 one: fakery.g.rndint(1, 10),
+                 two: fakery.g.rndint(1, 10)
+                 },
+                 skills: [],
+                 equipped: false
+                 }, {
+                 id: 't005',
+                 type: fakery.g.pick(['fire', 'water', 'earth', 'light']),
+                 level: fakery.g.rndint(1, 10),
+                 frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                 stats: {
+                 one: fakery.g.rndint(1, 10),
+                 two: fakery.g.rndint(1, 10)
+                 },
+                 skills: [],
+                 equipped: false
+                 }
+                 ],*/
                 runes: [
                     {
                         id: 'r001',
@@ -119,43 +119,43 @@ module.exports = function (app) {
                             parry: fakery.g.rndint(1, 10)
                         },
                         equipped: true
-                    }, {
-                        id: 'r002',
-                        type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            damage: fakery.g.rndint(1, 10),
-                            precision: fakery.g.rndint(1, 10),
-                            protection: fakery.g.rndint(1, 10),
-                            parry: fakery.g.rndint(1, 10)
-                        },
-                        equipped: true
-                    }, {
-                        id: 'r003',
-                        type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            damage: fakery.g.rndint(1, 10),
-                            precision: fakery.g.rndint(1, 10),
-                            protection: fakery.g.rndint(1, 10),
-                            parry: fakery.g.rndint(1, 10)
-                        },
-                        equipped: true
-                    }, {
-                        id: 'r004',
-                        type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
-                        level: fakery.g.rndint(1, 10),
-                        frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
-                        stats: {
-                            damage: fakery.g.rndint(1, 10),
-                            precision: fakery.g.rndint(1, 10),
-                            protection: fakery.g.rndint(1, 10),
-                            parry: fakery.g.rndint(1, 10)
-                        },
-                        equipped: false
-                    }
+                    }/*, {
+                     id: 'r002',
+                     type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
+                     level: fakery.g.rndint(1, 10),
+                     frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                     stats: {
+                     damage: fakery.g.rndint(1, 10),
+                     precision: fakery.g.rndint(1, 10),
+                     protection: fakery.g.rndint(1, 10),
+                     parry: fakery.g.rndint(1, 10)
+                     },
+                     equipped: true
+                     }, {
+                     id: 'r003',
+                     type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
+                     level: fakery.g.rndint(1, 10),
+                     frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                     stats: {
+                     damage: fakery.g.rndint(1, 10),
+                     precision: fakery.g.rndint(1, 10),
+                     protection: fakery.g.rndint(1, 10),
+                     parry: fakery.g.rndint(1, 10)
+                     },
+                     equipped: true
+                     }, {
+                     id: 'r004',
+                     type: fakery.g.pick(['wood', 'iron', 'steel', 'mithril']),
+                     level: fakery.g.rndint(1, 10),
+                     frecuency: fakery.g.pick(['common', 'uncommon', 'masterwork']),
+                     stats: {
+                     damage: fakery.g.rndint(1, 10),
+                     precision: fakery.g.rndint(1, 10),
+                     protection: fakery.g.rndint(1, 10),
+                     parry: fakery.g.rndint(1, 10)
+                     },
+                     equipped: false
+                     }*/
                 ],
                 weapons: [
                     {
@@ -208,13 +208,13 @@ module.exports = function (app) {
             afk: fakery.g.rndbool(),
             last_activity: date.getTime(),
             order: {
-                meal: 'FILL-ME',
-                drink: 'FILL-ME',
+                meal: null,
+                drink: null,
                 ito: fakery.g.rndbool()
             },
             last_order: {
-                meal: '',
-                drink: '',
+                meal: null,
+                drink: null,
                 ito: fakery.g.rndbool()
             }
         }
@@ -238,20 +238,20 @@ module.exports = function (app) {
 
     fakery.fake('game', models.Game, {
         status: 0,
-        caller: 0,
-        players: [],
+        caller: null,
+        players: null,
         notifications: [
             {
-                message: fakery.g.lorem(50),
+                message: fakery.g.lorem(1),
                 timestamp: date.getTime() + 10000
             }, {
-                message: fakery.g.lorem(50),
+                message: fakery.g.lorem(1),
                 timestamp: date.getTime() + 1000
             }, {
-                message: fakery.g.lorem(50),
+                message: fakery.g.lorem(1),
                 timestamp: date.getTime() + 100
             }, {
-                message: fakery.g.lorem(50),
+                message: fakery.g.lorem(1),
                 timestamp: date.getTime() + 10
             }
         ],
@@ -364,7 +364,7 @@ module.exports = function (app) {
         }
     });
     // Asigno los router a sus rutas
-    app.use('/mongo/fake', pruebaRouter);
+    //app.use('/mongo/fake', pruebaRouter);
 
 
     //Eventos
