@@ -62,7 +62,969 @@ module.exports = function (app) {
         ]
     };
 
-    var users = [];
+    var users = [
+        {
+            username: 'pepe1',
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            alias: 'Antoñete',
+            leader: true,
+            avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
+            game: {
+                gamedata: null,
+                level: 2,
+                tostolares: 1000,
+                stats: {
+                    life: 100,
+                    fury: 76,
+                    fury_mode: false,
+                    reputation: 23,
+                    action_points: 12
+                },
+                equipment: {
+                    weapon: 'w001',
+                    armor: 'a001'
+                },
+                inventory: {
+                    tostems: [
+                        {
+                            id: 't001',
+                            type: 'fire',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't002',
+                            type: 'water',
+                            level: 3,
+                            frecuency: 'uncommon',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't003',
+                            type: 'earth',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't004',
+                            type: pick(['fire', 'water', 'earth', 'light']),
+                            level: 5,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }, {
+                            id: 't005',
+                            type: 'light',
+                            level: 6,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    runes: [
+                        {
+                            id: 'r001',
+                            type: 'wood',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r002',
+                            type: 'iron',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r003',
+                            type: 'steel',
+                            level: 5,
+                            frecuency: 'masterwork',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r004',
+                            type: 'mithril',
+                            level: 7,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: false
+                        }
+                    ],
+                    weapons: [
+                        {
+                            id: 'w001',
+                            name: 'Ten Hedor',
+                            frecuency: 'common',
+                            stats: {
+                                damage: 14,
+                                precision: 6
+                            },
+                            materials: {
+                                rune: 'r001',
+                                tostem: 't001'
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 'w002',
+                            name: 'Sal Chicha',
+                            frecuency: 'legendary',
+                            stats: {
+                                damage: 54,
+                                precision: 64
+                            },
+                            materials: {
+                                rune: 'r002',
+                                tostem: 't002'
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    armors: [{
+                        id: 'a001',
+                        name: 'Al Capa Ra',
+                        frecuency: 'common',
+                        stats: {
+                            protection: 4,
+                            parry: 46
+                        },
+                        materials: {
+                            rune: 'r003',
+                            tostem: 't003'
+                        },
+                        skills: [],
+                        equipped: true
+                    }],
+                    stones: 23
+                },
+                afk: false,
+                last_activity: date.getTime(),
+                order: {
+                    meal: null,
+                    drink: null,
+                    ito: true
+                },
+                last_order: {
+                    meal: null,
+                    drink: null,
+                    ito: false
+                }
+            }
+        }, {
+            username: 'pepe2',
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            alias: 'Manolin',
+            leader: true,
+            avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
+            game: {
+                gamedata: null,
+                level: 2,
+                tostolares: 1000,
+                stats: {
+                    life: 100,
+                    fury: 76,
+                    fury_mode: false,
+                    reputation: 23,
+                    action_points: 12
+                },
+                equipment: {
+                    weapon: 'w001',
+                    armor: 'a001'
+                },
+                inventory: {
+                    tostems: [
+                        {
+                            id: 't001',
+                            type: 'fire',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't002',
+                            type: 'water',
+                            level: 3,
+                            frecuency: 'uncommon',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't003',
+                            type: 'earth',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't004',
+                            type: pick(['fire', 'water', 'earth', 'light']),
+                            level: 5,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }, {
+                            id: 't005',
+                            type: 'light',
+                            level: 6,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    runes: [
+                        {
+                            id: 'r001',
+                            type: 'wood',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r002',
+                            type: 'iron',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r003',
+                            type: 'steel',
+                            level: 5,
+                            frecuency: 'masterwork',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r004',
+                            type: 'mithril',
+                            level: 7,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: false
+                        }
+                    ],
+                    weapons: [
+                        {
+                            id: 'w001',
+                            name: 'Ten Hedor2',
+                            frecuency: 'common',
+                            stats: {
+                                damage: 14,
+                                precision: 6
+                            },
+                            materials: {
+                                rune: 'r001',
+                                tostem: 't001'
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 'w002',
+                            name: 'Sal Chicha2',
+                            frecuency: 'legendary',
+                            stats: {
+                                damage: 54,
+                                precision: 64
+                            },
+                            materials: {
+                                rune: 'r002',
+                                tostem: 't002'
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    armors: [{
+                        id: 'a001',
+                        name: 'Al Capa Ra2',
+                        frecuency: 'common',
+                        stats: {
+                            protection: 4,
+                            parry: 46
+                        },
+                        materials: {
+                            rune: 'r003',
+                            tostem: 't003'
+                        },
+                        skills: [],
+                        equipped: true
+                    }],
+                    stones: 23
+                },
+                afk: false,
+                last_activity: date.getTime(),
+                order: {
+                    meal: null,
+                    drink: null,
+                    ito: true
+                },
+                last_order: {
+                    meal: null,
+                    drink: null,
+                    ito: false
+                }
+            }
+        }, {
+            username: 'pepe3',
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            alias: 'Felisuco',
+            leader: true,
+            avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
+            game: {
+                gamedata: null,
+                level: 2,
+                tostolares: 1000,
+                stats: {
+                    life: 100,
+                    fury: 76,
+                    fury_mode: false,
+                    reputation: 23,
+                    action_points: 12
+                },
+                equipment: {
+                    weapon: 'w001',
+                    armor: 'a001'
+                },
+                inventory: {
+                    tostems: [
+                        {
+                            id: 't001',
+                            type: 'fire',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't002',
+                            type: 'water',
+                            level: 3,
+                            frecuency: 'uncommon',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't003',
+                            type: 'earth',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't004',
+                            type: pick(['fire', 'water', 'earth', 'light']),
+                            level: 5,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }, {
+                            id: 't005',
+                            type: 'light',
+                            level: 6,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    runes: [
+                        {
+                            id: 'r001',
+                            type: 'wood',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r002',
+                            type: 'iron',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r003',
+                            type: 'steel',
+                            level: 5,
+                            frecuency: 'masterwork',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r004',
+                            type: 'mithril',
+                            level: 7,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: false
+                        }
+                    ],
+                    weapons: [
+                        {
+                            id: 'w001',
+                            name: 'Ten Hedor',
+                            frecuency: 'common',
+                            stats: {
+                                damage: 14,
+                                precision: 6
+                            },
+                            materials: {
+                                rune: 'r001',
+                                tostem: 't001'
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 'w002',
+                            name: 'Sal Chicha',
+                            frecuency: 'legendary',
+                            stats: {
+                                damage: 54,
+                                precision: 64
+                            },
+                            materials: {
+                                rune: 'r002',
+                                tostem: 't002'
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    armors: [{
+                        id: 'a001',
+                        name: 'Al Capa Ra',
+                        frecuency: 'common',
+                        stats: {
+                            protection: 4,
+                            parry: 46
+                        },
+                        materials: {
+                            rune: 'r003',
+                            tostem: 't003'
+                        },
+                        skills: [],
+                        equipped: true
+                    }],
+                    stones: 23
+                },
+                afk: false,
+                last_activity: date.getTime(),
+                order: {
+                    meal: null,
+                    drink: null,
+                    ito: true
+                },
+                last_order: {
+                    meal: null,
+                    drink: null,
+                    ito: false
+                }
+            }
+        }, {
+            username: 'pepe4',
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            alias: 'Jolines',
+            leader: true,
+            avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
+            game: {
+                gamedata: null,
+                level: 2,
+                tostolares: 1000,
+                stats: {
+                    life: 100,
+                    fury: 76,
+                    fury_mode: false,
+                    reputation: 23,
+                    action_points: 12
+                },
+                equipment: {
+                    weapon: 'w001',
+                    armor: 'a001'
+                },
+                inventory: {
+                    tostems: [
+                        {
+                            id: 't001',
+                            type: 'fire',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't002',
+                            type: 'water',
+                            level: 3,
+                            frecuency: 'uncommon',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't003',
+                            type: 'earth',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't004',
+                            type: pick(['fire', 'water', 'earth', 'light']),
+                            level: 5,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }, {
+                            id: 't005',
+                            type: 'light',
+                            level: 6,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    runes: [
+                        {
+                            id: 'r001',
+                            type: 'wood',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r002',
+                            type: 'iron',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r003',
+                            type: 'steel',
+                            level: 5,
+                            frecuency: 'masterwork',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r004',
+                            type: 'mithril',
+                            level: 7,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: false
+                        }
+                    ],
+                    weapons: [
+                        {
+                            id: 'w001',
+                            name: 'Ten Hedor',
+                            frecuency: 'common',
+                            stats: {
+                                damage: 14,
+                                precision: 6
+                            },
+                            materials: {
+                                rune: 'r001',
+                                tostem: 't001'
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 'w002',
+                            name: 'Sal Chicha',
+                            frecuency: 'legendary',
+                            stats: {
+                                damage: 54,
+                                precision: 64
+                            },
+                            materials: {
+                                rune: 'r002',
+                                tostem: 't002'
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    armors: [{
+                        id: 'a001',
+                        name: 'Al Capa Ra',
+                        frecuency: 'common',
+                        stats: {
+                            protection: 4,
+                            parry: 46
+                        },
+                        materials: {
+                            rune: 'r003',
+                            tostem: 't003'
+                        },
+                        skills: [],
+                        equipped: true
+                    }],
+                    stones: 23
+                },
+                afk: false,
+                last_activity: date.getTime(),
+                order: {
+                    meal: null,
+                    drink: null,
+                    ito: true
+                },
+                last_order: {
+                    meal: null,
+                    drink: null,
+                    ito: false
+                }
+            }
+        }, {
+            username: 'pepe5',
+            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            alias: 'Si tu lo dices',
+            leader: true,
+            avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
+            game: {
+                gamedata: null,
+                level: 2,
+                tostolares: 1000,
+                stats: {
+                    life: 100,
+                    fury: 76,
+                    fury_mode: false,
+                    reputation: 23,
+                    action_points: 12
+                },
+                equipment: {
+                    weapon: 'w001',
+                    armor: 'a001'
+                },
+                inventory: {
+                    tostems: [
+                        {
+                            id: 't001',
+                            type: 'fire',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't002',
+                            type: 'water',
+                            level: 3,
+                            frecuency: 'uncommon',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't003',
+                            type: 'earth',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 't004',
+                            type: pick(['fire', 'water', 'earth', 'light']),
+                            level: 5,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }, {
+                            id: 't005',
+                            type: 'light',
+                            level: 6,
+                            frecuency: 'common',
+                            stats: {
+                                one: 12,
+                                two: 43
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    runes: [
+                        {
+                            id: 'r001',
+                            type: 'wood',
+                            level: 2,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r002',
+                            type: 'iron',
+                            level: 4,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r003',
+                            type: 'steel',
+                            level: 5,
+                            frecuency: 'masterwork',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: true
+                        }, {
+                            id: 'r004',
+                            type: 'mithril',
+                            level: 7,
+                            frecuency: 'common',
+                            stats: {
+                                damage: 12,
+                                precision: 33,
+                                protection: 56,
+                                parry: 45
+                            },
+                            equipped: false
+                        }
+                    ],
+                    weapons: [
+                        {
+                            id: 'w001',
+                            name: 'Ten Hedor',
+                            frecuency: 'common',
+                            stats: {
+                                damage: 14,
+                                precision: 6
+                            },
+                            materials: {
+                                rune: 'r001',
+                                tostem: 't001'
+                            },
+                            skills: [],
+                            equipped: true
+                        }, {
+                            id: 'w002',
+                            name: 'Sal Chicha',
+                            frecuency: 'legendary',
+                            stats: {
+                                damage: 54,
+                                precision: 64
+                            },
+                            materials: {
+                                rune: 'r002',
+                                tostem: 't002'
+                            },
+                            skills: [],
+                            equipped: false
+                        }
+                    ],
+                    armors: [{
+                        id: 'a001',
+                        name: 'Al Capa Ra',
+                        frecuency: 'common',
+                        stats: {
+                            protection: 4,
+                            parry: 46
+                        },
+                        materials: {
+                            rune: 'r003',
+                            tostem: 't003'
+                        },
+                        skills: [],
+                        equipped: true
+                    }],
+                    stones: 23
+                },
+                afk: false,
+                last_activity: date.getTime(),
+                order: {
+                    meal: null,
+                    drink: null,
+                    ito: true
+                },
+                last_order: {
+                    meal: null,
+                    drink: null,
+                    ito: false
+                }
+            }
+        }
+    ];
 
 
     pruebaRouter.get('/', function (req, res, next) {

@@ -35,7 +35,7 @@ module.exports = function (mongoose) {
                         one: Number,
                         two: Number
                     },
-                    skills: [],
+                    skills: [], //TODO por definir
                     equipped: Boolean
                 }],
                 runes: [{
