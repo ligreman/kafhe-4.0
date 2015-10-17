@@ -10,6 +10,7 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
     "express": "^4.13.3",
     "mongoose": "^4.1.9",
     "mongoose-fakery": "^0.1.7",

@@ -2,6 +2,7 @@
 
 //Cargo los módulos que voy a usar y los inicializo
 var express  = require('express'),
+    cors     = require('cors'),
     app      = express(),
     mongoose = require('mongoose'),
     Q        = require('q');
@@ -9,6 +10,12 @@ var express  = require('express'),
 var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     serverHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoHost  = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/kafhe';
+
+// CORS
+var corsOptions = {
+    //origin: 'http://example.com'
+};
+app.use(cors(corsOptions));
 
 // LOGS
 var scribe  = require('scribe-js')(), //loads Scribe

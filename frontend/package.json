@@ -1,14 +1,8 @@
 {
   "author": "Ligreman",
-  "name": "webapp-template-html",
+  "name": "Kafhe 4.0",
   "version": "1.0.0",
-  "description": "HTML scaffolding template for development of web applications.",
-  "keywords": ["template", "html", "scaffolding"],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ligreman/webapp-grunt-html"
-  },
-  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
   "devDependencies": {
     "chai": "^2.3.0",
     "grunt": "^0.4.5",

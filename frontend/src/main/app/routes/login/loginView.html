@@ -1,0 +1,25 @@
+<section class="row">
+    <div id="seccion_login" class="row_int">
+        <form id="login_form" role="form">
+            <fieldset class="margin_bottom_25">
+                <legend>{{ 'loginFormTitle' | translate }}</legend>
+                <label for="user">{{ 'loginUserLabel' | translate }}</label>
+                <input type="text" id="user" value="Nombre de usuario"
+                       onFocus="this.select();" ng-model="username"
+                       placeholder="{{ 'loginUserLabel' | translate }}"/>
+                <label for="pass">{{ 'loginPasswordLabel' | translate }}</label>
+                <input type="password" id="pass" value="Contraseña"
+                       onFocus="this.select();" ng-model="password"
+                       placeholder="{{ 'loginPasswordLabel' | translate }}"/>
+
+            </fieldset>
+
+            <div class="col-sm-10 col-sm-offset-1">
+                <input type="submit" id="botonAdmin" ng-click="login()"
+                       class="btn btn-primary btn-block"
+                       value="{{ 'loginSignInButton' | translate }}"/>
+            </div>
+            <!--<a id="text_politica" href="#" title="Título de este enlace" class=" margin_top_25">Política de privacidad y uso</a>-->
+        </form>
+    </div>
+</section>
