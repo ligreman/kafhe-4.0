@@ -14,7 +14,7 @@ module.exports = function (app) {
     require('./mealanddrink')(app);
     require('./skill')(app);
     require('./order')(app);
-    require('./mongoHelper2')(app);
+    require('./mongoHelper')(app);
 
     //Fichero de rutas de error
     require('./error')(app);

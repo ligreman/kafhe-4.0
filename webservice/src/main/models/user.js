@@ -28,7 +28,7 @@ module.exports = function (mongoose) {
             inventory: {
                 tostems: [{
                     id: String,
-                    type: String,
+                    type: {type: String},
                     level: Number,
                     frecuency: String,
                     stats: {
@@ -40,7 +40,7 @@ module.exports = function (mongoose) {
                 }],
                 runes: [{
                     id: String,
-                    type: String,
+                    type: {type: String},
                     level: Number,
                     frecuency: String,
                     stats: {
