@@ -13,7 +13,7 @@ module.exports = function (mongoose) {
             message: String,
             timestamp: Number
         }]
-    });
+    }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
     return mongoose.model('Game', GameSchema);

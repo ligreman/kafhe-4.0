@@ -8,7 +8,7 @@ module.exports = function (mongoose) {
         name: String,
         element: String,
         equipment: String
-    });
+    }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
     return mongoose.model('Skill', SkillSchema);

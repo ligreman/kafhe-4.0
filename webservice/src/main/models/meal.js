@@ -7,7 +7,7 @@ module.exports = function (mongoose) {
     var MealSchema = mongoose.Schema({
         name: String,
         ito: Boolean
-    });
+    }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
     return mongoose.model('Meal', MealSchema);

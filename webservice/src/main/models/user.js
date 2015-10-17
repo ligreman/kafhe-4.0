@@ -96,7 +96,7 @@ module.exports = function (mongoose) {
                 ito: Boolean
             }
         }
-    });
+    }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
     return mongoose.model('User', UserSchema);

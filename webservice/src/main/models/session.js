@@ -8,7 +8,7 @@ module.exports = function (mongoose) {
         username: {type: String, unique: true, required: true},
         token: {type: String, required: true},
         timestamp: Number
-    });
+    }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
     return mongoose.model('Session', SessionSchema);
