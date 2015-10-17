@@ -3,11 +3,11 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         orderRouter = express.Router(),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -27,8 +27,8 @@ module.exports = function (app) {
         // Hago una búsqueda de esa lista de usuarios
         models.User
             .find({"_id": {"$in": players}})
-            .select('order')
-            .populate('alias game.order.meal game.order.drink')
+            .select('game.order alias')
+            .populate('game.order.meal game.order.drink')
             .exec(function (error, playerList) {
                 if (error) {
                     res.redirect('/error');
@@ -39,7 +39,7 @@ module.exports = function (app) {
                 // Recorro la lista de usuarios y extraigo sus pedidos
                 playerList.forEach(function (player) {
                     pedidos.push({
-                        playerAlias: player.alias,
+                        player_alias: player.alias,
                         meal: player.game.order.meal,
                         drink: player.game.order.drink,
                         ito: player.game.order.ito

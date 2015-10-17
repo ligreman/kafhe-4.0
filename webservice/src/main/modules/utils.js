@@ -1,15 +1,10 @@
 'use strict';
 
-var getRespuesta = function (name) {
-    return 'Hola ' + name;
-};
-
-var getFuncionAMockear = function (parametro) {
-    return 'Original ' + parametro;
+var randomInt = function (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
 };
 
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
-    getRespuesta: getRespuesta,
-    getFuncionAMockear: getFuncionAMockear
+    randomInt: randomInt
 };

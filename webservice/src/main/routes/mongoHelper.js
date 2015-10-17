@@ -9,7 +9,7 @@ module.exports = function (app) {
         eventEmitter = new events.EventEmitter(),
         pruebaRouter = express.Router(),
         mongoose     = require('mongoose'),
-        fakery       = require('mongoose-fakery'),
+        utils        = require('../modules/utils'),
         models       = require('../models/models')(mongoose);
 
     // Modelos
@@ -1117,6 +1117,8 @@ module.exports = function (app) {
         var arrPla = [];
 
         data.users.forEach(function (user) {
+            console.log("IDS");
+            console.log(user._id.toString());
             arrPla.push(user._id);
         });
 
@@ -1131,10 +1133,10 @@ module.exports = function (app) {
         models.User.update({}, {
             $set: {
                 "game.gamedata": data.game._id,
-                "game.order.meal": data.meals[0]._id,
-                "game.order.drink": data.drinks[0]._id
+                "game.order.meal": data.meals[utils.randomInt(0, 7)]._id,
+                "game.order.drink": data.drinks[utils.randomInt(0, 3)]._id
             }
-        }, function (err) {
+        }, {multi: true}, function (err) {
             console.log("UPDATED USERS");
             console.log(err);
 

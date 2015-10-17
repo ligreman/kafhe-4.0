@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var passport = require('passport'),
-        LocalStrategy = require('passport-local').Strategy,
+    var passport       = require('passport'),
+        LocalStrategy  = require('passport-local').Strategy,
         BearerStrategy = require('passport-http-bearer').Strategy,
-        crypto = require('crypto'),
-        mongoose = require('mongoose'),
-        sessionUtils = require('../modules/sessionUtils'),
-        Q = require('q'),
-        models = require('../models/models')(mongoose);
+        crypto         = require('crypto'),
+        mongoose       = require('mongoose'),
+        sessionUtils   = require('../modules/sessionUtils'),
+        Q              = require('q'),
+        models         = require('../models/models')(mongoose);
 
     // Estrategia Local de Passport - Se usa para hacer login
     passport.use(new LocalStrategy(
@@ -106,7 +106,6 @@ module.exports = function (app) {
                             if (error) {
                                 return done(error);
                             }
-
                             if (user) {
                                 return done(null, user);
                             } else {
