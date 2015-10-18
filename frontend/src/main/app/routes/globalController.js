@@ -4,8 +4,8 @@
     //Controlador principal de todo el sistema.
     angular.module('kafhe.controllers')
         .controller('GlobalController',
-        ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG',
-            function ($scope, $rootScope, $translate, $location, $cookies, CONFIG) {
+        ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl',
+            function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl) {
                 /**
                  * Función para cambiar de página
                  * @param route Ruta destino
@@ -29,17 +29,32 @@
 
                 /**
                  * Muestra un growl con el mensaje que se quiera
-                 * @param type Tipo de mensaje
+                 * @param type Tipo de mensaje: warn, info, success, danger
                  * @param msg Mensaje.
                  */
-                $scope.growl = function (type, msg) {
+                $scope.growl = function (type, msg, title) {
                     //Traduzco el mensaje del toast de forma asíncrona
-                    $translate(msg).then(function (translation) {
-                        /*ngToast.create({
-                         className: type,
-                         content: translation
-                         });*/
-                    });
+                    var translation = $translate.instant(msg),
+                        transTitle = '';
+
+                    if (title) {
+                        transTitle = $translate.instant(title);
+                    }
+
+                    switch (type) {
+                        case 'warning':
+                            growl.warning(translation, {title: transTitle});
+                            break;
+                        case 'error':
+                            growl.error(translation, {title: transTitle});
+                            break;
+                        case 'success':
+                            growl.success(translation, {title: transTitle});
+                            break;
+                        case 'info':
+                        default:
+                            growl.info(translation, {title: transTitle});
+                    }
                 };
 
             }]);

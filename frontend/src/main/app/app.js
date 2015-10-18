@@ -47,15 +47,18 @@
             .useCookieStorage();
     }]);
 
-    //Configuración de httpProvider
-    app.config(['$httpProvider', function ($httpProvider) {
+    //Configuración de httpProvider y growls
+    app.config(['$httpProvider', 'growlProvider', function ($httpProvider, growlProvider) {
         //Inserto un interceptor para todas las peticiones al httpProvider
         $httpProvider.interceptors.push('KInterceptor');
-    }]);
+        // Interceptor para poner mensajes automaticamente, leyendo del servidor un
+        // array "messages": [ {"text":"this is a server message", "severity": "warn/info/error"}, "title":"optional" ]
+        $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
 
-    //Configuración de Growls
-    app.config(['growlProvider', function (growlProvider) {
         growlProvider.globalReversedOrder(true);
+        //growlProvider.globalDisableIcons(true);
+        //growlProvider.globalTimeToLive(5000);
+        //growlProvider.globalTimeToLive({success: 1000, error: 2000, warning: 3000, info: 4000});
     }]);
 
 })();

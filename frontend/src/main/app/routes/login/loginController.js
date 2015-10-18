@@ -4,12 +4,16 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('LoginController',
-        ['$scope', '$location', '$cookies', 'APISession', 'KSession',
-            function ($scope, $location, $cookies, APISession, KSession) {
+        ['$scope', 'APISession',
+            function ($scope, APISession) {
                 $scope.login = {
                     username: '',
                     password: ''
                 };
+                $scope.growl('info', "titleSearchesHistory");
+                $scope.growl('success', "textAreaIpSearch", "textAreaIpSearch");
+                $scope.growl('warning', "textAreaDomainSearch", "textAreaIpSearch");
+                $scope.growl('error', "textAreaHashSearch", "textAreaIpSearch");
 
                 // función a la que se llama al pulsar el botón del formulario del login
                 $scope.btnLogin = function () {
