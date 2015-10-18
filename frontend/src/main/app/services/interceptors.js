@@ -89,10 +89,10 @@
                         //Si es una respuesta de una llamada al API
                         if (rejection.config.url.indexOf(CONFIG.webServiceUrl) !== -1) {
                             //Recupero el código de error
-                            var code = rejection.data.code;
+                            var errorCode = rejection.data.error;
 
                             //Muestro el toast con el error
-                            $translate(code).then(function (translation) {
+                            $translate(errorCode).then(function (translation) {
                                 /*ngToast.create({
                                  className: 'danger',
                                  content: translation
@@ -100,14 +100,12 @@
                             });
 
                             //Si es un error de algo de sesiones le saco
-                            if (CONFIG.errorCodesSession.indexOf(code) !== -1) {
+                            if (CONFIG.errorCodesSession.indexOf(errorCode) !== -1) {
                                 KSession.logout();
                             }
 
                             //Renuevo la sesión
-                            if (rejection.data) {
-                                KSession.refresh(rejection.data.session);
-                            }
+                            KSession.refresh(rejection.data.session);
                         }
 
                         //Respuesta cortando la ejecución del controller

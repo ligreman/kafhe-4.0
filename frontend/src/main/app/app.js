@@ -7,6 +7,7 @@
         'ngResource',
         'ngCookies',
         'ngMaterial',
+        'ngMessages',
         'kafhe.config',
         'kafhe.controllers',
         'kafhe.services',

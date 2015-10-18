@@ -4,7 +4,7 @@
     // módulo que contiene Strings de configuración
     angular.module('kafhe.config')
         .constant('CONFIG', {
-            webServiceUrl: 'http://dev-63-3-slc.inteco.es:8080/SLCWebservice/api/slc/',
+            webServiceUrl: 'http://localhost:8080/',
 
             // IDIOMAS
             defaultLanguage: 'es',

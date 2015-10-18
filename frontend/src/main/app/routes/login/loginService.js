@@ -7,7 +7,11 @@
     myAppServices.factory('APISession', ['$resource', 'CONFIG', function ($resource, CONFIG) {
         return {
             'session': function (access_token) {
-                return $resource(CONFIG.webServiceUrl + ':endpoint', {endpoint: ''}, {
+                return $resource(CONFIG.webServiceUrl + ':endpoint', {
+                    endpoint: '',
+                    username: '@username',
+                    password: '@password'
+                }, {
                     // método LOGIN, envía user y passwd
                     login: {
                         method: 'POST',
