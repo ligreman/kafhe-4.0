@@ -6,6 +6,9 @@
         .controller('GlobalController',
         ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl',
             function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl) {
+                // Objeto que almacena la información básica
+                $scope.game = {};
+
                 /**
                  * Función para cambiar de página
                  * @param route Ruta destino

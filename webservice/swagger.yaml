@@ -1,15 +1,14 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: 'OKAPI'
-  description: 'API de `Kafhe 4.0`'
+  title: OKAPI
+  description: API de `Kafhe 4.0`
 basePath: /
-
 paths:
   /login:
     post:
-      summary: 'Login de usuario'
-      description: 'Realiza el login de un usuario comprobando su username y contraseña en base de datos. Si todo es correcto devolverá el access_token.'
+      summary: Login de usuario
+      description: Realiza el login de un usuario comprobando su username y contraseña en base de datos. Si todo es correcto devolverá el access_token.
       tags:
         - session
       consumes:
@@ -19,17 +18,17 @@ paths:
       parameters:
         - name: username
           in: formData
-          description: 'Nombre de usuario'
+          description: Nombre de usuario
           type: string
           required: true
         - name: password
           in: formData
-          description: 'Contraseña del usuario'
+          description: Contraseña del usuario
           type: string
           required: true
       responses:
         '200':
-          description: 'Login correcto'
+          description: Login correcto
           schema:
             type: object
             required:
@@ -48,7 +47,7 @@ paths:
                     type: string
               error:
                 type: string
-                default: ""
+                default: ''
           examples:
             application/json:
               login: true
@@ -70,12 +69,13 @@ paths:
           examples:
             application/json:
               login: false
-              error: 'Usuario o contraseña incorrectos'
-  
+              error: Usuario o contraseña incorrectos
+              
+              
   /logout:
     get:
-      summary: 'Logout de usuario'
-      description: 'Elimina la sesión del usuario de base de datos.'
+      summary: Logout de usuario
+      description: Elimina la sesión del usuario de base de datos.
       tags:
         - session
       produces:
@@ -83,12 +83,12 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: 'Token de autorización tipo `Bearer`'
+          description: Token de autorización tipo `Bearer`
           type: string
           required: true
       responses:
         '200':
-          description: 'Logout correcto'
+          description: Logout correcto
           schema:
             type: object
             required:
@@ -99,13 +99,13 @@ paths:
                 type: boolean
               error:
                 type: string
-                default: ""
+                default: ''
           examples:
             application/json:
               logout: true
               error: ''
         '401':
-          description: 'Error derivado de enviar un access_token inválido'
+          description: Error derivado de enviar un access_token inválido
           schema:
             type: object
             required:
@@ -119,4 +119,556 @@ paths:
           examples:
             application/json:
               login: false
-              error: 'Error en la sesión'
+              error: Error en la sesión
+              
+              
+  /order/list:
+    get:
+      summary: Lista de pedidos de la partida
+      description: Obtiene la lista de pedidos de los jugadores de la partida actual.
+      tags:
+        - order
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de autorización tipo `Bearer`
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Petición correcta
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: object
+                required:
+                  - orders
+                properties:
+                  orders:
+                    type: array
+                    items: 
+                      $ref: '#/definitions/OrderList'
+              error:
+                type: string
+                default: ''
+          examples:
+            application/json:
+              data: {
+                orders: [
+                  {
+                    player_alias: 'Manolo',
+                    meal: {
+                      _id: '562220d5d4ed1c30103e2c7c',
+                      name: 'Pepito de ternera',
+                      ito: true
+                    },
+                    drink: {
+                      _id: '562220d5d4ed1c30103e2c7d',
+                      name: 'Zumo de manzana',
+                      ito: true
+                    }
+                  }
+                ]
+              }
+        '500':
+          description: Error derivado de enviar un access_token inválido
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: string
+                default: ''
+              error:
+                type: string
+          examples:
+            application/json:
+              data: ''
+              error: Error en la sesión
+              
+              
+  /order/mealanddrink:
+    get:
+      summary: Lista de comida y bebida
+      description: Obtiene la lista de comida y bebida que se puede pedir.
+      tags:
+        - order
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de autorización tipo `Bearer`
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Petición correcta
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: object
+                required:
+                  - meals
+                  - drinks
+                properties:
+                  meals:
+                    type: array
+                    items: 
+                      $ref: '#/definitions/MealAndDrink'
+                  drinks:
+                    type: array
+                    items: 
+                      $ref: '#/definitions/MealAndDrink'
+              error:
+                type: string
+                default: ''
+          examples:
+            application/json:
+              data: {
+                meals: [
+                  {
+                    _id: '562220d5d4ed1c30103e2c7c',
+                    name: 'Pepito de ternera',
+                    ito: true
+                  }
+                ],
+                drinks: [
+                  {
+                    _id: '562220d5d4ed1c30103e2c7c',
+                    name: 'Zumo de manzana',
+                    ito: true
+                  }
+                ]
+              }
+        '500':
+          description: Error derivado de enviar un access_token inválido
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: string
+                default: ''
+              error:
+                type: string
+          examples:
+            application/json:
+              data: ''
+              error: Error en la sesión
+
+
+  /user/list:
+    get:
+      summary: Lista de usuarios
+      description: Obtiene la lista de usuarios de una partida. Sólo se devuelve la información pública de cada usuario.
+      tags:
+        - user
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de autorización tipo `Bearer`
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Petición correcta
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: object
+                required:
+                  - players
+                properties:
+                  players:
+                    type: array
+                    items: 
+                      $ref: '#/definitions/PlayerList'
+              error:
+                type: string
+                default: ''
+          examples:
+            application/json:
+              data: {
+                  players: [
+                      {
+                        username: 'pepe',
+                        alias: 'Pepito',
+                        avatar: 'http://mi.imagen.png',
+                        game: {
+                            level: 2,
+                            afk: false,
+                            stats: {
+                                reputation: 45
+                            }
+                        }
+                      }
+                  ]
+              }
+        '500':
+          description: Error derivado de enviar un access_token inválido
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: string
+                default: ''
+              error:
+                type: string
+          examples:
+            application/json:
+              data: ''
+              error: Error en la sesión
+
+
+  /skill/list:
+    get:
+      summary: Lista de habilidades
+      description: Obtiene la lista de habilidades de una partida.
+      tags:
+        - skill
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de autorización tipo `Bearer`
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Petición correcta
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: object
+                required:
+                  - skills
+                properties:
+                  skills:
+                    type: array
+                    items: 
+                      $ref: '#/definitions/SkillList'
+              error:
+                type: string
+                default: ''
+          examples:
+            application/json:
+              data: {
+                  skills: [
+                      {
+                        _id: '561d564be99383212f76b374',
+                        name: 'Bola de fuego',
+                        element: 'fire',
+                        equipment: 'weapon'
+                      }
+                  ]
+              }
+        '500':
+          description: Error derivado de enviar un access_token inválido
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: string
+                default: ''
+              error:
+                type: string
+          examples:
+            application/json:
+              data: ''
+              error: Error en la sesión
+
+
+
+definitions:
+  OrderList:
+    type: object
+    required:
+      - player_alias
+      - meal
+    properties:
+      player_alias:
+        type: string
+      meal: 
+        type: object
+        required:
+          - _id
+          - name
+          - ito
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+          ito:
+            type: boolean
+  
+  MealAndDrink:
+    type: object
+    required:
+      - _id
+      - name
+      - ito
+    properties:
+      _id:
+        type: string
+      name: 
+        type: string
+      ito:
+        type: boolean
+        
+  PlayerList:
+    type: object
+    required:
+      - username
+      - alias
+      - avatar
+      - game
+    properties:
+      username:
+        type: string
+      alias:
+        type: string
+      avatar:
+        type: string
+      game: 
+        type: object
+        required:
+          - level
+          - afk
+          - stats
+        properties:
+          level:
+            type: integer
+          afk:
+            type: boolean
+          stats:
+            type: object
+            required:
+              - reputation
+            properties:
+              reputation:
+                type: integer
+                
+  SkillList:
+    type: object
+    required:
+      - _id
+      - name
+      - element
+      - equipment
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      element:
+        type: string
+        enum: ['fire', 'water', 'earth', 'wind']
+      equipment: 
+        type: string
+        enum: ['weapon', 'armor']
+                
+  User:
+    type: object
+    required:
+    properties:
+      username: 
+        type: string
+      password: 
+        type: string
+      alias: 
+        type: string
+      leader:
+        type: boolean
+      avatar:
+        type: string
+      game:
+        type: object
+        properties:
+          gamedata:
+            type: String
+          level:
+            type: integer
+          tostolates:
+            type: integer
+          stats:
+            type: object
+            properties:
+              life:
+                type: integer
+              fury:
+                type: integer
+              fury_mode:
+                type: boolean
+              reputation:
+                type: integer
+              action_points:
+                type: integer
+          equipment:
+            type: object
+            properties:
+              weapon:
+                type: string
+              armor:
+                type: string
+          inventory:
+            type: object
+            properties:
+              tostems:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  'type': 
+                    type: string
+                  level:
+                    type: integer
+                  frecuency:
+                    type: string
+                  stats: 
+                    type: object
+                    properties:
+                      one:
+                        type: integer
+                      two:
+                        type: integer
+                  skills:
+                    type: array
+                  equipped:
+                    type: boolean
+              runes:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  'type': 
+                    type: string
+                  level:
+                    type: integer
+                  frecuency:
+                    type: string
+                  stats: 
+                    type: object
+                    properties:
+                      damage:
+                        type: integer
+                      precision:
+                        type: integer
+                      protection:
+                        type: integer
+                      parry:
+                        type: integer
+                  skills:
+                    type: array
+                  equipped:
+                    type: boolean
+              weapons:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name: 
+                    type: string
+                  frecuency:
+                    type: string
+                  stats: 
+                    type: object
+                    properties:
+                      damage:
+                        type: integer
+                      precision:
+                        type: integer
+                  materials:
+                    type: object
+                    properties:
+                      rune:
+                        type: string
+                      tostem:
+                        type: string
+                  skills:
+                    type: array
+                  equipped:
+                    type: boolean
+              armors:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name: 
+                    type: string
+                  frecuency:
+                    type: string
+                  stats: 
+                    type: object
+                    properties:
+                      protection:
+                        type: integer
+                      parry:
+                        type: integer
+                  materials:
+                    type: object
+                    properties:
+                      rune:
+                        type: string
+                      tostem:
+                        type: string
+                  skills:
+                    type: array
+                  equipped:
+                    type: boolean
+              stones:
+                type: integer
+          afk: 
+            type: boolean
+          last_activity:
+            type: number
+          order:
+            type: object
+            properties:
+              meal:
+                type: string
+              drink:
+                type: string
+              ito:
+                type: boolean
+          last_order: 
+            type: object
+            properties:
+              meal:
+                type: string
+              drink:
+                type: string
+              ito:
+                type: boolean
