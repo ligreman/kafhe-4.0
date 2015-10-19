@@ -11,7 +11,6 @@ module.exports = function (app) {
     //Cargo los diferentes ficheros de rutas
     require('./login')(app);
     require('./user')(app);
-    require('./mealanddrink')(app);
     require('./skill')(app);
     require('./order')(app);
     require('./mongoHelper')(app);

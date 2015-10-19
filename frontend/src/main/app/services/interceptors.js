@@ -4,8 +4,8 @@
     var interceptorModule = angular.module('kafhe.services');
 
     interceptorModule.factory('KInterceptor',
-        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession',
-            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession) {
+        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession', 'growl',
+            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession, growl) {
                 return {
                     /**
                      * Peticiones
@@ -21,12 +21,11 @@
                             config.url.indexOf(CONFIG.webServiceUrl) !== -1 &&
                             config.url.indexOf(ROUTES.loginValidation) === -1) {
 
-                            $translate('errValidUser0001').then(function (translation) {
-                                ngToast.create({
-                                    className: 'danger',
-                                    content: translation
-                                });
-                            });
+                            //Muestro el growl con el error
+                            var transTitle = $translate.instant('textError'),
+                                translation = $translate.instant('errSessionUtils0001');
+
+                            growl.error(translation, {title: transTitle});
 
                             KSession.logout();
                         }
@@ -56,13 +55,11 @@
 
                             //Si isError es true es que ha pasado algo raro
                             if (isError) {
-                                //Muestro el toast con el error
-                                $translate(code).then(function (translation) {
-                                    /*ngToast.create({
-                                     className: 'danger',
-                                     content: translation
-                                     });*/
-                                });
+                                //Muestro el growl con el error
+                                var transTitle = $translate.instant('textError'),
+                                    translation = $translate.instant(code);
+
+                                growl.error(translation, {title: transTitle});
 
                                 //Le saco
                                 KSession.logout();
@@ -89,23 +86,24 @@
                         //Si es una respuesta de una llamada al API
                         if (rejection.config.url.indexOf(CONFIG.webServiceUrl) !== -1) {
                             //Recupero el código de error
-                            var errorCode = rejection.data.error;
+                            console.log(rejection);
+                            var errorCode;
+                            if (rejection.data) {
+                                errorCode = rejection.data.error;
+                            } else {
+                                errorCode = 'errServerException';
+                            }
 
-                            //Muestro el toast con el error
-                            $translate(errorCode).then(function (translation) {
-                                /*ngToast.create({
-                                 className: 'danger',
-                                 content: translation
-                                 });*/
-                            });
+                            //Muestro el growl con el error
+                            var transTitle = $translate.instant('textError'),
+                                translation = $translate.instant(errorCode);
+
+                            growl.error(translation, {title: transTitle});
 
                             //Si es un error de algo de sesiones le saco
                             if (CONFIG.errorCodesSession.indexOf(errorCode) !== -1) {
                                 KSession.logout();
                             }
-
-                            //Renuevo la sesión
-                            KSession.refresh(rejection.data.session);
                         }
 
                         //Respuesta cortando la ejecución del controller

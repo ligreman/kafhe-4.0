@@ -45,7 +45,7 @@
 
                     //Cojo la cookie
                     var oldToken = $cookies.get(CONFIG.sessionCookieName),
-                        newToken = sessionData.token;
+                        newToken = sessionData.access_token;
 
                     // si los tokens no coinciden borramos la cookie y la volvemos
                     // a generar con el nuevo token y la nueva fecha de expiración
@@ -60,7 +60,7 @@
                  * Hace logout, eliminando los datos de la sesión tanto en la cookie como en Mongo en el ws
                  */
                 var logout = function () {
-                    //TODO
+                    //TODO sacar de aquí la llamada al api que da problemas de ciclic dependency
                     /*API.logout().get(function () {
                      //Elimina la cookie
                      $cookies.remove(CONFIG.sessionCookieName);

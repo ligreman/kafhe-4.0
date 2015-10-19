@@ -74,7 +74,8 @@ var extractSessionFromAccessToken = function (access_token) {
         console.log(error);
         return false;
     }
-
+    console.log(access_token);
+    console.log(decoded);
     //Extraigo el username y token
     decoded = decoded.split('#');
 

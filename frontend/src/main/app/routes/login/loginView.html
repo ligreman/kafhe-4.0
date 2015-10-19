@@ -4,7 +4,7 @@
         <label>{{ 'loginUserLabel' | translate }}</label>
         <input required name="username" ng-model="login.username"/>
 
-        <div ng-show="loginForm.username.$dirty" ng-messages="loginForm.username.$error">
+        <div ng-messages="loginForm.username.$dirty && loginForm.username.$error">
             <div ng-message="required">This is required.</div>
         </div>
     </md-input-container>

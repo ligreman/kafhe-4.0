@@ -15,7 +15,7 @@
             },
 
             // Seguridad
-            sessionCookieName: 'kafhe-gallet',
+            sessionCookieName: 'KAFHE',
             //Códigos de error de sesión, que provocarán que se eche al usuario a la página de login
             errorCodesSession: [
                 'errSessionUtils0002', 'errSessionUtils0003', 'errToken0001',

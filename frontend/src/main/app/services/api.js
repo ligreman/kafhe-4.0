@@ -6,11 +6,12 @@
     // Servicio para el webservice del login.
     myAppServices.factory('API', ['$resource', '$cookies', 'CONFIG', function ($resource, $cookies, CONFIG) {
 
-        var access_token = $cookies.get(CONFIG.sessionCookieName);
-
         return {
             // API de Session
             'session': function () {
+                // Lo pongo aquí para que se ejecute en cada consulta, y no una sola vez
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
                 return $resource(CONFIG.webServiceUrl + ':endpoint', {
                     endpoint: '',
                     username: '@username',
@@ -36,6 +37,8 @@
 
             // API de User
             'user': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
                 return $resource(CONFIG.webServiceUrl + 'user/:endpoint', {endpoint: ''}, {
                     // Obtener la información del usuario actual y su partida
                     me: {
@@ -58,6 +61,8 @@
 
             // API de Order
             'order': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
                 return $resource(CONFIG.webServiceUrl + 'order/:endpoint', {endpoint: ''}, {
                     // Obtener lo que se puede pedir
                     mealanddrink: {
@@ -80,6 +85,8 @@
 
             // API de Skill
             'skill': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
                 return $resource(CONFIG.webServiceUrl + 'skill/:endpoint', {endpoint: ''}, {
                     // Obtener todas las habilidades
                     list: {

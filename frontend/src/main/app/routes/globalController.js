@@ -34,6 +34,7 @@
                  * Muestra un growl con el mensaje que se quiera
                  * @param type Tipo de mensaje: warn, info, success, danger
                  * @param msg Mensaje.
+                 * @param title
                  */
                 $scope.growl = function (type, msg, title) {
                     //Traduzco el mensaje del toast de forma asíncrona

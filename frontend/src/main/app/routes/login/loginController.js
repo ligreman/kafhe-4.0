@@ -4,8 +4,8 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('LoginController',
-        ['$scope', 'API',
-            function ($scope, API) {
+        ['$scope', '$location', 'API', 'ROUTES', 'KSession',
+            function ($scope, $location, API, ROUTES, KSession) {
                 $scope.login = {
                     username: '',
                     password: ''
@@ -19,6 +19,11 @@
                 $scope.btnLogin = function () {
                     console.log($scope.login);
 
+                    // Si no he metido usuario y contraseña no sigo
+                    if ($scope.login.username === '' || $scope.login.password === '') {
+                        return;
+                    }
+
                     // pasa como parámetros el usuario y password recogidos del formulario de login
                     API.session(null)
                         .login($scope.login, function (response) {
@@ -31,10 +36,10 @@
                                 console.log("error");
                                 console.log(response);
                                 //Hago logout
-                                //KSession.logout();
+                                KSession.logout();
                             } else {
                                 // Generamos la sesión con el token y expiración que me llegan
-                                //KSession.login(response.session.token, response.session.expire);
+                                KSession.login(response.session.access_token, response.session.expire);
                                 console.log("OK");
                                 console.log(response);
                                 //Voy a la página de validación de login
