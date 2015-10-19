@@ -34,6 +34,32 @@
             // API de User
             'user': function (access_token) {
 
+            },
+
+            // API de Order
+            'order': function (access_token) {
+                return $resource(CONFIG.webServiceUrl + 'order/:endpoint', {endpoint: ''}, {
+                    // método mealanddrink
+                    login: {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        params: {
+                            endpoint: 'mealanddrink'
+                        }
+                    },
+                    logout: {
+                        method: 'GET',
+                        headers: {'Authorization': 'Bearer ' + access_token},
+                        params: {
+                            endpoint: 'logout'
+                        }
+                    }
+                });
+            },
+
+            // API de Skill
+            'skill': function (access_token) {
+
             }
         }
 

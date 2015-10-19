@@ -3,11 +3,11 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         orderRouter = express.Router(),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -17,8 +17,8 @@ module.exports = function (app) {
     }));
 
     /**
-     * GET /user/list
-     * Obtiene la información de los usuarios de esta partida
+     * GET /order/list
+     * Obtiene la información de los pedidos de usuarios de esta partida
      */
     orderRouter.get('/list', function (req, res, next) {
         // Saco la lista de jugadores de la partida
@@ -56,7 +56,7 @@ module.exports = function (app) {
     });
 
     /**
-     * POST /user
+     * POST /
      * Crea un pedido nuevo para el usuario
      */
     orderRouter.post('/', function (req, res, next) {
@@ -82,6 +82,33 @@ module.exports = function (app) {
              });
              }*/
         });
+    });
+
+    /**
+     * GET /order/mealanddrink
+     * Devuelvo la lista de comidas y bebidas de mongo
+     */
+    orderRouter.get('/mealanddrink', function (req, res, next) {
+        //Proceso y devuelvo los resultados
+        var answer = function (meals, drinks) {
+            if (!meals || !drinks) {
+                res.redirect('/error');
+            } else {
+                res.json({
+                    "data": {
+                        "meals": meals,
+                        "drinks": drinks
+                    },
+                    "error": ""
+                });
+            }
+        };
+
+        // Lanzo las dos consultas a Mongo
+        Q.all([
+            models.Meal.find({}).exec(),
+            models.Drink.find({}).exec()
+        ]).spread(answer);
     });
 
     // Asigno los router a sus rutas
