@@ -468,6 +468,64 @@ paths:
             application/json:
               data: ''
               error: Error en la sesión
+              
+  
+  /skill/fury:
+    post:
+      summary: Activa el modo furia
+      description: Activa el modo furia para el jugador actual.
+      tags:
+        - skill
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de autorización tipo `Bearer`
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Petición correcta
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: object
+                required:
+                  - user
+                properties:
+                  user:
+                    $ref: '#/definitions/User'
+              error:
+                type: string
+                default: ''
+          examples:
+            application/json:
+              data: {
+                  user: {
+                  }
+              }
+        '500':
+          description: Error derivado de enviar un access_token inválido
+          schema:
+            type: object
+            required:
+              - data
+              - error
+            properties:
+              data:
+                type: string
+                default: ''
+              error:
+                type: string
+          examples:
+            application/json:
+              data: ''
+              error: Error en la sesión
 
 
 
