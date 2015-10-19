@@ -4,8 +4,9 @@
     var myAppServices = angular.module('kafhe.services');
 
     // Servicio para el webservice del login.
-    myAppServices.factory('APISession', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+    myAppServices.factory('API', ['$resource', 'CONFIG', function ($resource, CONFIG) {
         return {
+            // API de Session
             'session': function (access_token) {
                 return $resource(CONFIG.webServiceUrl + ':endpoint', {
                     endpoint: '',
@@ -28,6 +29,11 @@
                         }
                     }
                 });
+            },
+
+            // API de User
+            'user': function (access_token) {
+
             }
         }
 

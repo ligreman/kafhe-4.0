@@ -17,8 +17,8 @@
                 }).
 
                 when(ROUTES.home, {
-                    templateUrl: 'views/search.html',
-                    controller: 'SearchCtrl',
+                    templateUrl: 'app/routes/home/homeView.html',
+                    controller: 'HomeController',
                     //Variables adicionales de esta ruta
                     access: {
                         //Requiere login para acceder

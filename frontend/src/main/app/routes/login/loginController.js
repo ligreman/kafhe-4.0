@@ -4,8 +4,8 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('LoginController',
-        ['$scope', 'APISession',
-            function ($scope, APISession) {
+        ['$scope', 'API',
+            function ($scope, API) {
                 $scope.login = {
                     username: '',
                     password: ''
@@ -20,7 +20,7 @@
                     console.log($scope.login);
 
                     // pasa como parámetros el usuario y password recogidos del formulario de login
-                    APISession.session(null)
+                    API.session(null)
                         .login($scope.login, function (response) {
                             //Proceso la respuesta del webservice
                             if (response === null || !response.login) {
@@ -38,7 +38,7 @@
                                 console.log("OK");
                                 console.log(response);
                                 //Voy a la página de validación de login
-                                //$location.path(ROUTES.loginValidation);
+                                $location.path(ROUTES.loginValidation);
                             }
                         });
 

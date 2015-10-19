@@ -61,7 +61,7 @@
                  */
                 var logout = function () {
                     //TODO
-                    /*APISession.logout().get(function () {
+                    /*API.logout().get(function () {
                      //Elimina la cookie
                      $cookies.remove(CONFIG.sessionCookieName);
 
