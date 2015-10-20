@@ -6,7 +6,6 @@ module.exports = function (app) {
     var passport       = require('passport'),
         LocalStrategy  = require('passport-local').Strategy,
         BearerStrategy = require('passport-http-bearer').Strategy,
-        crypto         = require('crypto'),
         mongoose       = require('mongoose'),
         sessionUtils   = require('../modules/sessionUtils'),
         Q              = require('q'),
@@ -32,13 +31,8 @@ module.exports = function (app) {
                 }
                 console.log("Miro si pass es correcto");
 
-                //Cifro la contraseña con SHA1
-                //TODO tendrá que venir del frontend ya cifrada para que no viaje en claro
-                var shasum = crypto.createHash('sha1');
-                shasum.update(password);
-
                 //Comparo con la de Mongo
-                if (shasum.digest('hex') === user.password) {
+                if (password === user.password) {
                     //Login correcto
                     console.log('Login OK');
 

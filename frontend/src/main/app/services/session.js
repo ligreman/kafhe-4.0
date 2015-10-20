@@ -14,13 +14,15 @@
                  * @param expireTime
                  */
                 var login = function (token, expireTime) {
-                    var date = new Date(parseInt(expireTime));
+                    var date = new Date();
+                    var time = date.getTime() + parseInt(expireTime);
+                    date.setTime(time);
 
                     //Elimino la cookie anterior por si acaso
                     $cookies.remove(CONFIG.sessionCookieName);
                     //Creo la nueva cookie de sesión
                     $cookies.put(CONFIG.sessionCookieName, token, {
-                        'expires': date.toString(),
+                        'expires': date.toGMTString(),
                         'secure': CONFIG.cookieSecure
                     });
 
@@ -60,18 +62,15 @@
                  * Hace logout, eliminando los datos de la sesión tanto en la cookie como en Mongo en el ws
                  */
                 var logout = function () {
-                    //TODO sacar de aquí la llamada al api que da problemas de ciclic dependency
-                    /*API.logout().get(function () {
-                     //Elimina la cookie
-                     $cookies.remove(CONFIG.sessionCookieName);
+                    //Elimina la cookie
+                    $cookies.remove(CONFIG.sessionCookieName);
 
-                     //Elimino las variables del rootScope
-                     $rootScope.user = undefined;
+                    //Elimino las variables del rootScope
+                    $rootScope.user = undefined;
 
-                     //Mando al usuario a la página de inicio (login)
-                     $location.path('/');
-                     $location.replace();
-                     });*/
+                    //Mando al usuario a la página de inicio (login)
+                    $location.path('/');
+                    $location.replace();
                 };
 
                 /**

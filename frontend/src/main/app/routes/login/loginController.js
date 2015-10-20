@@ -24,9 +24,15 @@
                         return;
                     }
 
+                    // Codifico el password
+                    var SHA1 = new Hashes.SHA1;
+
                     // pasa como parámetros el usuario y password recogidos del formulario de login
                     API.session(null)
-                        .login($scope.login, function (response) {
+                        .login({
+                            username: $scope.login.username,
+                            password: SHA1.hex($scope.login.password)
+                        }, function (response) {
                             //Proceso la respuesta del webservice
                             if (response === null || !response.login) {
                                 // Hay un error por lo que lo muestro.
@@ -36,7 +42,9 @@
                                 console.log("error");
                                 console.log(response);
                                 //Hago logout
-                                KSession.logout();
+                                API.logout().get(function () {
+                                    KSession.logout();
+                                });
                             } else {
                                 // Generamos la sesión con el token y expiración que me llegan
                                 KSession.login(response.session.access_token, response.session.expire);

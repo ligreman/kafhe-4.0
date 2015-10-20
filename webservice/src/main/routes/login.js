@@ -7,14 +7,13 @@ module.exports = function (app) {
         passport = require('passport'),
         bodyParser = require('body-parser'),
         Q = require('q'),
-        urlencodedParser = bodyParser.urlencoded({extended: false}),
         sessionUtils = require('../modules/sessionUtils'),
         loginRouter = express.Router(),
         logoutRouter = express.Router();
 
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
-    loginRouter.use(urlencodedParser);
+    loginRouter.use(bodyParser.urlencoded({extended: false}));
     loginRouter.use(passport.authenticate('local', {
         session: false,
         //successRedirect: '/ok',
@@ -29,11 +28,14 @@ module.exports = function (app) {
         console.log("POST");
         console.log(req.user);
         console.log(req.authInfo);
+
         res.json({
             "login": true,
             //"user": req.user,
             "session": {
-                "access_token": req.authInfo.access_token
+                "access_token": req.authInfo.access_token,
+                // 30 días de expiración. Le paso el tiempo que le queda al token
+                "expire": 1000 * 60 * 60 * 24 * 30
             },
             "error": ""
         });

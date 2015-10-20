@@ -4,8 +4,8 @@
     var interceptorModule = angular.module('kafhe.services');
 
     interceptorModule.factory('KInterceptor',
-        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession', 'growl',
-            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession, growl) {
+        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession', 'growl', 'API',
+            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession, growl, API) {
                 return {
                     /**
                      * Peticiones
@@ -27,7 +27,9 @@
 
                             growl.error(translation, {title: transTitle});
 
-                            KSession.logout();
+                            API.logout().get(function () {
+                                KSession.logout();
+                            });
                         }
 
                         return config;
@@ -62,7 +64,9 @@
                                 growl.error(translation, {title: transTitle});
 
                                 //Le saco
-                                KSession.logout();
+                                API.logout().get(function () {
+                                    KSession.logout();
+                                });
 
                                 //Rechazo la promise para que corte la ejecución
                                 return $q.reject(response);
@@ -102,7 +106,9 @@
 
                             //Si es un error de algo de sesiones le saco
                             if (CONFIG.errorCodesSession.indexOf(errorCode) !== -1) {
-                                KSession.logout();
+                                API.logout().get(function () {
+                                    KSession.logout();
+                                });
                             }
                         }
 

@@ -3,15 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         orderRouter = express.Router(),
-        Q           = require('q'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        bodyParser = require('body-parser'),
+        Q = require('q'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
+    orderRouter.use(bodyParser.json());
     orderRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -62,6 +64,8 @@ module.exports = function (app) {
      */
     orderRouter.post('/', function (req, res, next) {
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
+        var newOrder = req.user.game.gamedata.players;
+
 
         // Actualizo el pedido del usuario con esos valores
         var user = req.user;
