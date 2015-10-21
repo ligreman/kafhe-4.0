@@ -63,29 +63,44 @@ module.exports = function (app) {
      * Crea un pedido nuevo para el usuario
      */
     orderRouter.post('/', function (req, res, next) {
+        var user = req.user,
+            order = req.body;
+        console.log(req.body);
+
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
-        var newOrder = req.user.game.gamedata.players;
+        if (!order.meal || !order.drink || !order.ito) {
+            res.redirect('/error');
+        }
 
+        // Consulto a Mongo a ver si existen
+        Q.all([
+            models.Meal.findById(order.meal + '23').exec(),
+            models.Drink.findById(order.drink).exec()
+        ]).spread(function (meals, drinks) {
+            console.log(meals);
+            console.log(drinks);
+            if (meals && drinks) {
+                // Actualizo el pedido del usuario con esos valores
+                user.game.order.meal = order.meal;
+                user.game.order.drink = order.drink;
+                user.game.order.ito = order.ito;
 
-        // Actualizo el pedido del usuario con esos valores
-        var user = req.user;
-        //user.game.order.meal =
-        //user.game.order.drink =
-        //user.game.order.ito =
-
-        user.save(function (err, product, numAffected) {
-            /* console.log(product);
-             console.log("Afecto: " + numAffected);
-             if (err) {
-             res.redirect('/error');
-             } else {
-             res.json({
-             "data": {
-             "user": usuario
-             },
-             "error": ""
-             });
-             }*/
+                user.save(function (err, usuario, numAffected) {
+                    console.log("Afecto: " + numAffected);
+                    if (err) {
+                        res.redirect('/error');
+                    } else {
+                        res.json({
+                            "data": {
+                                "user": usuario
+                            },
+                            "error": ""
+                        });
+                    }
+                });
+            } else {
+                res.redirect('/error');
+            }
         });
     });
 
