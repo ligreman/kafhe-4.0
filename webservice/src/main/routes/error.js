@@ -5,6 +5,7 @@ module.exports = function (app) {
 
     // Error al hacer login. Envío login:false para que el front borre la cookie
     app.all('/error/login', function (req, res) {
+        console.tag('ERROR').error('Usuario o contraseña incorrectos');
         res.status(401).json({
             "login": false,
             "error": "Usuario o contraseña incorrectos"
@@ -13,6 +14,7 @@ module.exports = function (app) {
 
     // Error en la sesión. Envío login:false para que el front borre la cookie
     app.all('/error/session', function (req, res) {
+        console.tag('ERROR').error('Error en la sesión');
         res.status(401).json({
             "login": false,
             "error": "Error en la sesión"
@@ -21,6 +23,7 @@ module.exports = function (app) {
 
     // Ruta de error general
     app.all('/error', function (req, res) {
+        console.tag('ERROR').error('Error en el servicio');
         res.status(500).json({
             "data": "",
             "error": "Error en el servicio"

@@ -3,13 +3,13 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         orderRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        Q = require('q'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        bodyParser  = require('body-parser'),
+        Q           = require('q'),
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -60,12 +60,12 @@ module.exports = function (app) {
 
     /**
      * POST /
-     * Crea un pedido nuevo para el usuario
+     * Crea un pedido nuevo para el usuario. Necesita 3 parámetros por POST:
+     * idMeal, idDrink, ito
      */
     orderRouter.post('/', function (req, res, next) {
-        var user = req.user,
+        var user  = req.user,
             order = req.body;
-        console.log(req.body);
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
         if (!order.meal || !order.drink || !order.ito) {
@@ -74,33 +74,42 @@ module.exports = function (app) {
 
         // Consulto a Mongo a ver si existen
         Q.all([
-            models.Meal.findById(order.meal + '23').exec(),
+            models.Meal.findById(order.meal).exec(),
             models.Drink.findById(order.drink).exec()
-        ]).spread(function (meals, drinks) {
-            console.log(meals);
-            console.log(drinks);
-            if (meals && drinks) {
-                // Actualizo el pedido del usuario con esos valores
-                user.game.order.meal = order.meal;
-                user.game.order.drink = order.drink;
+        ]).spread(function (newMeal, newDrink) {
+
+            if (newMeal && newDrink) {
+                // Actualizo el pedido del usuario con los nuevos objetos
+                user.game.order.meal = newMeal;
+                user.game.order.drink = newDrink;
                 user.game.order.ito = order.ito;
 
-                user.save(function (err, usuario, numAffected) {
-                    console.log("Afecto: " + numAffected);
-                    if (err) {
-                        res.redirect('/error');
-                    } else {
-                        res.json({
-                            "data": {
-                                "user": usuario
-                            },
-                            "error": ""
-                        });
-                    }
-                });
+                models.User.update({"username": user.username},
+                    {
+                        $set: {
+                            "game.order.meal": order.meal,
+                            "game.order.drink": order.drink,
+                            "game.order.ito": order.ito
+                        }
+                    },
+                    function (err, raw) {
+                        if (err) {
+                            res.redirect('/error');
+                        } else {
+                            res.json({
+                                "data": {
+                                    "user": user
+                                },
+                                "error": ""
+                            });
+                        }
+                    });
             } else {
                 res.redirect('/error');
             }
+
+        }, function (error) {
+            res.redirect('/error');
         });
     });
 
