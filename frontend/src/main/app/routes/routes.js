@@ -26,6 +26,11 @@
                     }
                 }).
 
+                when(ROUTES.error, {
+                    templateUrl: 'app/routes/error/errorView.html',
+                    controller: 'ErrorController'
+                }).
+
                 otherwise({
                     //Página por defecto
                     redirectTo: '/'

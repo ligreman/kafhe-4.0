@@ -61,15 +61,19 @@
                 /**
                  * Hace logout, eliminando los datos de la sesión tanto en la cookie como en Mongo en el ws
                  */
-                var logout = function () {
+                var logout = function (error) {
                     //Elimina la cookie
                     $cookies.remove(CONFIG.sessionCookieName);
 
                     //Elimino las variables del rootScope
                     $rootScope.user = undefined;
 
+                    if (error) {
+                        //$location.path('/error');
+                    } else {
+                        $location.path('/');
+                    }
                     //Mando al usuario a la página de inicio (login)
-                    $location.path('/');
                     $location.replace();
                 };
 

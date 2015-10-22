@@ -3,11 +3,11 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         skillRouter = express.Router(),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose);
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -31,6 +31,10 @@ module.exports = function (app) {
                 res.json({
                     "data": {
                         "skills": skills
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
                     },
                     "error": ""
                 });
@@ -60,6 +64,10 @@ module.exports = function (app) {
                 res.json({
                     "data": {
                         "user": usuario
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
                     },
                     "error": ""
                 });

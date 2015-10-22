@@ -4,8 +4,8 @@
     var interceptorModule = angular.module('kafhe.services');
 
     interceptorModule.factory('KInterceptor',
-        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession', 'growl', 'API',
-            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession, growl, API) {
+        ['$rootScope', '$q', '$translate', '$location', 'CONFIG', 'ROUTES', '$cookies', 'KSession', 'growl',
+            function ($rootScope, $q, $translate, $location, CONFIG, ROUTES, $cookies, KSession, growl) {
                 return {
                     /**
                      * Peticiones
@@ -27,9 +27,7 @@
 
                             growl.error(translation, {title: transTitle});
 
-                            API.logout().get(function () {
-                                KSession.logout();
-                            });
+                            KSession.logout(true);
                         }
 
                         return config;
@@ -52,6 +50,7 @@
                                 code = response.data.code;
                             } else {
                                 isError = true;
+                                console.log("NOOOORL");
                                 code = 'errNoSession';
                             }
 
@@ -64,9 +63,8 @@
                                 growl.error(translation, {title: transTitle});
 
                                 //Le saco
-                                API.logout().get(function () {
-                                    KSession.logout();
-                                });
+                                console.log("OMG");
+                                KSession.logout(true);
 
                                 //Rechazo la promise para que corte la ejecución
                                 return $q.reject(response);
@@ -106,9 +104,7 @@
 
                             //Si es un error de algo de sesiones le saco
                             if (CONFIG.errorCodesSession.indexOf(errorCode) !== -1) {
-                                API.logout().get(function () {
-                                    KSession.logout();
-                                });
+                                KSession.logout(true);
                             }
                         }
 

@@ -25,6 +25,10 @@ module.exports = function (app) {
             "data": {
                 "user": req.user
             },
+            "session": {
+                "access_token": req.authInfo.access_token,
+                "expire": 1000 * 60 * 60 * 24 * 30
+            },
             "error": ""
         });
     });
@@ -49,6 +53,10 @@ module.exports = function (app) {
                 res.json({
                     "data": {
                         "players": playerList
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
                     },
                     "error": ""
                 });

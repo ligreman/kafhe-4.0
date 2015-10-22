@@ -68,6 +68,7 @@ require('./routes/routes')(app);
 //app.use(bodyParser.json());
 //app.use(passport.initialize());
 
+
 //Capturo los errores no controlados para devolver un json de error al usuario (esto ha de ser el último .use de todos)
 app.use(function (err, req, res, next) {
     console.error(err);

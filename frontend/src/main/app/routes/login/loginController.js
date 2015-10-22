@@ -42,9 +42,7 @@
                                 console.log("error");
                                 console.log(response);
                                 //Hago logout
-                                API.logout().get(function () {
-                                    KSession.logout();
-                                });
+                                KSession.logout(true);
                             } else {
                                 // Generamos la sesión con el token y expiración que me llegan
                                 KSession.login(response.session.access_token, response.session.expire);

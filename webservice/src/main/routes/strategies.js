@@ -101,7 +101,7 @@ module.exports = function (app) {
                                 return done(error);
                             }
                             if (user) {
-                                return done(null, user);
+                                return done(null, user, {"access_token": access_token});
                             } else {
                                 return done(null, false, {message: 'No existe el token'});
                             }

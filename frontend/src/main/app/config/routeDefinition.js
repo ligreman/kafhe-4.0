@@ -4,6 +4,7 @@
     angular.module('kafhe.config')
         .constant('ROUTES', {
             loginValidation: '/login',
+            error: '/error',
             home: '/home'
         });
 })();
