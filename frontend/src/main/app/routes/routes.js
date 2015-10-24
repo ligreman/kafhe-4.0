@@ -26,6 +26,15 @@
                     }
                 }).
 
+                when(ROUTES.breakfast, {
+                    templateUrl: 'app/routes/breakfast/breakfastView.html',
+                    controller: 'BreakfastController',
+                    access: {
+                        //Requiere login para acceder
+                        loginRequired: true
+                    }
+                }).
+
                 when(ROUTES.error, {
                     templateUrl: 'app/routes/error/errorView.html',
                     controller: 'ErrorController'

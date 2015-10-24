@@ -11,6 +11,7 @@
         'kafhe.config',
         'kafhe.controllers',
         'kafhe.services',
+        'kafhe.directives',
         'angular-growl',
         'pascalprecht.translate'
     ]);
@@ -19,6 +20,7 @@
     angular.module('kafhe.config', []);
     angular.module('kafhe.controllers', []);
     angular.module('kafhe.services', []);
+    angular.module('kafhe.directives', []);
 
     //Para controles que hay que hacer cuando se cambia de ruta, por ejemplo autenticación
     app.run(['$rootScope', 'KSession', function ($rootScope, KSession) {

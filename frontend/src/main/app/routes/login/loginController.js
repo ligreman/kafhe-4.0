@@ -6,6 +6,10 @@
         .controller('LoginController',
         ['$scope', '$location', 'API', 'ROUTES', 'KSession',
             function ($scope, $location, API, ROUTES, KSession) {
+                // Limpio variables del controlador global
+                $scope.global.loggedIn = false;
+                $scope.global.game = {};
+
                 $scope.login = {
                     username: '',
                     password: ''
@@ -48,6 +52,8 @@
                                 KSession.login(response.session.access_token, response.session.expire);
                                 console.log("OK");
                                 console.log(response);
+
+                                $scope.global.loggedIn = true;
                                 //Voy a la página de validación de login
                                 $location.path(ROUTES.loginValidation);
                             }

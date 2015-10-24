@@ -32,9 +32,19 @@
     </style>
 
 </head>
-<body ng-app="kafhe" ng-controller="GlobalController" ng-cloak>
+<body ng-app="kafhe" ng-controller="GlobalController" ng-cloak flex layout="column">
 
-    <div ng-view></div>
+    <k-header></k-header>
+
+    <div id="main-container" flex="auto" layout="row">
+        <k-nav-menu></k-nav-menu>
+
+        <div id="content" flex="auto" ng-view></div>
+
+        <k-profile-menu></k-profile-menu>
+    </div>
+
+    <k-footer></k-footer>
 
     <!-- Third party scripts -->
     <!-- build:js js/vendor.js -->
@@ -64,11 +74,18 @@
     <script src="app/routes/login/loginController.js"></script>
     <script src="app/routes/home/homeController.js"></script>
     <script src="app/routes/error/errorController.js"></script>
+    <script src="app/routes/breakfast/breakfastController.js"></script>
 
     <script src="app/services/api.js"></script>
     <script src="app/services/session.js"></script>
+    <script src="app/services/game.js"></script>
     <script src="app/services/interceptors.js"></script>
     <script src="app/services/utils/share.js"></script>
+
+    <script src="app/directives/kheader/kheader.js"></script>
+    <script src="app/directives/kfooter/kfooter.js"></script>
+    <script src="app/directives/knavmenu/knavmenu.js"></script>
+    <script src="app/directives/kprofilemenu/kprofilemenu.js"></script>
 
     <script src="assets/lang/es.js"></script>
     <!-- endbuild -->

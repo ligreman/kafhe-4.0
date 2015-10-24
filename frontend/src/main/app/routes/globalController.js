@@ -4,10 +4,28 @@
     //Controlador principal de todo el sistema.
     angular.module('kafhe.controllers')
         .controller('GlobalController',
-        ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl',
-            function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl) {
+        ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl', 'KGame',
+            function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl, KGame) {
                 // Objeto que almacena la información básica
-                $scope.game = {};
+                $scope.global = {
+                    game: {},
+                    navigation: {},
+                    loaded: false,
+                    loggedIn: false
+                };
+
+                // Si ya está la variable global cargada, no la recargo de nuevo
+                $scope.updateGameData = function () {
+                    if (!$scope.global.loaded || !$scope.global.game.user || !$scope.global.game.meals || !$scope.global.game.drinks || !$scope.global.game.skills) {
+                        KGame.getGameData(function (user, meals, drinks, skills) {
+                            $scope.global.game.user = user;
+                            $scope.global.game.meals = meals;
+                            $scope.global.game.drinks = drinks;
+                            $scope.global.game.skills = skills;
+                            $scope.global.loaded = true;
+                        });
+                    }
+                };
 
                 /**
                  * Función para cambiar de página

@@ -5,6 +5,7 @@
         .constant('ROUTES', {
             loginValidation: '/login',
             error: '/error',
+            breakfast: '/breakfast',
             home: '/home'
         });
 })();

@@ -1,1 +1,18 @@
-/* Custom Stylesheet */
+header {
+    background-color: royalblue;
+    transition: all 1s ease 0s;
+}
+
+footer {
+    transition: all 1s ease 0s;
+    background-color: #004d40;
+}
+
+#nav-menu {
+    transition: all 1s ease 0s;
+    background-color: #00E676;
+}
+
+#content {
+
+}
