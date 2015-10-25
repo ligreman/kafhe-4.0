@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    //Controlador de la pantalla de login
+    // Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('BreakfastController',
-        ['$scope', '$mdDialog',
-            function ($scope, $mdDialog) {
+        ['$scope', '$mdDialog', 'API',
+            function ($scope, $mdDialog, API) {
                 $scope.selection = {
                     meal: '',
                     drink: '',
@@ -27,14 +27,27 @@
                         .title('Would you like to delete your debt?')
                         .content('All of the banks have agreed to forgive you your debts.')
                         .ariaLabel('Lucky day')
-                        .ok('Please do it!')
-                        .cancel('Sounds like a scam')
+                        .ok('OK')
+                        .cancel('CANCEL')
                         .targetEvent(event);
 
                     $mdDialog.show(confirm).then(function () {
-                        $scope.alert = 'You decided to get rid of your debt.';
+                        // He seleccionado cambiar el pedido
+                        API.order()
+                            .create({
+                                meal: $scope.selection.meal,
+                                drink: $scope.selection.drink,
+                                ito: $scope.selection.ito
+                            }, function (response) {
+                                if (response) {
+                                    // Me devuelve el objeto usuario actualizado
+                                    $scope.updateUserObject(response.data.user);
+
+                                    // Mensaje growl de OK
+                                    $scope.growl('success', 'OK maroto');
+                                }
+                            });
                     }, function () {
-                        $scope.alert = 'You decided to keep your debt.';
                     });
                 };
 

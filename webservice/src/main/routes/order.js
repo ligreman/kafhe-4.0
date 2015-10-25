@@ -60,15 +60,15 @@ module.exports = function (app) {
 
     /**
      * POST /
-     * Crea un pedido nuevo para el usuario. Necesita 3 parámetros por POST:
-     * idMeal, idDrink, ito
+     * Crea un pedido nuevo para el usuario. Necesita 3 parámetros por POST-JSON:
+     * meal: id del meal; drink:idDrink; ito: boolean
      */
     orderRouter.post('/', function (req, res, next) {
         var user  = req.user,
             order = req.body;
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
-        if (!order.meal || !order.drink || !order.ito) {
+        if (!order.meal || !order.drink || order.ito === undefined) {
             res.redirect('/error');
         }
 
@@ -96,6 +96,8 @@ module.exports = function (app) {
                         if (err) {
                             res.redirect('/error');
                         } else {
+                            //console.log(req.authInfo);
+                            //console.log(user);
                             res.json({
                                 "data": {
                                     "user": user

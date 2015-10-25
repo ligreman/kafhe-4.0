@@ -14,7 +14,10 @@
                     loggedIn: false
                 };
 
-                // Si ya está la variable global cargada, no la recargo de nuevo
+                /**
+                 * Si ya está la variable global cargada, no la recargo de nuevo
+                 * @param callback: Función a ejecutar cuando se termine la actualización
+                 */
                 $scope.updateGameData = function (callback) {
                     if (!$scope.global.loaded || !$scope.global.game.user || !$scope.global.game.meals || !$scope.global.game.drinks || !$scope.global.game.skills) {
                         KGame.getGameData(function (user, meals, drinks, skills) {
@@ -33,6 +36,13 @@
                             callback();
                         }
                     }
+                };
+
+                /**
+                 * Actualiza el objeto usuario (user) dentro de la variable global
+                 */
+                $scope.updateUserObject = function (user) {
+                    $scope.global.game.user = user;
                 };
 
                 /**

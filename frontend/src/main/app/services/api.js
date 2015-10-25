@@ -40,6 +40,7 @@
                 var access_token = $cookies.get(CONFIG.sessionCookieName);
 
                 return $resource(CONFIG.webServiceUrl + 'user/:endpoint', {endpoint: ''}, {
+
                     // Obtener la información del usuario actual y su partida
                     me: {
                         method: 'GET',
@@ -48,6 +49,7 @@
                             endpoint: ''
                         }
                     },
+
                     // Obtener lista de usuarios de la partida
                     list: {
                         method: 'GET',
@@ -64,6 +66,7 @@
                 var access_token = $cookies.get(CONFIG.sessionCookieName);
 
                 return $resource(CONFIG.webServiceUrl + 'order/:endpoint', {endpoint: ''}, {
+
                     // Obtener lo que se puede pedir
                     mealanddrink: {
                         method: 'GET',
@@ -72,12 +75,25 @@
                             endpoint: 'mealanddrink'
                         }
                     },
+
                     // Obtener lista de pedidos
                     list: {
                         method: 'GET',
                         headers: {'Authorization': 'Bearer ' + access_token},
                         params: {
                             endpoint: 'list'
+                        }
+                    },
+
+                    // Envía un nuevo pedido
+                    create: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: ''
                         }
                     }
                 });

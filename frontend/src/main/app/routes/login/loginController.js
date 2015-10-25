@@ -32,7 +32,7 @@
                     var SHA1 = new Hashes.SHA1;
 
                     // pasa como parámetros el usuario y password recogidos del formulario de login
-                    API.session(null)
+                    API.session()
                         .login({
                             username: $scope.login.username,
                             password: SHA1.hex($scope.login.password)
