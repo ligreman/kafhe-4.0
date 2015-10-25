@@ -8,7 +8,7 @@
             'textError': 'Error',
             'textErrors': 'Errores',
             'textCancel': 'Cancelar',
-            'textAccept': 'Acceptar',
+            'textAccept': 'Aceptar',
             'textYes': 'Sí',
             'textNo': 'No',
 
@@ -18,16 +18,14 @@
 
             // INTERFAZ - LOGIN
             'loginSignInButton': 'Entrar',
-            'loginFormTitle': 'Acceso',
             'loginUserLabel': 'Usuario',
             'loginPasswordLabel': 'Contraseña',
 
-            // INTERFAZ - FORMULARIOS GENERAL
-            'textAreaIpSearch': 'Buscar Ips',
-            'textAreaDomainSearch': 'Buscar Dominios',
-            'textAreaHashSearch': 'Buscar Hash',
-            'textAreaUrlSearch': 'Buscar Urls',
-            'confirmDeleteSearch': '¿Quieres borrar los elementos seleccionados?',
+            // INTERFAZ - PANTALLA DESAYUNO
+            'textNewOrder': 'Hacer pedido',
+            'textChangeOrder': 'Cambiar el pedido',
+            'textCancelOrder': 'Eliminar el pedido',
+            'textLastDayOrder': 'Lo del otro día',
 
 
             // ERRORES - GENERAL

@@ -1,1 +1,32 @@
-<p> Hola holita breakfastito</p>
+<label>
+    <input type="checkbox" ng-model="selection.ito"/> ITO
+</label>
+
+<p>
+    <label>Comida
+        <select ng-model="selection.meal">
+            <option ng-repeat="meal in global.game.meals" value="{{meal._id}}">{{meal.name}}</option>
+        </select>
+    </label>
+</p>
+
+<p>
+    <label>Bebida
+        <select ng-model="selection.drink">
+            <option ng-repeat="drink in global.game.drinks" value="{{drink._id}}">{{drink.name}}</option>
+        </select>
+    </label>
+</p>
+
+<md-button class="md-raised" ng-click="btnMakeOrder()">
+    <md-icon>flight_land</md-icon>
+    {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
+</md-button>
+<md-button class="md-raised" ng-click="btnRemoveOrder()" ng-show="selection.meal !== ''">
+    <md-icon>flight_land</md-icon>
+    {{ 'textCancelOrder' | translate }}
+</md-button>
+<md-button class="md-raised" ng-click="btnLastDayOrder()">
+    <md-icon>flight_land</md-icon>
+    {{ 'textLastDayOrder' | translate }}
+</md-button>

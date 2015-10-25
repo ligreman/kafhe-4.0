@@ -59,7 +59,7 @@
 
         growlProvider.globalReversedOrder(true);
         //growlProvider.globalDisableIcons(true);
-        //growlProvider.globalTimeToLive(5000);
+        growlProvider.globalTimeToLive(5000);
         //growlProvider.globalTimeToLive({success: 1000, error: 2000, warning: 3000, info: 4000});
     }]);
 

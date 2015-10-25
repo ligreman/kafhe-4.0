@@ -15,7 +15,7 @@
                 };
 
                 // Si ya está la variable global cargada, no la recargo de nuevo
-                $scope.updateGameData = function () {
+                $scope.updateGameData = function (callback) {
                     if (!$scope.global.loaded || !$scope.global.game.user || !$scope.global.game.meals || !$scope.global.game.drinks || !$scope.global.game.skills) {
                         KGame.getGameData(function (user, meals, drinks, skills) {
                             $scope.global.game.user = user;
@@ -23,7 +23,15 @@
                             $scope.global.game.drinks = drinks;
                             $scope.global.game.skills = skills;
                             $scope.global.loaded = true;
+
+                            if (typeof callback === 'function') {
+                                callback();
+                            }
                         });
+                    } else {
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
                     }
                 };
 
