@@ -21,11 +21,14 @@
                 $scope.updateGameData = function (callback) {
                     if (!$scope.global.loaded || !$scope.global.game.user || !$scope.global.game.meals || !$scope.global.game.drinks || !$scope.global.game.skills) {
                         KGame.getGameData(function (user, meals, drinks, skills) {
-                            $scope.global.game.user = user;
+                            // Actualizo las variables de información general
                             $scope.global.game.meals = meals;
                             $scope.global.game.drinks = drinks;
                             $scope.global.game.skills = skills;
                             $scope.global.loaded = true;
+
+                            // Ahora actualizo y proceso los datos del usuario
+                            $scope.updateUserObject(user);
 
                             if (typeof callback === 'function') {
                                 callback();
@@ -43,6 +46,8 @@
                  */
                 $scope.updateUserObject = function (user) {
                     $scope.global.game.user = user;
+
+                    //TODO parsear el objeto user y extraer más variables globales como equipment, lista de skills que realmente puedo usar...
                 };
 
                 /**

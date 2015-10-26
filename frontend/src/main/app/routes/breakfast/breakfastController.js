@@ -4,8 +4,8 @@
     // Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('BreakfastController',
-        ['$scope', '$mdDialog', 'API',
-            function ($scope, $mdDialog, API) {
+        ['$scope', '$mdDialog', '$translate', 'API',
+            function ($scope, $mdDialog, $translate, API) {
                 $scope.selection = {
                     meal: '',
                     drink: '',
@@ -21,35 +21,47 @@
                     }
                 });
 
-                // Envío el cambio de pedido
+                // Cambio de pedido
                 $scope.btnMakeOrder = function (event) {
-                    var confirm = $mdDialog.confirm()
-                        .title('Would you like to delete your debt?')
-                        .content('All of the banks have agreed to forgive you your debts.')
-                        .ariaLabel('Lucky day')
-                        .ok('OK')
-                        .cancel('CANCEL')
-                        .targetEvent(event);
+                    if ($scope.selection.ito === false) {
+                        // Si no es ITO pediré confirmación
+                        var confirm = $mdDialog.confirm()
+                            .title($translate.instant('textOrderNoItoTitle'))
+                            .content($translate.instant('textOrderNoItoContent'))
+                            .ok($translate.instant('textContinue'))
+                            .cancel($translate.instant('textCancel'))
+                            .targetEvent(event);
 
-                    $mdDialog.show(confirm).then(function () {
-                        // He seleccionado cambiar el pedido
-                        API.order()
-                            .create({
-                                meal: $scope.selection.meal,
-                                drink: $scope.selection.drink,
-                                ito: $scope.selection.ito
-                            }, function (response) {
-                                if (response) {
-                                    // Me devuelve el objeto usuario actualizado
-                                    $scope.updateUserObject(response.data.user);
+                        $mdDialog.show(confirm).then(function () {
+                            // OK, envío el pedido
+                            sendOrder();
+                        }, function () {
+                            $scope.growl('info', 'textYaMeParecia');
+                        });
+                    } else {
+                        sendOrder();
+                    }
 
-                                    // Mensaje growl de OK
-                                    $scope.growl('success', 'OK maroto');
-                                }
-                            });
-                    }, function () {
-                    });
                 };
+
+                // Envía un pedido al API
+                function sendOrder() {
+                    // He seleccionado cambiar el pedido
+                    API.order()
+                        .create({
+                            meal: $scope.selection.meal,
+                            drink: $scope.selection.drink,
+                            ito: $scope.selection.ito
+                        }, function (response) {
+                            if (response) {
+                                // Me devuelve el objeto usuario actualizado
+                                $scope.updateUserObject(response.data.user);
+
+                                // Mensaje growl de OK
+                                $scope.growl('success', 'textOrderChanged');
+                            }
+                        });
+                }
 
                 // Envío la petición de eliminar el pedido
                 $scope.btnRemoveOrder = function () {
@@ -62,7 +74,7 @@
                         $scope.selection.drink = $scope.global.game.user.game.last_order.drink._id;
                         $scope.selection.ito = $scope.global.game.user.game.last_order.ito;
                     } else {
-                        $scope.growl('warning', 'El otro día no tiene pedido');
+                        $scope.growl('warning', 'textNoLastOrder');
                     }
                 };
 
