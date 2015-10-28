@@ -1,7 +1,15 @@
-<footer flex="20">
-    <p>Reputation: {{global.game.user.game.stats.reputation}}</p>
+<footer flex="20" ng-show="global.loggedIn" layout="row">
+    <div flex="40">
+        <p>Reputation: {{global.user.game.stats.reputation}}</p>
 
-    <p>Action Points: {{global.game.user.game.stats.action_points}}</p>
+        <p>Action Points: {{global.user.game.stats.action_points}}</p>
 
-    <p>Fury: {{global.game.user.game.stats.fury}}</p>
+        <p>Fury: {{global.user.game.stats.fury}}</p>
+    </div>
+
+    <div flex>
+        <ul>
+            <li ng-repeat="skill in global.skills">{{ skill.name }}</li>
+        </ul>
+    </div>
 </footer>

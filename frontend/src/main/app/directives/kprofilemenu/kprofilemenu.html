@@ -1,7 +1,10 @@
-<div id="profile-menu">
-    <p>Level: {{global.game.user.game.level}}</p>
+<div id="profile-menu" ng-show="global.loggedIn" flex="20">
+    <p>Level: {{global.user.game.level}}</p>
 
-    <p>{{global.game.user.alias}}</p>
-    <p>{{global.game.user.game.}}</p>
-    <p>{{global.game.user.alias}}</p>
+    <p>{{global.user.alias}}</p>
+
+    <p>{{global.equipment.weapon}}</p>
+
+    <p>{{global.equipment.armor}}</p>
+
 </div>

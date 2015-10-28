@@ -7,17 +7,16 @@
         ['$scope', '$location', 'API', 'ROUTES', 'KSession',
             function ($scope, $location, API, ROUTES, KSession) {
                 // Limpio variables del controlador global
-                $scope.global.loggedIn = false;
-                $scope.global.game = {};
+                $scope.clearGlobalVars();
 
                 $scope.login = {
                     username: '',
                     password: ''
                 };
-                $scope.growl('info', "titleSearchesHistory");
-                $scope.growl('success', "textAreaIpSearch", "textAreaIpSearch");
-                $scope.growl('warning', "textAreaDomainSearch", "textAreaIpSearch");
-                $scope.growl('error', "textAreaHashSearch", "textAreaIpSearch");
+                $scope.growlNotification('info', "titleSearchesHistory");
+                $scope.growlNotification('success', "textAreaIpSearch", "textAreaIpSearch");
+                $scope.growlNotification('warning', "textAreaDomainSearch", "textAreaIpSearch");
+                $scope.growlNotification('error', "textAreaHashSearch", "textAreaIpSearch");
 
                 // función a la que se llama al pulsar el botón del formulario del login
                 $scope.btnLogin = function () {

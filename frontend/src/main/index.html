@@ -34,14 +34,14 @@
     </style>
 
 </head>
-<body ng-app="kafhe" ng-controller="GlobalController" ng-cloak flex layout="column">
+<body ng-app="kafhe" ng-controller="GlobalController" ng-cloak layout="column">
 
     <k-header></k-header>
 
     <div id="main-container" flex="auto" layout="row">
         <k-nav-menu></k-nav-menu>
 
-        <div id="content" flex="auto" ng-view></div>
+        <div id="content" flex="auto" ng-view layout="column"></div>
 
         <k-profile-menu></k-profile-menu>
     </div>
