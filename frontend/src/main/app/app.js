@@ -38,7 +38,7 @@
 
 
     //Configuramos el idioma por defecto
-    app.config(['$translateProvider', 'CONFIG', function ($translateProvider, CONFIG) {
+    app.config(['$translateProvider', '$logProvider', 'CONFIG', function ($translateProvider, $logProvider, CONFIG) {
         //Indicamos que sanee las cadenas usadas, el idioma por defecto, el idioma
         // de fallback (si no encuentra una cadena en el idioma actual la busca en el de fallback,
         // e indicamos que usaremos cookies para guardar la elección del usuario
@@ -47,6 +47,9 @@
             .preferredLanguage(CONFIG.defaultLanguage)
             .fallbackLanguage(CONFIG.fallbackLanguage)
             .useCookieStorage();
+
+        // DEBUG - $log.debug()
+        $logProvider.debugEnabled(true);
     }]);
 
     //Configuración de httpProvider y growls

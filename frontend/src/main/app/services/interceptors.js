@@ -50,7 +50,6 @@
                                 code = response.data.code;
                             } else {
                                 isError = true;
-                                console.log("NOOOORL");
                                 code = 'errNoSession';
                             }
 
@@ -63,7 +62,6 @@
                                 growl.error(translation, {title: transTitle});
 
                                 //Le saco
-                                console.log("OMG");
                                 KSession.logout(true);
 
                                 //Rechazo la promise para que corte la ejecución
@@ -88,7 +86,6 @@
                         //Si es una respuesta de una llamada al API
                         if (rejection.config.url.indexOf(CONFIG.webServiceUrl) !== -1) {
                             //Recupero el código de error
-                            console.log(rejection);
                             var errorCode;
                             if (rejection.data) {
                                 errorCode = rejection.data.error;

@@ -4,8 +4,8 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('LoginController',
-        ['$scope', '$rootScope', '$location', 'API', 'ROUTES', 'KSession', 'KShare',
-            function ($scope, $rootScope, $location, API, ROUTES, KSession, KShare) {
+        ['$scope', '$rootScope', '$log', '$location', 'API', 'ROUTES', 'KSession', 'KShare',
+            function ($scope, $rootScope, $log, $location, API, ROUTES, KSession, KShare) {
                 // Limpio variables del controlador global
                 $scope.clearGlobalVars();
 
@@ -27,8 +27,6 @@
 
                 // función a la que se llama al pulsar el botón del formulario del login
                 $scope.btnLogin = function () {
-                    console.log($scope.login);
-
                     // Si no he metido usuario y contraseña no sigo
                     if ($scope.login.username === '' || $scope.login.password === '') {
                         return;
@@ -45,19 +43,13 @@
                         }, function (response) {
                             //Proceso la respuesta del webservice
                             if (response === null || !response.login) {
-                                // Hay un error por lo que lo muestro.
-                                // No debería pasar ya que para esto están los interceptors
-                                //$scope.error = response.code;
-                                //$scope.growl(CONFIG.dangerLevel, $scope.error);
-                                console.log("error");
-                                console.log(response);
-                                //Hago logout
+                                // Hay un error por lo que hago logout, por si acaso
                                 KSession.logout(true);
                             } else {
                                 // Generamos la sesión con el token y expiración que me llegan
                                 KSession.login(response.session.access_token, response.session.expire);
-                                console.log("OK");
-                                console.log(response);
+                                $log.debug('Login OK:');
+                                $log.debug(response);
 
                                 // Guardo que estoy logueado
                                 $rootScope.kUserLogged = $scope.login.username;

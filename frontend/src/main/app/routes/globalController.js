@@ -6,7 +6,6 @@
         .controller('GlobalController',
         ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl', 'KGame',
             function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl, KGame) {
-                console.log("Global controller");
                 // Objeto que almacena la información básica. Lo inicializo
                 $scope.global = {};
                 clearGlobalVars();
@@ -28,7 +27,6 @@
                  * @param callback: Función a ejecutar cuando se termine la actualización
                  */
                 function updateGameData(callback) {
-                    console.log("update game data");
                     if (!$scope.global.loaded || !$scope.global.user || !$scope.global.meals || !$scope.global.drinks || !$scope.global.skills) {
                         KGame.getGameData(function (user, meals, drinks, skills) {
                             // Actualizo las variables de información general
@@ -140,7 +138,6 @@
                  * Limpia las variables globales
                  */
                 function clearGlobalVars() {
-                    console.log("Limpio globales");
                     $scope.global = {
                         user: {},
                         meals: {},
