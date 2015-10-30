@@ -4,10 +4,17 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('LoginController',
-        ['$scope', '$location', 'API', 'ROUTES', 'KSession',
-            function ($scope, $location, API, ROUTES, KSession) {
+        ['$scope', '$rootScope', '$location', 'API', 'ROUTES', 'KSession', 'KShare',
+            function ($scope, $rootScope, $location, API, ROUTES, KSession, KShare) {
                 // Limpio variables del controlador global
                 $scope.clearGlobalVars();
+
+                // Compruebo si estoy logueado
+                KSession.authorize(true);
+                // Si ya estoy logueado redirijo a la página home
+                if ($rootScope.kUserLogged !== undefined) {
+                    $location.path(ROUTES.home);
+                }
 
                 $scope.login = {
                     username: '',
@@ -52,7 +59,9 @@
                                 console.log("OK");
                                 console.log(response);
 
-                                $scope.global.loggedIn = true;
+                                // Guardo que estoy logueado
+                                $rootScope.kUserLogged = $scope.login.username;
+
                                 //Voy a la página de validación de login
                                 $location.path(ROUTES.loginValidation);
                             }

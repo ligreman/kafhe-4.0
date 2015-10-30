@@ -6,8 +6,8 @@
 
     //Defino el servicio concreto de sesiones
     authModule.factory('KSession',
-        ['$rootScope', '$cookies', '$location', '$translate', 'CONFIG',
-            function ($rootScope, $cookies, $location, $translate, CONFIG) {
+        ['$rootScope', '$cookies', '$location', '$translate', 'CONFIG', 'ROUTES', 'growl',
+            function ($rootScope, $cookies, $location, $translate, CONFIG, ROUTES, growl) {
                 /**
                  * Genera una cookie de sesión para hacer login
                  * @param token
@@ -31,7 +31,7 @@
                     decoded = decoded.split('#');
 
                     // Actualizo el username en rootScope
-                    $rootScope.kuser = decoded[0];
+                    $rootScope.kUserLogged = decoded[0];
                 };
 
                 /**
@@ -66,7 +66,7 @@
                     $cookies.remove(CONFIG.sessionCookieName);
 
                     //Elimino las variables del rootScope
-                    $rootScope.user = undefined;
+                    $rootScope.kUserLogged = undefined;
 
                     if (error) {
                         //$location.path('/error');
@@ -80,7 +80,7 @@
                 /**
                  * Autoriza una sesión, comprobando si está logueado o no el usuario
                  */
-                var authorize = function () {
+                var authorize = function (cameFromLogin) {
                     //Cojo la cookie
                     var cookie = $cookies.get(CONFIG.sessionCookieName);
 
@@ -91,21 +91,25 @@
                         $location.replace();
 
                         //Mensaje de error de sesión
-                        $translate('errValidUser0001').then(function (translation) {
-                            ngToast.create({
-                                className: 'danger',
-                                content: translation
+                        if (!cameFromLogin) {
+                            $translate('errSessionUtils0001').then(function (translation) {
+                                growl.error(translation, {});
                             });
-                        });
+                        }
                     } else {
                         //Mantengo la sesión si estoy logueado
-                        if ($rootScope.user === undefined) {
+                        if ($rootScope.kUserLogged === undefined) {
                             //Decodifico de la cookie el username
                             var decoded = atob(cookie);
                             decoded = decoded.split('#');
 
                             //Relleno la variable de sesión del usuario
-                            $rootScope.user = decoded[0];
+                            $rootScope.kUserLogged = decoded[0];
+                        }
+
+                        // Si vengo de la página de login, como estoy logueado mando a home
+                        if (cameFromLogin) {
+                            $location.path(ROUTES.home);
                         }
                     }
                 };

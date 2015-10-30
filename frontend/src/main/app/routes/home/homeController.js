@@ -7,6 +7,7 @@
         ['$scope',
             function ($scope) {
                 // Actualizamos los datos si hace falta
+                console.log("Home controller");
                 $scope.updateGameData();
             }]);
 })();
