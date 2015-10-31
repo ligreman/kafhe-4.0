@@ -8,7 +8,7 @@ module.exports = function (mongoose) {
         id: {type: String, unique: true},
         name: String,
         element: String,
-        source: String,
+        source: String, // common, weapon, armor
         uses: Number,
         cost: Number,
         stats: {
