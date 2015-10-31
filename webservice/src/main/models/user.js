@@ -35,7 +35,6 @@ module.exports = function (mongoose) {
                         one: Number,
                         two: Number
                     },
-                    skills: [], //TODO por definir
                     equipped: Boolean
                 }],
                 runes: [{
@@ -63,7 +62,7 @@ module.exports = function (mongoose) {
                         rune: String,
                         tostem: String
                     },
-                    skills: [],
+                    skills: [String],
                     equipped: Boolean
                 }],
                 armors: [{
@@ -78,11 +77,16 @@ module.exports = function (mongoose) {
                         rune: String,
                         tostem: String
                     },
-                    skills: [],
+                    skills: [String],
                     equipped: Boolean
                 }],
                 stones: Number
             },
+            skills: [{
+                id: String,
+                uses_left: Number,
+                blocked: {type: Boolean, default: false}
+            }],
             afk: Boolean,
             last_activity: Number,
             order: {

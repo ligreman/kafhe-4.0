@@ -7,7 +7,7 @@
     <p>
         <label>Comida
             <select ng-model="selection.meal">
-                <option ng-repeat="meal in global.meals" value="{{meal._id}}">{{meal.name}}</option>
+                <option ng-repeat="meal in global.gamedata.meals" value="{{meal._id}}">{{meal.name}}</option>
             </select>
         </label>
     </p>
@@ -15,7 +15,7 @@
     <p>
         <label>Bebida
             <select ng-model="selection.drink">
-                <option ng-repeat="drink in global.drinks" value="{{drink._id}}">{{drink.name}}</option>
+                <option ng-repeat="drink in global.gamedata.drinks" value="{{drink._id}}">{{drink.name}}</option>
             </select>
         </label>
     </p>

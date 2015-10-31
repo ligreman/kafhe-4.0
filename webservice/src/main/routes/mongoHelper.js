@@ -32,12 +32,47 @@ module.exports = function (app) {
     ];
 
     var skills = [
-        {name: 'Ataque de pértiga', element: 'Salchichonio', equipment: 'weapon'},
-        {name: 'Bola de patatas', element: 'Fuego', equipment: 'weapon'},
-        {name: 'Que te pego leche', element: 'Hielo', equipment: 'armor'},
-        {name: 'Jarl', element: 'Escarcha', equipment: 'armor'},
-        {name: 'Mira qué te meto', element: 'Moco', equipment: 'weapon'}
+        {
+            id: 's001',
+            name: 'Ataque de pértiga',
+            element: 'Salchichonio',
+            source: 'weapon',
+            uses: 3,
+            cost: 3,
+            stats: {life: 5}
+        },
+        {
+            id: 's002', name: 'Bola de patatas', element: 'Fuego', source: 'weapon',
+            uses: 3,
+            cost: 3,
+            stats: {protection: 5, parry: 7}
+        },
+        {
+            id: 's003', name: 'Que te pego leche', element: 'Hielo', source: 'armor',
+            uses: 3,
+            cost: 3,
+            stats: {life: 5}
+        },
+        {
+            id: 's004', name: 'Jarl', element: 'Escarcha', source: 'armor',
+            uses: 3,
+            cost: 3,
+            stats: {precision: 5}
+        },
+        {
+            id: 's005', name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
+            uses: 3,
+            cost: 3,
+            stats: {damage: 5, fury: 10}
+        },
+        {
+            id: 's006', name: 'Habilidad común', element: 'Patata', source: 'common',
+            uses: 3,
+            cost: 3,
+            stats: {damage: 5, fury: 10}
+        }
     ];
+
 
     var date = new Date();
     var game = {
@@ -95,7 +130,6 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't002',
@@ -106,7 +140,6 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't003',
@@ -117,7 +150,6 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't004',
@@ -128,7 +160,6 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            skills: [],
                             equipped: false
                         }, {
                             id: 't005',
@@ -139,7 +170,6 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            skills: [],
                             equipped: false
                         }
                     ],
@@ -207,7 +237,7 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: [],
+                            skills: ['s002'],
                             equipped: true
                         }, {
                             id: 'w002',
@@ -221,7 +251,7 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: [],
+                            skills: ['s005'],
                             equipped: false
                         }
                     ],
@@ -237,7 +267,7 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: [],
+                        skills: ['s003'],
                         equipped: true
                     }],
                     stones: 23
@@ -1148,6 +1178,7 @@ module.exports = function (app) {
     app.use('/mongo/fake', pruebaRouter);
 
 
-};
+}
+;
 
 //Use new Aggregate({ $match: { _id: mongoose.Schema.Types.ObjectId('00000000000000000000000a') } }); instead.

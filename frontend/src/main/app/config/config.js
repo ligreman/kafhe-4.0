@@ -21,6 +21,9 @@
                 'errSessionUtils0002', 'errSessionUtils0003', 'errToken0001',
                 'errValidUser0001', 'errValidUser0002', 'errValidUser0003', 'errValidUser0004',
                 'errValidSession0002', 'errNoSession'
-            ]
+            ],
+
+            // CONSTANTES
+            constCommonSkills: 'common'
         });
 })();

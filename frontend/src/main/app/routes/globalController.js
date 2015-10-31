@@ -13,7 +13,7 @@
                 //Idioma seleccionado por el usuario
                 $scope.lang = $translate.use();
 
-                // Métodos públicos
+                /************* MÉTODOS PÚBLICOS ******************/
                 $scope.clearGlobalVars = clearGlobalVars;
                 $scope.updateGameData = updateGameData;
                 $scope.updateUserObject = updateUserObject;
@@ -27,12 +27,12 @@
                  * @param callback: Función a ejecutar cuando se termine la actualización
                  */
                 function updateGameData(callback) {
-                    if (!$scope.global.loaded || !$scope.global.user || !$scope.global.meals || !$scope.global.drinks || !$scope.global.skills) {
+                    if (!$scope.global.loaded || !$scope.global.user || !$scope.global.gamedata.meals || !$scope.global.gamedata.drinks || !$scope.global.gamedata.skills) {
                         KGame.getGameData(function (user, meals, drinks, skills) {
                             // Actualizo las variables de información general
-                            $scope.global.meals = meals;
-                            $scope.global.drinks = drinks;
-                            $scope.global.skills = skills;
+                            $scope.global.gamedata.meals = meals;
+                            $scope.global.gamedata.drinks = drinks;
+                            $scope.global.gamedata.skills = skills;
                             $scope.global.loaded = true;
 
                             // Ahora actualizo y proceso los datos del usuario
@@ -50,36 +50,59 @@
                 }
 
                 /**
-                 * Actualiza el objeto usuario (user) dentro de la variable global
+                 * Actualiza el objeto usuario (user) dentro de la variable global. Realiza además:
+                 * 1. Saca el arma y armadura equipadas
+                 * 2. Recoge las habilidades disponibles
                  */
                 function updateUserObject(user) {
                     $scope.global.user = user;
 
-                    var armaduras = user.game.inventory.armors,
-                        armas = user.game.inventory.weapons,
-                        armaduraEquipada = user.game.equipment.armor,
-                        armaEquipada = user.game.equipment.weapon;
-
-                    // Saco el arma equipada
-                    for (var armaId in armas) {
-                        if (armas.hasOwnProperty(armaId)) {
-                            var arma = armas[armaId];
-
-                            if (arma.id == armaEquipada) {
-                                $scope.global.equipment.weapon = arma;
-                            }
-                        }
+                    // Saco el arma equipado
+                    var selector = ':has(:root > .id:val("' + user.game.equipment.weapon + '"))';
+                    var res = JSONSelect.match(selector, user.game.inventory.weapons);
+                    if (res.length === 1) {
+                        $scope.global.equipment.weapon = res[0];
                     }
 
                     // Saco la armadura equipada
-                    for (var armaduraId in armaduras) {
-                        if (armaduras.hasOwnProperty(armaduraId)) {
-                            var armadura = armaduras[armaduraId];
+                    selector = ':has(:root > .id:val("' + user.game.equipment.armor + '"))';
+                    res = JSONSelect.match(selector, user.game.inventory.armors);
+                    if (res.length === 1) {
+                        $scope.global.equipment.armor = res[0];
+                    }
 
-                            if (armadura.id == armaduraEquipada) {
-                                $scope.global.equipment.armor = armadura;
-                            }
+                    // Saco las habilidades que puedo ejecutar, primero las comunes
+                    selector = ':has(:root > .source:val("' + CONFIG.constCommonSkills + '"))';
+                    res = JSONSelect.match(selector, $scope.global.gamedata.skills);
+                    if (res.length === 1) {
+                        $scope.global.skills.push(res[0]);
+                    }
+
+                    // Ahora saco las habilidades de arma equipada
+                    if ($scope.global.equipment.weapon && $scope.global.equipment.weapon !== '') {
+                        var conjunto = $scope.global.equipment.weapon.skills.map(_generateSelector);
+
+                        selector = ':has(' + conjunto.join(',') + ')';
+                        res = JSONSelect.match(selector, $scope.global.gamedata.skills);
+                        if (res.length === 1) {
+                            $scope.global.skills.push(res[0]);
                         }
+                    }
+
+                    // Ahora saco las habilidades de armadura equipada
+                    if ($scope.global.equipment.armor && $scope.global.equipment.armor !== '') {
+                        var conjunto = $scope.global.equipment.armor.skills.map(_generateSelector);
+
+                        selector = ':has(' + conjunto.join(',') + ')';
+                        res = JSONSelect.match(selector, $scope.global.gamedata.skills);
+                        if (res.length === 1) {
+                            $scope.global.skills.push(res[0]);
+                        }
+                    }
+
+                    // Función para generar cadenas de selectores de este tipo
+                    function _generateSelector(identifier) {
+                        return ':root > .id:val("' + identifier + '")';
                     }
                 }
 
@@ -140,9 +163,12 @@
                 function clearGlobalVars() {
                     $scope.global = {
                         user: {},
-                        meals: {},
-                        drinks: {},
-                        skills: {},
+                        gamedata: {
+                            meals: {},
+                            drinks: {},
+                            skills: {}
+                        },
+                        skills: [],
                         equipment: {},
                         navigation: {},
                         loaded: false

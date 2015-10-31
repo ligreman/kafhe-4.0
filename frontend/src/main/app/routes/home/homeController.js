@@ -7,6 +7,10 @@
         ['$scope',
             function ($scope) {
                 // Actualizamos los datos si hace falta
-                $scope.updateGameData();
+                $scope.updateGameData(afterUpdate);
+
+                function afterUpdate() {
+                }
+
             }]);
 })();

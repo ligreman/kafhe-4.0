@@ -5,9 +5,20 @@ module.exports = function (mongoose) {
 
     //Modelo para las habilidades, coleccion Skills
     var SkillSchema = mongoose.Schema({
+        id: {type: String, unique: true},
         name: String,
         element: String,
-        equipment: String
+        source: String,
+        uses: Number,
+        cost: Number,
+        stats: {
+            life: {type: Number, default: 0},
+            fury: {type: Number, default: 0},
+            damage: {type: Number, default: 0},
+            precision: {type: Number, default: 0},
+            protection: {type: Number, default: 0},
+            parry: {type: Number, default: 0}
+        }
     }, {versionKey: false});
 
     //Declaro y devuelvo el modelo

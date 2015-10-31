@@ -1,7 +1,7 @@
 {
   "author": "Ligreman",
-  "name": "Kafhe 4.0",
-  "version": "1.0.0",
+  "name": "Kafhe",
+  "version": "4.0.0",
   "private": true,
   "devDependencies": {
     "chai": "^2.3.0",
@@ -25,6 +25,7 @@
     "grunt-usemin": "^3.0.0",
     "jscs-stylish": "^0.3.1",
     "jshint-smart": "^0.1.2",
+    "JSONSelect": "^0.4.0",
     "karma": "^0.12.31",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.8",
