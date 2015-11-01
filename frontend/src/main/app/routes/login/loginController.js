@@ -33,13 +33,13 @@
                     }
 
                     // Codifico el password
-                    var SHA1 = new Hashes.SHA1;
+                    var SHA512 = new Hashes.SHA512;
 
                     // pasa como parámetros el usuario y password recogidos del formulario de login
                     API.session()
                         .login({
                             username: $scope.login.username,
-                            password: SHA1.hex($scope.login.password)
+                            password: SHA512.hex($scope.login.password)
                         }, function (response) {
                             //Proceso la respuesta del webservice
                             if (response === null || !response.login) {

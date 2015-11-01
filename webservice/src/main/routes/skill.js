@@ -51,28 +51,37 @@ module.exports = function (app) {
         // El objeto user
         var usuario = req.user;
 
-        // Actualizo el objeto usuario activando el modo furia
-        usuario.game.stats.furyMode = true;
+        // Si ya está activo el modo furia no lo activo de nuevo
+        if (usuario.game.stats.fury_mode) {
+            console.log("Ya estas furioso");
+            res.json({
+                "data": {"user": usuario},
+                "session": {"access_token": req.authInfo.access_token, "expire": 1000 * 60 * 60 * 24 * 30},
+                "error": ""
+            });
+        } else {
+            // Actualizo el objeto usuario activando el modo furia
+            usuario.game.stats.fury_mode = true;
 
-        // Guardo el usuario
-        usuario.save(function (err, product, numAffected) {
-            console.log(product);
-            console.log("Afecto: " + numAffected);
-            if (err) {
-                res.redirect('/error');
-            } else {
-                res.json({
-                    "data": {
-                        "user": usuario
-                    },
-                    "session": {
-                        "access_token": req.authInfo.access_token,
-                        "expire": 1000 * 60 * 60 * 24 * 30
-                    },
-                    "error": ""
-                });
-            }
-        });
+            // Guardo el usuario
+            usuario.save(function (err) {
+                if (err) {
+                    console.tag('MONGO').error(err);
+                    res.redirect('/error');
+                } else {
+                    res.json({
+                        "data": {
+                            "user": usuario
+                        },
+                        "session": {
+                            "access_token": req.authInfo.access_token,
+                            "expire": 1000 * 60 * 60 * 24 * 30
+                        },
+                        "error": ""
+                    });
+                }
+            });
+        }
     });
 
     // Asigno los router a sus rutas

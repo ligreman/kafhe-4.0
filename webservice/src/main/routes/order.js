@@ -59,7 +59,21 @@ module.exports = function (app) {
     });
 
     /**
-     * POST /
+     * POST /order/delete
+     * Elimina el pedido del usuario.
+     */
+    orderRouter.post('/delete', function (req, res, next) {
+        var user = req.user;
+
+        user.game.order.meal = null;
+        user.game.order.drink = null;
+        user.game.order.ito = null;
+
+        user.save
+    });
+
+    /**
+     * POST /order
      * Crea un pedido nuevo para el usuario. Necesita 3 parámetros por POST-JSON:
      * meal: id del meal; drink:idDrink; ito: boolean
      */
@@ -69,6 +83,7 @@ module.exports = function (app) {
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
         if (!order.meal || !order.drink || order.ito === undefined) {
+            console.tag('PARAMS').error('Faltan parámetros en la petición');
             res.redirect('/error');
         }
 
@@ -77,44 +92,36 @@ module.exports = function (app) {
             models.Meal.findById(order.meal).exec(),
             models.Drink.findById(order.drink).exec()
         ]).spread(function (newMeal, newDrink) {
-
             if (newMeal && newDrink) {
                 // Actualizo el pedido del usuario con los nuevos objetos
                 user.game.order.meal = newMeal;
                 user.game.order.drink = newDrink;
                 user.game.order.ito = order.ito;
 
-                models.User.update({"username": user.username},
-                    {
-                        $set: {
-                            "game.order.meal": order.meal,
-                            "game.order.drink": order.drink,
-                            "game.order.ito": order.ito
-                        }
-                    },
-                    function (err, raw) {
-                        if (err) {
-                            res.redirect('/error');
-                        } else {
-                            //console.log(req.authInfo);
-                            //console.log(user);
-                            res.json({
-                                "data": {
-                                    "user": user
-                                },
-                                "session": {
-                                    "access_token": req.authInfo.access_token,
-                                    "expire": 1000 * 60 * 60 * 24 * 30
-                                },
-                                "error": ""
-                            });
-                        }
-                    });
+                user.save(function (err, newOrder, numAffected) {
+                    if (err) {
+                        console.tag('MONGO').error(err);
+                        res.redirect('/error');
+                    } else {
+                        res.json({
+                            "data": {
+                                "user": user
+                            },
+                            "session": {
+                                "access_token": req.authInfo.access_token,
+                                "expire": 1000 * 60 * 60 * 24 * 30
+                            },
+                            "error": ""
+                        });
+                    }
+                });
             } else {
+                console.error('No ha llegado el newMeal o newDrink');
                 res.redirect('/error');
             }
 
         }, function (error) {
+            console.tag('MONGO').error(error);
             res.redirect('/error');
         });
     });

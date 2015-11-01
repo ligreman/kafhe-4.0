@@ -13,6 +13,7 @@ module.exports = function (app) {
     require('./user')(app);
     require('./skill')(app);
     require('./order')(app);
+    require('./profile')(app);
     require('./mongoHelper')(app);
 
     //Fichero de rutas de error

@@ -102,7 +102,7 @@ function generateToken(username) {
     token = base64.encode(token);
 
     //Hasheo el username y token
-    var shasum = crypto.createHash('sha1');
+    var shasum = crypto.createHash('sha512');
     shasum.update(username + token);
 
     token = shasum.digest('hex');

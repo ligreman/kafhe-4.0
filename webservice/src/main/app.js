@@ -1,11 +1,12 @@
 'use strict';
 
 //Cargo los módulos que voy a usar y los inicializo
-var express  = require('express'),
-    cors     = require('cors'),
-    app      = express(),
-    mongoose = require('mongoose'),
-    Q        = require('q');
+var express   = require('express'),
+    cors      = require('cors'),
+    app       = express(),
+    validator = require('validator'),
+    mongoose  = require('mongoose'),
+    Q         = require('q');
 
 var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     serverHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
@@ -62,6 +63,11 @@ mongoose.set('debug', true);
 //Cargo las rutas y estrategias
 require('./routes/routes')(app);
 
+
+// Configuro los validadores propios
+validator.extend('isValidString', function (str) {
+    return /^[a-zA-Z0-9ñáéíóúÁÉÍÓÚüÜ\-_ ]+$/.test(str);
+});
 
 //Configuración de los middleware de la aplicación
 //app.use(bodyParser.urlencoded({extended: false}));

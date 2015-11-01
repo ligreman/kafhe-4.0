@@ -94,7 +94,7 @@ module.exports = function (app) {
                     // Devolveré la información del usuario
                     models.User
                         .findOne({"username": sessionData.username})
-                        .select('-_id')
+                        //.select('-_id') // Si lo activo, luego no puedo hacer save
                         .populate('game.gamedata game.order.meal game.order.drink game.lastOrder.meal game.lastOrder.drink')
                         .exec(function (error, user) {
                             if (error) {
