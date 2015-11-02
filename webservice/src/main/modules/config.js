@@ -1,9 +1,9 @@
 'use strict';
 
-const A = 2;
+const DEFAULT_PASSWORD = '1234';
 
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
-    A: A
+    DEFAULT_PASSWORD: DEFAULT_PASSWORD
 };
 
