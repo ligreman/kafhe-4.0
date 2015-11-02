@@ -47,7 +47,8 @@ module.exports = function (app) {
             .select('-_id username alias avatar game.afk game.stats.reputation game.level')
             .exec(function (error, playerList) {
                 if (error) {
-                    res.redirect('/error');
+                    console.tag('MONGO').error(error);
+                    res.redirect('/error/errUserListNotFound');
                     return;
                 }
 

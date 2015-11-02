@@ -34,7 +34,8 @@ module.exports = function (app) {
             .populate('game.order.meal game.order.drink')
             .exec(function (error, playerList) {
                 if (error) {
-                    res.redirect('/error');
+                    console.tag('MONGO').error(error);
+                    res.redirect('/error/errOrderList');
                     return;
                 }
 
@@ -70,7 +71,24 @@ module.exports = function (app) {
         user.game.order.drink = null;
         user.game.order.ito = null;
 
-        user.save
+        user.save(function (err) {
+            if (err) {
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errMongoSave');
+                return;
+            } else {
+                res.json({
+                    "data": {
+                        "user": usuario
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
+                });
+            }
+        });
     });
 
     /**
@@ -84,8 +102,8 @@ module.exports = function (app) {
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
         if (!order.meal || !order.drink || order.ito === undefined) {
-            console.tag('PARAMS').error('Faltan parámetros en la petición');
-            res.redirect('/error');
+            console.tag('ORDER-NEW').error('Faltan parámetros en la petición');
+            res.redirect('/error/errOrderNewParams');
             return;
         }
 
@@ -103,7 +121,7 @@ module.exports = function (app) {
                 user.save(function (err, newOrder, numAffected) {
                     if (err) {
                         console.tag('MONGO').error(err);
-                        res.redirect('/error');
+                        res.redirect('/error/errMongoSave');
                         return;
                     } else {
                         res.json({
@@ -119,14 +137,14 @@ module.exports = function (app) {
                     }
                 });
             } else {
-                console.error('No ha llegado el newMeal o newDrink');
-                res.redirect('/error');
+                console.tag('ORDER-NEW').error('No ha llegado el newMeal o newDrink');
+                res.redirect('/error/errOrderNewUnknown');
                 return;
             }
 
         }, function (error) {
             console.tag('MONGO').error(error);
-            res.redirect('/error');
+            res.redirect('/error/errOrderNewNotFound');
             return;
         });
     });
@@ -139,7 +157,8 @@ module.exports = function (app) {
         //Proceso y devuelvo los resultados
         var answer = function (meals, drinks) {
             if (!meals || !drinks) {
-                res.redirect('/error');
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errOrderAllNotFound');
                 return;
             } else {
                 res.json({

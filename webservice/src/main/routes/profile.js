@@ -26,24 +26,34 @@ module.exports = function (app) {
     profileRouter.post('/', function (req, res, next) {
         // El objeto user
         var usuario = req.user,
-            params  = req.body;
+            params  = req.body,
+            changes = false;
 
         // Actualizo los campos del usuario
         if (params.password && validator.isHexadecimal(params.password) && params.password.length === 128) {
             usuario.password = params.password;
+            changes = true;
         }
         if (params.alias && validator.isValidString(params.alias) && validator.isLength(params.alias, 3, 30)) {
             usuario.alias = params.alias;
+            changes = true;
         }
         if (params.avatar && validator.isURL(params.avatar, {protocols: ['http', 'https'], require_protocol: true})) {
             usuario.avatar = params.avatar;
+            changes = true;
+        }
+
+        if (!changes) {
+            console.tag('PROFILE-SAVE').error('No hay datos válidos que actualizar');
+            res.redirect('/error/errProfileNoValidData');
+            return;
         }
 
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error');
+                res.redirect('/error/errMongoSave');
                 return;
             } else {
                 res.json({

@@ -134,7 +134,8 @@ module.exports = function (app) {
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {
-                res.redirect('/error');
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errMongoSave');
                 return;
             } else {
                 res.json({
@@ -248,7 +249,8 @@ module.exports = function (app) {
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {
-                res.redirect('/error');
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errMongoSave');
                 return;
             } else {
                 res.json({

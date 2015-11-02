@@ -25,7 +25,8 @@ module.exports = function (app) {
         models.Skill.find({})
             .exec(function (error, skills) {
                 if (error) {
-                    res.redirect('/error');
+                    console.tag('MONGO').error(error);
+                    res.redirect('/error/errSkillListNotFound');
                     return;
                 }
 
@@ -54,12 +55,9 @@ module.exports = function (app) {
 
         // Si ya está activo el modo furia no lo activo de nuevo
         if (usuario.game.stats.fury_mode) {
-            console.log("Ya estas furioso");
-            res.json({
-                "data": {"user": usuario},
-                "session": {"access_token": req.authInfo.access_token, "expire": 1000 * 60 * 60 * 24 * 30},
-                "error": ""
-            });
+            console.tag('FURY').error('Ya estaba activo el modo furia');
+            res.redirect('/error/errFuryAlreadyActive');
+            return;
         } else {
             // Actualizo el objeto usuario activando el modo furia
             usuario.game.stats.fury_mode = true;
@@ -68,7 +66,7 @@ module.exports = function (app) {
             usuario.save(function (err) {
                 if (err) {
                     console.tag('MONGO').error(err);
-                    res.redirect('/error');
+                    res.redirect('/error/errMongoSave');
                     return;
                 } else {
                     res.json({

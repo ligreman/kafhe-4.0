@@ -1,3 +1,14 @@
 errEquip001 - No he encontrado el objeto a equipar en el inventario
 errEquip002 - No puedo equipar el objeto porque ya tengo equipado algo en ese hueco (arma/armadura)
 errEquipDestroy001 - No he encontrado el objeto a destruir
+errMongoSave - Error al salvar un objeto en Mongo
+errLogout - Error al salir
+errOrderList - Error obteniendo la lista de usuarios con sus pedidos
+errOrderNewParams - Error al hacer nuevo pedido ya que faltan parámetros
+errOrderNewUnknown - Error inesperado ya que no viene el meal o drink que se quiere pedir
+errOrderNewNotFound - No se ha encontrado el meal o drink que se quiere pedir
+errOrderAllNotFound - Error al buscar las meals o drinks en Mongo
+errProfileNoValidData - No había datos válidos de perfil que actualizar
+errSkillListNotFound - Error al buscar la lista de habilidades del juego
+errFuryAlreadyActive - Ya estaba activado el modo furia
+errUserListNotFound - Error al buscar la lista de usuarios de la partida

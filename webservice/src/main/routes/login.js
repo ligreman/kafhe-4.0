@@ -25,10 +25,6 @@ module.exports = function (app) {
      * Si se hace login correctamente, pasará aquí
      */
     loginRouter.post('/', function (req, res, next) {
-        console.log("POST");
-        console.log(req.user);
-        console.log(req.authInfo);
-
         res.json({
             "login": true,
             //"user": req.user,
@@ -65,9 +61,8 @@ module.exports = function (app) {
                     "error": ""
                 });
             }, function (error) {
-                console.error('Error haciendo logout: ' + error);
-                //return done(null, false, {message: 'Error al salir de la aplicación'});
-                res.redirect('/error');
+                console.tag('MONGO').error(error);
+                res.redirect('/error/errLogout');
                 return;
             });
     });

@@ -14,27 +14,22 @@ module.exports = function (app) {
     // Estrategia Local de Passport - Se usa para hacer login
     passport.use(new LocalStrategy(
         function (username, password, done) {
-            console.log("strategy");
             models.User.findOne({"username": username}, 'username password', function (err, user) {
-                console.log("MONGOSEADO");
-                console.log('Error: ' + err);
-                console.log(user);
-
+                // Compruebo si hay errores
                 if (err) {
-                    console.log("ERROR: " + err);
+                    console.tag('PASSPORT-LOCAL').error('ERROR: ' + err);
                     return done(err);
                 }
 
                 if (!user) {
-                    console.log("USERNAME malo");
+                    console.tag('PASSPORT-LOCAL').info('No se ha encontrado el username');
                     return done(null, false);
                 }
-                console.log("Miro si pass es correcto");
 
                 //Comparo con la de Mongo
                 if (password === user.password) {
                     //Login correcto
-                    console.log('Login OK');
+                    console.tag('PASSPORT-LOCAL').info('Login correcto');
 
                     /**
                      * Lo primero de todo es una función que devuelva el parámetro de la primera async que quiero ejecutar.
@@ -49,17 +44,15 @@ module.exports = function (app) {
                         .then(sessionUtils.deleteSessions)
                         .then(sessionUtils.createSession)
                         .done(function (access_token) {
-                            console.log('Devuelvo el token de acceso: ' + access_token);
-
                             //Hago un return que resuelve el return general al ser el último
                             return done(null, user, {"access_token": access_token});
                         }, function (error) {
                             // We get here if any fails
-                            console.error('Error creando la sesion del usuario: ' + error);
+                            console.tag('PASSPORT-LOCAL').error('Error creando la sesion del usuario: ' + error);
                             return done(null, false);
                         });
                 } else {
-                    console.log('PASSWORD malo');
+                    console.tag('PASSPORT-LOCAL').info('El password es incorrecto');
                     return done(null, false);
                 }
             });
@@ -71,10 +64,11 @@ module.exports = function (app) {
         function (access_token, done) {
             // Proceso el access_token para extraer el username y el token de autenticación
             var sessionData = sessionUtils.extractSessionFromAccessToken(access_token);
-            console.tag('datos sesion').log(sessionData);
+
             //Si pasa algún error
             if (!sessionData) {
                 //Falla ya que no pude extraer la sesión. Envío un false y mensaje de error
+                console.tag('PASSPORT-BEARER').info('Token de sesión no válido');
                 return done(null, false, {message: 'El token de sesión no es válido'});
             }
 
@@ -83,13 +77,12 @@ module.exports = function (app) {
                 "token": sessionData.token
             }, function (err, session) {
                 if (err) {
-                    console.log('ERROR: ' + err);
+                    console.tag('PASSPORT-BEARER').error('ERROR: ' + err);
                     return done(err);
                 }
 
                 if (session) {
-                    console.log('Login BIEN');
-                    //return done(null, session);
+                    console.tag('PASSPORT-BEARER').info('Sesión correcta');
 
                     // Devolveré la información del usuario
                     models.User
@@ -98,17 +91,19 @@ module.exports = function (app) {
                         .populate('game.gamedata game.order.meal game.order.drink game.lastOrder.meal game.lastOrder.drink')
                         .exec(function (error, user) {
                             if (error) {
+                                console.tag('PASSPORT-BEARER').error('Error obteniendo la información del usuario: ' + error);
                                 return done(error);
                             }
                             if (user) {
                                 return done(null, user, {"access_token": access_token});
                             } else {
-                                return done(null, false, {message: 'No existe el token'});
+                                console.tag('PASSPORT-BEARER').error('Error al buscar la información del usuario');
+                                return done(null, false, {message: 'No existe esa sesión'});
                             }
                         });
                 } else {
-                    console.log('TOKEN malo');
-                    return done(null, false, {message: 'No existe el token'});
+                    console.tag('PASSPORT-BEARER').error('Token de sesión incorrecto, no existe');
+                    return done(null, false, {message: 'Token de sesión incorrecto'});
                 }
             });
         }
