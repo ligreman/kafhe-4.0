@@ -9,4 +9,5 @@ module.exports = function (mongoose) {
     require('./skill')(mongoose);
     require('./game')(mongoose);
     require('./user')(mongoose);
+    require('./admin')(mongoose);
 };

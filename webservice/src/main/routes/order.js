@@ -79,7 +79,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario
+                        "user": user
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,

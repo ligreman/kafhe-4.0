@@ -7,12 +7,16 @@ module.exports = function (app) {
         passport     = require('passport'),
         events       = require('events'),
         eventEmitter = new events.EventEmitter(),
-        pruebaRouter = express.Router(),
+        mongoRouter  = express.Router(),
         mongoose     = require('mongoose'),
         utils        = require('../modules/utils'),
         models       = require('../models/models')(mongoose);
 
     // Modelos
+    var admins = [
+        {username: "admin", password: "admin"}
+    ];
+
     var meals = [
         {name: 'Plátano', ito: false},
         {name: 'Bocata', ito: true},
@@ -1056,13 +1060,28 @@ module.exports = function (app) {
         }
     ];
 
+    // ROUTER
+    mongoRouter.get('/', function (req, res, next) {
+        console.log('Inicio');
+        models.Admin.remove({}, function (err) {
+            //Meto los nuevos valores
+            models.Admin.create(admins, function (err, admins) {
+                eventEmitter.emit('#1', res);
+            });
+        });
+    });
 
-    pruebaRouter.get('/', function (req, res, next) {
+    //eventEmitter.setMaxListeners(20);
+    //console.log('Listeners: ' + eventEmitter.getMaxListeners());
+
+    //Eventos
+    eventEmitter.on('#1', function (res) {
+        console.log('#1');
         //Limpio la colección antes
         models.Meal.remove({}, function (err) {
             //Meto los nuevos valores
             models.Meal.create(meals, function (err, meals) {
-                //res.json({"mongo": true, meals: meals});
+                console.log("Emit #2");
                 eventEmitter.emit('#2', {
                     res: res,
                     meals: meals
@@ -1072,8 +1091,8 @@ module.exports = function (app) {
         });
     });
 
-    //Eventos
-    eventEmitter.once('#2', function (data) {
+    eventEmitter.on('#2', function (data) {
+        console.log('#2');
         models.Drink.remove({}, function (err) {
             //Meto los nuevos valores
             models.Drink.create(drinks, function (err, drinks) {
@@ -1088,7 +1107,8 @@ module.exports = function (app) {
         });
     });
 
-    eventEmitter.once('#3', function (data) {
+    eventEmitter.on('#3', function (data) {
+        console.log('#3');
         models.Skill.remove({}, function (err) {
             //Meto los nuevos valores
             models.Skill.create(skills, function (err, skills) {
@@ -1104,7 +1124,8 @@ module.exports = function (app) {
         });
     });
 
-    eventEmitter.once('#4', function (data) {
+    eventEmitter.on('#4', function (data) {
+        console.log('#4');
         models.Game.remove({}, function (err) {
             console.log(err);
             //Meto los nuevos valores
@@ -1123,7 +1144,8 @@ module.exports = function (app) {
         });
     });
 
-    eventEmitter.once('#5', function (data) {
+    eventEmitter.on('#5', function (data) {
+        console.log('#5');
         models.User.remove({}, function (err) {
             console.log(err);
             //Meto los nuevos valores
@@ -1143,7 +1165,8 @@ module.exports = function (app) {
         });
     });
 
-    eventEmitter.once('#6', function (data) {
+    eventEmitter.on('#6', function (data) {
+        console.log('#6');
         var arrPla = [];
 
         data.users.forEach(function (user) {
@@ -1159,7 +1182,8 @@ module.exports = function (app) {
         });
     });
 
-    eventEmitter.once('#7', function (data) {
+    eventEmitter.on('#7', function (data) {
+        console.log('#7');
         models.User.update({}, {
             $set: {
                 "game.gamedata": data.game._id,
@@ -1175,7 +1199,7 @@ module.exports = function (app) {
     });
 
     // Asigno los router a sus rutas
-    app.use('/mongo/fake', pruebaRouter);
+    app.use('/mongo/fake', mongoRouter);
 
 
 }

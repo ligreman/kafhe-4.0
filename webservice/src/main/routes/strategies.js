@@ -6,6 +6,7 @@ module.exports = function (app) {
     var passport       = require('passport'),
         LocalStrategy  = require('passport-local').Strategy,
         BearerStrategy = require('passport-http-bearer').Strategy,
+        BasicStrategy  = require('passport-http').BasicStrategy,
         mongoose       = require('mongoose'),
         sessionUtils   = require('../modules/sessionUtils'),
         Q              = require('q'),
@@ -109,7 +110,37 @@ module.exports = function (app) {
         }
     ));
 
-    //Middleware para que se inicialice el passport
+    // Estrategia Basic de HTTP para la sección de administración
+    passport.use(new BasicStrategy(
+        function (userid, password, done) {
+            console.log("BASIC: " + userid + ' ' + password);
+            models.Admin.findOne({"username": userid}, 'username password', function (err, admin) {
+                // Compruebo si hay errores
+                if (err) {
+                    console.tag('PASSPORT-BASIC').error('ERROR: ' + err);
+                    return done(err);
+                }
+
+                if (!admin) {
+                    console.tag('PASSPORT-BASIC').info('No se ha encontrado el username');
+                    return done(null, false);
+                }
+
+                //Comparo con la de Mongo
+                if (password === admin.password) {
+                    //Login correcto
+                    console.tag('PASSPORT-BASIC').info('Login de admin correcto');
+
+                    return done(null, admin);
+                } else {
+                    console.tag('PASSPORT-BASIC').info('El password es incorrecto');
+                    return done(null, false);
+                }
+            });
+        }
+    ));
+
+    // Middleware para que se inicialice el passport
     app.use(passport.initialize());
 }
 ;

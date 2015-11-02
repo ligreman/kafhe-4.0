@@ -11,6 +11,7 @@ module.exports = function (app) {
     //Cargo los diferentes ficheros de rutas
     require('./login')(app);
     require('./user')(app);
+    require('./admin')(app);
     require('./skill')(app);
     require('./order')(app);
     require('./profile')(app);
