@@ -76,29 +76,26 @@ validator.extend('isValidString', function (str) {
 
 
 //Capturo los errores no controlados para devolver un json de error al usuario (esto ha de ser el último .use de todos)
-app.use(function (err, req, res, next) {
-    console.error(err);
-    var msg = 'SERVER ERROR',
-        error;
+// TODO mirar esto de los errores si puedo loggearlos, porque esto se los zampa
+/*app.use(function (err, req, res, next) {
+ console.error(err);
+ var msg = 'SERVER ERROR',
+ error;
 
-    try {
-        error = JSON.parse(err);
-        console.log("ll:");
-        console.log(error);
-    } catch (error) {
-        console.log("E:" + error);
-    }
+ try {
+ console.log(err);
+ error = JSON.parse(err);
+ console.log(error);
+ } catch (error) {
+ console.log("E: " + error);
+ }
 
-    if (error && error.json) {
-        console.log("json");
-        msg = error.json;
-    }
+ if (error && error.json) {
+ console.log("json");
+ msg = error.json;
+ }
 
-    res.status(500).send(msg);
-});
-//Si salta alguna excepción rara, saco error en vez de cerrar la aplicación. Creo que es redundante con el anterior
-/*process.on('uncaughtException', function (err) {
- console.log("ERROR - " + err);
+ res.status(500).send(msg);
  });*/
 
 //Controlamos el cierre para desconectar mongo

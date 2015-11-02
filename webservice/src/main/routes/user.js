@@ -48,6 +48,7 @@ module.exports = function (app) {
             .exec(function (error, playerList) {
                 if (error) {
                     res.redirect('/error');
+                    return;
                 }
 
                 res.json({

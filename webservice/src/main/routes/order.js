@@ -35,6 +35,7 @@ module.exports = function (app) {
             .exec(function (error, playerList) {
                 if (error) {
                     res.redirect('/error');
+                    return;
                 }
 
                 var pedidos = [];
@@ -85,6 +86,7 @@ module.exports = function (app) {
         if (!order.meal || !order.drink || order.ito === undefined) {
             console.tag('PARAMS').error('Faltan parámetros en la petición');
             res.redirect('/error');
+            return;
         }
 
         // Consulto a Mongo a ver si existen
@@ -102,6 +104,7 @@ module.exports = function (app) {
                     if (err) {
                         console.tag('MONGO').error(err);
                         res.redirect('/error');
+                        return;
                     } else {
                         res.json({
                             "data": {
@@ -118,11 +121,13 @@ module.exports = function (app) {
             } else {
                 console.error('No ha llegado el newMeal o newDrink');
                 res.redirect('/error');
+                return;
             }
 
         }, function (error) {
             console.tag('MONGO').error(error);
             res.redirect('/error');
+            return;
         });
     });
 
@@ -135,6 +140,7 @@ module.exports = function (app) {
         var answer = function (meals, drinks) {
             if (!meals || !drinks) {
                 res.redirect('/error');
+                return;
             } else {
                 res.json({
                     "data": {

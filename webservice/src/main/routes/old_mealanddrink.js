@@ -3,11 +3,11 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
+    var express    = require('express'),
         mealRouter = express.Router(),
-        Q = require('q'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        Q          = require('q'),
+        mongoose   = require('mongoose'),
+        models     = require('../models/models')(mongoose);
 
     //**************** MEAL ROUTER **********************
     /**
@@ -19,6 +19,7 @@ module.exports = function (app) {
         var answer = function (meals, drinks) {
             if (!meals || !drinks) {
                 res.redirect('/error');
+                return;
             } else {
                 res.json({
                     "data": {

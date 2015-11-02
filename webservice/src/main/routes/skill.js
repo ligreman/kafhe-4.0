@@ -26,6 +26,7 @@ module.exports = function (app) {
             .exec(function (error, skills) {
                 if (error) {
                     res.redirect('/error');
+                    return;
                 }
 
                 res.json({
@@ -68,6 +69,7 @@ module.exports = function (app) {
                 if (err) {
                     console.tag('MONGO').error(err);
                     res.redirect('/error');
+                    return;
                 } else {
                     res.json({
                         "data": {

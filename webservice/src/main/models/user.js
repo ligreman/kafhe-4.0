@@ -22,8 +22,8 @@ module.exports = function (mongoose) {
                 action_points: Number
             },
             equipment: {
-                weapon: String,
-                armor: String
+                weapon: {type: String, default: null},
+                armor: {type: String, default: null}
             },
             inventory: {
                 tostems: [{

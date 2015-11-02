@@ -117,7 +117,7 @@ module.exports = function (app) {
                 },
                 equipment: {
                     weapon: 'w001',
-                    armor: 'a001'
+                    armor: null
                 },
                 inventory: {
                     tostems: [
@@ -140,7 +140,7 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            equipped: true
+                            equipped: false
                         }, {
                             id: 't003',
                             type: 'earth',
@@ -150,7 +150,7 @@ module.exports = function (app) {
                                 one: 12,
                                 two: 43
                             },
-                            equipped: true
+                            equipped: false
                         }, {
                             id: 't004',
                             type: 'water',
@@ -197,7 +197,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            equipped: false
                         }, {
                             id: 'r003',
                             type: 'steel',
@@ -209,7 +209,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            equipped: false
                         }, {
                             id: 'r004',
                             type: 'mithril',
@@ -268,7 +268,7 @@ module.exports = function (app) {
                             tostem: 't003'
                         },
                         skills: ['s003'],
-                        equipped: true
+                        equipped: false
                     }],
                     stones: 23
                 },

@@ -68,6 +68,7 @@ module.exports = function (app) {
                 console.error('Error haciendo logout: ' + error);
                 //return done(null, false, {message: 'Error al salir de la aplicación'});
                 res.redirect('/error');
+                return;
             });
     });
 
