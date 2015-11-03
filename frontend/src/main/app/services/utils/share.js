@@ -18,7 +18,7 @@
              * @returns el valor
              */
             var getData = function (key) {
-                return data.key;
+                return data[key];
             };
 
             /**
@@ -27,7 +27,7 @@
              * @param dato valor
              */
             var setData = function (key, dato) {
-                data.key = dato;
+                data[key] = dato;
             };
 
             /**
@@ -35,7 +35,7 @@
              * @param key
              */
             var deleteData = function (key) {
-                delete data.key;
+                delete data[key];
             };
 
             /**
