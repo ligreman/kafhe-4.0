@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         adminRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        config      = require('../modules/config'),
-        crypto      = require('crypto'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        bodyParser = require('body-parser'),
+        config = require('../modules/config'),
+        crypto = require('crypto'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
@@ -63,7 +63,7 @@ module.exports = function (app) {
      */
     adminRouter.post('/user/new', function (req, res, next) {
         var params = req.body,
-            alias  = null;
+            alias = null;
 
         if (!params.username) {
             console.tag('ADMIN-USER-NEW').error('No se ha proporcionado el nombre de usuario a crear');
@@ -87,7 +87,6 @@ module.exports = function (app) {
             alias: alias
         });
 
-
         user.save(function (err) {
             if (err) {
                 console.tag('ADMIN-MONGO').error(err);
@@ -106,6 +105,87 @@ module.exports = function (app) {
             }
         });
     });
+
+    /**
+     * POST /admin/game/new
+     * Crea una nueva partida con una lista de usuarios
+     */
+    adminRouter.post('/game/new', function (req, res, next) {
+        var params = req.body,
+            userIds = params.users,
+            usersObjectId = [],
+            repeat = params.repeat;
+
+        // Creo un objeto partida nuevo
+        var game = new models.Game({
+            repeat: repeat,
+            players: userIds
+        });
+
+        game.save(function (err) {
+            if (err) {
+                console.tag('ADMIN-MONGO').error(err);
+                res.redirect('/error/errMongoSave');
+                return;
+            } else {
+                // Ahora actualizo los usuarios
+                saveUsers(gameId);
+
+            }
+        });
+
+        // A cada usuario le pongo el campo game nuevo
+        // y le quito de la partida en que esté actualmente, si es que está en una
+
+
+        // Función que guarda los resultados en mongo
+        function saveUsers(gameId) {
+            var promises = [];
+            userIds.forEach(function(idUser){
+                promises.push(userPromise(idUser));
+            });
+
+            // Lanzo la actualización de los usuarios
+            Q.allSettled(promises)
+                .then(function (users) {
+
+                });
+        }
+
+        // Función que crea un promise
+        function userPromise(userId) {
+            var deferred = Q.defer();
+
+            // A su vez llama a dos funciones asíncronas de mongo
+            // para limpiar su campo Game y para eliminarlo de la partida actual
+            Q.fcall(
+                function () {
+                    return userId;
+                })
+                .then(findUser) //TODO ver como iba eso del mongoose
+                .then(removeUserFromGame)
+                .done(function (access_token) {
+                    deferred.resolve(text);
+                }, function (error) {
+                    // We get here if any fails
+                    console.tag('ADMIN-NEW-GAME').error('Error actualizando usuarios: ' + error);
+                    deferred.reject(new Error(error));
+                });
+
+            return deferred.promise;
+        }
+
+        //TODO meter esto en un modulo de usuarios o algo así
+        function findUser(userId) {
+            var deferred = Q.defer();
+
+        }
+
+        function removeUserFromGame(userId) {
+            var deferred = Q.defer();
+        }
+    });
+
 
     // Asigno los router a sus rutas
     app.use('/admin', adminRouter);

@@ -6,8 +6,8 @@ module.exports = function (mongoose) {
     //Modelo para los usuarios, coleccion Games
     var GameSchema = mongoose.Schema({
         repeat: Boolean,
-        status: Number,
-        caller: {type: mongoose.Schema.Types.ObjectId},
+        status: {type: Number, default: 0},
+        caller: {type: mongoose.Schema.Types.ObjectId, default: null},
         players: [{type: mongoose.Schema.Types.ObjectId}],
         notifications: [{
             message: String,
