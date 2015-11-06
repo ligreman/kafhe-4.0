@@ -3,6 +3,26 @@
 //Módulo para un modelo de Mongoose. Hay que pasarle el objeto mongoose ya creado antes.
 module.exports = function (mongoose) {
 
+    // Modelo para las habilidades de armas y armaduras
+    var ObjectSkillSchema = mongoose.Schema({
+        id: String,
+        name: String,
+        element: String,
+        level: Number,
+        source: String, // common, weapon, armor
+        uses: Number,
+        cost: Number,
+        stats: {
+            life: {type: Number, default: 0},
+            fury: {type: Number, default: 0},
+            damage: {type: Number, default: 0},
+            precision: {type: Number, default: 0},
+            protection: {type: Number, default: 0},
+            parry: {type: Number, default: 0}
+        },
+        blocked: {type: Boolean, default: false}
+    });
+
     //Modelo para los usuarios, coleccion Users
     var UserSchema = mongoose.Schema({
         username: {type: String, unique: true, required: true},
@@ -31,10 +51,6 @@ module.exports = function (mongoose) {
                     type: {type: String},
                     level: Number,
                     frecuency: String,
-                    stats: {
-                        one: Number,
-                        two: Number
-                    },
                     equipped: Boolean
                 }],
                 runes: [{
@@ -54,7 +70,7 @@ module.exports = function (mongoose) {
                     id: String,
                     name: String,
                     frecuency: String,
-                    stats: {
+                    base_stats: {
                         damage: Number,
                         precision: Number
                     },
@@ -62,14 +78,14 @@ module.exports = function (mongoose) {
                         rune: String,
                         tostem: String
                     },
-                    skills: [String],
+                    skills: [ObjectSkillSchema],
                     equipped: Boolean
                 }],
                 armors: [{
                     id: String,
                     name: String,
                     frecuency: String,
-                    stats: {
+                    base_stats: {
                         protection: Number,
                         parry: Number
                     },
@@ -77,16 +93,11 @@ module.exports = function (mongoose) {
                         rune: String,
                         tostem: String
                     },
-                    skills: [String],
+                    skills: [ObjectSkillSchema],
                     equipped: Boolean
                 }],
                 stones: Number
             },
-            skills: [{
-                id: String,
-                uses_left: Number,
-                blocked: {type: Boolean, default: false}
-            }],
             afk: Boolean,
             last_activity: Number,
             order: {

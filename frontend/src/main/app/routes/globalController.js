@@ -91,9 +91,9 @@
 
                     // Ahora saco las habilidades de armadura equipada
                     if ($scope.global.equipment.armor && $scope.global.equipment.armor !== '') {
-                        var conjunto = $scope.global.equipment.armor.skills.map(_generateSelector);
+                        var conjunto2 = $scope.global.equipment.armor.skills.map(_generateSelector);
 
-                        selector = ':has(' + conjunto.join(',') + ')';
+                        selector = ':has(' + conjunto2.join(',') + ')';
                         res = JSONSelect.match(selector, $scope.global.gamedata.skills);
                         if (res.length === 1) {
                             $scope.global.skills.push(res[0]);
