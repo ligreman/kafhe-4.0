@@ -37,7 +37,6 @@ module.exports = function (app) {
 
     var skills = [
         {
-            id: 's001',
             name: 'Ataque de pértiga',
             element: 'Salchichonio',
             source: 'weapon',
@@ -46,31 +45,31 @@ module.exports = function (app) {
             stats: {life: 5}
         },
         {
-            id: 's002', name: 'Bola de patatas', element: 'Fuego', source: 'weapon',
+            name: 'Bola de patatas', element: 'Fuego', source: 'weapon',
             uses: 3,
             cost: 3,
             stats: {protection: 5, parry: 7}
         },
         {
-            id: 's003', name: 'Que te pego leche', element: 'Hielo', source: 'armor',
+            name: 'Que te pego leche', element: 'Hielo', source: 'armor',
             uses: 3,
             cost: 3,
             stats: {life: 5}
         },
         {
-            id: 's004', name: 'Jarl', element: 'Escarcha', source: 'armor',
+            name: 'Jarl', element: 'Escarcha', source: 'armor',
             uses: 3,
             cost: 3,
             stats: {precision: 5}
         },
         {
-            id: 's005', name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
+            name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
             uses: 3,
             cost: 3,
             stats: {damage: 5, fury: 10}
         },
         {
-            id: 's006', name: 'Habilidad común', element: 'Patata', source: 'common',
+            name: 'Habilidad común', element: 'Patata', source: 'common',
             uses: 3,
             cost: 3,
             stats: {damage: 5, fury: 10}
@@ -104,7 +103,7 @@ module.exports = function (app) {
     var users = [
         {
             username: 'pepe1',
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            password: "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db", //1234
             alias: 'Antoñete',
             leader: true,
             avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
@@ -130,50 +129,30 @@ module.exports = function (app) {
                             type: 'fire',
                             level: 2,
                             frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
                             frecuency: 'uncommon',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
                             equipped: false
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
                             frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
                             equipped: false
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
                             frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
                             frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
                             equipped: false
                         }
                     ],
@@ -241,7 +220,19 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: ['s002'],
+                            skills: [{
+                                id: 's001',
+                                name: 'Papachiro in the face',
+                                element: 'fire',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 3,
+                                cost: 2,
+                                stats: {
+                                    damage: 20
+                                },
+                                blocked: false
+                            }],
                             equipped: true
                         }, {
                             id: 'w002',
@@ -255,7 +246,19 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: ['s005'],
+                            skills: [{
+                                id: 's003',
+                                name: 'Ataquito in the ice',
+                                element: 'water',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 1,
+                                cost: 3,
+                                stats: {
+                                    damage: 60
+                                },
+                                blocked: false
+                            }],
                             equipped: false
                         }
                     ],
@@ -271,7 +274,20 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: ['s003'],
+                        skills: [{
+                            id: 's002',
+                            name: 'Escudito in the back',
+                            element: 'earth',
+                            level: 2,
+                            source: 'armor', // common, weapon, armor
+                            uses: 3,
+                            cost: 1,
+                            stats: {
+                                protection: 10,
+                                parry: 5
+                            },
+                            blocked: false
+                        }],
                         equipped: false
                     }],
                     stones: 23
@@ -291,7 +307,7 @@ module.exports = function (app) {
             }
         }, {
             username: 'pepe2',
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            password: "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db", //paco
             alias: 'Manolin',
             leader: true,
             avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
@@ -423,7 +439,7 @@ module.exports = function (app) {
                     weapons: [
                         {
                             id: 'w001',
-                            name: 'Ten Hedor2',
+                            name: 'Ten Hedor',
                             frecuency: 'common',
                             stats: {
                                 damage: 14,
@@ -433,11 +449,23 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's001',
+                                name: 'Papachiro in the face',
+                                element: 'fire',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 3,
+                                cost: 2,
+                                stats: {
+                                    damage: 20
+                                },
+                                blocked: false
+                            }],
                             equipped: true
                         }, {
                             id: 'w002',
-                            name: 'Sal Chicha2',
+                            name: 'Sal Chicha',
                             frecuency: 'legendary',
                             stats: {
                                 damage: 54,
@@ -447,13 +475,25 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's003',
+                                name: 'Ataquito in the ice',
+                                element: 'water',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 1,
+                                cost: 3,
+                                stats: {
+                                    damage: 60
+                                },
+                                blocked: false
+                            }],
                             equipped: false
                         }
                     ],
                     armors: [{
                         id: 'a001',
-                        name: 'Al Capa Ra2',
+                        name: 'Al Capa Ra',
                         frecuency: 'common',
                         stats: {
                             protection: 4,
@@ -463,8 +503,21 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: [],
-                        equipped: true
+                        skills: [{
+                            id: 's002',
+                            name: 'Escudito in the back',
+                            element: 'earth',
+                            level: 2,
+                            source: 'armor', // common, weapon, armor
+                            uses: 3,
+                            cost: 1,
+                            stats: {
+                                protection: 10,
+                                parry: 5
+                            },
+                            blocked: false
+                        }],
+                        equipped: false
                     }],
                     stones: 23
                 },
@@ -483,7 +536,7 @@ module.exports = function (app) {
             }
         }, {
             username: 'pepe3',
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            password: "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db", //paco
             alias: 'Felisuco',
             leader: true,
             avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
@@ -625,7 +678,19 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's001',
+                                name: 'Papachiro in the face',
+                                element: 'fire',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 3,
+                                cost: 2,
+                                stats: {
+                                    damage: 20
+                                },
+                                blocked: false
+                            }],
                             equipped: true
                         }, {
                             id: 'w002',
@@ -639,7 +704,19 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's003',
+                                name: 'Ataquito in the ice',
+                                element: 'water',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 1,
+                                cost: 3,
+                                stats: {
+                                    damage: 60
+                                },
+                                blocked: false
+                            }],
                             equipped: false
                         }
                     ],
@@ -655,8 +732,21 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: [],
-                        equipped: true
+                        skills: [{
+                            id: 's002',
+                            name: 'Escudito in the back',
+                            element: 'earth',
+                            level: 2,
+                            source: 'armor', // common, weapon, armor
+                            uses: 3,
+                            cost: 1,
+                            stats: {
+                                protection: 10,
+                                parry: 5
+                            },
+                            blocked: false
+                        }],
+                        equipped: false
                     }],
                     stones: 23
                 },
@@ -675,7 +765,7 @@ module.exports = function (app) {
             }
         }, {
             username: 'pepe4',
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            password: "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db", //paco
             alias: 'Jolines',
             leader: true,
             avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
@@ -817,7 +907,19 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's001',
+                                name: 'Papachiro in the face',
+                                element: 'fire',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 3,
+                                cost: 2,
+                                stats: {
+                                    damage: 20
+                                },
+                                blocked: false
+                            }],
                             equipped: true
                         }, {
                             id: 'w002',
@@ -831,7 +933,19 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's003',
+                                name: 'Ataquito in the ice',
+                                element: 'water',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 1,
+                                cost: 3,
+                                stats: {
+                                    damage: 60
+                                },
+                                blocked: false
+                            }],
                             equipped: false
                         }
                     ],
@@ -847,8 +961,21 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: [],
-                        equipped: true
+                        skills: [{
+                            id: 's002',
+                            name: 'Escudito in the back',
+                            element: 'earth',
+                            level: 2,
+                            source: 'armor', // common, weapon, armor
+                            uses: 3,
+                            cost: 1,
+                            stats: {
+                                protection: 10,
+                                parry: 5
+                            },
+                            blocked: false
+                        }],
+                        equipped: false
                     }],
                     stones: 23
                 },
@@ -867,7 +994,7 @@ module.exports = function (app) {
             }
         }, {
             username: 'pepe5',
-            password: "1267ea54d8dc193b000d4a86487c7d38b7a55e43", //paco
+            password: "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db", //paco
             alias: 'Si tu lo dices',
             leader: true,
             avatar: 'http://findicons.com/files/icons/1072/face_avatars/300/j01.png',
@@ -892,56 +1019,26 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            frecuency: 'uncommon',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't004',
                             type: 'fire',
                             level: 5,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }
                     ],
@@ -949,7 +1046,6 @@ module.exports = function (app) {
                         {
                             id: 'r001',
                             type: 'wood',
-                            level: 2,
                             frecuency: 'common',
                             stats: {
                                 damage: 12,
@@ -961,7 +1057,6 @@ module.exports = function (app) {
                         }, {
                             id: 'r002',
                             type: 'iron',
-                            level: 4,
                             frecuency: 'common',
                             stats: {
                                 damage: 12,
@@ -973,7 +1068,6 @@ module.exports = function (app) {
                         }, {
                             id: 'r003',
                             type: 'steel',
-                            level: 5,
                             frecuency: 'masterwork',
                             stats: {
                                 damage: 12,
@@ -985,7 +1079,6 @@ module.exports = function (app) {
                         }, {
                             id: 'r004',
                             type: 'mithril',
-                            level: 7,
                             frecuency: 'common',
                             stats: {
                                 damage: 12,
@@ -1009,7 +1102,19 @@ module.exports = function (app) {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's001',
+                                name: 'Papachiro in the face',
+                                element: 'fire',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 3,
+                                cost: 2,
+                                stats: {
+                                    damage: 20
+                                },
+                                blocked: false
+                            }],
                             equipped: true
                         }, {
                             id: 'w002',
@@ -1023,7 +1128,19 @@ module.exports = function (app) {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
-                            skills: [],
+                            skills: [{
+                                id: 's003',
+                                name: 'Ataquito in the ice',
+                                element: 'water',
+                                level: 1,
+                                source: 'weapon', // common, weapon, armor
+                                uses: 1,
+                                cost: 3,
+                                stats: {
+                                    damage: 60
+                                },
+                                blocked: false
+                            }],
                             equipped: false
                         }
                     ],
@@ -1039,8 +1156,21 @@ module.exports = function (app) {
                             rune: 'r003',
                             tostem: 't003'
                         },
-                        skills: [],
-                        equipped: true
+                        skills: [{
+                            id: 's002',
+                            name: 'Escudito in the back',
+                            element: 'earth',
+                            level: 2,
+                            source: 'armor', // common, weapon, armor
+                            uses: 3,
+                            cost: 1,
+                            stats: {
+                                protection: 10,
+                                parry: 5
+                            },
+                            blocked: false
+                        }],
+                        equipped: false
                     }],
                     stones: 23
                 },

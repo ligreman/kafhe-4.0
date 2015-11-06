@@ -5,7 +5,6 @@ module.exports = function (mongoose) {
 
     //Modelo para las habilidades, coleccion Skills
     var SkillSchema = mongoose.Schema({
-        id: {type: String, unique: true},
         name: String,
         element: String,
         source: String, // common, weapon, armor

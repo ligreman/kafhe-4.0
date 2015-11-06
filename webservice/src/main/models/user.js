@@ -50,13 +50,11 @@ module.exports = function (mongoose) {
                     id: String,
                     type: {type: String},
                     level: Number,
-                    frecuency: String,
                     equipped: Boolean
                 }],
                 runes: [{
                     id: String,
                     type: {type: String},
-                    level: Number,
                     frecuency: String,
                     stats: {
                         damage: Number,
