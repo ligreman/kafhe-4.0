@@ -40,38 +40,38 @@ module.exports = function (app) {
             name: 'Ataque de pértiga',
             element: 'Salchichonio',
             source: 'weapon',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a001',
             stats: {life: 5}
         },
         {
             name: 'Bola de patatas', element: 'Fuego', source: 'weapon',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a002',
             stats: {protection: 5, parry: 7}
         },
         {
             name: 'Que te pego leche', element: 'Hielo', source: 'armor',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a003',
             stats: {life: 5}
         },
         {
             name: 'Jarl', element: 'Escarcha', source: 'armor',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a004',
             stats: {precision: 5}
         },
         {
             name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a005',
             stats: {damage: 5, fury: 10}
         },
         {
             name: 'Habilidad común', element: 'Patata', source: 'common',
-            uses: 3,
-            cost: 3,
+            uses: 3, duration: 2,
+            cost: 3, action: 'a006',
             stats: {damage: 5, fury: 10}
         }
     ];
@@ -128,31 +128,26 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            frecuency: 'common',
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            frecuency: 'uncommon',
                             equipped: false
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            frecuency: 'common',
                             equipped: false
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            frecuency: 'common',
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            frecuency: 'common',
                             equipped: false
                         }
                     ],
@@ -160,9 +155,8 @@ module.exports = function (app) {
                         {
                             id: 'r001',
                             type: 'wood',
-                            level: 2,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -171,10 +165,9 @@ module.exports = function (app) {
                             equipped: true
                         }, {
                             id: 'r002',
-                            type: 'iron',
-                            level: 4,
+                            type: 'madera',
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -183,10 +176,9 @@ module.exports = function (app) {
                             equipped: false
                         }, {
                             id: 'r003',
-                            type: 'steel',
-                            level: 5,
-                            frecuency: 'masterwork',
-                            stats: {
+                            type: 'madera',
+                            frecuency: 'common',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -196,9 +188,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r004',
                             type: 'mithril',
-                            level: 7,
-                            frecuency: 'common',
-                            stats: {
+                            frecuency: 'uncommon',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -212,7 +203,7 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            stats: {
+                            base_stats: {
                                 damage: 14,
                                 precision: 6
                             },
@@ -227,7 +218,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 3,
-                                cost: 2,
+                                cost: 2, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 20
                                 },
@@ -238,7 +229,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            stats: {
+                            base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -253,8 +244,8 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
-                                cost: 3,
-                                stats: {
+                                cost: 3, action: 'a001', duration: 2,
+                                base_stats: {
                                     damage: 60
                                 },
                                 blocked: false
@@ -266,7 +257,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        stats: {
+                        base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -332,56 +323,26 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            frecuency: 'uncommon',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }
                     ],
@@ -389,9 +350,8 @@ module.exports = function (app) {
                         {
                             id: 'r001',
                             type: 'wood',
-                            level: 2,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -401,9 +361,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r002',
                             type: 'iron',
-                            level: 4,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -413,9 +372,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r003',
                             type: 'steel',
-                            level: 5,
-                            frecuency: 'masterwork',
-                            stats: {
+                            frecuency: 'uncommon',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -425,9 +383,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r004',
                             type: 'mithril',
-                            level: 7,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -441,7 +398,7 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            stats: {
+                            base_stats: {
                                 damage: 14,
                                 precision: 6
                             },
@@ -456,7 +413,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 3,
-                                cost: 2,
+                                cost: 2, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 20
                                 },
@@ -467,7 +424,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            stats: {
+                            base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -482,7 +439,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
-                                cost: 3,
+                                cost: 3, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 60
                                 },
@@ -495,7 +452,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        stats: {
+                        base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -561,56 +518,26 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            frecuency: 'uncommon',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }
                     ],
@@ -618,9 +545,8 @@ module.exports = function (app) {
                         {
                             id: 'r001',
                             type: 'wood',
-                            level: 2,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -630,9 +556,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r002',
                             type: 'iron',
-                            level: 4,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -642,9 +567,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r003',
                             type: 'steel',
-                            level: 5,
-                            frecuency: 'masterwork',
-                            stats: {
+                            frecuency: 'uncommon',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -654,9 +578,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r004',
                             type: 'mithril',
-                            level: 7,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -670,7 +593,7 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            stats: {
+                            base_stats: {
                                 damage: 14,
                                 precision: 6
                             },
@@ -685,7 +608,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 3,
-                                cost: 2,
+                                cost: 2, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 20
                                 },
@@ -696,7 +619,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            stats: {
+                            base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -711,7 +634,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
-                                cost: 3,
+                                cost: 3, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 60
                                 },
@@ -724,7 +647,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        stats: {
+                        base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -790,56 +713,26 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            frecuency: 'uncommon',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            frecuency: 'common',
-                            stats: {
-                                one: 12,
-                                two: 43
-                            },
-                            skills: [],
                             equipped: false
                         }
                     ],
@@ -847,9 +740,8 @@ module.exports = function (app) {
                         {
                             id: 'r001',
                             type: 'wood',
-                            level: 2,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -859,9 +751,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r002',
                             type: 'iron',
-                            level: 4,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -871,9 +762,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r003',
                             type: 'steel',
-                            level: 5,
-                            frecuency: 'masterwork',
-                            stats: {
+                            frecuency: 'uncommon',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -883,9 +773,8 @@ module.exports = function (app) {
                         }, {
                             id: 'r004',
                             type: 'mithril',
-                            level: 7,
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -899,7 +788,7 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            stats: {
+                            base_stats: {
                                 damage: 14,
                                 precision: 6
                             },
@@ -914,7 +803,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 3,
-                                cost: 2,
+                                cost: 2, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 20
                                 },
@@ -925,7 +814,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            stats: {
+                            base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -940,7 +829,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
-                                cost: 3,
+                                cost: 3, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 60
                                 },
@@ -953,7 +842,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        stats: {
+                        base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -1023,7 +912,7 @@ module.exports = function (app) {
                         }, {
                             id: 't002',
                             type: 'water',
-                            level: 3,
+                            level: 2,
                             equipped: true
                         }, {
                             id: 't003',
@@ -1045,9 +934,9 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'wood',
+                            type: 'woody',
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -1056,9 +945,9 @@ module.exports = function (app) {
                             equipped: true
                         }, {
                             id: 'r002',
-                            type: 'iron',
+                            type: 'irony',
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -1067,9 +956,9 @@ module.exports = function (app) {
                             equipped: true
                         }, {
                             id: 'r003',
-                            type: 'steel',
-                            frecuency: 'masterwork',
-                            stats: {
+                            type: 'steely',
+                            frecuency: 'uncommon',
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -1078,9 +967,9 @@ module.exports = function (app) {
                             equipped: true
                         }, {
                             id: 'r004',
-                            type: 'mithril',
+                            type: 'mithrily',
                             frecuency: 'common',
-                            stats: {
+                            stats_percentages: {
                                 damage: 12,
                                 precision: 33,
                                 protection: 56,
@@ -1094,7 +983,7 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            stats: {
+                            base_stats: {
                                 damage: 14,
                                 precision: 6
                             },
@@ -1109,7 +998,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 3,
-                                cost: 2,
+                                cost: 2, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 20
                                 },
@@ -1120,7 +1009,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            stats: {
+                            base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -1135,7 +1024,7 @@ module.exports = function (app) {
                                 level: 1,
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
-                                cost: 3,
+                                cost: 3, action: 'a001', duration: 2,
                                 stats: {
                                     damage: 60
                                 },
@@ -1148,7 +1037,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        stats: {
+                        base_stats: {
                             protection: 4,
                             parry: 46
                         },

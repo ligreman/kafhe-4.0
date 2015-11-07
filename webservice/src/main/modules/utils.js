@@ -10,6 +10,7 @@ var randomInt = function (low, high) {
  * Realiza una tirada de dado de 100 para ver si se saca más que el failPercent. Una tirada que no lo supere
  * es fracaso y una por encima de failPercent es éxito.
  * @param failPercent Porcentaje sobre 100 de fallo.
+ * @return boolean true si pasas la tirada, false si no.
  */
 var dice100 = function (failPercent) {
     // Saco un número aleatorio entre 1 y 100 que representa la tirada del jugador

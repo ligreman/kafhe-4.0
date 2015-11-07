@@ -11,6 +11,7 @@ module.exports = function (mongoose) {
         level: Number,
         source: String, // common, weapon, armor
         uses: Number,
+        duration: Number,
         cost: Number,
         stats: {
             life: {type: Number, default: 0},
@@ -20,7 +21,8 @@ module.exports = function (mongoose) {
             protection: {type: Number, default: 0},
             parry: {type: Number, default: 0}
         },
-        blocked: {type: Boolean, default: false}
+        blocked: {type: Boolean, default: false},
+        action: String
     });
 
     //Modelo para los usuarios, coleccion Users
@@ -48,7 +50,7 @@ module.exports = function (mongoose) {
             inventory: {
                 tostems: [{
                     id: String,
-                    type: {type: String},
+                    type: {type: String}, // Dejarlo así ya que type es palabra registrada y si no peta
                     level: Number,
                     equipped: Boolean
                 }],
@@ -56,7 +58,7 @@ module.exports = function (mongoose) {
                     id: String,
                     type: {type: String},
                     frecuency: String,
-                    stats: {
+                    stats_percentages: {
                         damage: Number,
                         precision: Number,
                         protection: Number,

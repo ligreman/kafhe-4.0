@@ -31,7 +31,11 @@ module.exports = function (app) {
             params        = req.body,
             idTostemA     = params.inventory_a, tostemA,
             idTostemB     = params.inventory_b, tostemB,
-            newTostemList = [];
+            newTostemList = [],
+            respuesta     = {
+                success: null,
+                generatedTostem: null
+            };
 
         // Si no me mandan ambos ids fuera
         if (!idTostemA || !idTostemB) {
@@ -57,9 +61,6 @@ module.exports = function (app) {
                 newTostemList.push(tostem);
             }
         });
-
-        console.log(tostemA);
-        console.log(tostemB);
 
         // Si no he encontrado ambos, mal rollo
         if (!tostemA || !tostemB) {
@@ -100,6 +101,10 @@ module.exports = function (app) {
 
             // Guardo el nuevo tostem en la lista nueva
             newTostemList.push(newTostem);
+
+            // La respuesta para el frontend
+            respuesta.success = true;
+            respuesta.generatedTostem = newTostem;
         } else {
             // Fracaso. Recupero uno de los dos tostem: el de más nivel o uno aleatorio en caso de empate
             var tostemRecuperado;
@@ -119,6 +124,10 @@ module.exports = function (app) {
 
             // Guardo el tostem recuperado en la lista de tostems nueva
             newTostemList.push(tostemRecuperado);
+
+            // La respuesta para el frontend
+            respuesta.success = false;
+            respuesta.generatedTostem = tostemRecuperado;
         }
 
         // Guardo la nueva lista de tostems del usuario
@@ -132,7 +141,170 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario
+                        "user": usuario,
+                        "result": respuesta
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
+                });
+            }
+        });
+    });
+
+
+    /**
+     * POST /furnace/rune
+     * Combina dos runas en el Horno. Requiere los siguientes parámetros en el cuerpo del POST:
+     * inventory_a: id de inventario de la runa A; inventory_b: id de inventario de la runa B
+     */
+    furnaceRouter.post('/rune', function (req, res, next) {
+        // El objeto user
+        var usuario     = req.user,
+            params      = req.body,
+            idRuneA     = params.inventory_a, runeA,
+            idRuneB     = params.inventory_b, runeB,
+            newRuneList = [],
+            respuesta   = {
+                success: null,
+                upgraded: false,
+                generatedRune: null
+            };
+
+        // Si no me mandan ambos ids fuera
+        if (!idRuneA || !idRuneB) {
+            console.tag('FURNACE-RUNE').error('No se han enviado ambas runas a meter al horno');
+            res.redirect('/error/errFurnaceRuneNoRunes');
+            return;
+        }
+
+        // Si me mandan los id por duplicado fuera
+        if (idRuneA === idRuneB) {
+            console.tag('FURNACE-RUNE').error('Ambos id de runa son el mismo');
+            res.redirect('/error/errFurnaceRuneSameRune');
+            return;
+        }
+
+        // Saco las runas del objeto usuario y dejo el resto en un nuevo array
+        usuario.game.inventory.runes.forEach(function (rune) {
+            if (rune.id === idRuneA) {
+                runeA = rune;
+            } else if (rune.id === idRuneB) {
+                runeB = rune;
+            } else {
+                newRuneList.push(rune);
+            }
+        });
+
+        // Si no he encontrado ambos, mal rollo
+        if (!runeA || !runeB) {
+            console.tag('FURNACE-RUNE').error('No se han encontrado ambas runas en el inventario del usuario');
+            res.redirect('/error/errFurnaceRuneNotFound');
+            return;
+        }
+
+        // Verifico que ambos no están equipados, o mal rollo again
+        if (runeA.equipped || runeB.equipped) {
+            console.tag('FURNACE-RUNE').error('Alguno de las runas estaba equipada actualmente');
+            res.redirect('/error/errFurnaceRuneAnyEquipped');
+            return;
+        }
+
+        /*
+
+         - Al unir dos runas cambian aleatoriamente de material, aunque fuesen ambas del mismo material.
+         - El % de éxito de la fusión depende de la rareza de las runas:ver doc
+
+         https://docs.google.com/document/d/1f0h-yRWK-tAcpzlSkAi4fRV5V3WB4CX-sIVCz3O-x74/edit#heading=h.x20vq5w4z987
+
+         - En caso de fracaso recuperas la runa más rara o una aleatoria en caso de empate.
+         - El éxito no implica que la runa generada sea de un material superior, para eso hay que juntar 2 runas IGUALES y además entra en juego otro % diferente que depende de la rareza también. Ver doc para % de subir nivel
+         */
+
+        // Calculo el porcentaje de fracaso en función de los niveles de las runas
+        // 10% de base y luego 10% más por cada nivel de diferencia de rareza entre una y otra runa
+        var fracaso = 10 + ( Math.abs(gameResources.FRECUENCIES[runeA.frecuency] - gameResources.FRECUENCIES[runeB.frecuency]) * 10 );
+
+        // Hago unos cálculos para saber la frecuencia más alta y otras cosas
+        var runeRecuperado, sameFrecuency = false, maxFrecuency;
+        if (gameResources.FRECUENCIES[runeA.frecuency] > gameResources.FRECUENCIES[runeB.frecuency]) {
+            runeRecuperado = runeA;
+            maxFrecuency = runeA.frecuency;
+        } else if (gameResources.FRECUENCIES[runeA.frecuency] < gameResources.FRECUENCIES[runeB.frecuency]) {
+            runeRecuperado = runeB;
+            maxFrecuency = runeB.frecuency;
+        } else {
+            // Tienen la misma frecuencia
+            sameFrecuency = true;
+            maxFrecuency = runeA.frecuency;
+
+            // Aleatoriamente devuelvo uno u otro
+            if (utils.randomInt(0, 1)) {
+                runeRecuperado = runeA;
+            } else {
+                runeRecuperado = runeB;
+            }
+        }
+
+        // Miro a ver si tengo éxito al fusionar la runa
+        if (utils.dice100(fracaso)) {
+            var newRune,
+                frecuency = maxFrecuency;
+
+
+            // Si son de la misma frecuencia puede que suban
+            if (sameFrecuency) {
+                // Calculo el % de que suba de nivel la runa generada
+                var failUpgrade = 100 - gameResources.RUNE_UPGRADE[maxFrecuency];
+
+                // Miro a ver si sube o no de nivel
+                if (utils.dice100(failUpgrade)) {
+                    // Sube de nivel !!
+                    frecuency = gameResources.upgradeFrecuency(maxFrecuency);
+                    respuesta.upgraded = true;
+                }
+            } else {
+            }
+
+            // La nueva runa es una aleatoria de la frecuencia que he calculado
+            newRune = gameResources.getRandomRune(frecuency);
+
+            // Tengo que añadir a la nueva runa unos parámetros más
+            newRune.id = utils.generateId();
+            newRune.equipped = false;
+
+            // Guardo la nueva runa en la lista nueva
+            newRuneList.push(newRune);
+
+            // La respuesta para el frontend
+            respuesta.success = true;
+            respuesta.generatedRune = newRune;
+        } else {
+            // Fracaso. Recupero una de las dos runas: el de más nivel de rareza o uno aleatorio en caso de empate
+            // Ya hice estos cálculos antes
+            // Guardo la runa recuperado en la lista de runas nueva
+            newRuneList.push(runeRecuperado);
+
+            // La respuesta para el frontend
+            respuesta.success = false;
+            respuesta.generatedRune = runeRecuperado;
+        }
+
+        // Guardo la nueva lista de runas del usuario
+        usuario.game.inventory.runes = newRuneList;
+        // Guardo el usuario
+        usuario.save(function (err) {
+            if (err) {
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errMongoSave');
+                return;
+            } else {
+                res.json({
+                    "data": {
+                        "user": usuario,
+                        "result": respuesta
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,

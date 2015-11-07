@@ -16,5 +16,10 @@ errAdminNewUserNoUsername - No se ha enviado el parámetro username en la petici
 errMongoDuplicatedUsername - Ya existe otro usuario con ese username
 errFurnaceTostemNoTostems - No se han enviado los id de ambos tostem a meter al horno
 errFurnaceTostemNotFound - No se han encontrado en el inventario del usuario los dos tostems
-errFurnaceTostemAnyEquipped - Alguno de los tostem están equipados
+errFurnaceTostemAnyEquipped - Alguno de los tostem está equipados
 errFurnaceTostemSameTostem - Se ha enviado el mismo ID de tostem por duplicado
+
+errFurnaceRuneNoRunes - No se han enviado los id de ambas runas meter al horno
+errFurnaceRuneNotFound - No se han encontrado en el inventario del usuario las dos runas
+errFurnaceRuneAnyEquipped - Alguna de las runas está equipados
+errFurnaceRuneSameRune - Se ha enviado el mismo ID de runa por duplicado

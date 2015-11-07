@@ -9,6 +9,7 @@ module.exports = function (mongoose) {
         element: String,
         source: String, // common, weapon, armor
         uses: Number,
+        duration: Number,
         cost: Number,
         stats: {
             life: {type: Number, default: 0},
@@ -17,7 +18,8 @@ module.exports = function (mongoose) {
             precision: {type: Number, default: 0},
             protection: {type: Number, default: 0},
             parry: {type: Number, default: 0}
-        }
+        },
+        action: String
     }, {versionKey: false});
 
     //Declaro y devuelvo el modelo
