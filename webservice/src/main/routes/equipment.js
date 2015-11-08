@@ -8,7 +8,7 @@ module.exports = function (app) {
         validator       = require('validator'),
         equipmentRouter = express.Router(),
         bodyParser      = require('body-parser'),
-        //JSONSelect      = require('JSONSelect'),
+        gameResources   = require('../modules/gameResources'),
         TAFFY           = require('taffy'),
         mongoose        = require('mongoose');
 
@@ -163,7 +163,6 @@ module.exports = function (app) {
         var usuario   = req.user,
             params    = req.body,
             idObject  = null,
-            type      = null,
             materials = {rune: null, tostem: null};
 
         // Miro a ver el objeto cuál de los que tengo equipado es
@@ -175,7 +174,6 @@ module.exports = function (app) {
 
             if (armor.length === 1) {
                 idObject = armor[0].id;
-                type = 'armor';
                 materials.rune = armor[0].materials.rune;
                 materials.tostem = armor[0].materials.tostem;
 
@@ -200,7 +198,6 @@ module.exports = function (app) {
 
             if (weapon.length === 1) {
                 idObject = weapon[0].id;
-                type = 'weapon';
                 materials.rune = weapon[0].materials.rune;
                 materials.tostem = weapon[0].materials.tostem;
 
@@ -223,23 +220,42 @@ module.exports = function (app) {
             return;
         }
 
-        // Desequipo la runa y tostem
+        // Recupero las runas y tostems
         var newRunes = [], newTostems = [];
-        // Runas
+        // Runas. Recupero 2 runas de rareza inferior a la destruída, salvo si es común que recupero 1 común.
         usuario.game.inventory.runes.forEach(function (runa) {
-            // Si es la que busco
+            // Si es la que busco, no la guardo porque es la que he usado
             if (runa.id === materials.rune) {
-                runa.equipped = false;
+                // Si es una rura común devuelvo una común aleatoria
+                if (runa.frecuency === gameResources.INVERSE_FRECUENCIES[1]) {
+                    var frecuency = 1;
+                    var newRune = gameResources.getRandomRune(frecuency);
+                    newRunes.push(newRune);
+                }
+                // Si no, devuelvo dos de nivel inferior
+                else {
+                    var frecuency = gameResources.FRECUENCIES[runa.frecuency] - 1;
+                    var newRune = gameResources.getRandomRune(frecuency);
+                    var newRune2 = gameResources.getRandomRune(frecuency);
+                    newRunes.push(newRune);
+                    newRunes.push(newRune2);
+                }
+            } else {
+                newRunes.push(runa);
             }
-            newRunes.push(runa);
         });
-        // Tostems
+        // Tostems. Recuperas un tostem de elemento aleatorio de 1 nivel inferior al destruído.
         usuario.game.inventory.tostems.forEach(function (tostem) {
-            // Si es la que busco
+            // Si es el que busco no lo guardo y genero uno nuevo
             if (tostem.id === materials.tostem) {
-                tostem.equipped = false;
+                var nivel = Math.max(tostem.level - 1, 1);
+
+                // Genero un tostem aleatorio nuevo
+                var newTostem = gameResources.getRandomTostem(nivel);
+                newTostems.push(newTostem);
+            } else {
+                newTostems.push(tostem);
             }
-            newTostems.push(tostem);
         });
 
         // Actualizo los campos en el objeto usuario

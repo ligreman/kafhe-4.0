@@ -165,8 +165,8 @@ const RUNES = {
             type: 'mithril',
             frecuency: 'rare',
             stats_percentages: {
-                damage: 150,
-                precision: 0,
+                damage: 75,
+                precision: 75,
                 protection: 0,
                 parry: 150
             }
@@ -175,8 +175,8 @@ const RUNES = {
             type: 'titanio',
             frecuency: 'rare',
             stats_percentages: {
-                damage: 0,
-                precision: 150,
+                damage: 75,
+                precision: 75,
                 protection: 150,
                 parry: 0
             }
@@ -212,10 +212,10 @@ const RUNES = {
             type: 'adamantio',
             frecuency: 'legendary',
             stats_percentages: {
-                damage: 200,
-                precision: 200,
-                protection: 200,
-                parry: 200
+                damage: 150,
+                precision: 150,
+                protection: 150,
+                parry: 150
             }
         }
     ]

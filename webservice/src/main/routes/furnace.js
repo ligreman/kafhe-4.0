@@ -83,21 +83,13 @@ module.exports = function (app) {
         // Miro a ver si tengo éxito al fusionar el tostem
         if (utils.dice100(fracaso)) {
             // Éxito. Calculo el elemento del tostem final
-            var elemento;
-
+            var elemento = null;
             if (tostemA.element === tostemB.element) {
                 elemento = tostemA.element;
-            } else {
-                elemento = gameResources.getRandomElement();
             }
 
             // Creo el nuevo tostem
-            var newTostem = {
-                id: utils.generateId(),
-                type: elemento,
-                level: Math.max(tostemA.level, tostemB.level) + 1,
-                equipped: false
-            };
+            var newTostem = gameResources.getRandomTostem(Math.max(tostemA.level, tostemB.level) + 1, elemento);
 
             // Guardo el nuevo tostem en la lista nueva
             newTostemList.push(newTostem);
@@ -164,8 +156,8 @@ module.exports = function (app) {
         // El objeto user
         var usuario     = req.user,
             params      = req.body,
-            idRuneA     = params.inventory_a, runeA,
-            idRuneB     = params.inventory_b, runeB,
+            idRuneA     = params.inventory_a, runeA = null,
+            idRuneB     = params.inventory_b, runeB = null,
             newRuneList = [],
             respuesta   = {
                 success: null,
@@ -270,10 +262,6 @@ module.exports = function (app) {
 
             // La nueva runa es una aleatoria de la frecuencia que he calculado
             newRune = gameResources.getRandomRune(frecuency);
-
-            // Tengo que añadir a la nueva runa unos parámetros más
-            newRune.id = utils.generateId();
-            newRune.equipped = false;
 
             // Guardo la nueva runa en la lista nueva
             newRuneList.push(newRune);

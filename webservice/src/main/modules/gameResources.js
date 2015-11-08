@@ -2,7 +2,8 @@
 
 var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA       = require('../modules/gamedata/runes');
+    RUNES_DATA       = require('../modules/gamedata/runes'),
+    utils            = require('../modules/utils');
 
 
 /**
@@ -13,13 +14,38 @@ var getRandomElement = function () {
 };
 
 /**
+ * Devuelve un tostem aleatorio de nivel indicado. Se puede indicar el elemento o dejar que sea aleatorio.
+ * @param level el nivel del tostem a generar
+ * @param element Elemento del tostem. Si es null o no se indica, se genera aleatoriamente
+ */
+var getRandomTostem = function (level, element) {
+    if (!element) {
+        element = getRandomElement();
+    }
+
+    var newTostem = {
+        id: utils.generateId(),
+        type: element,
+        level: nivel,
+        equipped: false
+    };
+
+    return newTostem;
+};
+
+/**
  * Devuelve una runa aleatoria de una frecuencia determinada
  * @param frecuency = common, uncommon, rare, extraordinary, legendary
  */
 var getRandomRune = function (frecuency) {
     var runes = RUNES_DATA.RUNES[frecuency];
+    var newRune = runes[Math.floor(Math.random() * runes.length)];
 
-    return runes[Math.floor(Math.random() * runes.length)];
+    // Genero un id para la runa y le pongo que no está equipada
+    newRune.id = utils.generateId();
+    newRune.equipped = false;
+
+    return newRune;
 };
 
 /**
@@ -43,6 +69,7 @@ var upgradeFrecuency = function (current) {
 module.exports = {
     getRandomElement: getRandomElement,
     getRandomRune: getRandomRune,
+    getRandomTostem: getRandomTostem,
     upgradeFrecuency: upgradeFrecuency,
 
     ELEMENTS: ELEMENTS_DATA.ELEMENTS,
