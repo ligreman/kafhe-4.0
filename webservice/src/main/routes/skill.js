@@ -7,7 +7,8 @@ module.exports = function (app) {
         passport    = require('passport'),
         skillRouter = express.Router(),
         mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        models      = require('../models/models')(mongoose),
+        config      = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -58,7 +59,15 @@ module.exports = function (app) {
             console.tag('FURY').error('Ya estaba activo el modo furia');
             res.redirect('/error/errFuryAlreadyActive');
             return;
-        } else {
+        }
+        // Miro a ver si tiene al menos 100 puntos de furia para poder activarla
+        else if (usuario.game.stats.fury < config.FURY_MODE_MIN_POINTS) {
+            console.tag('FURY').error('No tiene suficientes puntos de furia');
+            res.redirect('/error/errFuryNotEnoughPoints');
+            return;
+        }
+        // Puedo activarla
+        else {
             // Actualizo el objeto usuario activando el modo furia
             usuario.game.stats.fury_mode = true;
 

@@ -163,7 +163,11 @@ module.exports = function (app) {
         var usuario   = req.user,
             params    = req.body,
             idObject  = null,
-            materials = {rune: null, tostem: null};
+            materials = {rune: null, tostem: null},
+            respuesta = {
+                generatedRunes: [],
+                generatedTostem: null
+            };
 
         // Miro a ver el objeto cuál de los que tengo equipado es
         // ¿Será la armadura?
@@ -227,18 +231,29 @@ module.exports = function (app) {
             // Si es la que busco, no la guardo porque es la que he usado
             if (runa.id === materials.rune) {
                 // Si es una rura común devuelvo una común aleatoria
-                if (runa.frecuency === gameResources.INVERSE_FRECUENCIES[1]) {
-                    var frecuency = 1;
+                if (runa.frecuency === gameResources.frecuenciesToString[1]) {
+                    var frecuency = gameResources.frecuenciesToString[1];
                     var newRune = gameResources.getRandomRune(frecuency);
                     newRunes.push(newRune);
+
+                    // Para devolver la runa generada al frontend
+                    respuesta.generatedRunes.push(newRune);
                 }
                 // Si no, devuelvo dos de nivel inferior
                 else {
-                    var frecuency = gameResources.FRECUENCIES[runa.frecuency] - 1;
+                    var frecuency = gameResources.frecuenciesToNumber[runa.frecuency] - 1;
+                    // Necesito la frecuencia en letra
+                    frecuency = gameResources.frecuenciesToString[frecuency];
+
+                    // Genero las dos runas
                     var newRune = gameResources.getRandomRune(frecuency);
                     var newRune2 = gameResources.getRandomRune(frecuency);
                     newRunes.push(newRune);
                     newRunes.push(newRune2);
+
+                    // Para devolver la runa generada al frontend
+                    respuesta.generatedRunes.push(newRune);
+                    respuesta.generatedRunes.push(newRune2);
                 }
             } else {
                 newRunes.push(runa);
@@ -253,6 +268,9 @@ module.exports = function (app) {
                 // Genero un tostem aleatorio nuevo
                 var newTostem = gameResources.getRandomTostem(nivel);
                 newTostems.push(newTostem);
+
+                // Para devolver el tostem generado al frontend
+                respuesta.generatedTostem = newTostem;
             } else {
                 newTostems.push(tostem);
             }
@@ -271,7 +289,8 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario
+                        "user": usuario,
+                        "result": respuesta
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,

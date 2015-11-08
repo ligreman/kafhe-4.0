@@ -177,7 +177,7 @@ module.exports = function (app) {
                         }, {
                             id: 'r003',
                             type: 'madera',
-                            frecuency: 'common',
+                            frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
                                 precision: 33,

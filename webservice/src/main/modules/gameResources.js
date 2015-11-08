@@ -26,7 +26,7 @@ var getRandomTostem = function (level, element) {
     var newTostem = {
         id: utils.generateId(),
         type: element,
-        level: nivel,
+        level: level,
         equipped: false
     };
 
@@ -38,6 +38,8 @@ var getRandomTostem = function (level, element) {
  * @param frecuency = common, uncommon, rare, extraordinary, legendary
  */
 var getRandomRune = function (frecuency) {
+    console.log(frecuency);
+    console.log(RUNES_DATA.RUNES[frecuency]);
     var runes = RUNES_DATA.RUNES[frecuency];
     var newRune = runes[Math.floor(Math.random() * runes.length)];
 
@@ -72,9 +74,10 @@ module.exports = {
     getRandomTostem: getRandomTostem,
     upgradeFrecuency: upgradeFrecuency,
 
+    frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
+    frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
+
     ELEMENTS: ELEMENTS_DATA.ELEMENTS,
-    FRECUENCIES: FRECUENCIES_DATA.FRECUENCIES,
-    INVERSE_FRECUENCIES: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
     RUNES: RUNES_DATA.RUNES,
     RUNE_UPGRADE: RUNES_DATA.RUNE_UPGRADE
 };

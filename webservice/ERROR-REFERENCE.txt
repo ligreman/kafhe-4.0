@@ -11,6 +11,7 @@ errOrderAllNotFound - Error al buscar las meals o drinks en Mongo
 errProfileNoValidData - No había datos válidos de perfil que actualizar
 errSkillListNotFound - Error al buscar la lista de habilidades del juego
 errFuryAlreadyActive - Ya estaba activado el modo furia
+errFuryNotEnoughPoints - No tienes los puntos necesarios para activar furia
 errUserListNotFound - Error al buscar la lista de usuarios de la partida
 errAdminNewUserNoUsername - No se ha enviado el parámetro username en la petición de crear nuevo usuario
 errMongoDuplicatedUsername - Ya existe otro usuario con ese username
