@@ -113,6 +113,16 @@ module.exports = function (app) {
             models.Drink.findById(order.drink).exec()
         ]).spread(function (newMeal, newDrink) {
             if (newMeal && newDrink) {
+                // Compruebo que si quiero hacer un pedido ito, ambos componentes son ITAbles
+                if (order.ito) {
+                    // Si uno de los dos no es itable, error
+                    if (!newMeal.ito || !newDrink.ito) {
+                        console.tag('ORDER-NEW').error('O la comida o la bebida no forma parte de un desayuno ITO');
+                        res.redirect('/error/errOrderNotBothIto');
+                        return;
+                    }
+                }
+
                 // Actualizo el pedido del usuario con los nuevos objetos
                 user.game.order.meal = newMeal;
                 user.game.order.drink = newDrink;

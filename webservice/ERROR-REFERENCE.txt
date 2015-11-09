@@ -8,6 +8,7 @@ errOrderNewParams - Error al hacer nuevo pedido ya que faltan parámetros
 errOrderNewUnknown - Error inesperado ya que no viene el meal o drink que se quiere pedir
 errOrderNewNotFound - No se ha encontrado el meal o drink que se quiere pedir
 errOrderAllNotFound - Error al buscar las meals o drinks en Mongo
+errOrderNotBothIto - O meal o drink no pueden ser ITO
 errProfileNoValidData - No había datos válidos de perfil que actualizar
 errSkillListNotFound - Error al buscar la lista de habilidades del juego
 errFuryAlreadyActive - Ya estaba activado el modo furia
