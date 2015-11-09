@@ -58,7 +58,7 @@ module.exports = function (app) {
 
         // Si no lo he encontrado, mal rollo
         if (!idObject) {
-            res.redirect('/error/errEquip001');
+            res.redirect('/error/errEquipNoItem');
             return;
         }
 
@@ -67,7 +67,7 @@ module.exports = function (app) {
             case 'armor':
                 // Si no está vacío el hueco, no puedo equiparme
                 if (usuario.game.equipment.armor !== null && usuario.game.equipment.armor !== '') {
-                    res.redirect('/error/errEquip002');
+                    res.redirect('/error/errEquipNoSpace');
                     return;
                 } else {
                     // Si todo está correcto, equipo el objeto
@@ -88,7 +88,7 @@ module.exports = function (app) {
             case 'weapon':
                 // Si no está vacío el hueco, no puedo equiparme
                 if (usuario.game.equipment.weapon !== null && usuario.game.equipment.weapon !== '') {
-                    res.redirect('/error/errEquip002');
+                    res.redirect('/error/errEquipNoSpace');
                     return;
                 } else {
                     // Si todo está correcto, equipo el objeto
@@ -220,7 +220,7 @@ module.exports = function (app) {
 
         // Si no lo he encontrado, mal rollo
         if (!idObject) {
-            res.redirect('/error/errEquipDestroy001');
+            res.redirect('/error/errEquipDestroyNotFound');
             return;
         }
 

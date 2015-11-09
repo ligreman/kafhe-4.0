@@ -126,27 +126,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            type: 'fuego',
                             level: 2,
                             equipped: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            type: 'agua',
                             level: 3,
                             equipped: false
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            type: 'tierra',
                             level: 4,
                             equipped: false
                         }, {
                             id: 't004',
-                            type: 'water',
+                            type: 'agua',
                             level: 5,
                             equipped: false
                         }, {
                             id: 't005',
-                            type: 'light',
+                            type: 'aire',
                             level: 6,
                             equipped: false
                         }
@@ -154,7 +154,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'wood',
+                            type: 'madera',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,

@@ -1,6 +1,6 @@
-errEquip001 - No he encontrado el objeto a equipar en el inventario
-errEquip002 - No puedo equipar el objeto porque ya tengo equipado algo en ese hueco (arma/armadura)
-errEquipDestroy001 - No he encontrado el objeto a destruir
+errEquipNoItem - No he encontrado el objeto a equipar en el inventario
+errEquipNoSpace - No puedo equipar el objeto porque ya tengo equipado algo en ese hueco (arma/armadura)
+errEquipDestroyNotFound - No he encontrado el objeto a destruir
 errMongoSave - Error al salvar un objeto en Mongo
 errLogout - Error al salir
 errOrderList - Error obteniendo la lista de usuarios con sus pedidos
