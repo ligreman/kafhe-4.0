@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express         = require('express'),
-        passport        = require('passport'),
-        validator       = require('validator'),
+    var express = require('express'),
+        passport = require('passport'),
+        validator = require('validator'),
         equipmentRouter = express.Router(),
-        bodyParser      = require('body-parser'),
-        gameResources   = require('../modules/gameResources'),
-        TAFFY           = require('taffy'),
-        mongoose        = require('mongoose');
+        bodyParser = require('body-parser'),
+        gameResources = require('../modules/gameResources'),
+        TAFFY = require('taffy'),
+        mongoose = require('mongoose');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -27,11 +27,18 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/equip', function (req, res, next) {
         // El objeto user
-        var usuario   = req.user,
-            params    = req.body,
-            idObject  = null,
-            type      = null,
+        var usuario = req.user,
+            params = req.body,
+            idObject = null,
+            type = null,
             materials = {rune: null, tostem: null};
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('EQUIPMENT-EQUIP').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Busco el objeto en el inventario y miro a ver qué tipo de objeto es
         // Busco en armaduras
@@ -160,14 +167,21 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/destroy', function (req, res, next) {
         // El objeto user
-        var usuario   = req.user,
-            params    = req.body,
-            idObject  = null,
+        var usuario = req.user,
+            params = req.body,
+            idObject = null,
             materials = {rune: null, tostem: null},
             respuesta = {
                 generatedRunes: [],
                 generatedTostem: null
             };
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('EQUIPMENT-EQUIP').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Miro a ver el objeto cuál de los que tengo equipado es
         // ¿Será la armadura?

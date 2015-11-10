@@ -3,12 +3,12 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         skillRouter = express.Router(),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose),
-        config      = require('../modules/config');
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose),
+        config = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -53,6 +53,13 @@ module.exports = function (app) {
     skillRouter.post('/fury', function (req, res, next) {
         // El objeto user
         var usuario = req.user;
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Si ya está activo el modo furia no lo activo de nuevo
         if (usuario.game.stats.fury_mode) {

@@ -3,14 +3,13 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express       = require('express'),
-        passport      = require('passport'),
-        validator     = require('validator'),
+    var express = require('express'),
+        passport = require('passport'),
         furnaceRouter = express.Router(),
-        utils         = require('../modules/utils'),
+        utils = require('../modules/utils'),
         gameResources = require('../modules/gameResources'),
-        bodyParser    = require('body-parser'),
-        mongoose      = require('mongoose');
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -27,15 +26,22 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/tostem', function (req, res, next) {
         // El objeto user
-        var usuario       = req.user,
-            params        = req.body,
-            idTostemA     = params.inventory_a, tostemA,
-            idTostemB     = params.inventory_b, tostemB,
+        var usuario = req.user,
+            params = req.body,
+            idTostemA = params.inventory_a, tostemA,
+            idTostemB = params.inventory_b, tostemB,
             newTostemList = [],
-            respuesta     = {
+            respuesta = {
                 success: null,
                 generatedTostem: null
             };
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Si no me mandan ambos ids fuera
         if (!idTostemA || !idTostemB) {
@@ -154,16 +160,23 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/rune', function (req, res, next) {
         // El objeto user
-        var usuario     = req.user,
-            params      = req.body,
-            idRuneA     = params.inventory_a, runeA = null,
-            idRuneB     = params.inventory_b, runeB = null,
+        var usuario = req.user,
+            params = req.body,
+            idRuneA = params.inventory_a, runeA = null,
+            idRuneB = params.inventory_b, runeB = null,
             newRuneList = [],
-            respuesta   = {
+            respuesta = {
                 success: null,
                 upgraded: false,
                 generatedRune: null
             };
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Si no me mandan ambos ids fuera
         if (!idRuneA || !idRuneB) {
@@ -203,17 +216,6 @@ module.exports = function (app) {
             res.redirect('/error/errFurnaceRuneAnyEquipped');
             return;
         }
-
-        /*
-
-         - Al unir dos runas cambian aleatoriamente de material, aunque fuesen ambas del mismo material.
-         - El % de éxito de la fusión depende de la rareza de las runas:ver doc
-
-         https://docs.google.com/document/d/1f0h-yRWK-tAcpzlSkAi4fRV5V3WB4CX-sIVCz3O-x74/edit#heading=h.x20vq5w4z987
-
-         - En caso de fracaso recuperas la runa más rara o una aleatoria en caso de empate.
-         - El éxito no implica que la runa generada sea de un material superior, para eso hay que juntar 2 runas IGUALES y además entra en juego otro % diferente que depende de la rareza también. Ver doc para % de subir nivel
-         */
 
         // Calculo el porcentaje de fracaso en función de los niveles de las runas
         // 10% de base y luego 10% más por cada nivel de diferencia de rareza entre una y otra runa

@@ -3,13 +3,13 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         orderRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        Q           = require('q'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        bodyParser = require('body-parser'),
+        Q = require('q'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -67,6 +67,13 @@ module.exports = function (app) {
     orderRouter.post('/delete', function (req, res, next) {
         var user = req.user;
 
+        // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
+        if (user.game.gamedata.status !== 1 && user.game.gamedata.status !== 2) {
+            console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
+
         user.game.order.meal = null;
         user.game.order.drink = null;
         user.game.order.ito = null;
@@ -97,8 +104,15 @@ module.exports = function (app) {
      * meal: id del meal; drink:idDrink; ito: boolean
      */
     orderRouter.post('/', function (req, res, next) {
-        var user  = req.user,
+        var user = req.user,
             order = req.body;
+
+        // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
+        if (user.game.gamedata.status !== 1 && user.game.gamedata.status !== 2) {
+            console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
         if (!order.meal || !order.drink || order.ito === undefined) {

@@ -15,7 +15,7 @@ module.exports = function (app) {
     // Error en la sesión. Envío login:false para que el front borre la cookie
     app.all('/error/session', function (req, res) {
         console.tag('ERROR').error('Error en la sesión');
-        res.status(401).json({
+        res.status(403).json({
             "login": false,
             "error": "Error en la sesión"
         });
@@ -25,7 +25,7 @@ module.exports = function (app) {
     app.all('/error/:code', function (req, res) {
         var code = req.params.code;
         console.tag('ERROR').error('Error: ' + code);
-        res.status(500).json({
+        res.status(400).json({
             "data": "",
             "error": code
         });

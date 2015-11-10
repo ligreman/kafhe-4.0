@@ -1,9 +1,7 @@
 'use strict';
 
 module.exports = function (app) {
-    var console = process.console,
-        express = require('express'),
-        router  = express.Router();
+    var console = process.console;
 
     //Cargo las estrategias de las rutas
     require('./strategies')(app);
@@ -17,6 +15,7 @@ module.exports = function (app) {
     require('./profile')(app);
     require('./equipment')(app);
     require('./furnace')(app);
+    require('./forge')(app);
     require('./mongoHelper')(app);
 
     //Fichero de rutas de error
