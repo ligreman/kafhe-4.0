@@ -45,7 +45,7 @@ module.exports = function (app) {
             stats: {life: 5}
         },
         {
-            name: 'Bola de patatas', element: 'Fuego', source: 'weapon',
+            name: 'Bola de patatas', element: 'fire', source: 'weapon',
             uses: 3, duration: 2,
             cost: 3, action: 'a002',
             stats: {protection: 5, parry: 7}
@@ -126,27 +126,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fuego',
+                            type: 'fire',
                             level: 2,
                             equipped: true
                         }, {
                             id: 't002',
-                            type: 'agua',
+                            type: 'water',
                             level: 3,
                             equipped: false
                         }, {
                             id: 't003',
-                            type: 'tierra',
+                            type: 'earth',
                             level: 4,
                             equipped: false
                         }, {
                             id: 't004',
-                            type: 'agua',
+                            type: 'water',
                             level: 5,
                             equipped: false
                         }, {
                             id: 't005',
-                            type: 'aire',
+                            type: 'air',
                             level: 6,
                             equipped: false
                         }
@@ -203,10 +203,10 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            base_stats: {
-                                damage: 14,
-                                precision: 6
-                            },
+                            level: 2, base_stats: {
+                            damage: 14,
+                            precision: 6
+                        },
                             materials: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -229,7 +229,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            base_stats: {
+                            level: 2, base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -245,7 +245,7 @@ module.exports = function (app) {
                                 source: 'weapon', // common, weapon, armor
                                 uses: 1,
                                 cost: 3, action: 'a001', duration: 2,
-                                base_stats: {
+                                stats: {
                                     damage: 60
                                 },
                                 blocked: false
@@ -257,7 +257,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        base_stats: {
+                        level: 2, base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -398,10 +398,10 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            base_stats: {
-                                damage: 14,
-                                precision: 6
-                            },
+                            level: 2, base_stats: {
+                            damage: 14,
+                            precision: 6
+                        },
                             materials: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -424,7 +424,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            base_stats: {
+                            level: 2, base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -452,7 +452,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        base_stats: {
+                        level: 2, base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -593,10 +593,10 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            base_stats: {
-                                damage: 14,
-                                precision: 6
-                            },
+                            level: 2, base_stats: {
+                            damage: 14,
+                            precision: 6
+                        },
                             materials: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -619,7 +619,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            base_stats: {
+                            level: 2, base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -647,7 +647,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        base_stats: {
+                        level: 2, base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -788,10 +788,10 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            base_stats: {
-                                damage: 14,
-                                precision: 6
-                            },
+                            level: 2, base_stats: {
+                            damage: 14,
+                            precision: 6
+                        },
                             materials: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -814,7 +814,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            base_stats: {
+                            level: 2, base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -842,7 +842,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        base_stats: {
+                        level: 2, base_stats: {
                             protection: 4,
                             parry: 46
                         },
@@ -983,10 +983,10 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            base_stats: {
-                                damage: 14,
-                                precision: 6
-                            },
+                            level: 2, base_stats: {
+                            damage: 14,
+                            precision: 6
+                        },
                             materials: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -1009,7 +1009,7 @@ module.exports = function (app) {
                             id: 'w002',
                             name: 'Sal Chicha',
                             frecuency: 'legendary',
-                            base_stats: {
+                            level: 2, base_stats: {
                                 damage: 54,
                                 precision: 64
                             },
@@ -1037,7 +1037,7 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
-                        base_stats: {
+                        level: 2, base_stats: {
                             protection: 4,
                             parry: 46
                         },

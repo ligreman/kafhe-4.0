@@ -26,3 +26,10 @@ errFurnaceRuneNoRunes - No se han enviado los id de ambas runas meter al horno
 errFurnaceRuneNotFound - No se han encontrado en el inventario del usuario las dos runas
 errFurnaceRuneAnyEquipped - Alguna de las runas está equipados
 errFurnaceRuneSameRune - Se ha enviado el mismo ID de runa por duplicado
+
+errForgeNoParams - No se han enviado los datos necesarios para forjar
+errForgeNoStonesLeft - No tengo piedras de forja suficientes
+errForgeNoClassFound - No existe esa clase de arma
+errForgeNoTostemOrRuneFound - No se han encontrado el tostem o la runa en el inventario del usuario
+errForgeTostemOrRuneEquipped - Alguno de los componentes estaba equipado actualmente
+errForgeRuneStatsNotFound - No se han encontrado las características de la runa

@@ -70,6 +70,7 @@ module.exports = function (mongoose) {
                     id: String,
                     name: String,
                     frecuency: String,
+                    level: Number,
                     class: String, // cortante, perforante, contundente
                     element: String,
                     base_stats: {
@@ -87,6 +88,7 @@ module.exports = function (mongoose) {
                     id: String,
                     name: String,
                     frecuency: String,
+                    level: Number,
                     class: String, // pesada, media, ligera
                     element: String,
                     base_stats: {

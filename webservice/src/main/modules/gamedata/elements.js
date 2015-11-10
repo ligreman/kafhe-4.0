@@ -1,10 +1,10 @@
 'use strict';
 
 const ELEMENTS = [
-    'fuego',
-    'agua',
-    'tierra',
-    'aire'
+    'fire',
+    'water',
+    'earth',
+    'air'
 ];
 
 module.exports = {

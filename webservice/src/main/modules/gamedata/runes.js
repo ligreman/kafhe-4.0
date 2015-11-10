@@ -221,6 +221,14 @@ const RUNES = {
     ]
 };
 
+// Valores base de las runas
+const BASE_STATS = {
+    damage: 50,
+    precision: 100,
+    protection: 20,
+    parry: 30
+};
+
 // Porcentaje de éxito de subir nivel una runa al transmutar runas
 const UPGRADES = {
     common: 50,
@@ -231,5 +239,6 @@ const UPGRADES = {
 
 module.exports = {
     RUNES: RUNES,
+    RUNE_BASE_STATS: BASE_STATS,
     RUNE_UPGRADE: UPGRADES
 };

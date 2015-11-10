@@ -11,14 +11,7 @@
 
  **Reglas**
 
- - Necesitas 1 piedra de forja para forjar algo.
- - La runa y tostem deben estar en tu inventario y no deben estar equipadas.
- - La clase ha de se una de las factibles.
- - El elemento del arma es el del tostem elegido.
- - Las skills salen del tostem.
- - Los stats salen de un calculo de valores base y porcentajes de la runa.
- - La rareza de momento no la usaré, así que pongo común a todo por defecto.
- - Nivel equipo = nivel tostem * rareza runa
+
 
  **Otros**
 
@@ -28,14 +21,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-    //validator = require('validator'),
+    var express     = require('express'),
+        passport    = require('passport'),
+        //validator = require('validator'),
         forgeRouter = express.Router(),
-    //utils = require('../modules/utils'),
-    //gameResources = require('../modules/gameResources'),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose');
+        //utils = require('../modules/utils'),
+        //gameResources = require('../modules/gameResources'),
+        bodyParser  = require('body-parser'),
+        mongoose    = require('mongoose');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -46,116 +39,157 @@ module.exports = function (app) {
     }));
 
     /**
-     * POST /furnace/tostem
-     * Combina dos tostem en el Horno. Requiere los siguientes parámetros en el cuerpo del POST:
-     * inventory_a: id de inventario del tostem A; inventory_b: id de inventario del tostem B
+     * POST /forge/weapon
+     * Forja un arma a partir de un tostem y una runa. Requiere los siguientes parámetros en el cuerpo del POST:
+     * tostem: id de inventario del tostem; rune: id de inventario de la runa; class: clase del arma a forjar
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idTostemA = params.inventory_a, tostemA,
-            idTostemB = params.inventory_b, tostemB,
-            newTostemList = [],
-            respuesta = {
-                success: null,
-                generatedTostem: null
+        var user         = req.user,
+            params       = req.body,
+            idTostem     = params.tostem, tostem,
+            idRune       = params.rune, rune,
+            clase        = params.class,
+            forgedWeapon = {
+                id: utils.generateId(),
+                name: null,
+                frecuency: 'common',
+                class: null, // bladed, blunt, piercing
+                element: null,
+                base_stats: {
+                    damage: null,
+                    precision: null
+                },
+                materials: {
+                    rune: null,
+                    tostem: null
+                },
+                skills: [],
+                equipped: false
+            },
+            respuesta    = {
+                generatedWeapon: null
             };
 
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
-            console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
+            console.tag('FORGE-WEAPON').error('No se permite esta acción en el estado actual de la partida');
             res.redirect('/error/errGameStatusNotAllowed');
             return;
         }
 
-        // Si no me mandan ambos ids fuera
-        if (!idTostemA || !idTostemB) {
-            console.tag('FURNACE-TOSTEM').error('No se han enviado ambos tostem a meter al horno');
-            res.redirect('/error/errFurnaceTostemNoTostems');
+        // Si no me mandan los parámetros, fuera
+        if (!idRune || !idTostem || !clase) {
+            console.tag('FORGE-WEAPON').error('No se han enviado los datos necesarios para forjar');
+            res.redirect('/error/errForgeNoParams');
             return;
         }
 
-        // Si me mandan los id por duplicado fuera
-        if (idTostemA === idTostemB) {
-            console.tag('FURNACE-TOSTEM').error('Ambos id de tostem son el mismo');
-            res.redirect('/error/errFurnaceTostemSameTostem');
+        // Si no tengo piedras de forja
+        if (user.game.inventory.stones <= 0) {
+            console.tag('FORGE-WEAPON').error('No tengo piedras de forja suficientes');
+            res.redirect('/error/errForgeNoStonesLeft');
             return;
         }
 
-        // Saco los tostem del objeto usuario y dejo el resto en un nuevo array
-        usuario.game.inventory.tostems.forEach(function (tostem) {
-            if (tostem.id === idTostemA) {
-                tostemA = tostem;
-            } else if (tostem.id === idTostemB) {
-                tostemB = tostem;
-            } else {
-                newTostemList.push(tostem);
+        // La clase ha de ser una de las válidas
+        if (gameResources.WEAPON_CLASSES.indexOf(clase) === -1) {
+            console.tag('FORGE-WEAPON').error('No existe esa clase de arma');
+            res.redirect('/error/errForgeNoClassFound');
+            return;
+        }
+
+        // Saco el tostem del objeto usuario
+        usuario.game.inventory.tostems.forEach(function (thisTostem) {
+            if (thisTostem.id === idTostem) {
+                tostem = thisTostem;
+            }
+        });
+
+        // Saco la runa del objeto usuario
+        usuario.game.inventory.runes.forEach(function (thisRune) {
+            if (thisRune.id === idRune) {
+                rune = thisRune;
             }
         });
 
         // Si no he encontrado ambos, mal rollo
-        if (!tostemA || !tostemB) {
-            console.tag('FURNACE-TOSTEM').error('No se han encontrado ambos tostem en el inventario del usuario');
-            res.redirect('/error/errFurnaceTostemNotFound');
+        if (!tostem || !rune) {
+            console.tag('FORGE-WEAPON').error('No se han encontrado el tostem o la runa en el inventario del usuario');
+            res.redirect('/error/errForgeNoTostemOrRuneFound');
             return;
         }
 
         // Verifico que ambos no están equipados, o mal rollo again
-        if (tostemA.equipped || tostemB.equipped) {
-            console.tag('FURNACE-TOSTEM').error('Alguno de los tostem estaba equipado actualmente');
-            res.redirect('/error/errFurnaceTostemAnyEquipped');
+        if (tostem.equipped || rune.equipped) {
+            console.tag('FORGE-WEAPON').error('Alguno de los componentes estaba equipado actualmente');
+            res.redirect('/error/errForgeTostemOrRuneEquipped');
             return;
         }
 
-        // Calculo el porcentaje de fracaso en función de los niveles de los tostem
-        // 15% por cada nivel de diferencia entre uno y otro tostem
-        var fracaso = Math.abs(tostemA.level - tostemB.level) * 15;
+        // Pongo más características del arma
+        forgedWeapon.class = clase;
+        forgedWeapon.element = tostem.type;
+        forgedWeapon.materials.tostem = tostem.id;
+        forgedWeapon.materials.rune = rune.id;
+        forgedWeapon.level = tostem.level * gameResources.frecuenciesToNumber(rune.frecuency);
 
-        // Miro a ver si tengo éxito al fusionar el tostem
-        if (utils.dice100(fracaso)) {
-            // Éxito. Calculo el elemento del tostem final
-            var elemento = null;
-            if (tostemA.type === tostemB.type) {
-                elemento = tostemA.type;
-            }
+        // Genero el nombre del arma TODO
 
-            // Creo el nuevo tostem
-            var newTostem = gameResources.getRandomTostem(Math.max(tostemA.level, tostemB.level) + 1, elemento);
+        // Calculo los stats del arma según la runa. Me fijo en damage y precision
+        var runeData = gameResources.findRuneByType(rune.type);
 
-            // Guardo el nuevo tostem en la lista nueva
-            newTostemList.push(newTostem);
-
-            // La respuesta para el frontend
-            respuesta.success = true;
-            respuesta.generatedTostem = newTostem;
-        } else {
-            // Fracaso. Recupero uno de los dos tostem: el de más nivel o uno aleatorio en caso de empate
-            var tostemRecuperado;
-
-            if (tostemA.level > tostemB.level) {
-                tostemRecuperado = tostemA;
-            } else if (tostemA.level < tostemB.level) {
-                tostemRecuperado = tostemB;
-            } else {
-                // Aleatoriamente devuelvo uno u otro
-                if (utils.randomInt(0, 1)) {
-                    tostemRecuperado = tostemA;
-                } else {
-                    tostemRecuperado = tostemB;
-                }
-            }
-
-            // Guardo el tostem recuperado en la lista de tostems nueva
-            newTostemList.push(tostemRecuperado);
-
-            // La respuesta para el frontend
-            respuesta.success = false;
-            respuesta.generatedTostem = tostemRecuperado;
+        // Si es null, algo malo ha pasado
+        if (runeData === null) {
+            console.tag('FORGE-WEAPON').error('No se han encontrado las características de la runa');
+            res.redirect('/error/errForgeRuneStatsNotFound');
+            return;
         }
 
-        // Guardo la nueva lista de tostems del usuario
-        usuario.game.inventory.tostems = newTostemList;
+        // Hago las cuentas. Sumo el valor base del arma, y el valor base de la runa proporcional a su tipo
+        forgedWeapon.base_stats.damage =
+            gameResources.WEAPON_BASE_STATS.damage
+            + Math.round(gameResources.RUNE_BASE_STATS.damage * runeData.stats_percentages.damage / 100);
+
+        forgedWeapon.base_stats.precision =
+            gameResources.WEAPON_BASE_STATS.precision
+            + Math.round(gameResources.RUNE_BASE_STATS.precision * runeData.stats_percentages.precision / 100);
+
+        // Genero la habilidad del arma según el nivel del tostem
+        var weaponSkill = {
+            id: utils.generateId(),
+            name: String,
+            element: tostem.type,
+            level: tostem.level,
+            source: 'weapon', // common, weapon, armor
+            uses: Number,
+            duration: Number,
+            cost: Number,
+            stats: {
+                life: {type: Number, default: 0},
+                fury: {type: Number, default: 0},
+                damage: {type: Number, default: 0},
+                precision: {type: Number, default: 0},
+                protection: {type: Number, default: 0},
+                parry: {type: Number, default: 0}
+            },
+            blocked: false,
+            action: String
+        };
+
+        // TODO GENERAR LA HABILIDAD
+
+        // Guardo la skill en el arma
+        forgedWeapon.skills.push(weaponSkill);
+
+        // Arma generada para devolver al frontend
+        respuesta.generatedWeapon = forgedWeapon;
+
+        // Guardo el arma en el inventario del usuario
+        var weaponList = usuario.game.inventory.weapons;
+        weaponList.push(forgedWeapon);
+        usuario.game.inventory.weapons = weaponList;
+
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {

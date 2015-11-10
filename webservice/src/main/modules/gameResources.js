@@ -3,6 +3,8 @@
 var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
     RUNES_DATA       = require('../modules/gamedata/runes'),
+    WEAPON_DATA      = require('../modules/gamedata/weapons'),
+    TAFFY            = require('taffy'),
     utils            = require('../modules/utils');
 
 
@@ -67,6 +69,36 @@ var upgradeFrecuency = function (current) {
     }
 };
 
+/**
+ * Busca una runa dado su tipo. Los tipos son únicos.
+ * @param typeSearched Tipo de la runa a buscar
+ * @return object El objeto con la runa, o null si no la encuentra.
+ */
+var findRuneByType = function (typeSearched) {
+    var rune     = [],
+        allRunes = [];
+
+    allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
+    allRunes.push(TAFFY(RUNES_DATA.RUNES['uncommon']));
+    allRunes.push(TAFFY(RUNES_DATA.RUNES['rare']));
+    allRunes.push(TAFFY(RUNES_DATA.RUNES['extraordinary']));
+    allRunes.push(TAFFY(RUNES_DATA.RUNES['legendary']));
+
+    // Voy buscando la runa
+    var count = 0;
+    while (rune.length !== 1 && (count < allRunes.length)) {
+        rune = allRunes[count]({type: typeSearched}).get();
+        count++;
+    }
+
+    // Devuelvo el resultado
+    if (rune.length !== 1) {
+        return null;
+    } else {
+        return rune;
+    }
+};
+
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     getRandomElement: getRandomElement,
@@ -77,7 +109,12 @@ module.exports = {
     frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
     frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
 
+    findRuneByType: findRuneByType,
+
     ELEMENTS: ELEMENTS_DATA.ELEMENTS,
     RUNES: RUNES_DATA.RUNES,
-    RUNE_UPGRADE: RUNES_DATA.RUNE_UPGRADE
+    RUNE_UPGRADE: RUNES_DATA.RUNE_UPGRADE,
+    RUNE_BASE_STATS: RUNES_DATA.RUNE_BASE_STATS,
+    WEAPON_CLASSES: WEAPON_DATA.CLASSES,
+    WEAPON_BASE_STATS: WEAPON_DATA.BASE_STATS
 };
