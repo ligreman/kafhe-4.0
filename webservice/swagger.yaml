@@ -939,7 +939,7 @@ definitions:
                         type: integer
                       two:
                         type: integer
-                  equipped:
+                  in_use:
                     type: boolean
               runes:
                 type: object
@@ -963,7 +963,7 @@ definitions:
                         type: integer
                       parry:
                         type: integer
-                  equipped:
+                  in_use:
                     type: boolean
               weapons:
                 type: object
@@ -1101,4 +1101,3 @@ definitions:
       inventory_id:
         type: string
         description: ID del objeto de inventario a destruir (ha de ser arma o armadura)
-        

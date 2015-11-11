@@ -76,7 +76,7 @@ module.exports = function (app) {
         }
 
         // Verifico que ambos no están equipados, o mal rollo again
-        if (tostemA.equipped || tostemB.equipped) {
+        if (tostemA.in_use || tostemB.in_use) {
             console.tag('FURNACE-TOSTEM').error('Alguno de los tostem estaba equipado actualmente');
             res.redirect('/error/errFurnaceTostemAnyEquipped');
             return;
@@ -211,7 +211,7 @@ module.exports = function (app) {
         }
 
         // Verifico que ambos no están equipados, o mal rollo again
-        if (runeA.equipped || runeB.equipped) {
+        if (runeA.in_use || runeB.in_use) {
             console.tag('FURNACE-RUNE').error('Alguno de las runas estaba equipada actualmente');
             res.redirect('/error/errFurnaceRuneAnyEquipped');
             return;

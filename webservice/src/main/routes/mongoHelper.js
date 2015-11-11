@@ -128,27 +128,27 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't005',
                             type: 'air',
                             level: 6,
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     runes: [
@@ -162,7 +162,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r002',
                             type: 'madera',
@@ -173,7 +173,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 'r003',
                             type: 'madera',
@@ -184,7 +184,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 'r004',
                             type: 'mithril',
@@ -195,7 +195,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     weapons: [
@@ -323,27 +323,27 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     runes: [
@@ -357,7 +357,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r002',
                             type: 'iron',
@@ -368,7 +368,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r003',
                             type: 'steel',
@@ -379,7 +379,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r004',
                             type: 'mithril',
@@ -390,7 +390,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     weapons: [
@@ -518,27 +518,27 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     runes: [
@@ -552,7 +552,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r002',
                             type: 'iron',
@@ -563,7 +563,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r003',
                             type: 'steel',
@@ -574,7 +574,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r004',
                             type: 'mithril',
@@ -585,7 +585,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     weapons: [
@@ -713,27 +713,27 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 3,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't004',
                             type: 'water',
                             level: 5,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     runes: [
@@ -747,7 +747,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r002',
                             type: 'iron',
@@ -758,7 +758,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r003',
                             type: 'steel',
@@ -769,7 +769,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r004',
                             type: 'mithril',
@@ -780,7 +780,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     weapons: [
@@ -908,27 +908,27 @@ module.exports = function (app) {
                             id: 't001',
                             type: 'fire',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't002',
                             type: 'water',
                             level: 2,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't003',
                             type: 'earth',
                             level: 4,
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 't004',
                             type: 'fire',
                             level: 5,
-                            equipped: false
+                            in_use: false
                         }, {
                             id: 't005',
                             type: 'light',
                             level: 6,
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     runes: [
@@ -942,7 +942,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r002',
                             type: 'irony',
@@ -953,7 +953,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r003',
                             type: 'steely',
@@ -964,7 +964,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: true
+                            in_use: true
                         }, {
                             id: 'r004',
                             type: 'mithrily',
@@ -975,7 +975,7 @@ module.exports = function (app) {
                                 protection: 56,
                                 parry: 45
                             },
-                            equipped: false
+                            in_use: false
                         }
                     ],
                     weapons: [

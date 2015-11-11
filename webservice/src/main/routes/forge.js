@@ -21,15 +21,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-    //validator = require('validator'),
-        forgeRouter = express.Router(),
-        utils = require('../modules/utils'),
+    var express       = require('express'),
+        passport      = require('passport'),
+        //validator = require('validator'),
+        forgeRouter   = express.Router(),
+        utils         = require('../modules/utils'),
         gameResources = require('../modules/gameResources'),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        bodyParser    = require('body-parser'),
+        mongoose      = require('mongoose'),
+        models        = require('../models/models')(mongoose);
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -46,11 +46,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var user = req.user,
-            params = req.body,
-            idTostem = params.tostem, tostem,
-            idRune = params.rune, rune,
-            clase = params.class,
+        var user         = req.user,
+            params       = req.body,
+            idTostem     = params.tostem, tostem,
+            idRune       = params.rune, rune,
+            clase        = params.class,
             forgedWeapon = {
                 id: utils.generateId(),
                 name: null,
@@ -68,7 +68,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta = {
+            respuesta    = {
                 generatedWeapon: null
             };
 
@@ -129,8 +129,8 @@ module.exports = function (app) {
             return;
         }
 
-        // Verifico que ambos no están ya usandose (equipados), o mal rollo again
-        if (tostem.equipped || rune.equipped) {
+        // Verifico que ambos no están ya usandose, o mal rollo again
+        if (tostem.in_use || rune.in_use) {
             console.tag('FORGE-WEAPON').error('Alguno de los componentes estaba equipado actualmente');
             res.redirect('/error/errForgeTostemOrRuneEquipped');
             return;
@@ -227,10 +227,10 @@ module.exports = function (app) {
                 weaponList.push(forgedWeapon);
                 usuario.game.inventory.weapons = weaponList;
 
-                // Actualizo la lista de tostems y runas, marcando como usadas(equipadas)
+                // Actualizo la lista de tostems y runas, marcando como usadas
                 // las de este arma
-                tostem.equipped = true;
-                rune.equipped = true;
+                tostem.in_use = true;
+                rune.in_use = true;
                 tostemList.push(tostem);
                 runeList.push(rune);
                 usuario.game.inventory.tostems = tostemList;

@@ -121,7 +121,7 @@ module.exports = function (app) {
         usuario.game.inventory.runes.forEach(function (runa) {
             // Si es la que busco
             if (runa.id === materials.rune) {
-                runa.equipped = true;
+                runa.in_use = true;
             }
             newRunes.push(runa);
         });
@@ -129,7 +129,7 @@ module.exports = function (app) {
         usuario.game.inventory.tostems.forEach(function (tostem) {
             // Si es la que busco
             if (tostem.id === materials.tostem) {
-                tostem.equipped = true;
+                tostem.in_use = true;
             }
             newTostems.push(tostem);
         });

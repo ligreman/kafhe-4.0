@@ -1,11 +1,11 @@
 'use strict';
 
-var ELEMENTS_DATA = require('../modules/gamedata/elements'),
+var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA = require('../modules/gamedata/runes'),
-    WEAPON_DATA = require('../modules/gamedata/weapons'),
-    TAFFY = require('taffy'),
-    utils = require('../modules/utils');
+    RUNES_DATA       = require('../modules/gamedata/runes'),
+    WEAPON_DATA      = require('../modules/gamedata/weapons'),
+    TAFFY            = require('taffy'),
+    utils            = require('../modules/utils');
 
 
 /**
@@ -29,7 +29,7 @@ var getRandomTostem = function (level, element) {
         id: utils.generateId(),
         type: element,
         level: level,
-        equipped: false
+        in_use: false
     };
 
     return newTostem;
@@ -47,7 +47,7 @@ var getRandomRune = function (frecuency) {
 
     // Genero un id para la runa y le pongo que no está equipada
     newRune.id = utils.generateId();
-    newRune.equipped = false;
+    newRune.in_use = false;
 
     return newRune;
 };
@@ -75,7 +75,7 @@ var upgradeFrecuency = function (current) {
  * @return object El objeto con la runa, o null si no la encuentra.
  */
 var findRuneByType = function (typeSearched) {
-    var rune = [],
+    var rune     = [],
         allRunes = [];
 
     allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
@@ -108,7 +108,7 @@ var findRuneByType = function (typeSearched) {
  * @returns {string}
  */
 var getRandomWeaponName = function (clase, elemento, hasOwner) {
-    var classNames = WEAPON_DATA.CLASS_NAMES,
+    var classNames   = WEAPON_DATA.CLASS_NAMES,
         featureNames = WEAPON_DATA.FEATURE_NAMES;
 
 

@@ -52,7 +52,7 @@ module.exports = function (mongoose) {
                     id: String,
                     type: {type: String}, // Dejarlo así ya que type es palabra registrada y si no peta
                     level: Number,
-                    equipped: Boolean
+                    in_use: Boolean
                 }],
                 runes: [{
                     id: String,
@@ -64,7 +64,7 @@ module.exports = function (mongoose) {
                         protection: Number,
                         parry: Number
                     },
-                    equipped: Boolean
+                    in_use: Boolean
                 }],
                 weapons: [{
                     id: String,
