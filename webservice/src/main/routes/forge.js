@@ -147,7 +147,7 @@ module.exports = function (app) {
         forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon.class, forgedWeapon.element, false);
 
         // Calculo los stats del arma según la runa. Me fijo en damage y precision
-        var runeData = gameResources.findRuneByType(rune.material);
+        var runeData = gameResources.findRuneByMaterial(rune.material);
 
         // Si es null, algo malo ha pasado
         if (runeData === null) {

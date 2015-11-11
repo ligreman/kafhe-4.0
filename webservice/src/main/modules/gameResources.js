@@ -142,7 +142,7 @@ module.exports = {
     frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
     frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
 
-    findRuneByType: findRuneByMaterial,
+    findRuneByMaterial: findRuneByMaterial,
 
     ELEMENTS: ELEMENTS_DATA.ELEMENTS,
     RUNES: RUNES_DATA.RUNES,
