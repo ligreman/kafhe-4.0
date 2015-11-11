@@ -7,7 +7,7 @@ module.exports = function (mongoose) {
     var SkillSchema = mongoose.Schema({
         name: String,
         element: String,
-        source: String, // common, weapon, armor
+        source: String, // weapon, armor
         uses: Number,
         duration: Number,
         cost: Number,

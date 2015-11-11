@@ -1,11 +1,11 @@
 'use strict';
 
-var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
+var ELEMENTS_DATA = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA       = require('../modules/gamedata/runes'),
-    WEAPON_DATA      = require('../modules/gamedata/weapons'),
-    TAFFY            = require('taffy'),
-    utils            = require('../modules/utils');
+    RUNES_DATA = require('../modules/gamedata/runes'),
+    WEAPON_DATA = require('../modules/gamedata/weapons'),
+    TAFFY = require('taffy'),
+    utils = require('../modules/utils');
 
 
 /**
@@ -75,7 +75,7 @@ var upgradeFrecuency = function (current) {
  * @return object El objeto con la runa, o null si no la encuentra.
  */
 var findRuneByType = function (typeSearched) {
-    var rune     = [],
+    var rune = [],
         allRunes = [];
 
     allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
@@ -99,12 +99,45 @@ var findRuneByType = function (typeSearched) {
     }
 };
 
+
+/**
+ * Genera un nombre aleatorio para un arma
+ * @param clase
+ * @param elemento
+ * @param hasOwner
+ * @returns {string}
+ */
+var getRandomWeaponName = function (clase, elemento, hasOwner) {
+    var classNames = WEAPON_DATA.CLASS_NAMES,
+        featureNames = WEAPON_DATA.FEATURE_NAMES;
+
+
+    // Cojo según la clase de arma un nombre de clase
+    var className = classNames[clase][Math.floor(Math.random() * classNames[clase].length)];
+
+    //Ahora la feature del arma según elemento y género
+    var featureName = featureNames[elemento][Math.floor(Math.random() * featureNames[elemento].length)];
+
+    // Si tiene propietario
+    var ownerName = '';
+    if (hasOwner) {
+        var ownerNames = WEAPON_DATA.OWNER_NAMES;
+
+        ownerName = ownerNames['common'][Math.floor(Math.random() * ownerNames['common'].length)];
+        ownerName = ' ' + ownerName.text;
+    }
+
+    // Compongo el nombre
+    return className.text + ' ' + featureName.text[className.gender] + ownerName;
+};
+
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     getRandomElement: getRandomElement,
     getRandomRune: getRandomRune,
     getRandomTostem: getRandomTostem,
     upgradeFrecuency: upgradeFrecuency,
+    getRandomWeaponName: getRandomWeaponName,
 
     frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
     frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
@@ -115,6 +148,10 @@ module.exports = {
     RUNES: RUNES_DATA.RUNES,
     RUNE_UPGRADE: RUNES_DATA.RUNE_UPGRADE,
     RUNE_BASE_STATS: RUNES_DATA.RUNE_BASE_STATS,
+
     WEAPON_CLASSES: WEAPON_DATA.CLASSES,
-    WEAPON_BASE_STATS: WEAPON_DATA.BASE_STATS
+    WEAPON_BASE_STATS: WEAPON_DATA.BASE_STATS,
+    WEAPON_CLASS_NAMES: WEAPON_DATA.CLASS_NAMES,
+    WEAPON_FEATURE_NAMES: WEAPON_DATA.FEATURE_NAMES,
+    WEAPON_OWNER_NAMES: WEAPON_DATA.OWNER_NAMES
 };

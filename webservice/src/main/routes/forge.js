@@ -21,14 +21,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
-        //validator = require('validator'),
+    var express = require('express'),
+        passport = require('passport'),
+    //validator = require('validator'),
         forgeRouter = express.Router(),
-        //utils = require('../modules/utils'),
-        //gameResources = require('../modules/gameResources'),
-        bodyParser  = require('body-parser'),
-        mongoose    = require('mongoose');
+        utils = require('../modules/utils'),
+        gameResources = require('../modules/gameResources'),
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -45,11 +46,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var user         = req.user,
-            params       = req.body,
-            idTostem     = params.tostem, tostem,
-            idRune       = params.rune, rune,
-            clase        = params.class,
+        var user = req.user,
+            params = req.body,
+            idTostem = params.tostem, tostem,
+            idRune = params.rune, rune,
+            clase = params.class,
             forgedWeapon = {
                 id: utils.generateId(),
                 name: null,
@@ -67,7 +68,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta    = {
+            respuesta = {
                 generatedWeapon: null
             };
 
@@ -100,16 +101,24 @@ module.exports = function (app) {
         }
 
         // Saco el tostem del objeto usuario
+        var tostemList = [];
         usuario.game.inventory.tostems.forEach(function (thisTostem) {
             if (thisTostem.id === idTostem) {
                 tostem = thisTostem;
+            } else {
+                // Lo meto en la lista del resto de tostems
+                tostemList.push(thisTostem);
             }
         });
 
         // Saco la runa del objeto usuario
+        var runeList = [];
         usuario.game.inventory.runes.forEach(function (thisRune) {
             if (thisRune.id === idRune) {
                 rune = thisRune;
+            } else {
+                // Lo meto en la lista del resto de tostems
+                runeList.push(thisRune);
             }
         });
 
@@ -120,7 +129,7 @@ module.exports = function (app) {
             return;
         }
 
-        // Verifico que ambos no están equipados, o mal rollo again
+        // Verifico que ambos no están ya usandose (equipados), o mal rollo again
         if (tostem.equipped || rune.equipped) {
             console.tag('FORGE-WEAPON').error('Alguno de los componentes estaba equipado actualmente');
             res.redirect('/error/errForgeTostemOrRuneEquipped');
@@ -134,7 +143,8 @@ module.exports = function (app) {
         forgedWeapon.materials.rune = rune.id;
         forgedWeapon.level = tostem.level * gameResources.frecuenciesToNumber(rune.frecuency);
 
-        // Genero el nombre del arma TODO
+        // Genero el nombre del arma
+        forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon.class, forgedWeapon.element, false);
 
         // Calculo los stats del arma según la runa. Me fijo en damage y precision
         var runeData = gameResources.findRuneByType(rune.type);
@@ -155,61 +165,98 @@ module.exports = function (app) {
             gameResources.WEAPON_BASE_STATS.precision
             + Math.round(gameResources.RUNE_BASE_STATS.precision * runeData.stats_percentages.precision / 100);
 
-        // Genero la habilidad del arma según el nivel del tostem
-        var weaponSkill = {
+        // Habilidad básica de arma
+        var weaponBasicSkill = {
             id: utils.generateId(),
-            name: String,
-            element: tostem.type,
-            level: tostem.level,
+            name: 'Ataque',
+            element: null,
+            level: null,
             source: 'weapon', // common, weapon, armor
-            uses: Number,
-            duration: Number,
-            cost: Number,
+            uses: null,
+            duration: null,
+            cost: 1,
             stats: {
-                life: {type: Number, default: 0},
-                fury: {type: Number, default: 0},
-                damage: {type: Number, default: 0},
-                precision: {type: Number, default: 0},
-                protection: {type: Number, default: 0},
-                parry: {type: Number, default: 0}
+                damage: forgedWeapon.base_stats.damage,
+                precision: forgedWeapon.base_stats.precision
             },
             blocked: false,
-            action: String
+            action: 'attack'
         };
+        forgedWeapon.skills.push(weaponBasicSkill);
 
-        // TODO GENERAR LA HABILIDAD
+        // Habilidad elemental del arma
+        models.Skill
+            .find({"element": tostem.type})
+            .exec(function (error, elementSkills) {
+                if (error) {
+                    console.tag('MONGO').error(error);
+                    res.redirect('/error/errSkillList');
+                    return;
+                }
 
-        // Guardo la skill en el arma
-        forgedWeapon.skills.push(weaponSkill);
-
-        // Arma generada para devolver al frontend
-        respuesta.generatedWeapon = forgedWeapon;
-
-        // Guardo el arma en el inventario del usuario
-        var weaponList = usuario.game.inventory.weapons;
-        weaponList.push(forgedWeapon);
-        usuario.game.inventory.weapons = weaponList;
-
-        // Guardo el usuario
-        usuario.save(function (err) {
-            if (err) {
-                console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
-                return;
-            } else {
-                res.json({
-                    "data": {
-                        "user": usuario,
-                        "result": respuesta
-                    },
-                    "session": {
-                        "access_token": req.authInfo.access_token,
-                        "expire": 1000 * 60 * 60 * 24 * 30
-                    },
-                    "error": ""
+                // Recorro la lista de habilidades de este elemento
+                var skillList = [], weaponElementalSkill;
+                elementSkills.forEach(function (skill) {
+                    // Busco la que es la de ataque elemental básico
+                    if (skill.name === 'Ataque elemental') {
+                        weaponElementalSkill = skill;
+                    } else {
+                        skillList.push(skill);
+                    }
                 });
-            }
-        });
+
+                // Habilidad elemental básica del arma
+                // TODO hacer que el damage y precision vaya en función del nivel del tostem
+                if (weaponElementalSkill) {
+                    weaponElementalSkill.id = utils.generateId();
+
+                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round(forgedWeapon.base_stats.damage * weaponElementalSkill.stats.damage / 100);
+
+                    weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(forgedWeapon.base_stats.precision * weaponElementalSkill.stats.precision / 100);
+
+                    forgedWeapon.skills.push(weaponElementalSkill);
+                }
+
+                // Otras habilidades si las hubiere TODO
+
+                // Arma generada para devolver al frontend
+                respuesta.generatedWeapon = forgedWeapon;
+
+                // Guardo el arma en el inventario del usuario
+                var weaponList = usuario.game.inventory.weapons;
+                weaponList.push(forgedWeapon);
+                usuario.game.inventory.weapons = weaponList;
+
+                // Actualizo la lista de tostems y runas, marcando como usadas(equipadas)
+                // las de este arma
+                tostem.equipped = true;
+                rune.equipped = true;
+                tostemList.push(tostem);
+                runeList.push(rune);
+                usuario.game.inventory.tostems = tostemList;
+                usuario.game.inventory.runes = runeList;
+
+                // Guardo el usuario
+                usuario.save(function (err) {
+                    if (err) {
+                        console.tag('MONGO').error(err);
+                        res.redirect('/error/errMongoSave');
+                        return;
+                    } else {
+                        res.json({
+                            "data": {
+                                "user": usuario,
+                                "result": respuesta
+                            },
+                            "session": {
+                                "access_token": req.authInfo.access_token,
+                                "expire": 1000 * 60 * 60 * 24 * 30
+                            },
+                            "error": ""
+                        });
+                    }
+                });
+            });
     });
 
     // Asigno los router a sus rutas

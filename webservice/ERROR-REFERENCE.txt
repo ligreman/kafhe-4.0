@@ -11,6 +11,7 @@ errOrderAllNotFound - Error al buscar las meals o drinks en Mongo
 errOrderNotBothIto - O meal o drink no pueden ser ITO
 errProfileNoValidData - No había datos válidos de perfil que actualizar
 errSkillListNotFound - Error al buscar la lista de habilidades del juego
+errSkillList - Error al recuperar habilidades
 errFuryAlreadyActive - Ya estaba activado el modo furia
 errFuryNotEnoughPoints - No tienes los puntos necesarios para activar furia
 errUserListNotFound - Error al buscar la lista de usuarios de la partida
