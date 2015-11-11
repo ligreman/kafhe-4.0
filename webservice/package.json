@@ -12,6 +12,7 @@
     "body-parser": "^1.14.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "mathjs": "^2.4.1",
     "mongoose": "^4.1.9",
     "mongoose-fakery": "^0.1.7",
     "passport": "^0.3.0",

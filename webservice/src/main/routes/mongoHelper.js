@@ -57,10 +57,10 @@ module.exports = function (app) {
             stats: {life: 5}
         },
         {
-            name: 'Jarl', element: 'Escarcha', source: 'armor',
+            name: 'Ataque elemental', element: 'water', source: 'weapon',
             uses: 3, duration: 2,
             cost: 3, action: 'a004',
-            stats: {precision: 5}
+            stats: {precision: 15, damage_formula: 'baseDamage * ( (49 - (3 * tostemLevel)) * tostemLevel ) / 100'}
         },
         {
             name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
@@ -80,7 +80,7 @@ module.exports = function (app) {
     var date = new Date();
     var game = {
         repeat: true,
-        status: 0,
+        status: 1,
         caller: null,
         players: null,
         notifications: [

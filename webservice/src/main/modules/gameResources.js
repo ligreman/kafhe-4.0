@@ -95,7 +95,7 @@ var findRuneByMaterial = function (materialSearch) {
     if (rune.length !== 1) {
         return null;
     } else {
-        return rune;
+        return rune[0];
     }
 };
 
@@ -139,8 +139,8 @@ module.exports = {
     upgradeFrecuency: upgradeFrecuency,
     getRandomWeaponName: getRandomWeaponName,
 
-    frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
-    frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
+    FRECUENCIES_TO_NUMBER: FRECUENCIES_DATA.FRECUENCIES,
+    FRECUENCIES_TO_STRING: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
 
     findRuneByMaterial: findRuneByMaterial,
 

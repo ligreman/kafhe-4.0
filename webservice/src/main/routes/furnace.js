@@ -219,14 +219,14 @@ module.exports = function (app) {
 
         // Calculo el porcentaje de fracaso en función de los niveles de las runas
         // 10% de base y luego 10% más por cada nivel de diferencia de rareza entre una y otra runa
-        var fracaso = 10 + ( Math.abs(gameResources.frecuenciesToNumber[runeA.frecuency] - gameResources.frecuenciesToNumber[runeB.frecuency]) * 10 );
+        var fracaso = 10 + ( Math.abs(gameResources.FRECUENCIES_TO_NUMBER[runeA.frecuency] - gameResources.FRECUENCIES_TO_NUMBER[runeB.frecuency]) * 10 );
 
         // Hago unos cálculos para saber la frecuencia más alta y otras cosas
         var runeRecuperado, sameFrecuency = false, maxFrecuency;
-        if (gameResources.frecuenciesToNumber[runeA.frecuency] > gameResources.frecuenciesToNumber[runeB.frecuency]) {
+        if (gameResources.FRECUENCIES_TO_NUMBER[runeA.frecuency] > gameResources.FRECUENCIES_TO_NUMBER[runeB.frecuency]) {
             runeRecuperado = runeA;
             maxFrecuency = runeA.frecuency;
-        } else if (gameResources.frecuenciesToNumber[runeA.frecuency] < gameResources.frecuenciesToNumber[runeB.frecuency]) {
+        } else if (gameResources.FRECUENCIES_TO_NUMBER[runeA.frecuency] < gameResources.FRECUENCIES_TO_NUMBER[runeB.frecuency]) {
             runeRecuperado = runeB;
             maxFrecuency = runeB.frecuency;
         } else {

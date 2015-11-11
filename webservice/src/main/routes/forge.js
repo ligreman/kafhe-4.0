@@ -24,6 +24,7 @@ module.exports = function (app) {
     var express       = require('express'),
         passport      = require('passport'),
         //validator = require('validator'),
+        math          = require('mathjs'),
         forgeRouter   = express.Router(),
         utils         = require('../modules/utils'),
         gameResources = require('../modules/gameResources'),
@@ -46,7 +47,7 @@ module.exports = function (app) {
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var user         = req.user,
+        var usuario      = req.user,
             params       = req.body,
             idTostem     = params.tostem, tostem,
             idRune       = params.rune, rune,
@@ -87,7 +88,7 @@ module.exports = function (app) {
         }
 
         // Si no tengo piedras de forja
-        if (user.game.inventory.stones <= 0) {
+        if (usuario.game.inventory.stones <= 0) {
             console.tag('FORGE-WEAPON').error('No tengo piedras de forja suficientes');
             res.redirect('/error/errForgeNoStonesLeft');
             return;
@@ -141,7 +142,7 @@ module.exports = function (app) {
         forgedWeapon.element = tostem.element;
         forgedWeapon.components.tostem = tostem.id;
         forgedWeapon.components.rune = rune.id;
-        forgedWeapon.level = tostem.level * gameResources.frecuenciesToNumber(rune.frecuency);
+        forgedWeapon.level = tostem.level * gameResources.FRECUENCIES_TO_NUMBER[rune.frecuency];
 
         // Genero el nombre del arma
         forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon.class, forgedWeapon.element, false);
@@ -186,7 +187,7 @@ module.exports = function (app) {
 
         // Habilidad elemental del arma
         models.Skill
-            .find({"element": tostem.element})
+            .find({"element": tostem.element, "source": "weapon"})
             .exec(function (error, elementSkills) {
                 if (error) {
                     console.tag('MONGO').error(error);
@@ -206,12 +207,20 @@ module.exports = function (app) {
                 });
 
                 // Habilidad elemental básica del arma
-                // TODO hacer que el damage y precision vaya en función del nivel del tostem
                 if (weaponElementalSkill) {
                     weaponElementalSkill.id = utils.generateId();
 
-                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round(forgedWeapon.base_stats.damage * weaponElementalSkill.stats.damage / 100);
+                    // El daño que añade la habilidad es una fórmula realmente, que parte del daño que tengo ya calculado:
+                    // Ya tengo (dañobaseArma + dañoRuna) = dañoA (forgedWeapon.base_stats.damage)
+                    // dañoA + dañoA*((49-(3*NivelTostem))*NivelTostem)%
+                    var data = {
+                        tostemLevel: tostem.level,
+                        baseDamage: forgedWeapon.base_stats.damage
+                    };
+                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round();
+                    math.eval(weaponElementalSkill.stats.damage_formula, data);
 
+                    // La precisión es simplemente añade un porcentaje de la precisión ya calculada
                     weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(forgedWeapon.base_stats.precision * weaponElementalSkill.stats.precision / 100);
 
                     forgedWeapon.skills.push(weaponElementalSkill);
@@ -236,26 +245,38 @@ module.exports = function (app) {
                 usuario.game.inventory.tostems = tostemList;
                 usuario.game.inventory.runes = runeList;
 
-                // Guardo el usuario
-                usuario.save(function (err) {
-                    if (err) {
-                        console.tag('MONGO').error(err);
-                        res.redirect('/error/errMongoSave');
-                        return;
-                    } else {
-                        res.json({
-                            "data": {
-                                "user": usuario,
-                                "result": respuesta
-                            },
-                            "session": {
-                                "access_token": req.authInfo.access_token,
-                                "expire": 1000 * 60 * 60 * 24 * 30
-                            },
-                            "error": ""
-                        });
-                    }
+                res.json({
+                    "data": {
+                        "user": usuario,
+                        "result": respuesta
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
                 });
+
+                // Guardo el usuario
+                /*usuario.save(function (err) {
+                 if (err) {
+                 console.tag('MONGO').error(err);
+                 res.redirect('/error/errMongoSave');
+                 return;
+                 } else {
+                 res.json({
+                 "data": {
+                 "user": usuario,
+                 "result": respuesta
+                 },
+                 "session": {
+                 "access_token": req.authInfo.access_token,
+                 "expire": 1000 * 60 * 60 * 24 * 30
+                 },
+                 "error": ""
+                 });
+                 }
+                 });*/
             });
     });
 

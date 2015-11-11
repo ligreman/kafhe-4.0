@@ -28,9 +28,15 @@ const FEATURE_NAMES = {
         {text: {m: 'de fuego', f: 'de fuego'}},
         {text: {m: 'abrasador', f: 'abrasadora'}}
     ],
-    water: [],
-    earth: [],
-    air: []
+    water: [
+        {text: {m: 'de agua', f: 'de agua'}}
+    ],
+    earth: [
+        {text: {m: 'de tierra', f: 'de tierra'}}
+    ],
+    air: [
+        {text: {m: 'de aire', f: 'de aire'}}
+    ]
 };
 
 const OWNER_NAMES = {

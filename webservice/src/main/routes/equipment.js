@@ -245,8 +245,8 @@ module.exports = function (app) {
             // Si es la que busco, no la guardo porque es la que he usado
             if (runa.id === components.rune) {
                 // Si es una rura común devuelvo una común aleatoria
-                if (runa.frecuency === gameResources.frecuenciesToString[1]) {
-                    var frecuency = gameResources.frecuenciesToString[1];
+                if (runa.frecuency === gameResources.FRECUENCIES_TO_STRING[1]) {
+                    var frecuency = gameResources.FRECUENCIES_TO_STRING[1];
                     var newRune = gameResources.getRandomRune(frecuency);
                     newRunes.push(newRune);
 
@@ -255,9 +255,9 @@ module.exports = function (app) {
                 }
                 // Si no, devuelvo dos de nivel inferior
                 else {
-                    var frecuency = gameResources.frecuenciesToNumber[runa.frecuency] - 1;
+                    var frecuency = gameResources.FRECUENCIES_TO_NUMBER[runa.frecuency] - 1;
                     // Necesito la frecuencia en letra
-                    frecuency = gameResources.frecuenciesToString[frecuency];
+                    frecuency = gameResources.FRECUENCIES_TO_STRING[frecuency];
 
                     // Genero las dos runas
                     var newRune = gameResources.getRandomRune(frecuency);
