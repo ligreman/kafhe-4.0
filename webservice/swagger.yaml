@@ -926,7 +926,7 @@ definitions:
                 properties:
                   id:
                     type: string
-                  type:
+                  element:
                     type: string
                   level:
                     type: integer
@@ -946,7 +946,7 @@ definitions:
                 properties:
                   id:
                     type: string
-                  type:
+                  material:
                     type: string
                   level:
                     type: integer
@@ -981,7 +981,7 @@ definitions:
                         type: integer
                       precision:
                         type: integer
-                  materials:
+                  components:
                     type: object
                     properties:
                       rune:
@@ -1010,7 +1010,7 @@ definitions:
                         type: integer
                       parry:
                         type: integer
-                  materials:
+                  components:
                     type: object
                     properties:
                       rune:

@@ -126,27 +126,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            element: 'fire',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            element: 'water',
                             level: 3,
                             in_use: false
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            element: 'earth',
                             level: 4,
                             in_use: false
                         }, {
                             id: 't004',
-                            type: 'water',
+                            element: 'water',
                             level: 5,
                             in_use: false
                         }, {
                             id: 't005',
-                            type: 'air',
+                            element: 'air',
                             level: 6,
                             in_use: false
                         }
@@ -154,7 +154,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'madera',
+                            material: 'madera',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -165,7 +165,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r002',
-                            type: 'madera',
+                            material: 'madera',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -176,7 +176,7 @@ module.exports = function (app) {
                             in_use: false
                         }, {
                             id: 'r003',
-                            type: 'madera',
+                            material: 'madera',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -187,7 +187,7 @@ module.exports = function (app) {
                             in_use: false
                         }, {
                             id: 'r004',
-                            type: 'mithril',
+                            material: 'mithril',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -207,7 +207,7 @@ module.exports = function (app) {
                             damage: 14,
                             precision: 6
                         },
-                            materials: {
+                            components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
@@ -233,7 +233,7 @@ module.exports = function (app) {
                                 damage: 54,
                                 precision: 64
                             },
-                            materials: {
+                            components: {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
@@ -261,7 +261,7 @@ module.exports = function (app) {
                             protection: 4,
                             parry: 46
                         },
-                        materials: {
+                        components: {
                             rune: 'r003',
                             tostem: 't003'
                         },
@@ -321,27 +321,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            element: 'fire',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            element: 'water',
                             level: 3,
                             in_use: true
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            element: 'earth',
                             level: 4,
                             in_use: true
                         }, {
                             id: 't004',
-                            type: 'water',
+                            element: 'water',
                             level: 5,
                             in_use: false
                         }, {
                             id: 't005',
-                            type: 'light',
+                            element: 'light',
                             level: 6,
                             in_use: false
                         }
@@ -349,7 +349,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'wood',
+                            material: 'wood',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -360,7 +360,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r002',
-                            type: 'iron',
+                            material: 'iron',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -371,7 +371,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r003',
-                            type: 'steel',
+                            material: 'steel',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -382,7 +382,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r004',
-                            type: 'mithril',
+                            material: 'mithril',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -402,7 +402,7 @@ module.exports = function (app) {
                             damage: 14,
                             precision: 6
                         },
-                            materials: {
+                            components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
@@ -428,7 +428,7 @@ module.exports = function (app) {
                                 damage: 54,
                                 precision: 64
                             },
-                            materials: {
+                            components: {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
@@ -456,7 +456,7 @@ module.exports = function (app) {
                             protection: 4,
                             parry: 46
                         },
-                        materials: {
+                        components: {
                             rune: 'r003',
                             tostem: 't003'
                         },
@@ -516,27 +516,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            element: 'fire',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            element: 'water',
                             level: 3,
                             in_use: true
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            element: 'earth',
                             level: 4,
                             in_use: true
                         }, {
                             id: 't004',
-                            type: 'water',
+                            element: 'water',
                             level: 5,
                             in_use: false
                         }, {
                             id: 't005',
-                            type: 'light',
+                            element: 'light',
                             level: 6,
                             in_use: false
                         }
@@ -544,7 +544,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'wood',
+                            material: 'wood',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -555,7 +555,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r002',
-                            type: 'iron',
+                            material: 'iron',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -566,7 +566,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r003',
-                            type: 'steel',
+                            material: 'steel',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -577,7 +577,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r004',
-                            type: 'mithril',
+                            material: 'mithril',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -597,7 +597,7 @@ module.exports = function (app) {
                             damage: 14,
                             precision: 6
                         },
-                            materials: {
+                            components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
@@ -623,7 +623,7 @@ module.exports = function (app) {
                                 damage: 54,
                                 precision: 64
                             },
-                            materials: {
+                            components: {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
@@ -651,7 +651,7 @@ module.exports = function (app) {
                             protection: 4,
                             parry: 46
                         },
-                        materials: {
+                        components: {
                             rune: 'r003',
                             tostem: 't003'
                         },
@@ -711,27 +711,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            element: 'fire',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            element: 'water',
                             level: 3,
                             in_use: true
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            element: 'earth',
                             level: 4,
                             in_use: true
                         }, {
                             id: 't004',
-                            type: 'water',
+                            element: 'water',
                             level: 5,
                             in_use: false
                         }, {
                             id: 't005',
-                            type: 'light',
+                            element: 'light',
                             level: 6,
                             in_use: false
                         }
@@ -739,7 +739,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'wood',
+                            material: 'wood',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -750,7 +750,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r002',
-                            type: 'iron',
+                            material: 'iron',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -761,7 +761,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r003',
-                            type: 'steel',
+                            material: 'steel',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -772,7 +772,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r004',
-                            type: 'mithril',
+                            material: 'mithril',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -792,7 +792,7 @@ module.exports = function (app) {
                             damage: 14,
                             precision: 6
                         },
-                            materials: {
+                            components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
@@ -818,7 +818,7 @@ module.exports = function (app) {
                                 damage: 54,
                                 precision: 64
                             },
-                            materials: {
+                            components: {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
@@ -846,7 +846,7 @@ module.exports = function (app) {
                             protection: 4,
                             parry: 46
                         },
-                        materials: {
+                        components: {
                             rune: 'r003',
                             tostem: 't003'
                         },
@@ -906,27 +906,27 @@ module.exports = function (app) {
                     tostems: [
                         {
                             id: 't001',
-                            type: 'fire',
+                            element: 'fire',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't002',
-                            type: 'water',
+                            element: 'water',
                             level: 2,
                             in_use: true
                         }, {
                             id: 't003',
-                            type: 'earth',
+                            element: 'earth',
                             level: 4,
                             in_use: true
                         }, {
                             id: 't004',
-                            type: 'fire',
+                            element: 'fire',
                             level: 5,
                             in_use: false
                         }, {
                             id: 't005',
-                            type: 'light',
+                            element: 'light',
                             level: 6,
                             in_use: false
                         }
@@ -934,7 +934,7 @@ module.exports = function (app) {
                     runes: [
                         {
                             id: 'r001',
-                            type: 'woody',
+                            material: 'woody',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -945,7 +945,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r002',
-                            type: 'irony',
+                            material: 'irony',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -956,7 +956,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r003',
-                            type: 'steely',
+                            material: 'steely',
                             frecuency: 'uncommon',
                             stats_percentages: {
                                 damage: 12,
@@ -967,7 +967,7 @@ module.exports = function (app) {
                             in_use: true
                         }, {
                             id: 'r004',
-                            type: 'mithrily',
+                            material: 'mithrily',
                             frecuency: 'common',
                             stats_percentages: {
                                 damage: 12,
@@ -987,7 +987,7 @@ module.exports = function (app) {
                             damage: 14,
                             precision: 6
                         },
-                            materials: {
+                            components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
@@ -1013,7 +1013,7 @@ module.exports = function (app) {
                                 damage: 54,
                                 precision: 64
                             },
-                            materials: {
+                            components: {
                                 rune: 'r002',
                                 tostem: 't002'
                             },
@@ -1041,7 +1041,7 @@ module.exports = function (app) {
                             protection: 4,
                             parry: 46
                         },
-                        materials: {
+                        components: {
                             rune: 'r003',
                             tostem: 't003'
                         },

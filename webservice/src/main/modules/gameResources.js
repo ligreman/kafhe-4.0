@@ -27,7 +27,7 @@ var getRandomTostem = function (level, element) {
 
     var newTostem = {
         id: utils.generateId(),
-        type: element,
+        element: element,
         level: level,
         in_use: false
     };
@@ -70,11 +70,11 @@ var upgradeFrecuency = function (current) {
 };
 
 /**
- * Busca una runa dado su tipo. Los tipos son únicos.
- * @param typeSearched Tipo de la runa a buscar
+ * Busca una runa dado su material (son únicos).
+ * @param materialSearch Material de la runa a buscar
  * @return object El objeto con la runa, o null si no la encuentra.
  */
-var findRuneByType = function (typeSearched) {
+var findRuneByMaterial = function (materialSearch) {
     var rune     = [],
         allRunes = [];
 
@@ -87,7 +87,7 @@ var findRuneByType = function (typeSearched) {
     // Voy buscando la runa
     var count = 0;
     while (rune.length !== 1 && (count < allRunes.length)) {
-        rune = allRunes[count]({type: typeSearched}).get();
+        rune = allRunes[count]({material: materialSearch}).get();
         count++;
     }
 
@@ -142,7 +142,7 @@ module.exports = {
     frecuenciesToNumber: FRECUENCIES_DATA.FRECUENCIES,
     frecuenciesToString: FRECUENCIES_DATA.INVERSE_FRECUENCIES,
 
-    findRuneByType: findRuneByType,
+    findRuneByType: findRuneByMaterial,
 
     ELEMENTS: ELEMENTS_DATA.ELEMENTS,
     RUNES: RUNES_DATA.RUNES,

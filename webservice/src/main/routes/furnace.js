@@ -90,8 +90,8 @@ module.exports = function (app) {
         if (utils.dice100(fracaso)) {
             // Éxito. Calculo el elemento del tostem final
             var elemento = null;
-            if (tostemA.type === tostemB.type) {
-                elemento = tostemA.type;
+            if (tostemA.element === tostemB.element) {
+                elemento = tostemA.element;
             }
 
             // Creo el nuevo tostem

@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        validator = require('validator'),
+    var express         = require('express'),
+        passport        = require('passport'),
+        validator       = require('validator'),
         equipmentRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        gameResources = require('../modules/gameResources'),
-        TAFFY = require('taffy'),
-        mongoose = require('mongoose');
+        bodyParser      = require('body-parser'),
+        gameResources   = require('../modules/gameResources'),
+        TAFFY           = require('taffy'),
+        mongoose        = require('mongoose');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -27,11 +27,11 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/equip', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idObject = null,
-            type = null,
-            materials = {rune: null, tostem: null};
+        var usuario    = req.user,
+            params     = req.body,
+            idObject   = null,
+            type       = null,
+            components = {rune: null, tostem: null};
 
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
@@ -48,8 +48,8 @@ module.exports = function (app) {
         if (armor.length === 1) {
             type = 'armor';
             idObject = armor[0].id;
-            materials.rune = armor[0].materials.rune;
-            materials.tostem = armor[0].materials.tostem;
+            components.rune = armor[0].components.rune;
+            components.tostem = armor[0].components.tostem;
         }
 
         // Busco en armas
@@ -59,8 +59,8 @@ module.exports = function (app) {
         if (weapon.length === 1) {
             type = 'weapon';
             idObject = weapon[0].id;
-            materials.rune = weapon[0].materials.rune;
-            materials.tostem = weapon[0].materials.tostem;
+            components.rune = weapon[0].components.rune;
+            components.tostem = weapon[0].components.tostem;
         }
 
         // Si no lo he encontrado, mal rollo
@@ -120,7 +120,7 @@ module.exports = function (app) {
         // Runas
         usuario.game.inventory.runes.forEach(function (runa) {
             // Si es la que busco
-            if (runa.id === materials.rune) {
+            if (runa.id === components.rune) {
                 runa.in_use = true;
             }
             newRunes.push(runa);
@@ -128,7 +128,7 @@ module.exports = function (app) {
         // Tostems
         usuario.game.inventory.tostems.forEach(function (tostem) {
             // Si es la que busco
-            if (tostem.id === materials.tostem) {
+            if (tostem.id === components.tostem) {
                 tostem.in_use = true;
             }
             newTostems.push(tostem);
@@ -167,11 +167,11 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/destroy', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idObject = null,
-            materials = {rune: null, tostem: null},
-            respuesta = {
+        var usuario    = req.user,
+            params     = req.body,
+            idObject   = null,
+            components = {rune: null, tostem: null},
+            respuesta  = {
                 generatedRunes: [],
                 generatedTostem: null
             };
@@ -192,8 +192,8 @@ module.exports = function (app) {
 
             if (armor.length === 1) {
                 idObject = armor[0].id;
-                materials.rune = armor[0].materials.rune;
-                materials.tostem = armor[0].materials.tostem;
+                components.rune = armor[0].components.rune;
+                components.tostem = armor[0].components.tostem;
 
                 // Borro el objeto del inventario
                 var newArmors = [];
@@ -216,8 +216,8 @@ module.exports = function (app) {
 
             if (weapon.length === 1) {
                 idObject = weapon[0].id;
-                materials.rune = weapon[0].materials.rune;
-                materials.tostem = weapon[0].materials.tostem;
+                components.rune = weapon[0].components.rune;
+                components.tostem = weapon[0].components.tostem;
 
                 // Borro el objeto del inventario
                 var newWeapons = [];
@@ -243,7 +243,7 @@ module.exports = function (app) {
         // Runas. Recupero 2 runas de rareza inferior a la destruída, salvo si es común que recupero 1 común.
         usuario.game.inventory.runes.forEach(function (runa) {
             // Si es la que busco, no la guardo porque es la que he usado
-            if (runa.id === materials.rune) {
+            if (runa.id === components.rune) {
                 // Si es una rura común devuelvo una común aleatoria
                 if (runa.frecuency === gameResources.frecuenciesToString[1]) {
                     var frecuency = gameResources.frecuenciesToString[1];
@@ -276,7 +276,7 @@ module.exports = function (app) {
         // Tostems. Recuperas un tostem de elemento aleatorio de 1 nivel inferior al destruído.
         usuario.game.inventory.tostems.forEach(function (tostem) {
             // Si es el que busco no lo guardo y genero uno nuevo
-            if (tostem.id === materials.tostem) {
+            if (tostem.id === components.tostem) {
                 var nivel = Math.max(tostem.level - 1, 1);
 
                 // Genero un tostem aleatorio nuevo

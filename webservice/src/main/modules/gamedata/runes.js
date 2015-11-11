@@ -4,7 +4,7 @@ const RUNES = {
     // COMUNES
     common: [
         {
-            type: 'madera',
+            material: 'madera',
             frecuency: 'common',
             stats_percentages: {
                 damage: 50,
@@ -14,7 +14,7 @@ const RUNES = {
             }
         },
         {
-            type: 'hierro',
+            material: 'hierro',
             frecuency: 'common',
             stats_percentages: {
                 damage: 50,
@@ -24,7 +24,7 @@ const RUNES = {
             }
         },
         {
-            type: 'piedra',
+            material: 'piedra',
             frecuency: 'common',
             stats_percentages: {
                 damage: 0,
@@ -34,7 +34,7 @@ const RUNES = {
             }
         },
         {
-            type: 'plomo',
+            material: 'plomo',
             frecuency: 'common',
             stats_percentages: {
                 damage: 0,
@@ -44,7 +44,7 @@ const RUNES = {
             }
         },
         {
-            type: 'bronce',
+            material: 'bronce',
             frecuency: 'common',
             stats_percentages: {
                 damage: 50,
@@ -54,7 +54,7 @@ const RUNES = {
             }
         },
         {
-            type: 'laton',
+            material: 'laton',
             frecuency: 'common',
             stats_percentages: {
                 damage: 0,
@@ -64,7 +64,7 @@ const RUNES = {
             }
         },
         {
-            type: 'cobre',
+            material: 'cobre',
             frecuency: 'common',
             stats_percentages: {
                 damage: 25,
@@ -74,7 +74,7 @@ const RUNES = {
             }
         },
         {
-            type: 'zinc',
+            material: 'zinc',
             frecuency: 'common',
             stats_percentages: {
                 damage: 25,
@@ -88,7 +88,7 @@ const RUNES = {
     // INFRECUENTES
     uncommon: [
         {
-            type: 'niquel',
+            material: 'niquel',
             frecuency: 'uncommon',
             stats_percentages: {
                 damage: 75,
@@ -98,7 +98,7 @@ const RUNES = {
             }
         },
         {
-            type: 'plata',
+            material: 'plata',
             frecuency: 'uncommon',
             stats_percentages: {
                 damage: 75,
@@ -108,7 +108,7 @@ const RUNES = {
             }
         },
         {
-            type: 'acero',
+            material: 'acero',
             frecuency: 'uncommon',
             stats_percentages: {
                 damage: 25,
@@ -118,7 +118,7 @@ const RUNES = {
             }
         },
         {
-            type: 'cobalto',
+            material: 'cobalto',
             frecuency: 'uncommon',
             stats_percentages: {
                 damage: 25,
@@ -128,7 +128,7 @@ const RUNES = {
             }
         },
         {
-            type: 'tungsteno',
+            material: 'tungsteno',
             frecuency: 'uncommon',
             stats_percentages: {
                 damage: 50,
@@ -142,7 +142,7 @@ const RUNES = {
     // RAROS
     rare: [
         {
-            type: 'iridio',
+            material: 'iridio',
             frecuency: 'rare',
             stats_percentages: {
                 damage: 100,
@@ -152,7 +152,7 @@ const RUNES = {
             }
         },
         {
-            type: 'paladio',
+            material: 'paladio',
             frecuency: 'rare',
             stats_percentages: {
                 damage: 50,
@@ -162,7 +162,7 @@ const RUNES = {
             }
         },
         {
-            type: 'mithril',
+            material: 'mithril',
             frecuency: 'rare',
             stats_percentages: {
                 damage: 75,
@@ -172,7 +172,7 @@ const RUNES = {
             }
         },
         {
-            type: 'titanio',
+            material: 'titanio',
             frecuency: 'rare',
             stats_percentages: {
                 damage: 75,
@@ -185,7 +185,7 @@ const RUNES = {
     // EXTRAORDINARIOS
     extraordinary: [
         {
-            type: 'oro',
+            material: 'oro',
             frecuency: 'extraordinary',
             stats_percentages: {
                 damage: 75,
@@ -195,7 +195,7 @@ const RUNES = {
             }
         },
         {
-            type: 'platino',
+            material: 'platino',
             frecuency: 'extraordinary',
             stats_percentages: {
                 damage: 125,
@@ -209,7 +209,7 @@ const RUNES = {
     legendary: [
         // LEGENDARIOS
         {
-            type: 'adamantio',
+            material: 'adamantio',
             frecuency: 'legendary',
             stats_percentages: {
                 damage: 150,

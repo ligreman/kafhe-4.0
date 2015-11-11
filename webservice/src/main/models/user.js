@@ -50,13 +50,13 @@ module.exports = function (mongoose) {
             inventory: {
                 tostems: [{
                     id: String,
-                    type: {type: String}, // Dejarlo así ya que type es palabra registrada y si no peta
+                    element: {type: String}, // Dejarlo así si llamas al campo type, ya que es palabra reservada y si no peta
                     level: Number,
                     in_use: Boolean
                 }],
                 runes: [{
                     id: String,
-                    type: {type: String},
+                    material: {type: String},
                     frecuency: String,
                     stats_percentages: {
                         damage: Number,
@@ -77,7 +77,7 @@ module.exports = function (mongoose) {
                         damage: Number,
                         precision: Number
                     },
-                    materials: {
+                    components: {
                         rune: String,
                         tostem: String
                     },
@@ -95,7 +95,7 @@ module.exports = function (mongoose) {
                         protection: Number,
                         parry: Number
                     },
-                    materials: {
+                    components: {
                         rune: String,
                         tostem: String
                     },

@@ -61,7 +61,7 @@ module.exports = function (app) {
                     damage: null,
                     precision: null
                 },
-                materials: {
+                components: {
                     rune: null,
                     tostem: null
                 },
@@ -138,16 +138,16 @@ module.exports = function (app) {
 
         // Pongo más características del arma
         forgedWeapon.class = clase;
-        forgedWeapon.element = tostem.type;
-        forgedWeapon.materials.tostem = tostem.id;
-        forgedWeapon.materials.rune = rune.id;
+        forgedWeapon.element = tostem.element;
+        forgedWeapon.components.tostem = tostem.id;
+        forgedWeapon.components.rune = rune.id;
         forgedWeapon.level = tostem.level * gameResources.frecuenciesToNumber(rune.frecuency);
 
         // Genero el nombre del arma
         forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon.class, forgedWeapon.element, false);
 
         // Calculo los stats del arma según la runa. Me fijo en damage y precision
-        var runeData = gameResources.findRuneByType(rune.type);
+        var runeData = gameResources.findRuneByType(rune.material);
 
         // Si es null, algo malo ha pasado
         if (runeData === null) {
@@ -186,7 +186,7 @@ module.exports = function (app) {
 
         // Habilidad elemental del arma
         models.Skill
-            .find({"element": tostem.type})
+            .find({"element": tostem.element})
             .exec(function (error, elementSkills) {
                 if (error) {
                     console.tag('MONGO').error(error);
