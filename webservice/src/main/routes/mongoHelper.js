@@ -1097,7 +1097,8 @@ module.exports = function (app) {
     eventEmitter.on('#1', function (res) {
         console.log('#1');
         //Limpio la colección antes
-        models.Meal.remove({}, function (err) {
+        //models.Meal.remove({}, function (err) {
+        mongoose.connection.collections['meals'].drop(function (err) {
             //Meto los nuevos valores
             models.Meal.create(meals, function (err, meals) {
                 console.log("Emit #2");
@@ -1112,7 +1113,8 @@ module.exports = function (app) {
 
     eventEmitter.on('#2', function (data) {
         console.log('#2');
-        models.Drink.remove({}, function (err) {
+        //models.Drink.remove({}, function (err) {
+        mongoose.connection.collections['drinks'].drop(function (err) {
             //Meto los nuevos valores
             models.Drink.create(drinks, function (err, drinks) {
                 //res.json({"mongo": true, meals: meals});
@@ -1128,7 +1130,9 @@ module.exports = function (app) {
 
     eventEmitter.on('#3', function (data) {
         console.log('#3');
-        models.Skill.remove({}, function (err) {
+        //models.Skill.remove({}, function (err) {
+        mongoose.connection.collections['skills'].drop(function (err) {
+
             //Meto los nuevos valores
             models.Skill.create(skills, function (err, skills) {
                 //res.json({"mongo": true, meals: meals});
@@ -1145,7 +1149,9 @@ module.exports = function (app) {
 
     eventEmitter.on('#4', function (data) {
         console.log('#4');
-        models.Game.remove({}, function (err) {
+        //models.Game.remove({}, function (err) {
+
+        mongoose.connection.collections['games'].drop(function (err) {
             console.log(err);
             //Meto los nuevos valores
             models.Game.create(game, function (err, game) {
@@ -1165,8 +1171,10 @@ module.exports = function (app) {
 
     eventEmitter.on('#5', function (data) {
         console.log('#5');
-        models.User.remove({}, function (err) {
+        //models.User.remove({}, function (err) {
+        mongoose.connection.collections['users'].drop(function (err) {
             console.log(err);
+
             //Meto los nuevos valores
             models.User.create(users, function (err, users) {
                 console.log(err);

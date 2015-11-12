@@ -167,7 +167,7 @@ module.exports = function (app) {
             + Math.round(gameResources.RUNE_BASE_STATS.precision * runeData.stats_percentages.precision / 100);
 
         // Habilidad básica de arma
-        var weaponBasicSkill = {
+        var weaponBasicSkill = new models.Skill({
             id: utils.generateId(),
             name: 'Ataque',
             element: null,
@@ -182,10 +182,10 @@ module.exports = function (app) {
             },
             blocked: false,
             action: 'attack'
-        };
+        });
         forgedWeapon.skills.push(weaponBasicSkill);
 
-        // Habilidad elemental del arma
+        // Habilidad elemental del arma *****************
         models.Skill
             .find({"element": tostem.element, "source": "weapon"})
             .exec(function (error, elementSkills) {
@@ -206,23 +206,25 @@ module.exports = function (app) {
                     }
                 });
 
-                // Habilidad elemental básica del arma
+                // Habilidad elemental básica del arma ****************************
                 if (weaponElementalSkill) {
                     weaponElementalSkill.id = utils.generateId();
 
-                    // El daño que añade la habilidad es una fórmula realmente, que parte del daño que tengo ya calculado:
-                    // Ya tengo (dañobaseArma + dañoRuna) = dañoA (forgedWeapon.base_stats.damage)
-                    // dañoA + dañoA*((49-(3*NivelTostem))*NivelTostem)%
+                    // El daño que añade la habilidad es una fórmula realmente, que viene en damage_formula
+                    // Parámetros de la fórmula
                     var data = {
                         tostemLevel: tostem.level,
                         baseDamage: forgedWeapon.base_stats.damage
                     };
-                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round();
-                    math.eval(weaponElementalSkill.stats.damage_formula, data);
+                    // Ejecuto la formula para calcular el damage final que hace
+                    var formula = math.eval(weaponElementalSkill.stats.damage_formula, data);
+
+                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round(formula);
 
                     // La precisión es simplemente añade un porcentaje de la precisión ya calculada
                     weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(forgedWeapon.base_stats.precision * weaponElementalSkill.stats.precision / 100);
 
+                    weaponElementalSkill.level = tostem.level;
                     forgedWeapon.skills.push(weaponElementalSkill);
                 }
 

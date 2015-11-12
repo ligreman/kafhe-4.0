@@ -4,27 +4,10 @@
 module.exports = function (mongoose) {
 
     //Modelo para las habilidades, coleccion Skills
-    var SkillSchema = mongoose.Schema({
-        name: String,
-        element: String,
-        source: String, // weapon, armor
-        uses: Number,
-        duration: Number,
-        cost: Number,
-        stats: {
-            life: {type: Number, default: 0},
-            fury: {type: Number, default: 0},
-            damage: {type: Number, default: 0},
-            damage_formula: {type: String, default: null},
-            precision: {type: Number, default: 0},
-            protection: {type: Number, default: 0},
-            parry: {type: Number, default: 0}
-        },
-        action: String
-    }, {versionKey: false});
+    var skillSchema = require('./skillSchema')(mongoose);
 
     //Declaro y devuelvo el modelo
-    return mongoose.model('Skill', SkillSchema);
+    return mongoose.model('Skill', skillSchema);
 };
 
 /*
