@@ -145,7 +145,7 @@ module.exports = function (app) {
         forgedWeapon.level = tostem.level * gameResources.FRECUENCIES_TO_NUMBER[rune.frecuency];
 
         // Genero el nombre del arma
-        forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon.class, forgedWeapon.element, false);
+        forgedWeapon.name = gameResources.getRandomWeaponName(forgedWeapon, false);
 
         // Calculo los stats del arma según la runa. Me fijo en damage y precision
         var runeData = gameResources.findRuneByMaterial(rune.material);

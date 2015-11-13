@@ -72,7 +72,7 @@ module.exports = function (mongoose) {
                     name: String,
                     frecuency: String,
                     level: Number,
-                    class: String, // cortante, perforante, contundente
+                    'class': String, // cortante, perforante, contundente
                     element: String,
                     base_stats: {
                         damage: Number,
@@ -90,7 +90,7 @@ module.exports = function (mongoose) {
                     name: String,
                     frecuency: String,
                     level: Number,
-                    class: String, // pesada, media, ligera
+                    'class': String, // pesada, media, ligera
                     element: String,
                     base_stats: {
                         protection: Number,
