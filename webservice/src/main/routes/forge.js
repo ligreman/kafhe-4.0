@@ -57,6 +57,7 @@ module.exports = function (app) {
                 name: null,
                 frecuency: 'common',
                 class: null, // bladed, blunt, piercing
+                level: null,
                 element: null,
                 base_stats: {
                     damage: null,
@@ -247,6 +248,9 @@ module.exports = function (app) {
                 usuario.game.inventory.tostems = tostemList;
                 usuario.game.inventory.runes = runeList;
 
+                // Una piedra de forja menos pal body
+                usuario.game.inventory.stones = usuario.game.inventory.stones - 1;
+
                 res.json({
                     "data": {
                         "user": usuario,
@@ -280,6 +284,190 @@ module.exports = function (app) {
                  }
                  });*/
             });
+    });
+
+
+    /**
+     * POST /forge/armor
+     * Forja una armadura a partir de un tostem y una runa. Requiere los siguientes parámetros en el cuerpo del POST:
+     * tostem: id de inventario del tostem; rune: id de inventario de la runa; class: clase de armadura a forjar
+     */
+    forgeRouter.post('/armor', function (req, res, next) {
+        // El objeto user
+        var usuario     = req.user,
+            params      = req.body,
+            idTostem    = params.tostem, tostem,
+            idRune      = params.rune, rune,
+            clase       = params.class,
+            forgedArmor = {
+                id: utils.generateId(),
+                name: null,
+                frecuency: 'common',
+                class: null, // light, medium, heavy
+                element: null,
+                level: null,
+                base_stats: {
+                    protection: null,
+                    parry: null
+                },
+                components: {
+                    rune: null,
+                    tostem: null
+                },
+                skills: [],
+                equipped: false
+            },
+            respuesta   = {
+                generatedArmor: null
+            };
+
+        // Compruebo el estado de la partida, si es 1. Si no, error
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('FORGE-ARMOR').error('No se permite esta acción en el estado actual de la partida');
+            res.redirect('/error/errGameStatusNotAllowed');
+            return;
+        }
+
+        // Si no me mandan los parámetros, fuera
+        if (!idRune || !idTostem || !clase) {
+            console.tag('FORGE-ARMOR').error('No se han enviado los datos necesarios para forjar');
+            res.redirect('/error/errForgeNoParams');
+            return;
+        }
+
+        // Si no tengo piedras de forja
+        if (usuario.game.inventory.stones <= 0) {
+            console.tag('FORGE-ARMOR').error('No tengo piedras de forja suficientes');
+            res.redirect('/error/errForgeNoStonesLeft');
+            return;
+        }
+
+        // La clase ha de ser una de las válidas
+        if (gameResources.ARMOR_CLASSES.indexOf(clase) === -1) {
+            console.tag('FORGE-ARMOR').error('No existe esa clase de objeto a forjar');
+            res.redirect('/error/errForgeNoClassFound');
+            return;
+        }
+
+        // Saco el tostem del objeto usuario
+        var tostemList = [];
+        usuario.game.inventory.tostems.forEach(function (thisTostem) {
+            if (thisTostem.id === idTostem) {
+                tostem = thisTostem;
+            } else {
+                // Lo meto en la lista del resto de tostems
+                tostemList.push(thisTostem);
+            }
+        });
+
+        // Saco la runa del objeto usuario
+        var runeList = [];
+        usuario.game.inventory.runes.forEach(function (thisRune) {
+            if (thisRune.id === idRune) {
+                rune = thisRune;
+            } else {
+                // Lo meto en la lista del resto de tostems
+                runeList.push(thisRune);
+            }
+        });
+
+        // Si no he encontrado ambos, mal rollo
+        if (!tostem || !rune) {
+            console.tag('FORGE-ARMOR').error('No se han encontrado el tostem o la runa en el inventario del usuario');
+            res.redirect('/error/errForgeNoTostemOrRuneFound');
+            return;
+        }
+
+        // Verifico que ambos no están ya usandose, o mal rollo again
+        if (tostem.in_use || rune.in_use) {
+            console.tag('FORGE-ARMOR').error('Alguno de los componentes estaba equipado actualmente');
+            res.redirect('/error/errForgeTostemOrRuneEquipped');
+            return;
+        }
+
+        // Pongo más características del arma
+        forgedArmor.class = clase;
+        forgedArmor.element = tostem.element;
+        forgedArmor.components.tostem = tostem.id;
+        forgedArmor.components.rune = rune.id;
+        forgedArmor.level = tostem.level * gameResources.FRECUENCIES_TO_NUMBER[rune.frecuency];
+
+        // Genero el nombre del arma
+        forgedArmor.name = gameResources.getRandomArmorName(forgedArmor, false);
+
+        // Calculo los stats del arma según la runa. Me fijo en damage y precision
+        var runeData = gameResources.findRuneByMaterial(rune.material);
+
+        // Si es null, algo malo ha pasado
+        if (runeData === null) {
+            console.tag('FORGE-ARMOR').error('No se han encontrado las características de la runa');
+            res.redirect('/error/errForgeRuneStatsNotFound');
+            return;
+        }
+
+        // Los stats. Valores base de la armadura
+        forgedArmor.base_stats.protection =
+            gameResources.ARMOR_BASE_STATS.protection
+            + Math.round(gameResources.RUNE_BASE_STATS.protection * runeData.stats_percentages.protection / 100);
+
+        forgedArmor.base_stats.parry =
+            gameResources.ARMOR_BASE_STATS.parry
+            + Math.round(gameResources.RUNE_BASE_STATS.parry * runeData.stats_percentages.parry / 100);
+
+        // TODO Habilidad del armadura (de momento nada)
+
+        // Arma generada para devolver al frontend
+        respuesta.generatedArmor = forgedArmor;
+
+        // Guardo el arma en el inventario del usuario
+        var armorList = usuario.game.inventory.armors;
+        armorList.push(forgedArmor);
+        usuario.game.inventory.armors = armorList;
+
+        // Actualizo la lista de tostems y runas, marcando como usadas
+        // las de este armadura
+        tostem.in_use = true;
+        rune.in_use = true;
+        tostemList.push(tostem);
+        runeList.push(rune);
+        usuario.game.inventory.tostems = tostemList;
+        usuario.game.inventory.runes = runeList;
+
+        // Una piedra de forja menos pal body
+        usuario.game.inventory.stones = usuario.game.inventory.stones - 1;
+
+        res.json({
+            "data": {
+                "user": usuario,
+                "result": respuesta
+            },
+            "session": {
+                "access_token": req.authInfo.access_token,
+                "expire": 1000 * 60 * 60 * 24 * 30
+            },
+            "error": ""
+        });
+
+        // Guardo el usuario
+        /*usuario.save(function (err) {
+         if (err) {
+         console.tag('MONGO').error(err);
+         res.redirect('/error/errMongoSave');
+         return;
+         } else {
+         res.json({
+         "data": {
+         "user": usuario,
+         "result": respuesta
+         },
+         "session": {
+         "access_token": req.authInfo.access_token,
+         "expire": 1000 * 60 * 60 * 24 * 30
+         },
+         "error": ""
+         });
+         }
+         });*/
     });
 
     // Asigno los router a sus rutas

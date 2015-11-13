@@ -106,7 +106,24 @@ const OWNER_NAMES = {
         {text: 'de Achikhoria'},
         {text: 'de Têh'}
     ],
-    lengendary: []
+    uncommon: [],
+    rare: [],
+    extraordinary: []
+};
+
+const LEGENDS = {
+    fire: [
+        {text: ""}
+    ],
+    water: [
+        {text: ""}
+    ],
+    earth: [
+        {text: ""}
+    ],
+    air: [
+        {text: ""}
+    ]
 };
 
 
@@ -115,5 +132,6 @@ module.exports = {
     BASE_STATS: BASE_STATS,
     CLASS_NAMES: CLASS_NAMES,
     FEATURE_NAMES: FEATURE_NAMES,
-    OWNER_NAMES: OWNER_NAMES
+    OWNER_NAMES: OWNER_NAMES,
+    LEGEND_NAMES: LEGENDS
 };

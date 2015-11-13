@@ -30,7 +30,7 @@ errFurnaceRuneSameRune - Se ha enviado el mismo ID de runa por duplicado
 
 errForgeNoParams - No se han enviado los datos necesarios para forjar
 errForgeNoStonesLeft - No tengo piedras de forja suficientes
-errForgeNoClassFound - No existe esa clase de arma
+errForgeNoClassFound - No existe esa clase de objeto a forjar
 errForgeNoTostemOrRuneFound - No se han encontrado el tostem o la runa en el inventario del usuario
 errForgeTostemOrRuneEquipped - Alguno de los componentes estaba equipado actualmente
 errForgeRuneStatsNotFound - No se han encontrado las características de la runa

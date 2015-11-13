@@ -1,12 +1,12 @@
 'use strict';
 
-var ELEMENTS_DATA = require('../modules/gamedata/elements'),
+var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA = require('../modules/gamedata/runes'),
-    WEAPON_DATA = require('../modules/gamedata/weapons'),
-    ARMOR_DATA = require('../modules/gamedata/armors'),
-    TAFFY = require('taffy'),
-    utils = require('../modules/utils');
+    RUNES_DATA       = require('../modules/gamedata/runes'),
+    WEAPON_DATA      = require('../modules/gamedata/weapons'),
+    ARMOR_DATA       = require('../modules/gamedata/armors'),
+    TAFFY            = require('taffy'),
+    utils            = require('../modules/utils');
 
 
 /**
@@ -76,7 +76,7 @@ var upgradeFrecuency = function (current) {
  * @return object El objeto con la runa, o null si no la encuentra.
  */
 var findRuneByMaterial = function (materialSearch) {
-    var rune = [],
+    var rune     = [],
         allRunes = [];
 
     allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
@@ -108,8 +108,15 @@ var findRuneByMaterial = function (materialSearch) {
  * @returns {string}
  */
 var getRandomWeaponName = function (weapon, hasOwner) {
-    var classNames = WEAPON_DATA.CLASS_NAMES,
-        featureNames = WEAPON_DATA.FEATURE_NAMES;
+    var classNames   = WEAPON_DATA.CLASS_NAMES,
+        featureNames = WEAPON_DATA.FEATURE_NAMES,
+        legendNames  = WEAPON_DATA.LEGEND_NAMES;
+
+    // Si es arma legendaria directamente cojo una de entre los nombres ya creados
+    if (weapon.frecuency === 'legendary') {
+        var name = legendNames[weapon.element][Math.floor(Math.random() * legendNames[weapon.element].length)];
+        return name;
+    }
 
     // Cojo según la clase de arma un nombre de clase
     var className = classNames[weapon.class][Math.floor(Math.random() * classNames[weapon.class].length)];
@@ -145,8 +152,15 @@ var getRandomWeaponName = function (weapon, hasOwner) {
  * @returns {string}
  */
 var getRandomArmorName = function (armor, hasOwner) {
-    var classNames = ARMOR_DATA.CLASS_NAMES,
-        featureNames = ARMOR_DATA.FEATURE_NAMES;
+    var classNames   = ARMOR_DATA.CLASS_NAMES,
+        featureNames = ARMOR_DATA.FEATURE_NAMES,
+        legendNames  = ARMOR_DATA.LEGEND_NAMES;
+
+    // Si es armadura legendaria directamente cojo una de entre los nombres ya creados
+    if (armor.frecuency === 'legendary') {
+        var name = legendNames[armor.element][Math.floor(Math.random() * legendNames[armor.element].length)];
+        return name;
+    }
 
     // Cojo según la clase de armadura un nombre de clase
     var className = classNames[armor.class][Math.floor(Math.random() * classNames[armor.class].length)];
@@ -199,10 +213,12 @@ module.exports = {
     WEAPON_CLASS_NAMES: WEAPON_DATA.CLASS_NAMES,
     WEAPON_FEATURE_NAMES: WEAPON_DATA.FEATURE_NAMES,
     WEAPON_OWNER_NAMES: WEAPON_DATA.OWNER_NAMES,
+    WEAPON_LEGEND_NAMES: WEAPON_DATA.LEGEND_NAMES,
 
     ARMOR_CLASSES: ARMOR_DATA.CLASSES,
     ARMOR_BASE_STATS: ARMOR_DATA.BASE_STATS,
     ARMOR_CLASS_NAMES: ARMOR_DATA.CLASS_NAMES,
     ARMOR_FEATURE_NAMES: ARMOR_DATA.FEATURE_NAMES,
-    ARMOR_OWNER_NAMES: ARMOR_DATA.OWNER_NAMES
+    ARMOR_OWNER_NAMES: ARMOR_DATA.OWNER_NAMES,
+    ARMOR_LEGEND_NAMES: ARMOR_DATA.LEGEND_NAMES
 };

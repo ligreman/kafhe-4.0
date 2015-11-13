@@ -4,28 +4,6 @@
 module.exports = function (mongoose) {
     var skillSchema = require('./skillSchema')(mongoose);
 
-    // Modelo para las habilidades de armas y armaduras
-    /*var ObjectSkillSchema = mongoose.Schema({
-     id: String,
-     name: String,
-     element: String,
-     level: Number,
-     source: String, // common, weapon, armor
-     uses: Number,
-     duration: Number,
-     cost: Number,
-     stats: {
-     life: {type: Number, default: 0},
-     fury: {type: Number, default: 0},
-     damage: {type: Number, default: 0},
-     precision: {type: Number, default: 0},
-     protection: {type: Number, default: 0},
-     parry: {type: Number, default: 0}
-     },
-     blocked: {type: Boolean, default: false},
-     action: String
-     });*/
-
     //Modelo para los usuarios, coleccion Users
     var UserSchema = mongoose.Schema({
         username: {type: String, unique: true, required: true},
