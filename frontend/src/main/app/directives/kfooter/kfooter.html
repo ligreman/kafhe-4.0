@@ -9,7 +9,7 @@
 
     <div flex>
         <ul>
-            <li ng-repeat="skill in global.skills">{{ skill.name }}</li>
+            <li ng-repeat="skill in global.skills track by id">{{ skill.name + ' ('+skill.uses+')' }}</li>
         </ul>
     </div>
 </footer>

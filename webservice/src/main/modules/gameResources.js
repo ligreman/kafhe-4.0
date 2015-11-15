@@ -166,13 +166,13 @@ var getRandomArmorName = function (armor, hasOwner) {
     var className = classNames[armor.class][Math.floor(Math.random() * classNames[armor.class].length)];
 
     //Ahora la feature del armadura según elemento y género
-    var featureName = ' ' + featureNames[armor.element][Math.floor(Math.random() * featureNames[armor.element].length)];
+    var featureName = featureNames[armor.element][Math.floor(Math.random() * featureNames[armor.element].length)];
     featureName = ' ' + featureName.text[className.gender];
 
     //El adjetivo - podría ser sólo para las de nivel no basico
     var adjetive = '';
     if (armor.level >= 8) {
-        adjetive = ' ' + featureNames['adjetives'][Math.floor(Math.random() * featureNames['adjetives'].length)];
+        adjetive = featureNames['adjetives'][Math.floor(Math.random() * featureNames['adjetives'].length)];
         adjetive = ' ' + adjetive.text[className.gender];
     }
 
