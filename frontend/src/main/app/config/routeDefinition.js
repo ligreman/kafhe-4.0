@@ -6,6 +6,7 @@
             loginValidation: '/login',
             error: '/error',
             breakfast: '/breakfast',
+            forge: '/forge',
             home: '/home'
         });
 })();
