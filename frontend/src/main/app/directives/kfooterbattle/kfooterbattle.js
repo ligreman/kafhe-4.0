@@ -2,10 +2,10 @@
 
 var app = angular.module('kafhe.directives');
 
-app.directive('kFooter', function () {
+app.directive('kFooterBattle', function () {
     return {
         restrict: 'E',
         replace: 'true',
-        templateUrl: 'app/directives/kfooter/kfooter.html'
+        templateUrl: 'app/directives/kfooterbattle/kfooterbattle.html'
     };
 });

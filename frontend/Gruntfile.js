@@ -22,14 +22,14 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
-                files: ['<%= config.app %>/js/{,*/}*.js'],
+                files: ['<%= config.app %>/{,*/}*.js'],
                 tasks: [],
                 options: {
                     livereload: true
                 }
             },
             styles: {
-                files: ['<%= config.app %>/css/{,*/}*.css'],
+                files: ['<%= config.app %>/assets/css/{,*/}*.css'],
                 tasks: [],
                 options: {
                     livereload: true
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                     '<%= config.app %>/{,*/}*.html',
                     '<%= config.app %>/{,*/}*.php',
                     '.tmp/css/{,*/}*.css',
-                    '<%= config.app %>/img/{,*/}*'
+                    '<%= config.app %>/assets/img/{,*/}*'
                 ]
             }
         },

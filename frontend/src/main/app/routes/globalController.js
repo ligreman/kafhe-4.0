@@ -4,8 +4,8 @@
     //Controlador principal de todo el sistema.
     angular.module('kafhe.controllers')
         .controller('GlobalController',
-            ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'growl', 'KGame',
-                function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, growl, KGame) {
+            ['$scope', '$rootScope', '$translate', '$location', '$cookies', 'CONFIG', 'ROUTES', 'growl', 'KGame',
+                function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, ROUTES, growl, KGame) {
                     // Objeto que almacena la información básica. Lo inicializo
                     $scope.global = {};
                     clearGlobalVars();
@@ -13,11 +13,17 @@
                     //Idioma seleccionado por el usuario
                     $scope.lang = $translate.use();
 
+                    // Página actual
+                    $scope.currentPage;
+
                     /************* MÉTODOS PÚBLICOS ******************/
                     $scope.clearGlobalVars = clearGlobalVars;
                     $scope.updateGameData = updateGameData;
                     $scope.updateUserObject = updateUserObject;
                     $scope.goToPage = goToPage;
+                    $scope.isCurrentPageHome = isCurrentPageHome;
+                    $scope.isCurrentPageBreakfast = isCurrentPageBreakfast;
+                    $scope.isCurrentPageForge = isCurrentPageForge;
                     $scope.changeLang = changeLang;
                     $scope.growlNotification = growlNotification;
 
@@ -108,9 +114,12 @@
                         }
 
                         // Función para generar cadenas de selectores de este tipo
-                        function _generateSelector(identifier) {
-                            return ':root > .id:val("' + identifier + '")';
-                        }
+                        //function _generateSelector(identifier) {
+                        //    return ':root > .id:val("' + identifier + '")';
+                        //}
+
+                        // El inventario del jugador
+                        $scope.global.inventory = user.game.inventory;
                     }
 
                     /**
@@ -118,9 +127,30 @@
                      * @param route Ruta destino
                      */
                     function goToPage(route) {
+                        $scope.currentPage = route;
                         $location.path('/' + route);
                     }
 
+                    /**
+                     * Comprueba si estoy en la home
+                     */
+                    function isCurrentPageHome() {
+                        return ($location.path() === null || $location.path() === ROUTES.home);
+                    }
+
+                    /**
+                     * Comprueba si estoy en la página de desayunos
+                     */
+                    function isCurrentPageBreakfast() {
+                        return ($location.path() === ROUTES.breakfast);
+                    }
+
+                    /**
+                     * Comprueba si estoy en la página de forja
+                     */
+                    function isCurrentPageForge() {
+                        return ($location.path() === ROUTES.forge);
+                    }
 
                     /**
                      * Función de cambio de idioma
@@ -177,6 +207,7 @@
                             },
                             skills: [],
                             equipment: {},
+                            inventory: {},
                             navigation: {},
                             loaded: false
                         };

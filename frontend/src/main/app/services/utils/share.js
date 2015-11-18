@@ -51,11 +51,11 @@
             };
 
             /**
-             * Envía datos emitiendo un evento por broadcast
+             * Envía datos a los hijos emitiendo un evento por broadcast
              * @param key nombre del evento
              * @param datos información a enviar
              */
-            var sendData = function (key, datos) {
+            var sendDataToChildren = function (key, datos) {
                 $rootScope.$broadcast(eventPrefix + key, datos);
             };
 
@@ -88,7 +88,7 @@
                 getAndDeleteData: getAndDeleteData,
                 setData: setData,
                 setAndSendData: setAndSendData,
-                sendData: sendData,
+                sendData: sendDataToChildren,
                 listenData: listenData,
                 deleteData: deleteData
             };

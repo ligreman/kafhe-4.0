@@ -46,7 +46,15 @@
         <k-profile-menu></k-profile-menu>
     </div>
 
-    <k-footer></k-footer>
+    <!-- Pie para la página de batalla -->
+    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="20" layout="row">
+        <k-footer-battle></k-footer-battle>
+    </div>
+
+    <!-- Pie para la página de forja -->
+    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="20" layout="row">
+        <k-footer-forge></k-footer-forge>
+    </div>
 
     <!-- Third party scripts -->
     <!-- build:js js/vendor.js -->
@@ -87,7 +95,8 @@
     <script src="app/services/utils/share.js"></script>
 
     <script src="app/directives/kheader/kheader.js"></script>
-    <script src="app/directives/kfooter/kfooter.js"></script>
+    <script src="app/directives/kfooterbattle/kfooterbattle.js"></script>
+    <script src="app/directives/kfooterforge/kfooterforge.js"></script>
     <script src="app/directives/knavmenu/knavmenu.js"></script>
     <script src="app/directives/kprofilemenu/kprofilemenu.js"></script>
 

@@ -1,0 +1,21 @@
+<footer layout="row" flex="auto">
+    <div flex="40">
+        <p>Esta es la forja {{global.user.username}}</p>
+
+        <p>Pedruscos {{global.inventory.stones}}</p>
+
+        <p>Inventario {{global.inventory}}</p>
+    </div>
+
+    <div flex>
+        <ul>
+            <li ng-repeat="tostem in global.inventory.tostems | filter:(in_use === true) track by $index">
+                {{ tostem.id + ' ('+tostem.element+')' }}
+            </li>
+
+            <li ng-repeat="rune in global.inventory.runes | filter:(in_use === true) track by $index">
+                {{ rune.id + ' ('+rune.material+')' }}
+            </li>
+        </ul>
+    </div>
+</footer>
