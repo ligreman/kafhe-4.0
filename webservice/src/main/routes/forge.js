@@ -200,7 +200,7 @@ module.exports = function (app) {
                 var skillList = [], weaponElementalSkill;
                 elementSkills.forEach(function (skill) {
                     // Busco la que es la de ataque elemental básico
-                    if (skill.name === 'Ataque elemental') {
+                    if (skill.name === 'skillWeaponElementalAtack') {
                         weaponElementalSkill = skill;
                     } else {
                         skillList.push(skill);
@@ -215,15 +215,17 @@ module.exports = function (app) {
                     // Parámetros de la fórmula
                     var data = {
                         tostemLevel: tostem.level,
-                        baseDamage: forgedWeapon.base_stats.damage
+                        baseDamage: forgedWeapon.base_stats.damage,
+                        basePrecision: forgedWeapon.base_stats.precision
                     };
                     // Ejecuto la formula para calcular el damage final que hace
                     var formula = math.eval(weaponElementalSkill.stats.damage_formula, data);
 
                     weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round(formula);
 
-                    // La precisión es simplemente añade un porcentaje de la precisión ya calculada
-                    weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(forgedWeapon.base_stats.precision * weaponElementalSkill.stats.precision / 100);
+                    // La precisión
+                    formula = math.eval(weaponElementalSkill.stats.precision_formula, data);
+                    weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(formula);
 
                     weaponElementalSkill.level = tostem.level;
                     forgedWeapon.skills.push(weaponElementalSkill);

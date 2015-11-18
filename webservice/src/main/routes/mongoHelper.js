@@ -57,10 +57,13 @@ module.exports = function (app) {
             stats: {life: 5}
         },
         {
-            name: 'Ataque elemental', element: 'water', source: 'weapon',
-            uses: 3, duration: 2,
-            cost: 3, action: 'a004',
-            stats: {precision: 15, damage_formula: 'baseDamage * ( (49 - (3 * tostemLevel)) * tostemLevel ) / 100'}
+            name: 'skillWeaponElementalAtack', element: 'water', source: 'weapon',
+            uses: null, duration: null,
+            cost: 2, action: 'a004',
+            stats: {
+                precision_formula: 'basePrecision * (15 + (tostemLevel * 2)) / 100',
+                damage_formula: 'baseDamage * (20 + (tostemLevel * 10)) / 100'
+            }
         },
         {
             name: 'Mira qué te meto', element: 'Moco', source: 'weapon',
