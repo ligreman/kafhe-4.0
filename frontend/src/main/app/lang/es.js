@@ -34,6 +34,9 @@
             'textOrderDeleted': 'Pedido del desayuno retirado',
             'textNoLastOrder': 'Omelettus no tiene constancia de que el otro día tomaras desayuno alguno, ¡hereje!',
 
+            // INTERFAZ - PANTALLA FORJA
+            'textCombineInFurnace': 'Hornear',
+
             // ERRORES - GENERAL
             'errGenericException': 'Ocurrió un error desconocido',
             'errServerException': 'El servidor no responde',

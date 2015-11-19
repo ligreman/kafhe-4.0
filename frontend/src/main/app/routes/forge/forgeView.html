@@ -1,35 +1,49 @@
-<md-content flex layout-padding ng-cloak>
+<md-content flex layout="row" ng-cloak>
+    <div flex="80">
+        <p>Horno</p>
 
-    <label>
-        <input type="checkbox" ng-model="selection.ito"/> ITO
-    </label>
+        <p>
+            <label>Tostem 1
+                <select ng-model="furnace.tostemA">
+                    <option ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
+                            value="{{tostem._id}}">{{tostem.id}}
+                    </option>
+                </select>
+            </label>
+        </p>
 
-    <p>
-        <label>Comida
-            <select ng-model="selection.meal">
-                <option ng-repeat="meal in global.gamedata.meals" value="{{meal._id}}">{{meal.name}}</option>
-            </select>
-        </label>
-    </p>
+        <p>
+            <label>Tostem 2
+                <select ng-model="furnace.tostemB">
+                    <option ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
+                            value="{{tostem._id}}">{{tostem.id}}
+                    </option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <md-button class="md-raised"
+                       ng-click="btnFurnace()"
+                       ng-disabled="(furnace.tostemA === furnace.tostemB) || furnace.tostemA==='' || furnace.tostemB===''">
+                <md-icon>flight_land</md-icon>
+                {{ 'textCombineInFurnace' | translate }}
+            </md-button>
+        </p>
+    </div>
 
-    <p>
-        <label>Bebida
-            <select ng-model="selection.drink">
-                <option ng-repeat="drink in global.gamedata.drinks" value="{{drink._id}}">{{drink.name}}</option>
-            </select>
-        </label>
-    </p>
+    <div flex="20">
+        <p>Armería</p>
 
-    <md-button class="md-raised" ng-click="btnMakeOrder()">
-        <md-icon>flight_land</md-icon>
-        {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
-    </md-button>
-    <md-button class="md-raised" ng-click="btnRemoveOrder()" ng-show="selection.meal !== ''">
-        <md-icon>flight_land</md-icon>
-        {{ 'textCancelOrder' | translate }}
-    </md-button>
-    <md-button class="md-raised" ng-click="btnLastDayOrder()">
-        <md-icon>flight_land</md-icon>
-        {{ 'textLastDayOrder' | translate }}
-    </md-button>
+        <p>Armas</p>
+
+        <p ng-repeat="weapon in global.inventory.weapons | filter:{equipped:false}">
+            {{weapon.name}}
+        </p>
+
+        <p>Armaduras</p>
+
+        <p ng-repeat="armor in global.inventory.armors | filter:{equipped:false}">
+            {{armor.name}}
+        </p>
+    </div>
 </md-content>
