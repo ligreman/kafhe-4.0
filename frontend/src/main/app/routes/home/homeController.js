@@ -7,9 +7,9 @@
         ['$scope',
             function ($scope) {
                 // Actualizamos los datos si hace falta
-                $scope.updateGameData(afterUpdate);
+                $scope.updateGameData(fnAfterUpdate);
 
-                function afterUpdate() {
+                function fnAfterUpdate() {
                 }
 
             }]);

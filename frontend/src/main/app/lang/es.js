@@ -13,6 +13,14 @@
             'textYes': 'Sí',
             'textNo': 'No',
 
+            // TIPOS
+            'bladed': 'Cortante',
+            'blunt': 'Contundente',
+            'piercing': 'Perforante',
+            'light': 'Ligera',
+            'medium': 'Media',
+            'heavy': 'Pesada',
+
             // INTERFAZ - HEADER
             'headerUser': 'Usuario: ',
             'headerLogout': 'Salir',
@@ -35,7 +43,18 @@
             'textNoLastOrder': 'Omelettus no tiene constancia de que el otro día tomaras desayuno alguno, ¡hereje!',
 
             // INTERFAZ - PANTALLA FORJA
-            'textCombineInFurnace': 'Hornear',
+            'textCombineTostemsInFurnace': 'Hornear tostems',
+            'textCombineRunesInFurnace': 'Hornear runas',
+            'textForgeWeapon': 'Forjar arma',
+            'textForgeArmor': 'Forjar armadura',
+
+            'okFurnaceTostems': 'Tostem horneado con éxito',
+            'okFurnaceRunes': 'Runa horneada con éxito',
+            'okForgeWeapon': 'Arma forjada con éxito',
+            'okForgeArmor': 'Armadura forjada con éxito',
+            'errFurnaceNoValidTostems': 'No has seleccionado dos tostem válidos',
+            'errFurnaceNoValidRunes': 'No has seleccionado dos runas válidas',
+            'errForgeNoValidParams': 'No has seleccionado todos los ingredientes necesarios',
 
             // ERRORES - GENERAL
             'errGenericException': 'Ocurrió un error desconocido',

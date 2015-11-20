@@ -8,7 +8,7 @@
                 function ($scope, $rootScope, $translate, $location, $cookies, CONFIG, ROUTES, growl, KGame) {
                     // Objeto que almacena la información básica. Lo inicializo
                     $scope.global = {};
-                    clearGlobalVars();
+                    fnClearGlobalVars();
 
                     //Idioma seleccionado por el usuario
                     $scope.lang = $translate.use();
@@ -17,22 +17,22 @@
                     $scope.currentPage;
 
                     /************* MÉTODOS PÚBLICOS ******************/
-                    $scope.clearGlobalVars = clearGlobalVars;
-                    $scope.updateGameData = updateGameData;
-                    $scope.updateUserObject = updateUserObject;
-                    $scope.goToPage = goToPage;
-                    $scope.isCurrentPageHome = isCurrentPageHome;
-                    $scope.isCurrentPageBreakfast = isCurrentPageBreakfast;
-                    $scope.isCurrentPageForge = isCurrentPageForge;
-                    $scope.changeLang = changeLang;
-                    $scope.growlNotification = growlNotification;
+                    $scope.clearGlobalVars = fnClearGlobalVars;
+                    $scope.updateGameData = fnUpdateGameData;
+                    $scope.updateUserObject = fnUpdateUserObject;
+                    $scope.goToPage = fnGoToPage;
+                    $scope.isCurrentPageHome = fnIsCurrentPageHome;
+                    $scope.isCurrentPageBreakfast = fnIsCurrentPageBreakfast;
+                    $scope.isCurrentPageForge = fnIsCurrentPageForge;
+                    $scope.changeLang = fnChangeLang;
+                    $scope.growlNotification = fnGrowlNotification;
 
                     /************* FUNCIONES *************/
                     /**
                      * Si ya está la variable global cargada, no la recargo de nuevo
                      * @param callback: Función a ejecutar cuando se termine la actualización
                      */
-                    function updateGameData(callback) {
+                    function fnUpdateGameData(callback) {
                         if (!$scope.global.loaded || !$scope.global.user || !$scope.global.gamedata.meals || !$scope.global.gamedata.drinks || !$scope.global.gamedata.skills) {
                             KGame.getGameData(function (user, meals, drinks, skills) {
                                 // Actualizo las variables de información general
@@ -42,7 +42,7 @@
                                 $scope.global.loaded = true;
 
                                 // Ahora actualizo y proceso los datos del usuario
-                                updateUserObject(user);
+                                fnUpdateUserObject(user);
 
                                 if (typeof callback === 'function') {
                                     callback();
@@ -60,7 +60,7 @@
                      * 1. Saca el arma y armadura equipadas
                      * 2. Recoge las habilidades disponibles
                      */
-                    function updateUserObject(user) {
+                    function fnUpdateUserObject(user) {
                         $scope.global.user = user;
 
                         // Saco el arma equipado
@@ -126,7 +126,7 @@
                      * Función para cambiar de página
                      * @param route Ruta destino
                      */
-                    function goToPage(route) {
+                    function fnGoToPage(route) {
                         $scope.currentPage = route;
                         $location.path('/' + route);
                     }
@@ -134,21 +134,21 @@
                     /**
                      * Comprueba si estoy en la home
                      */
-                    function isCurrentPageHome() {
+                    function fnIsCurrentPageHome() {
                         return ($location.path() === null || $location.path() === ROUTES.home);
                     }
 
                     /**
                      * Comprueba si estoy en la página de desayunos
                      */
-                    function isCurrentPageBreakfast() {
+                    function fnIsCurrentPageBreakfast() {
                         return ($location.path() === ROUTES.breakfast);
                     }
 
                     /**
                      * Comprueba si estoy en la página de forja
                      */
-                    function isCurrentPageForge() {
+                    function fnIsCurrentPageForge() {
                         return ($location.path() === ROUTES.forge);
                     }
 
@@ -156,7 +156,7 @@
                      * Función de cambio de idioma
                      * @param lang Idioma destino. Si no es uno de los aceptados no se cambia el idioma
                      */
-                    function changeLang(lang) {
+                    function fnChangeLang(lang) {
                         if (lang === CONFIG.languages.english || lang === CONFIG.languages.spanish) {
                             $translate.use(lang);
                             $scope.lang = lang;
@@ -169,7 +169,7 @@
                      * @param msg Mensaje.
                      * @param title
                      */
-                    function growlNotification(type, msg, title) {
+                    function fnGrowlNotification(type, msg, title) {
                         //Traduzco el mensaje del toast de forma asíncrona
                         var translation = $translate.instant(msg),
                             transTitle = '';
@@ -197,7 +197,7 @@
                     /**
                      * Limpia las variables globales
                      */
-                    function clearGlobalVars() {
+                    function fnClearGlobalVars() {
                         $scope.global = {
                             user: {},
                             gamedata: {

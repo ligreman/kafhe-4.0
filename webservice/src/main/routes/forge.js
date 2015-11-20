@@ -212,6 +212,13 @@ module.exports = function (app) {
                     weaponElementalSkill.id = utils.generateId();
 
                     // El daño que añade la habilidad es una fórmula realmente, que viene en damage_formula
+                    // Compruebo que existen las fórmulas por seguridad ante casques
+                    if (!weaponElementalSkill.stats.damage_formula || !weaponElementalSkill.stats.precision_formula) {
+                        console.tag('FORGE-WEAPON').error('No existe alguna de las fórmulas en la habilidad');
+                        res.redirect('/error/errNoFormulae');
+                        return;
+                    }
+
                     // Parámetros de la fórmula
                     var data = {
                         tostemLevel: tostem.level,

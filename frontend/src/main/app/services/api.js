@@ -99,6 +99,66 @@
                 });
             },
 
+            // API de Furnace
+            'furnace': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
+                return $resource(CONFIG.webServiceUrl + 'furnace/:endpoint', {endpoint: ''}, {
+                    // Hornear tostems
+                    tostem: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'tostem'
+                        }
+                    },
+                    // Hornear runas
+                    rune: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'rune'
+                        }
+                    }
+                });
+            },
+
+            // API de Forge
+            'forge': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
+                return $resource(CONFIG.webServiceUrl + 'forge/:endpoint', {endpoint: ''}, {
+                    // Forjar armas
+                    weapon: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'weapon'
+                        }
+                    },
+                    // Forjar armaduras
+                    armor: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'armor'
+                        }
+                    }
+                });
+            },
+
             // API de Skill
             'skill': function () {
                 var access_token = $cookies.get(CONFIG.sessionCookieName);

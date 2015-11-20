@@ -16,8 +16,11 @@ module.exports = function (mongoose) {
             damage: {type: Number, default: null},
             damage_formula: {type: String, default: null},
             precision: {type: Number, default: null},
+            precision_formula: {type: String, default: null},
             protection: {type: Number, default: null},
-            parry: {type: Number, default: null}
+            protection_formula: {type: String, default: null},
+            parry: {type: Number, default: null},
+            parry_formula: {type: String, default: null}
         },
         blocked: {type: Boolean, default: false},
         action: String

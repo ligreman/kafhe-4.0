@@ -34,3 +34,4 @@ errForgeNoClassFound - No existe esa clase de objeto a forjar
 errForgeNoTostemOrRuneFound - No se han encontrado el tostem o la runa en el inventario del usuario
 errForgeTostemOrRuneEquipped - Alguno de los componentes estaba equipado actualmente
 errForgeRuneStatsNotFound - No se han encontrado las características de la runa
+errNoFormulae - No existe alguna de las fórmulas en la habilidad
