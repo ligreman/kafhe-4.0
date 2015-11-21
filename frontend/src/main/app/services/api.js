@@ -90,7 +90,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         params: {
                             endpoint: ''
@@ -109,7 +109,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         params: {
                             endpoint: 'tostem'
@@ -120,7 +120,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         params: {
                             endpoint: 'rune'
@@ -139,7 +139,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         params: {
                             endpoint: 'weapon'
@@ -150,7 +150,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         params: {
                             endpoint: 'armor'
@@ -174,7 +174,7 @@
                     },
                     // Activa el modo furia
                     fury: {
-                        method: 'POST',
+                        method: 'GET',
                         headers: {'Authorization': 'Bearer ' + access_token},
                         params: {
                             endpoint: 'fury'
