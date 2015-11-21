@@ -1,23 +1,5 @@
 'use strict';
 
-/*
- Forja un arma en la forja.
-
- **Parámetros**
-
- - idInventoryA: id de la runa
- - idInventoryB: id del tostem
- - class: la clase de arma a forjar (cortante, contundente o perforante)
-
- **Reglas**
-
-
-
- **Otros**
-
- Necesitaré una lista de nombres de armas de cada clase (lanza, espada, etc...) para elegir aleatoriamente.
- */
-
 module.exports = function (app) {
     var console = process.console;
 
@@ -34,7 +16,7 @@ module.exports = function (app) {
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
-    forgeRouter.use(bodyParser.json());
+    forgeRouter.use(bodyParser.urlencoded({extended: false}));
     forgeRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'

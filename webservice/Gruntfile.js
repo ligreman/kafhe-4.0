@@ -137,7 +137,7 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true, cwd: '<%= config.app %>/',
-                        src: ['**/*'], dest: '<%= config.targetDist %>/src/main/'
+                        src: ['**/*', '!logs/**/*'], dest: '<%= config.targetDist %>/src/main/'
                     },
                     {
                         src: ['package.json'], dest: '<%= config.targetDist %>/'

@@ -3,12 +3,12 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         skillRouter = express.Router(),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose),
-        config = require('../modules/config');
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose),
+        config      = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -47,10 +47,10 @@ module.exports = function (app) {
 
 
     /**
-     * POST /skill/fury
+     * GET /skill/fury
      * Activa la habilidad de furia
      */
-    skillRouter.post('/fury', function (req, res, next) {
+    skillRouter.get('/fury', function (req, res, next) {
         // El objeto user
         var usuario = req.user;
 

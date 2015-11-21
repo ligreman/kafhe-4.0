@@ -3,17 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         orderRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        Q = require('q'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        bodyParser  = require('body-parser'),
+        Q           = require('q'),
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
-    orderRouter.use(bodyParser.json());
+    orderRouter.use(bodyParser.urlencoded({extended: false}));
     orderRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -61,10 +61,10 @@ module.exports = function (app) {
     });
 
     /**
-     * POST /order/delete
+     * GET /order/delete
      * Elimina el pedido del usuario.
      */
-    orderRouter.post('/delete', function (req, res, next) {
+    orderRouter.get('/delete', function (req, res, next) {
         var user = req.user;
 
         // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
@@ -104,7 +104,7 @@ module.exports = function (app) {
      * meal: id del meal; drink:idDrink; ito: boolean
      */
     orderRouter.post('/', function (req, res, next) {
-        var user = req.user,
+        var user  = req.user,
             order = req.body;
 
         // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
@@ -120,6 +120,9 @@ module.exports = function (app) {
             res.redirect('/error/errOrderNewParams');
             return;
         }
+
+        // Transformo el texto "true" o "false" en booleano
+        order.ito = (order.ito === 'true');
 
         // Consulto a Mongo a ver si existen
         Q.all([
@@ -161,7 +164,7 @@ module.exports = function (app) {
                     }
                 });
             } else {
-                console.tag('ORDER-NEW').error('No ha llegado el newMeal o newDrink');
+                console.tag('ORDER-NEW').error('No ha llegado el newMeal o newDrink. Puede que no los haya encontrado en Mongo');
                 res.redirect('/error/errOrderNewUnknown');
                 return;
             }

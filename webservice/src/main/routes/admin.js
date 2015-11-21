@@ -3,18 +3,18 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express     = require('express'),
+        passport    = require('passport'),
         adminRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        config = require('../modules/config'),
-        crypto = require('crypto'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose);
+        bodyParser  = require('body-parser'),
+        config      = require('../modules/config'),
+        crypto      = require('crypto'),
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose);
 
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
-    adminRouter.use(bodyParser.json());
+    adminRouter.use(bodyParser.urlencoded({extended: false}));
     adminRouter.use(passport.authenticate('basic', {
         session: false,
         failureRedirect: '/error/session'
@@ -63,7 +63,7 @@ module.exports = function (app) {
      */
     adminRouter.post('/user/new', function (req, res, next) {
         var params = req.body,
-            alias = null;
+            alias  = null;
 
         if (!params.username) {
             console.tag('ADMIN-USER-NEW').error('No se ha proporcionado el nombre de usuario a crear');
@@ -111,10 +111,10 @@ module.exports = function (app) {
      * Crea una nueva partida con una lista de usuarios
      */
     adminRouter.post('/game/new', function (req, res, next) {
-        var params = req.body,
-            userIds = params.users,
+        var params        = req.body,
+            userIds       = params.users,
             usersObjectId = [],
-            repeat = params.repeat;
+            repeat        = params.repeat;
 
         // Creo un objeto partida nuevo
         var game = new models.Game({
@@ -141,7 +141,7 @@ module.exports = function (app) {
         // Función que guarda los resultados en mongo
         function saveUsers(gameId) {
             var promises = [];
-            userIds.forEach(function(idUser){
+            userIds.forEach(function (idUser) {
                 promises.push(userPromise(idUser));
             });
 

@@ -1,8 +1,10 @@
 'use strict';
 
-const DEFAULT_PASSWORD = '1234';
+// Contraseña por defecto de los usuarios
+var DEFAULT_PASSWORD = '1234';
 
-const FURY_MODE_MIN_POINTS = 100;
+// Mínima cantidad de puntos para activar el modo furia
+var FURY_MODE_MIN_POINTS = 100;
 
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {

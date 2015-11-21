@@ -3,17 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
+    var express       = require('express'),
+        passport      = require('passport'),
         furnaceRouter = express.Router(),
-        utils = require('../modules/utils'),
+        utils         = require('../modules/utils'),
         gameResources = require('../modules/gameResources'),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose');
+        bodyParser    = require('body-parser'),
+        mongoose      = require('mongoose');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
-    furnaceRouter.use(bodyParser.json());
+    furnaceRouter.use(bodyParser.urlencoded({extended: false}));
     furnaceRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -26,12 +26,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/tostem', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idTostemA = params.inventory_a, tostemA,
-            idTostemB = params.inventory_b, tostemB,
+        var usuario       = req.user,
+            params        = req.body,
+            idTostemA     = params.inventory_a, tostemA,
+            idTostemB     = params.inventory_b, tostemB,
             newTostemList = [],
-            respuesta = {
+            respuesta     = {
                 success: null,
                 generatedTostem: null
             };
@@ -160,12 +160,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/rune', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idRuneA = params.inventory_a, runeA = null,
-            idRuneB = params.inventory_b, runeB = null,
+        var usuario     = req.user,
+            params      = req.body,
+            idRuneA     = params.inventory_a, runeA = null,
+            idRuneB     = params.inventory_b, runeB = null,
             newRuneList = [],
-            respuesta = {
+            respuesta   = {
                 success: null,
                 upgraded: false,
                 generatedRune: null

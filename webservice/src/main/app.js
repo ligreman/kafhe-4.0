@@ -13,9 +13,7 @@ var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     mongoHost  = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/kafhe';
 
 // CORS
-var corsOptions = {
-    origin: 'http://localhost'
-};
+var corsOptions = {};
 app.use(cors(corsOptions));
 
 // LOGS

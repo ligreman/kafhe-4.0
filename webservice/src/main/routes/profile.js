@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
-    profileRouter.use(bodyParser.json());
+    profileRouter.use(bodyParser.urlencoded({extended: false}));
     profileRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
