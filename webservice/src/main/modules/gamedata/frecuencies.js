@@ -1,6 +1,6 @@
 'use strict';
 
-const FRECUENCIES = {
+var FRECUENCIES = {
     common: 1,
     uncommon: 2,
     rare: 3,
@@ -8,7 +8,7 @@ const FRECUENCIES = {
     legendary: 5
 };
 
-const INVERSE_FRECUENCIES = {
+var INVERSE_FRECUENCIES = {
     1: 'common',
     2: 'uncommon',
     3: 'rare',

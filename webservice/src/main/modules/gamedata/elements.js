@@ -1,6 +1,6 @@
 'use strict';
 
-const ELEMENTS = [
+var ELEMENTS = [
     'fire',
     'water',
     'earth',

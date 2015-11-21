@@ -1,17 +1,17 @@
 'use strict';
 
-const CLASSES = [
+var CLASSES = [
     'bladed',
     'blunt',
     'piercing'
 ];
 
-const BASE_STATS = {
+var BASE_STATS = {
     damage: 25,
     precision: 25
 };
 
-const CLASS_NAMES = {
+var CLASS_NAMES = {
     bladed: [
         {text: 'Espada', gender: 'f'},
         {text: 'Machete', gender: 'm'},
@@ -21,7 +21,7 @@ const CLASS_NAMES = {
     piercing: []
 };
 
-const FEATURE_NAMES = {
+var FEATURE_NAMES = {
     fire: [
         {text: {m: 'de fuego', f: 'de fuego'}},
         {text: {m: 'abrasador', f: 'abrasadora'}},
@@ -100,7 +100,7 @@ const FEATURE_NAMES = {
     ]
 };
 
-const OWNER_NAMES = {
+var OWNER_NAMES = {
     common: [
         {text: 'de Kafhe'},
         {text: 'de Achikhoria'},
@@ -111,7 +111,7 @@ const OWNER_NAMES = {
     extraordinary: []
 };
 
-const LEGENDS = {
+var LEGENDS = {
     fire: [
         {text: ""}
     ],

@@ -1,17 +1,17 @@
 'use strict';
 
-const CLASSES = [
+var CLASSES = [
     'light',
     'medium',
     'heavy'
 ];
 
-const BASE_STATS = {
+var BASE_STATS = {
     protection: 10,
     parry: 15
 };
 
-const CLASS_NAMES = {
+var CLASS_NAMES = {
     light: [
         {text: 'Espada', gender: 'f'},
         {text: 'Machete', gender: 'm'},
@@ -21,7 +21,7 @@ const CLASS_NAMES = {
     heavy: []
 };
 
-const FEATURE_NAMES = {
+var FEATURE_NAMES = {
     fire: [
         {text: {m: 'hipercalórico', f: 'hipercalórica'}},
         {text: {m: 'devastador', f: 'devastadora'}},
@@ -96,7 +96,7 @@ const FEATURE_NAMES = {
     ]
 };
 
-const OWNER_NAMES = {
+var OWNER_NAMES = {
     common: [
         {text: 'de Kafhe'},
         {text: 'de Achikhoria'},
@@ -107,7 +107,7 @@ const OWNER_NAMES = {
     extraordinary: []
 };
 
-const LEGENDS = {
+var LEGENDS = {
     fire: [
         {text: ""}
     ],

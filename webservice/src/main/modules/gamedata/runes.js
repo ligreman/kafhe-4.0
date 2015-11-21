@@ -1,6 +1,6 @@
 'use strict';
 
-const RUNES = {
+var RUNES = {
     // COMUNES
     common: [
         {
@@ -222,7 +222,7 @@ const RUNES = {
 };
 
 // Valores base de las runas
-const BASE_STATS = {
+var BASE_STATS = {
     damage: 50,
     precision: 100,
     protection: 20,
@@ -230,7 +230,7 @@ const BASE_STATS = {
 };
 
 // Porcentaje de éxito de subir nivel una runa al transmutar runas
-const UPGRADES = {
+var UPGRADES = {
     common: 50,
     uncommon: 35,
     rare: 25,
