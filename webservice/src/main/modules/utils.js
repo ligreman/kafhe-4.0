@@ -59,6 +59,8 @@ var error = function (res, code, errCode) {
             break;
     }
 
+    console.error(code + ' ' + errCode);
+
     res.status(code).json(response);
 };
 

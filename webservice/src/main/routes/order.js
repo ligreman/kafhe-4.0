@@ -14,7 +14,7 @@ module.exports = function (app) {
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
-    orderRouter.use(bodyParser.urlencoded({extended: false}));
+    orderRouter.use(bodyParser.json());
     orderRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -128,7 +128,7 @@ module.exports = function (app) {
         }
 
         // Transformo el texto "true" o "false" en booleano
-        order.ito = (order.ito === 'true');
+        //order.ito = (order.ito === 'true');
 
         // Consulto a Mongo a ver si existen
         Q.all([

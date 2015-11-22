@@ -16,7 +16,7 @@ module.exports = function (app) {
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
-    forgeRouter.use(bodyParser.urlencoded({extended: false}));
+    forgeRouter.use(bodyParser.json());
     forgeRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'

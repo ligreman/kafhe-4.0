@@ -8,7 +8,7 @@ module.exports = function (app) {
         console.tag('ERROR').error('Usuario o contraseña incorrectos');
         res.status(401).json({
             "login": false,
-            "error": "Usuario o contraseña incorrectos"
+            "error": "errUserPassNotValid"
         });
     });
 
@@ -17,7 +17,7 @@ module.exports = function (app) {
         console.tag('ERROR').error('Error en la sesión');
         res.status(403).json({
             "login": false,
-            "error": "Error en la sesión"
+            "error": "errSession"
         });
     });
 
