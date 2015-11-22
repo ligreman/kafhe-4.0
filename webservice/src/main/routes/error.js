@@ -22,21 +22,21 @@ module.exports = function (app) {
     });
 
     // Ruta de error concreto
-    app.all('/error/:code', function (req, res) {
-        var code = req.params.code;
-        console.tag('ERROR').error('Error: ' + code);
-        res.status(400).json({
-            "data": "",
-            "error": code
-        });
-    });
+    /*app.all('/error/:code', function (req, res) {
+     var code = req.params.code;
+     console.tag('ERROR').error('Error: ' + code);
+     res.status(400).json({
+     "data": "",
+     "error": code
+     });
+     });
 
-    // Ruta de error general
-    app.all('/error', function (req, res) {
-        console.tag('ERROR').error('Error en el servicio');
-        res.status(500).json({
-            "data": "",
-            "error": "Error en el servicio"
-        });
-    });
+     // Ruta de error general
+     app.all('/error', function (req, res) {
+     console.tag('ERROR').error('Error en el servicio');
+     res.status(500).json({
+     "data": "",
+     "error": "Error en el servicio"
+     });
+     });*/
 };

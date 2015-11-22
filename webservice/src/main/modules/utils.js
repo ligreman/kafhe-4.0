@@ -33,9 +33,39 @@ var generateId = function () {
     return shasum.digest('hex');
 };
 
+/**
+ * Devuelve un error en JSON
+ * @param res
+ * @param code
+ * @param errCode
+ */
+var error = function (res, code, errCode) {
+    var response = {};
+
+    switch (code) {
+        case 401:
+        case 403:
+            response = {
+                "login": false,
+                "error": errCode
+            };
+            break;
+        case 400:
+        case 500:
+            response = {
+                "data": "",
+                "error": errCode
+            };
+            break;
+    }
+
+    res.status(code).json(response);
+};
+
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     randomInt: randomInt,
     dice100: dice100,
-    generateId: generateId
+    generateId: generateId,
+    error: error
 };

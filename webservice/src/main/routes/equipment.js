@@ -6,6 +6,7 @@ module.exports = function (app) {
     var express         = require('express'),
         passport        = require('passport'),
         validator       = require('validator'),
+        utils           = require('../modules/utils'),
         equipmentRouter = express.Router(),
         bodyParser      = require('body-parser'),
         gameResources   = require('../modules/gameResources'),
@@ -36,7 +37,8 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('EQUIPMENT-EQUIP').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
@@ -65,7 +67,8 @@ module.exports = function (app) {
 
         // Si no lo he encontrado, mal rollo
         if (!idObject) {
-            res.redirect('/error/errEquipNoItem');
+            //res.redirect('/error/errEquipNoItem');
+            utils.error(res, 400, 'errEquipNoItem');
             return;
         }
 
@@ -74,7 +77,8 @@ module.exports = function (app) {
             case 'armor':
                 // Si no está vacío el hueco, no puedo equiparme
                 if (usuario.game.equipment.armor !== null && usuario.game.equipment.armor !== '') {
-                    res.redirect('/error/errEquipNoSpace');
+                    //res.redirect('/error/errEquipNoSpace');
+                    utils.error(res, 400, 'errEquipNoSpace');
                     return;
                 } else {
                     // Si todo está correcto, equipo el objeto
@@ -95,7 +99,8 @@ module.exports = function (app) {
             case 'weapon':
                 // Si no está vacío el hueco, no puedo equiparme
                 if (usuario.game.equipment.weapon !== null && usuario.game.equipment.weapon !== '') {
-                    res.redirect('/error/errEquipNoSpace');
+                    //res.redirect('/error/errEquipNoSpace');
+                    utils.error(res, 400, 'errEquipNoSpace');
                     return;
                 } else {
                     // Si todo está correcto, equipo el objeto
@@ -142,7 +147,8 @@ module.exports = function (app) {
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({
@@ -179,7 +185,8 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('EQUIPMENT-EQUIP').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
@@ -234,7 +241,8 @@ module.exports = function (app) {
 
         // Si no lo he encontrado, mal rollo
         if (!idObject) {
-            res.redirect('/error/errEquipDestroyNotFound');
+            //res.redirect('/error/errEquipDestroyNotFound');
+            utils.error(res, 400, 'errEquipDestroyNotFound');
             return;
         }
 
@@ -298,7 +306,8 @@ module.exports = function (app) {
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({

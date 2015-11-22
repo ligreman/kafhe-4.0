@@ -62,7 +62,8 @@ module.exports = function (app) {
                 });
             }, function (error) {
                 console.tag('MONGO').error(error);
-                res.redirect('/error/errLogout');
+                //res.redirect('/error/errLogout');
+                utils.error(res, 400, 'errLogout');
                 return;
             });
     });

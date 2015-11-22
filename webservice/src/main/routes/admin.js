@@ -8,13 +8,14 @@ module.exports = function (app) {
         adminRouter = express.Router(),
         bodyParser  = require('body-parser'),
         config      = require('../modules/config'),
+        utils       = require('../modules/utils'),
         crypto      = require('crypto'),
         mongoose    = require('mongoose'),
         models      = require('../models/models')(mongoose);
 
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
-    adminRouter.use(bodyParser.urlencoded({extended: false}));
+    adminRouter.use(bodyParser.json());
     adminRouter.use(passport.authenticate('basic', {
         session: false,
         failureRedirect: '/error/session'
@@ -44,7 +45,8 @@ module.exports = function (app) {
             .exec(function (error, playerList) {
                 if (error) {
                     console.tag('ADMIN-MONGO').error(error);
-                    res.redirect('/error/errUserListNotFound');
+                    //res.redirect('/error/errUserListNotFound');
+                    utils.error(res, 400, 'errUserListNotFound');
                     return;
                 }
 
@@ -67,7 +69,8 @@ module.exports = function (app) {
 
         if (!params.username) {
             console.tag('ADMIN-USER-NEW').error('No se ha proporcionado el nombre de usuario a crear');
-            res.redirect('/error/errAdminNewUserNoUsername');
+            //res.redirect('/error/errAdminNewUserNoUsername');
+            utils.error(res, 400, 'errAdminNewUserNoUsername');
             return;
         }
 
@@ -92,9 +95,12 @@ module.exports = function (app) {
                 console.tag('ADMIN-MONGO').error(err);
 
                 if (err.code === 11000) {
-                    res.redirect('/error/errMongoDuplicatedUsername');
+                    //res.redirect('/error/errMongoDuplicatedUsername');
+                    utils.error(res, 400, 'errMongoDuplicatedUsername');
+
                 } else {
-                    res.redirect('/error/errMongoSave');
+                    //res.redirect('/error/errMongoSave');
+                    utils.error(res, 400, 'errMongoSave');
                 }
                 return;
             } else {
@@ -125,7 +131,8 @@ module.exports = function (app) {
         game.save(function (err) {
             if (err) {
                 console.tag('ADMIN-MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 // Ahora actualizo los usuarios

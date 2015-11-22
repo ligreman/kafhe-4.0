@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
-    furnaceRouter.use(bodyParser.urlencoded({extended: false}));
+    furnaceRouter.use(bodyParser.json());
     furnaceRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -39,21 +39,24 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Si no me mandan ambos ids fuera
         if (!idTostemA || !idTostemB) {
             console.tag('FURNACE-TOSTEM').error('No se han enviado ambos tostem a meter al horno');
-            res.redirect('/error/errFurnaceTostemNoTostems');
+            //res.redirect('/error/errFurnaceTostemNoTostems');
+            utils.error(res, 400, 'errFurnaceTostemNoTostems');
             return;
         }
 
         // Si me mandan los id por duplicado fuera
         if (idTostemA === idTostemB) {
             console.tag('FURNACE-TOSTEM').error('Ambos id de tostem son el mismo');
-            res.redirect('/error/errFurnaceTostemSameTostem');
+            //res.redirect('/error/errFurnaceTostemSameTostem');
+            utils.error(res, 400, 'errFurnaceTostemSameTostem');
             return;
         }
 
@@ -71,14 +74,16 @@ module.exports = function (app) {
         // Si no he encontrado ambos, mal rollo
         if (!tostemA || !tostemB) {
             console.tag('FURNACE-TOSTEM').error('No se han encontrado ambos tostem en el inventario del usuario');
-            res.redirect('/error/errFurnaceTostemNotFound');
+            //res.redirect('/error/errFurnaceTostemNotFound');
+            utils.error(res, 400, 'errFurnaceTostemNotFound');
             return;
         }
 
         // Verifico que ambos no están equipados, o mal rollo again
         if (tostemA.in_use || tostemB.in_use) {
             console.tag('FURNACE-TOSTEM').error('Alguno de los tostem estaba equipado actualmente');
-            res.redirect('/error/errFurnaceTostemAnyEquipped');
+            //res.redirect('/error/errFurnaceTostemAnyEquipped');
+            utils.error(res, 400, 'errFurnaceTostemAnyEquipped');
             return;
         }
 
@@ -134,7 +139,8 @@ module.exports = function (app) {
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({
@@ -173,22 +179,25 @@ module.exports = function (app) {
 
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
-            console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            console.tag('FURNACE-RUNE').error('No se permite esta acción en el estado actual de la partida');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Si no me mandan ambos ids fuera
         if (!idRuneA || !idRuneB) {
             console.tag('FURNACE-RUNE').error('No se han enviado ambas runas a meter al horno');
-            res.redirect('/error/errFurnaceRuneNoRunes');
+            //res.redirect('/error/errFurnaceRuneNoRunes');
+            utils.error(res, 400, 'errFurnaceRuneNoRunes');
             return;
         }
 
         // Si me mandan los id por duplicado fuera
         if (idRuneA === idRuneB) {
             console.tag('FURNACE-RUNE').error('Ambos id de runa son el mismo');
-            res.redirect('/error/errFurnaceRuneSameRune');
+            //res.redirect('/error/errFurnaceRuneSameRune');
+            utils.error(res, 400, 'errFurnaceRuneSameRune');
             return;
         }
 
@@ -206,14 +215,16 @@ module.exports = function (app) {
         // Si no he encontrado ambos, mal rollo
         if (!runeA || !runeB) {
             console.tag('FURNACE-RUNE').error('No se han encontrado ambas runas en el inventario del usuario');
-            res.redirect('/error/errFurnaceRuneNotFound');
+            //res.redirect('/error/errFurnaceRuneNotFound');
+            utils.error(res, 400, 'errFurnaceRuneNotFound');
             return;
         }
 
         // Verifico que ambos no están equipados, o mal rollo again
         if (runeA.in_use || runeB.in_use) {
             console.tag('FURNACE-RUNE').error('Alguno de las runas estaba equipada actualmente');
-            res.redirect('/error/errFurnaceRuneAnyEquipped');
+            //res.redirect('/error/errFurnaceRuneAnyEquipped');
+            utils.error(res, 400, 'errFurnaceRuneAnyEquipped');
             return;
         }
 
@@ -288,7 +299,8 @@ module.exports = function (app) {
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({

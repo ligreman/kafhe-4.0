@@ -6,6 +6,7 @@ module.exports = function (app) {
     var express       = require('express'),
         passport      = require('passport'),
         validator     = require('validator'),
+        utils         = require('../modules/utils'),
         profileRouter = express.Router(),
         bodyParser    = require('body-parser'),
         mongoose      = require('mongoose');
@@ -45,7 +46,8 @@ module.exports = function (app) {
 
         if (!changes) {
             console.tag('PROFILE-SAVE').error('No hay datos válidos que actualizar');
-            res.redirect('/error/errProfileNoValidData');
+            //res.redirect('/error/errProfileNoValidData');
+            utils.error(res, 400, 'errProfileNoValidData');
             return;
         }
 
@@ -53,7 +55,8 @@ module.exports = function (app) {
         usuario.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({

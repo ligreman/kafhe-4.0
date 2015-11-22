@@ -5,6 +5,7 @@ module.exports = function (app) {
 
     var express     = require('express'),
         passport    = require('passport'),
+        utils       = require('../modules/utils'),
         skillRouter = express.Router(),
         mongoose    = require('mongoose'),
         models      = require('../models/models')(mongoose),
@@ -27,7 +28,8 @@ module.exports = function (app) {
             .exec(function (error, skills) {
                 if (error) {
                     console.tag('MONGO').error(error);
-                    res.redirect('/error/errSkillListNotFound');
+                    //res.redirect('/error/errSkillListNotFound');
+                    utils.error(res, 400, 'errSkillListNotFound');
                     return;
                 }
 
@@ -57,20 +59,23 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Si ya está activo el modo furia no lo activo de nuevo
         if (usuario.game.stats.fury_mode) {
             console.tag('FURY').error('Ya estaba activo el modo furia');
-            res.redirect('/error/errFuryAlreadyActive');
+            //res.redirect('/error/errFuryAlreadyActive');
+            utils.error(res, 400, 'errFuryAlreadyActive');
             return;
         }
         // Miro a ver si tiene al menos 100 puntos de furia para poder activarla
         else if (usuario.game.stats.fury < config.FURY_MODE_MIN_POINTS) {
             console.tag('FURY').error('No tiene suficientes puntos de furia');
-            res.redirect('/error/errFuryNotEnoughPoints');
+            //res.redirect('/error/errFuryNotEnoughPoints');
+            utils.error(res, 400, 'errFuryNotEnoughPoints');
             return;
         }
         // Puedo activarla
@@ -82,7 +87,8 @@ module.exports = function (app) {
             usuario.save(function (err) {
                 if (err) {
                     console.tag('MONGO').error(err);
-                    res.redirect('/error/errMongoSave');
+                    //res.redirect('/error/errMongoSave');
+                    utils.error(res, 400, 'errMongoSave');
                     return;
                 } else {
                     res.json({

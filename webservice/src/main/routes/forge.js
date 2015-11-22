@@ -59,28 +59,32 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('FORGE-WEAPON').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Si no me mandan los parámetros, fuera
         if (!idRune || !idTostem || !clase) {
             console.tag('FORGE-WEAPON').error('No se han enviado los datos necesarios para forjar');
-            res.redirect('/error/errForgeNoParams');
+            //res.redirect('/error/errForgeNoParams');
+            utils.error(res, 400, 'errForgeNoParams');
             return;
         }
 
         // Si no tengo piedras de forja
         if (usuario.game.inventory.stones <= 0) {
             console.tag('FORGE-WEAPON').error('No tengo piedras de forja suficientes');
-            res.redirect('/error/errForgeNoStonesLeft');
+            //res.redirect('/error/errForgeNoStonesLeft');
+            utils.error(res, 400, 'errForgeNoStonesLeft');
             return;
         }
 
         // La clase ha de ser una de las válidas
         if (gameResources.WEAPON_CLASSES.indexOf(clase) === -1) {
             console.tag('FORGE-WEAPON').error('No existe esa clase de arma');
-            res.redirect('/error/errForgeNoClassFound');
+            //res.redirect('/error/errForgeNoClassFound');
+            utils.error(res, 400, 'errForgeNoClassFound');
             return;
         }
 
@@ -109,14 +113,16 @@ module.exports = function (app) {
         // Si no he encontrado ambos, mal rollo
         if (!tostem || !rune) {
             console.tag('FORGE-WEAPON').error('No se han encontrado el tostem o la runa en el inventario del usuario');
-            res.redirect('/error/errForgeNoTostemOrRuneFound');
+            //res.redirect('/error/errForgeNoTostemOrRuneFound');
+            utils.error(res, 400, 'errForgeNoTostemOrRuneFound');
             return;
         }
 
         // Verifico que ambos no están ya usandose, o mal rollo again
         if (tostem.in_use || rune.in_use) {
             console.tag('FORGE-WEAPON').error('Alguno de los componentes estaba equipado actualmente');
-            res.redirect('/error/errForgeTostemOrRuneEquipped');
+            //res.redirect('/error/errForgeTostemOrRuneEquipped');
+            utils.error(res, 400, 'errForgeTostemOrRuneEquipped');
             return;
         }
 
@@ -136,7 +142,8 @@ module.exports = function (app) {
         // Si es null, algo malo ha pasado
         if (runeData === null) {
             console.tag('FORGE-WEAPON').error('No se han encontrado las características de la runa');
-            res.redirect('/error/errForgeRuneStatsNotFound');
+            //res.redirect('/error/errForgeRuneStatsNotFound');
+            utils.error(res, 400, 'errForgeRuneStatsNotFound');
             return;
         }
 
@@ -174,7 +181,8 @@ module.exports = function (app) {
             .exec(function (error, elementSkills) {
                 if (error) {
                     console.tag('MONGO').error(error);
-                    res.redirect('/error/errSkillList');
+                    //res.redirect('/error/errSkillList');
+                    utils.error(res, 400, 'errSkillList');
                     return;
                 }
 
@@ -197,7 +205,8 @@ module.exports = function (app) {
                     // Compruebo que existen las fórmulas por seguridad ante casques
                     if (!weaponElementalSkill.stats.damage_formula || !weaponElementalSkill.stats.precision_formula) {
                         console.tag('FORGE-WEAPON').error('No existe alguna de las fórmulas en la habilidad');
-                        res.redirect('/error/errNoFormulae');
+                        //res.redirect('/error/errNoFormulae');
+                        utils.error(res, 400, 'errNoFormulae');
                         return;
                     }
 
@@ -254,7 +263,7 @@ module.exports = function (app) {
                     "error": ""
                 });
 
-                // Guardo el usuario
+                //TODO Guardo el usuario
                 /*usuario.save(function (err) {
                  if (err) {
                  console.tag('MONGO').error(err);
@@ -315,28 +324,32 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== 1) {
             console.tag('FORGE-ARMOR').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Si no me mandan los parámetros, fuera
         if (!idRune || !idTostem || !clase) {
             console.tag('FORGE-ARMOR').error('No se han enviado los datos necesarios para forjar');
-            res.redirect('/error/errForgeNoParams');
+            //res.redirect('/error/errForgeNoParams');
+            utils.error(res, 400, 'errForgeNoParams');
             return;
         }
 
         // Si no tengo piedras de forja
         if (usuario.game.inventory.stones <= 0) {
             console.tag('FORGE-ARMOR').error('No tengo piedras de forja suficientes');
-            res.redirect('/error/errForgeNoStonesLeft');
+            //res.redirect('/error/errForgeNoStonesLeft');
+            utils.error(res, 400, 'errForgeNoStonesLeft');
             return;
         }
 
         // La clase ha de ser una de las válidas
         if (gameResources.ARMOR_CLASSES.indexOf(clase) === -1) {
             console.tag('FORGE-ARMOR').error('No existe esa clase de objeto a forjar');
-            res.redirect('/error/errForgeNoClassFound');
+            //res.redirect('/error/errForgeNoClassFound');
+            utils.error(res, 400, 'errForgeNoClassFound');
             return;
         }
 
@@ -365,14 +378,16 @@ module.exports = function (app) {
         // Si no he encontrado ambos, mal rollo
         if (!tostem || !rune) {
             console.tag('FORGE-ARMOR').error('No se han encontrado el tostem o la runa en el inventario del usuario');
-            res.redirect('/error/errForgeNoTostemOrRuneFound');
+            //res.redirect('/error/errForgeNoTostemOrRuneFound');
+            utils.error(res, 400, 'errForgeNoTostemOrRuneFound');
             return;
         }
 
         // Verifico que ambos no están ya usandose, o mal rollo again
         if (tostem.in_use || rune.in_use) {
             console.tag('FORGE-ARMOR').error('Alguno de los componentes estaba equipado actualmente');
-            res.redirect('/error/errForgeTostemOrRuneEquipped');
+            //res.redirect('/error/errForgeTostemOrRuneEquipped');
+            utils.error(res, 400, 'errForgeTostemOrRuneEquipped');
             return;
         }
 
@@ -392,7 +407,8 @@ module.exports = function (app) {
         // Si es null, algo malo ha pasado
         if (runeData === null) {
             console.tag('FORGE-ARMOR').error('No se han encontrado las características de la runa');
-            res.redirect('/error/errForgeRuneStatsNotFound');
+            //res.redirect('/error/errForgeRuneStatsNotFound');
+            utils.error(res, 400, 'errForgeRuneStatsNotFound');
             return;
         }
 
@@ -439,7 +455,7 @@ module.exports = function (app) {
             "error": ""
         });
 
-        // Guardo el usuario
+        //TODO Guardo el usuario
         /*usuario.save(function (err) {
          if (err) {
          console.tag('MONGO').error(err);

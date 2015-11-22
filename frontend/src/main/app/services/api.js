@@ -90,7 +90,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         params: {
                             endpoint: ''
@@ -109,7 +109,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         params: {
                             endpoint: 'tostem'
@@ -120,7 +120,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         params: {
                             endpoint: 'rune'
@@ -139,7 +139,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         params: {
                             endpoint: 'weapon'
@@ -150,7 +150,7 @@
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         params: {
                             endpoint: 'armor'

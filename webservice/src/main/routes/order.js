@@ -5,6 +5,7 @@ module.exports = function (app) {
 
     var express     = require('express'),
         passport    = require('passport'),
+        utils       = require('../modules/utils'),
         orderRouter = express.Router(),
         bodyParser  = require('body-parser'),
         Q           = require('q'),
@@ -35,7 +36,8 @@ module.exports = function (app) {
             .exec(function (error, playerList) {
                 if (error) {
                     console.tag('MONGO').error(error);
-                    res.redirect('/error/errOrderList');
+                    //res.redirect('/error/errOrderList');
+                    utils.error(res, 400, 'errOrderList');
                     return;
                 }
 
@@ -70,7 +72,8 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
         if (user.game.gamedata.status !== 1 && user.game.gamedata.status !== 2) {
             console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
@@ -81,7 +84,8 @@ module.exports = function (app) {
         user.save(function (err) {
             if (err) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errMongoSave');
+                //res.redirect('/error/errMongoSave');
+                utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
                 res.json({
@@ -110,14 +114,16 @@ module.exports = function (app) {
         // Compruebo el estado de la partida, si es 1 ó 2. Si no, error
         if (user.game.gamedata.status !== 1 && user.game.gamedata.status !== 2) {
             console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
-            res.redirect('/error/errGameStatusNotAllowed');
+            //res.redirect('/error/errGameStatusNotAllowed');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
             return;
         }
 
         // Compruebo que los parámetros son correctos (no falta ninguno y que existen sus ids)
         if (!order.meal || !order.drink || order.ito === undefined) {
             console.tag('ORDER-NEW').error('Faltan parámetros en la petición');
-            res.redirect('/error/errOrderNewParams');
+            //res.redirect('/error/errOrderNewParams');
+            utils.error(res, 400, 'errOrderNewParams');
             return;
         }
 
@@ -135,7 +141,8 @@ module.exports = function (app) {
                     // Si uno de los dos no es itable, error
                     if (!newMeal.ito || !newDrink.ito) {
                         console.tag('ORDER-NEW').error('O la comida o la bebida no forma parte de un desayuno ITO');
-                        res.redirect('/error/errOrderNotBothIto');
+                        //res.redirect('/error/errOrderNotBothIto');
+                        utils.error(res, 400, 'errOrderNotBothIto');
                         return;
                     }
                 }
@@ -148,7 +155,8 @@ module.exports = function (app) {
                 user.save(function (err, newOrder, numAffected) {
                     if (err) {
                         console.tag('MONGO').error(err);
-                        res.redirect('/error/errMongoSave');
+                        //res.redirect('/error/errMongoSave');
+                        utils.error(res, 400, 'errMongoSave');
                         return;
                     } else {
                         res.json({
@@ -165,13 +173,15 @@ module.exports = function (app) {
                 });
             } else {
                 console.tag('ORDER-NEW').error('No ha llegado el newMeal o newDrink. Puede que no los haya encontrado en Mongo');
-                res.redirect('/error/errOrderNewUnknown');
+                //res.redirect('/error/errOrderNewUnknown');
+                utils.error(res, 400, 'errOrderNewUnknown');
                 return;
             }
 
         }, function (error) {
             console.tag('MONGO').error(error);
-            res.redirect('/error/errOrderNewNotFound');
+            //res.redirect('/error/errOrderNewNotFound');
+            utils.error(res, 400, 'errOrderNewNotFound');
             return;
         });
     });
@@ -185,7 +195,8 @@ module.exports = function (app) {
         var answer = function (meals, drinks) {
             if (!meals || !drinks) {
                 console.tag('MONGO').error(err);
-                res.redirect('/error/errOrderAllNotFound');
+                //res.redirect('/error/errOrderAllNotFound');
+                utils.error(res, 400, 'errOrderAllNotFound');
                 return;
             } else {
                 res.json({

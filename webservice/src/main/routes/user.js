@@ -5,6 +5,7 @@ module.exports = function (app) {
 
     var express    = require('express'),
         passport   = require('passport'),
+        utils      = require('../modules/utils'),
         userRouter = express.Router(),
         mongoose   = require('mongoose'),
         models     = require('../models/models')(mongoose);
@@ -48,7 +49,8 @@ module.exports = function (app) {
             .exec(function (error, playerList) {
                 if (error) {
                     console.tag('MONGO').error(error);
-                    res.redirect('/error/errUserListNotFound');
+                    //res.redirect('/error/errUserListNotFound');
+                    utils.error(res, 400, 'errUserListNotFound');
                     return;
                 }
 
