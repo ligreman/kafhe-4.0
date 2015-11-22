@@ -7,10 +7,11 @@ module.exports = function (app) {
         passport        = require('passport'),
         validator       = require('validator'),
         utils           = require('../modules/utils'),
+        utilsUser       = require('../modules/userUtils'),
         equipmentRouter = express.Router(),
         bodyParser      = require('body-parser'),
         gameResources   = require('../modules/gameResources'),
-        TAFFY           = require('taffy'),
+        //TAFFY           = require('taffy'),
         mongoose        = require('mongoose');
 
     //**************** SKILL ROUTER **********************
@@ -44,25 +45,27 @@ module.exports = function (app) {
 
         // Busco el objeto en el inventario y miro a ver qué tipo de objeto es
         // Busco en armaduras
-        var armors = TAFFY(usuario.game.inventory.armors);
-        var armor = armors({id: params.inventory_id}).get();
+        var armor = utilsUser.getEquippedArmor(usuario);
+        //var armors = TAFFY(usuario.game.inventory.armors);
+        //var armor = armors({id: params.inventory_id}).get();
 
-        if (armor.length === 1) {
+        if (armor) {
             type = 'armor';
-            idObject = armor[0].id;
-            components.rune = armor[0].components.rune;
-            components.tostem = armor[0].components.tostem;
+            idObject = armor.id;
+            components.rune = armor.components.rune;
+            components.tostem = armor.components.tostem;
         }
 
         // Busco en armas
-        var weapons = TAFFY(usuario.game.inventory.weapons);
-        var weapon = weapons({id: params.inventory_id}).get();
+        var weapon = utilsUser.getEquippedWeapon(usuario);
+        //var weapons = TAFFY(usuario.game.inventory.weapons);
+        //var weapon = weapons({id: params.inventory_id}).get();
 
-        if (weapon.length === 1) {
+        if (weapon) {
             type = 'weapon';
-            idObject = weapon[0].id;
-            components.rune = weapon[0].components.rune;
-            components.tostem = weapon[0].components.tostem;
+            idObject = weapon.id;
+            components.rune = weapon.components.rune;
+            components.tostem = weapon.components.tostem;
         }
 
         // Si no lo he encontrado, mal rollo
@@ -194,13 +197,14 @@ module.exports = function (app) {
         // ¿Será la armadura?
         if (usuario.game.equipment.armor === params.inventory_id) {
             // Saco los materiales de esta armadura
-            var armors = TAFFY(usuario.game.inventory.armors);
-            var armor = armors({id: params.inventory_id}).get();
+            var armor = utilsUser.getEquippedArmor(usuario);
+            //var armors = TAFFY(usuario.game.inventory.armors);
+            //var armor = armors({id: params.inventory_id}).get();
 
-            if (armor.length === 1) {
-                idObject = armor[0].id;
-                components.rune = armor[0].components.rune;
-                components.tostem = armor[0].components.tostem;
+            if (armor) {
+                idObject = armor.id;
+                components.rune = armor.components.rune;
+                components.tostem = armor.components.tostem;
 
                 // Borro el objeto del inventario
                 var newArmors = [];
@@ -218,13 +222,14 @@ module.exports = function (app) {
         // ¿Será el arma?
         if (usuario.game.equipment.weapon === params.inventory_id) {
             // Saco los materiales del arma
-            var weapons = TAFFY(usuario.game.inventory.weapons);
-            var weapon = weapons({id: params.inventory_id}).get();
+            var weapon = utilsUser.getEquippedWeapon(usuario);
+            //var weapons = TAFFY(usuario.game.inventory.weapons);
+            //var weapon = weapons({id: params.inventory_id}).get();
 
-            if (weapon.length === 1) {
-                idObject = weapon[0].id;
-                components.rune = weapon[0].components.rune;
-                components.tostem = weapon[0].components.tostem;
+            if (weapon) {
+                idObject = weapon.id;
+                components.rune = weapon.components.rune;
+                components.tostem = weapon.components.tostem;
 
                 // Borro el objeto del inventario
                 var newWeapons = [];

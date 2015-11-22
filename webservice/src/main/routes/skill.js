@@ -143,8 +143,13 @@ module.exports = function (app) {
             return;
         }
 
-
         // Compruebo que tengo puntos de acción para ejecutarla
+        if (usuario.game.stats.action_points < skill.cost) {
+            console.tag('SKILL-EXECUTE').error('No tengo puntos de acción para ejecutar esa habilidad');
+            utils.error(res, 400, 'errSkillNoActionPoints');
+            return;
+        }
+
         // Compruebo que le queda usos a la habilidad
         // Compruebo que el número de objetivos es correcto
         // Compruebo que los id de los objetivos están entre los posibles en mi partida
