@@ -118,7 +118,7 @@ module.exports = function (app) {
         // El objeto user
         var usuario = req.user,
             params  = req.body,
-            idSkill = params.skill_id,
+            idSkill = params.skill_id, skill,
             targets = params.target;
 
         // Compruebo que la partida está en estado que puedo ejecutar habilidades
@@ -136,7 +136,7 @@ module.exports = function (app) {
         }
 
         // Compruebo que la habilidad la tengo entre las ejecutables y la obtengo
-        var skill = utilsUser.hasSkill(usuario, idSkill);
+        skill = utilsUser.hasSkill(usuario, idSkill);
         if (!skill) {
             console.tag('SKILL-EXECUTE').error('No tengo esa habilidad');
             utils.error(res, 400, 'errSkillNotFound');
