@@ -38,3 +38,6 @@ errForgeNoTostemOrRuneFound - No se han encontrado el tostem o la runa en el inv
 errForgeTostemOrRuneEquipped - Alguno de los componentes estaba equipado actualmente
 errForgeRuneStatsNotFound - No se han encontrado las características de la runa
 errNoFormulae - No existe alguna de las fórmulas en la habilidad
+
+errSkillNoParams - No se han enviado los parámetros necesarios
+errSkillNotFound - No tengo esa habilidad

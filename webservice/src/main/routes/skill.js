@@ -6,13 +6,16 @@ module.exports = function (app) {
     var express     = require('express'),
         passport    = require('passport'),
         utils       = require('../modules/utils'),
+        utilsUser   = require('../modules/userUtils'),
         skillRouter = express.Router(),
+        bodyParser  = require('body-parser'),
         mongoose    = require('mongoose'),
         models      = require('../models/models')(mongoose),
         config      = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
+    skillRouter.use(bodyParser.json());
     skillRouter.use(passport.authenticate('bearer', {
         session: false,
         failureRedirect: '/error/session'
@@ -104,6 +107,70 @@ module.exports = function (app) {
                 }
             });
         }
+    });
+
+    /**
+     * POST /skill/execute
+     * Ejecuta una habilidad. Recibe por parámetros:
+     * skill_id: id de la habilidad, target: array de objetivos
+     */
+    skillRouter.post('/execute', function (req, res, next) {
+        // El objeto user
+        var usuario = req.user,
+            params  = req.body,
+            idSkill = params.skill_id,
+            targets = params.target;
+
+        // Compruebo que la partida está en estado que puedo ejecutar habilidades
+        if (usuario.game.gamedata.status !== 1) {
+            console.tag('SKILL-EXECUTE').error('No se permite esta acción en el estado actual de la partida');
+            utils.error(res, 400, 'errGameStatusNotAllowed');
+            return;
+        }
+
+        // Compruebo que vienen los parámetros
+        if (!idSkill || !targets || targets.length === 0) {
+            console.tag('SKILL-EXECUTE').error('No se han enviado los parámetros necesarios');
+            utils.error(res, 400, 'errSkillNoParams');
+            return;
+        }
+
+        // Compruebo que la habilidad la tengo entre las ejecutables y la obtengo
+        var skill = utilsUser.hasSkill(usuario, idSkill);
+        if (!skill) {
+            console.tag('SKILL-EXECUTE').error('No tengo esa habilidad');
+            utils.error(res, 400, 'errSkillNotFound');
+            return;
+        }
+
+
+        // Compruebo que tengo puntos de acción para ejecutarla
+        // Compruebo que le queda usos a la habilidad
+        // Compruebo que el número de objetivos es correcto
+        // Compruebo que los id de los objetivos están entre los posibles en mi partida
+        // Compruebo que
+
+        // Saco los objetos usuario de los objetivos
+        /*
+         models.User
+         .find({"_id": {"$in": players}})
+         .select('-_id username alias avatar game.afk game.stats.reputation game.level')
+         */
+
+        // Compruebo que están activos ya que no puedo hacer objetivo a uno inactivo
+
+        // Para cada target:
+        //      Calculo el daño y defensa
+        //      Resto vidas y si muere, reputación
+
+        // Resto punto de habilidad
+        // Resto usos de habilidad
+        // Reputación de los usuarios involucrados
+        // Actualizo furia de los target
+        // Actualizo furia del usuario si estaba en modo furia
+
+        // Last activity y afk
+
     });
 
     // Asigno los router a sus rutas
