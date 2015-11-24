@@ -129,25 +129,25 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
-                ignores: ['<%= config.app %>/js/vendor/**/*'],
+                ignores: ['<%= config.app %>/app/vendor/**/*'],
                 reporter: require('jshint-smart'),
                 verbose: false
             },
             all: {
                 files: {
-                    src: ['<%= config.app %>/js/**/*.js']
+                    src: ['<%= config.app %>/app/**/*.js']
                 }
             }
         },
         jscs: {
             options: {
                 config: '.jscsrc',
-                excludeFiles: ['<%= config.app %>/js/vendor/**/*'],
+                excludeFiles: ['<%= config.app %>/app/vendor/**/*'],
                 reporter: require('jscs-stylish').path
             },
             all: {
                 files: {
-                    src: ['<%= config.app %>/js/**/*.js']
+                    src: ['<%= config.app %>/app/**/*.js']
                 }
             }
         },
@@ -177,13 +177,13 @@ module.exports = function (grunt) {
         usemin: {
             options: {
                 assetsDirs: [
-                    '<%= config.dist %>',
-                    '<%= config.dist %>/img',
-                    '<%= config.dist %>/css'
+                    '<%= config.dist %>/assets/',
+                    '<%= config.dist %>/assets/img',
+                    '<%= config.dist %>/assets/css'
                 ]
             },
             html: ['<%= config.dist %>/{,*/}*.html'],
-            css: ['<%= config.dist %>/css/{,*/}*.css']
+            css: ['<%= config.dist %>/assets/css/{,*/}*.css']
         },
 
         // Empties folders to start fresh
@@ -209,18 +209,26 @@ module.exports = function (grunt) {
         copy: {
             dist: {
                 files: [
+                    /*{
+                     expand: true, cwd: '<%= config.app %>/',
+                     src: ['*.html', '*.php'], dest: '<%= config.dist %>/',
+                     filter: 'isFile'
+                     },*/
                     {
                         expand: true, cwd: '<%= config.app %>/',
-                        src: ['*.html', '*.php'], dest: '<%= config.dist %>/',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: true, cwd: '<%= config.app %>/',
-                        src: ['**/*', '!css/**/*', '!js/**/*', '!sass/**/*', '!sass'],
+                        src: ['**/*', '!assets/**/*.css', '!app/**/*.js', '!sass/**/*', '!sass'],
                         dest: '<%= config.dist %>/'
                     }
                 ]
             }
+        },
+
+        // Empty folders
+        cleanempty: {
+            options: {
+                files: false
+            },
+            src: ['<%= config.dist %>/**/*']
         },
 
         // Concurrent tasks
@@ -300,13 +308,14 @@ module.exports = function (grunt) {
     // simple build task
     grunt.registerTask('build', [
         'clean:dist',
-        'sass',
+        //'sass',
         'copy:dist',
         'useminPrepare',
         'concat:generated',
         'cssmin:generated',
         'uglify:generated',
         'usemin',
+        'cleanempty',
         'clean:end'
     ]);
 
