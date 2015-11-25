@@ -251,6 +251,10 @@ module.exports = function (app) {
                 // Una piedra de forja menos pal body
                 usuario.game.inventory.stones = usuario.game.inventory.stones - 1;
 
+                // AFK y last_activity
+                usuario.game.afk = false;
+                usuario.game.last_activity = new Date().getTime();
+
                 res.json({
                     "data": {
                         "user": usuario,
@@ -442,6 +446,10 @@ module.exports = function (app) {
 
         // Una piedra de forja menos pal body
         usuario.game.inventory.stones = usuario.game.inventory.stones - 1;
+
+        // AFK y last_activity
+        usuario.game.afk = false;
+        usuario.game.last_activity = new Date().getTime();
 
         res.json({
             "data": {

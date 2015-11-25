@@ -145,6 +145,8 @@ module.exports = function (app) {
         // Actualizo los campos en el objeto usuario
         usuario.game.inventory.runes = newRunes;
         usuario.game.inventory.tostems = newTostems;
+        usuario.game.afk = false;
+        usuario.game.last_activity = new Date().getTime();
 
         // Guardo el usuario
         usuario.save(function (err) {

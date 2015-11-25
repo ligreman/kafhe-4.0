@@ -175,6 +175,8 @@ module.exports = function (app) {
         // Actualizo furia del usuario si estaba en modo furia
 
         // Last activity y afk
+        usuario.game.afk = false;
+        usuario.game.last_activity = new Date().getTime();
 
     });
 

@@ -135,6 +135,10 @@ module.exports = function (app) {
 
         // Guardo la nueva lista de tostems del usuario
         usuario.game.inventory.tostems = newTostemList;
+        // AFK y last_activity
+        usuario.game.afk = false;
+        usuario.game.last_activity = new Date().getTime();
+
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {
@@ -295,6 +299,10 @@ module.exports = function (app) {
 
         // Guardo la nueva lista de runas del usuario
         usuario.game.inventory.runes = newRuneList;
+        // AFK y last_activity
+        usuario.game.afk = false;
+        usuario.game.last_activity = new Date().getTime();
+
         // Guardo el usuario
         usuario.save(function (err) {
             if (err) {
