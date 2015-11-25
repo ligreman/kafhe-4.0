@@ -19,6 +19,53 @@ module.exports = function (grunt) {
     grunt.initConfig({
         config: config,
 
+        // Asks user for initialization data
+        prompt: {
+            webservice: {
+                options: {
+                    questions: [
+                        {
+                            config: 'input.webserviceurl',
+                            type: 'input', // list, checkbox, confirm, input, password
+                            message: 'URL del webservice',
+                            default: 'http://localhost:8080'
+                        }
+                    ],
+                    then: function (results, done) {
+                        if (results['input.webserviceurl']) {
+                            var str = results['input.webserviceurl'];
+                            console.log(results);
+                            if (str.substr(-1) === '/') {
+                                grunt.config.set('input.webserviceurl', str.substr(0, str.length - 1));
+                            }
+                            done();
+                            return true;
+                        } else {
+                            grunt.fail.fatal('No se realizaron cambios');
+                            return false;
+                        }
+                    }
+                }
+            }
+        },
+
+        // Replaces strings in files
+        replace: {
+            webservice: {
+                options: {
+                    patterns: [
+                        {
+                            match: /(webServiceUrl:[ '"]{1,2})(http:\/\/localhost:8080)(\/['"]{1})/i,
+                            replacement: '$1<%= grunt.config("input.webserviceurl") %>$3'
+                        }
+                    ]
+                },
+                files: [
+                    {src: ['<%= config.dist %>/js/scripts.js'], dest: '<%= config.dist %>/js/scripts.js'}
+                ]
+            }
+        },
+
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
@@ -129,25 +176,25 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
-                ignores: ['<%= config.app %>/js/vendor/**/*'],
+                ignores: ['<%= config.app %>/app/vendor/**/*'],
                 reporter: require('jshint-smart'),
                 verbose: false
             },
             all: {
                 files: {
-                    src: ['<%= config.app %>/js/**/*.js']
+                    src: ['<%= config.app %>/app/**/*.js']
                 }
             }
         },
         jscs: {
             options: {
                 config: '.jscsrc',
-                excludeFiles: ['<%= config.app %>/js/vendor/**/*'],
+                excludeFiles: ['<%= config.app %>/app/vendor/**/*'],
                 reporter: require('jscs-stylish').path
             },
             all: {
                 files: {
-                    src: ['<%= config.app %>/js/**/*.js']
+                    src: ['<%= config.app %>/app/**/*.js']
                 }
             }
         },
@@ -177,13 +224,13 @@ module.exports = function (grunt) {
         usemin: {
             options: {
                 assetsDirs: [
-                    '<%= config.dist %>',
-                    '<%= config.dist %>/img',
-                    '<%= config.dist %>/css'
+                    '<%= config.dist %>/assets/',
+                    '<%= config.dist %>/assets/img',
+                    '<%= config.dist %>/assets/css'
                 ]
             },
             html: ['<%= config.dist %>/{,*/}*.html'],
-            css: ['<%= config.dist %>/css/{,*/}*.css']
+            css: ['<%= config.dist %>/assets/css/{,*/}*.css']
         },
 
         // Empties folders to start fresh
@@ -209,18 +256,26 @@ module.exports = function (grunt) {
         copy: {
             dist: {
                 files: [
+                    /*{
+                     expand: true, cwd: '<%= config.app %>/',
+                     src: ['*.html', '*.php'], dest: '<%= config.dist %>/',
+                     filter: 'isFile'
+                     },*/
                     {
                         expand: true, cwd: '<%= config.app %>/',
-                        src: ['*.html', '*.php'], dest: '<%= config.dist %>/',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: true, cwd: '<%= config.app %>/',
-                        src: ['**/*', '!css/**/*', '!js/**/*', '!sass/**/*', '!sass'],
+                        src: ['**/*', '!assets/**/*.css', '!app/**/*.js', '!sass/**/*', '!sass'],
                         dest: '<%= config.dist %>/'
                     }
                 ]
             }
+        },
+
+        // Empty folders
+        cleanempty: {
+            options: {
+                files: false
+            },
+            src: ['<%= config.dist %>/**/*']
         },
 
         // Concurrent tasks
@@ -290,24 +345,26 @@ module.exports = function (grunt) {
         ]);
     });
 
-
-    // Change version
-    grunt.registerTask('version', [
-        'prompt:version',
-        'replace:version'
+    // TEST
+    grunt.registerTask('test', [
+        'prompt:webservice',
+        'replace:webservice'
     ]);
 
     // simple build task
     grunt.registerTask('build', [
         'clean:dist',
-        'sass',
+        //'sass',
         'copy:dist',
         'useminPrepare',
         'concat:generated',
         'cssmin:generated',
         'uglify:generated',
         'usemin',
-        'clean:end'
+        'cleanempty',
+        'clean:end',
+        'prompt:webservice',
+        'replace:webservice'
     ]);
 
     // build tasks specific for PHP
