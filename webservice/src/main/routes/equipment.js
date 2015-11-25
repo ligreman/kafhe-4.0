@@ -45,7 +45,7 @@ module.exports = function (app) {
 
         // Busco el objeto en el inventario y miro a ver qué tipo de objeto es
         // Busco en armaduras
-        var armor = utilsUser.getEquippedArmor(usuario);
+        var armor = utilsUser.getArmor(usuario, params.inventory_id);
         //var armors = TAFFY(usuario.game.inventory.armors);
         //var armor = armors({id: params.inventory_id}).get();
 
@@ -57,7 +57,7 @@ module.exports = function (app) {
         }
 
         // Busco en armas
-        var weapon = utilsUser.getEquippedWeapon(usuario);
+        var weapon = utilsUser.getWeapon(usuario, params.inventory_id);
         //var weapons = TAFFY(usuario.game.inventory.weapons);
         //var weapon = weapons({id: params.inventory_id}).get();
 

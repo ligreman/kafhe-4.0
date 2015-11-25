@@ -2,18 +2,16 @@
 
 var TAFFY = require('taffy');
 
-/**
- * Arma equipada
- * @param user El objeto usuario
- * @returns boolean si no encuentra nada o no tiene nada equipado, el objeto weapon si lo encuentra
- */
-var getEquippedWeapon = function (user) {
-    if (!user.game.equipment.weapon) {
-        return false;
-    }
 
+/**
+ * Busca un arma en el inventario dada su ID
+ * @param user Objeto usuario
+ * @param idWeapon ID del arma
+ * @returns {*} si no encuentra nada o no tiene nada equipado devuelve false, el objeto weapon si lo encuentra
+ */
+var getWeapon = function (user, idWeapon) {
     var weapons = TAFFY(user.game.inventory.weapons);
-    var weapon = weapons({id: user.game.equipment.weapon}).get();
+    var weapon = weapons({id: idWeapon}).get();
 
     if (weapon.length === 1) {
         return weapon[0];
@@ -21,6 +19,37 @@ var getEquippedWeapon = function (user) {
         return false;
     }
 };
+
+/**
+ * Arma equipada
+ * @param user El objeto usuario
+ * @returns {*} si no encuentra nada o no tiene nada equipado devuelve false, el objeto weapon si lo encuentra
+ */
+var getEquippedWeapon = function (user) {
+    if (!user.game.equipment.weapon) {
+        return false;
+    }
+
+    return getWeapon(user, user.game.equipment.weapon);
+};
+
+/**
+ * Busca una armadura en el inventario dada su ID
+ * @param user Objeto usuario
+ * @param idArmor ID del armadura
+ * @returns {*} si no encuentra nada o no tiene nada equipado devuelve false, el objeto armor si lo encuentra
+ */
+var getArmor = function (user, idArmor) {
+    var armors = TAFFY(user.game.inventory.armors);
+    var armor = armors({id: idArmor}).get();
+
+    if (armor.length === 1) {
+        return armor[0];
+    } else {
+        return false;
+    }
+};
+
 
 /**
  * Armadura equipada
@@ -32,14 +61,7 @@ var getEquippedArmor = function (user) {
         return false;
     }
 
-    var armors = TAFFY(user.game.inventory.armors);
-    var armor = armors({id: user.game.equipment.armor}).get();
-
-    if (armor.length === 1) {
-        return armor[0];
-    } else {
-        return false;
-    }
+    return getArmor(user, user.game.equipment.armor);
 };
 
 /**
@@ -81,6 +103,8 @@ var hasSkill = function (user, idSkill) {
 
 //Exporto las funciones de la librería
 module.exports = {
+    getWeapon: getWeapon,
+    getArmor: getArmor,
     getEquippedWeapon: getEquippedWeapon,
     getEquippedArmor: getEquippedArmor,
     hasSkill: hasSkill
