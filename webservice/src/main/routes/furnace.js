@@ -15,8 +15,8 @@ module.exports = function (app) {
     //Middleware para estas rutas
     furnaceRouter.use(bodyParser.json());
     furnaceRouter.use(passport.authenticate('bearer', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**

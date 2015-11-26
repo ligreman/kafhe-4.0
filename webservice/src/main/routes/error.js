@@ -3,6 +3,10 @@
 module.exports = function (app) {
     var console = process.console;
 
+    /*app.all('*', function (req, res) {
+     console.log("OPTIONS");
+     });*/
+
     // Error al hacer login. Envío login:false para que el front borre la cookie
     app.all('/error/login', function (req, res) {
         console.tag('ERROR').error('Usuario o contraseña incorrectos');
@@ -20,6 +24,7 @@ module.exports = function (app) {
             "error": "errSession"
         });
     });
+
 
     // Ruta de error concreto
     /*app.all('/error/:code', function (req, res) {

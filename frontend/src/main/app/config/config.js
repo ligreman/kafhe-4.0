@@ -18,9 +18,7 @@
             sessionCookieName: 'KAFHE',
             //Códigos de error de sesión, que provocarán que se eche al usuario a la página de login
             errorCodesSession: [
-                'errSessionUtils0002', 'errSessionUtils0003', 'errToken0001',
-                'errValidUser0001', 'errValidUser0002', 'errValidUser0003', 'errValidUser0004',
-                'errValidSession0002', 'errNoSession'
+                'errUserPassNotValid', 'errSession'
             ],
 
             // CONSTANTES

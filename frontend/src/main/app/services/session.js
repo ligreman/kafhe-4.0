@@ -69,7 +69,7 @@
                     $rootScope.kUserLogged = undefined;
 
                     if (error) {
-                        //$location.path('/error');
+                        $location.path('/');
                     } else {
                         $location.path('/');
                     }
@@ -92,7 +92,7 @@
 
                         //Mensaje de error de sesión
                         if (!cameFromLogin) {
-                            $translate('errSessionUtils0001').then(function (translation) {
+                            $translate('errSession').then(function (translation) {
                                 growl.error(translation, {});
                             });
                         }

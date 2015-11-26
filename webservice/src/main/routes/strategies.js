@@ -104,7 +104,7 @@ module.exports = function (app) {
                         });
                 } else {
                     console.tag('PASSPORT-BEARER').error('Token de sesión incorrecto, no existe');
-                    return done(null, false, {message: 'Token de sesión incorrecto'});
+                    return done(null, false, {message: 'errSession'});
                 }
             });
         }

@@ -13,8 +13,8 @@ module.exports = function (app) {
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
     userRouter.use(passport.authenticate('bearer', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**

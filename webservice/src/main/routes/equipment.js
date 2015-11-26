@@ -18,8 +18,8 @@ module.exports = function (app) {
     //Middleware para estas rutas
     equipmentRouter.use(bodyParser.json());
     equipmentRouter.use(passport.authenticate('bearer', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**

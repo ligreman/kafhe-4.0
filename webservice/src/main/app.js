@@ -13,13 +13,35 @@ var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     mongoHost  = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/kafhe';
 
 // CORS
-var corsOptions = {};
+var corsOptions = {
+    //origin: '*',
+    //methods: ['GET', 'POST', 'OPTIONS'],
+    //allowedHeaders: ['Connection', 'Cache-Control', 'Pragma', 'Host', 'Origin', 'Referer', 'Content-Type', 'Accept', 'User-Agent', 'Authorization', 'WWW-Authenticate']
+};
+//app.options('*', cors());
 app.use(cors(corsOptions));
+
+
+/*app.use(function (req, res, next) {
+ //res.header("Access-Control-Allow-Origin", "*");
+ //res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+ //res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, X-Requested-With, Content-Type, Accept");
+ //res.header("Access-Control-Max-Age", "1728000");
+ //res.header("Access-Control-Expose-Headers", "Cache-Control, Pragma, Origin, X-Requested-With, Content-Type, Accept");
+ if (req.method === 'OPTIONS') {
+ res.statusCode = 200;
+ return res.end();
+ } else {
+ return next();
+ }
+ });*/
+
 
 // LOGS
 var scribe  = require('scribe-js')(), //loads Scribe
     console = process.console;
 app.use(scribe.express.logger()); //Log each request
+// TODO deshabilitar en producción
 app.use('/logs', scribe.webPanel()); //Log web console
 
 Q.longStackSupport = true;

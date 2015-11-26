@@ -23,7 +23,7 @@
 
                             //Muestro el growl con el error
                             var transTitle = $translate.instant('textError'),
-                                translation = $translate.instant('errSessionUtils0001');
+                                translation = $translate.instant('errSession');
 
                             growl.error(translation, {title: transTitle});
 
@@ -91,6 +91,11 @@
                                 errorCode = rejection.data.error;
                             } else {
                                 errorCode = 'errServerException';
+                            }
+
+                            // Miro si es una respuesta de error de sesión 401 Unauthorized
+                            if (!errorCode && rejection.status === 401 && rejection.data === 'Unauthorized') {
+                                errorCode = 'errSession';
                             }
 
                             //Muestro el growl con el error

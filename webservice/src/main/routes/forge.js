@@ -18,8 +18,8 @@ module.exports = function (app) {
     //Middleware para estas rutas
     forgeRouter.use(bodyParser.json());
     forgeRouter.use(passport.authenticate('bearer', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**

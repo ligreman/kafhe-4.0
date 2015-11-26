@@ -61,11 +61,11 @@
             'errServerException': 'El servidor no responde',
 
             // ERRORES - LOGIN
-            'errValidUser0001': 'Usuario o contraseña no válidos',
+            'errUserPassNotValid': 'Usuario o contraseña no válidos',
 
             // ERRORES - SESSION
-            'errSessionUtils0001': 'No se ha encontrado una sesión válida',
-            'errSessionUtils0002': 'La sesión ha caducado'
+            'errSession': 'No se ha encontrado una sesión válida'
+            //'errSessionUtils0002': 'La sesión ha caducado'
 
 
         };

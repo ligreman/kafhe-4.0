@@ -17,8 +17,8 @@ module.exports = function (app) {
     //Middleware para estas rutas
     adminRouter.use(bodyParser.json());
     adminRouter.use(passport.authenticate('basic', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**

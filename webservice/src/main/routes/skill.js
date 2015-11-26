@@ -17,8 +17,8 @@ module.exports = function (app) {
     //Middleware para estas rutas
     skillRouter.use(bodyParser.json());
     skillRouter.use(passport.authenticate('bearer', {
-        session: false,
-        failureRedirect: '/error/session'
+        session: false
+        //failureRedirect: '/error/session'
     }));
 
     /**
