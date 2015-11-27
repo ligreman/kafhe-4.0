@@ -7,6 +7,7 @@ module.exports = function (mongoose) {
         element: {type: String, default: null},
         level: Number,
         source: String, // weapon, armor
+        target_number: Number,
         uses: {type: Number, default: null},
         duration: {type: Number, default: null},
         cost: Number,

@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express      = require('express'),
-        passport     = require('passport'),
-        events       = require('events'),
+    var express = require('express'),
+        passport = require('passport'),
+        events = require('events'),
         eventEmitter = new events.EventEmitter(),
-        mongoRouter  = express.Router(),
-        mongoose     = require('mongoose'),
-        utils        = require('../modules/utils'),
-        models       = require('../models/models')(mongoose);
+        mongoRouter = express.Router(),
+        mongoose = require('mongoose'),
+        utils = require('../modules/utils'),
+        models = require('../models/models')(mongoose);
 
     // Modelos
     var admins = [
@@ -1222,6 +1222,25 @@ module.exports = function (app) {
             }
         }, {multi: true}, function (err) {
             console.log("UPDATED USERS");
+            console.log(err);
+
+            data.res.json({"mongo": true});
+        });
+    });
+
+
+    /**
+     * Para cambiar el estado de la partida
+     */
+    mongoRouter.get('/game/status/:status', function (req, res, next) {
+        var estado = req.params.status;
+
+        models.Game.update({}, {
+            $set: {
+                "status": estado
+            }
+        }, {multi: true}, function (err) {
+            console.log("UPDATED GAMES");
             console.log(err);
 
             data.res.json({"mongo": true});

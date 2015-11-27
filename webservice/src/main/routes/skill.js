@@ -3,15 +3,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
-        utils       = require('../modules/utils'),
-        utilsUser   = require('../modules/userUtils'),
+    var express = require('express'),
+        passport = require('passport'),
+        utils = require('../modules/utils'),
+        utilsUser = require('../modules/userUtils'),
         skillRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose),
-        config      = require('../modules/config');
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose),
+        config = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -117,9 +117,9 @@ module.exports = function (app) {
     skillRouter.post('/execute', function (req, res, next) {
         // El objeto user
         var usuario = req.user,
-            params  = req.body,
+            params = req.body,
             idSkill = params.skill_id, skill,
-            targets = params.target;
+            targetIds = params.target;
 
         // Compruebo que la partida está en estado que puedo ejecutar habilidades
         if (usuario.game.gamedata.status !== 1) {
@@ -129,7 +129,7 @@ module.exports = function (app) {
         }
 
         // Compruebo que vienen los parámetros
-        if (!idSkill || !targets || targets.length === 0) {
+        if (!idSkill || !targetIds || targetIds.length === 0) {
             console.tag('SKILL-EXECUTE').error('No se han enviado los parámetros necesarios');
             utils.error(res, 400, 'errSkillNoParams');
             return;
@@ -151,33 +151,88 @@ module.exports = function (app) {
         }
 
         // Compruebo que le queda usos a la habilidad
+        if (skill.uses <= 0) {
+            console.tag('SKILL-EXECUTE').error('No puedo usar la habilidad más');
+            utils.error(res, 400, 'errSkillNoMoreUses');
+            return;
+        }
+
         // Compruebo que el número de objetivos es correcto
-        // Compruebo que los id de los objetivos están entre los posibles en mi partida
-        // Compruebo que
+        if (targetIds.length !== skill.target_number) {
+            console.tag('SKILL-EXECUTE').error('No has seleccionado el número de objetivos correcto');
+            utils.error(res, 400, 'errSkillNoTargetNumber');
+            return;
+        }
 
-        // Saco los objetos usuario de los objetivos
-        /*
-         models.User
-         .find({"_id": {"$in": players}})
-         .select('-_id username alias avatar game.afk game.stats.reputation game.level')
-         */
+        // Saco la lista de usuarios de mi partida para seguir haciendo cosas
+        models.User
+            .find({"_id": {"$in": usuario.game.gamedata.players}})
+            .select('game.afk')
+            .exec(function (error, users) {
+                if (error) {
+                    console.tag('MONGO').error(error);
+                    utils.error(res, 400, 'errUserListNotFound');
+                    return;
+                }
 
-        // Compruebo que están activos ya que no puedo hacer objetivo a uno inactivo
+                // Compruebo que los id de los objetivos están entre los posibles en mi partida
+                var targets = [];
+                users.forEach(function (thisUser) {
+                    if (targetIds.indexOf(thisUser._id) > -1) {
+                        // Este es un objetivo. Compruebo que está activo
+                        if (!thisUser.game.afk) {
+                            console.tag('SKILL-EXECUTE').error('Alguno de los objetivos seleccionados no está activo y por lo tanto no es un objetivo válido');
+                            utils.error(res, 400, 'errSkillTargetAfk');
+                            return;
+                        }
 
-        // Para cada target:
-        //      Calculo el daño y defensa
-        //      Resto vidas y si muere, reputación
+                        targets.push(thisUser);
+                    }
+                });
+                // A ver si existen todos
+                if (targets.length === 0 || targets.length !== targetIds.length) {
+                    console.tag('SKILL-EXECUTE').error('No se han encontrado todos los objetivos seleccionados');
+                    utils.error(res, 400, 'errSkillTargetsNotFound');
+                    return;
+                }
 
-        // Resto punto de habilidad
-        // Resto usos de habilidad
-        // Reputación de los usuarios involucrados
-        // Actualizo furia de los target
-        // Actualizo furia del usuario si estaba en modo furia
+                // Compruebo que están activos ya que no puedo hacer objetivo a uno inactivo
 
-        // Last activity y afk
-        usuario.game.afk = false;
-        usuario.game.last_activity = new Date().getTime();
+                // Para cada target:
+                //      Calculo el daño y defensa
+                //      Resto vidas y si muere, reputación
 
+                // Resto puntos de habilidad
+                usuario.game.stats.action_points -= skill.cost;
+
+                // Resto usos de habilidad
+                // Reputación de los usuarios involucrados
+                // Actualizo furia de los target
+                // Actualizo furia del usuario si estaba en modo furia
+
+                // Last activity y afk
+                usuario.game.afk = false;
+                usuario.game.last_activity = new Date().getTime();
+
+                usuario.save(function (err) {
+                    if (err) {
+                        console.tag('MONGO').error(err);
+                        utils.error(res, 400, 'errMongoSave');
+                        return;
+                    } else {
+                        /* res.json({
+                         "data": {
+                         "user": usuario
+                         },
+                         "session": {
+                         "access_token": req.authInfo.access_token,
+                         "expire": 1000 * 60 * 60 * 24 * 30
+                         },
+                         "error": ""
+                         });*/
+                    }
+                });
+            });
     });
 
     // Asigno los router a sus rutas
