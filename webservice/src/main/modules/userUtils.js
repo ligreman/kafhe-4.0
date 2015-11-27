@@ -1,6 +1,7 @@
 'use strict';
 
-var TAFFY = require('taffy');
+var TAFFY = require('taffy'),
+    utils = require('./utils');
 
 
 /**
@@ -122,8 +123,25 @@ var updateSkill = function (user, idSkill, source, changes) {
     return user;
 };
 
-var calcDamage = function (user, target) {
+var calcDamage = function (user, skillUsed, target) {
+    var damage = 0, protection = 0;
 
+    // Saco armadura del defensor
+    //var weaponAtk = getEquippedWeapon(user);
+    var armorDef = getEquippedArmor(target);
+
+    // Valor base de daño con precisión aplicada
+    damage = skillUsed.stats.damage + Math.round(skillUsed.stats.damage * skillUsed.stats.precision / 100);
+
+    // Calculo si el defensor bloquea y en ese caso miro la protección
+    if (utils.dice100(100 - armorDef.base_stats.parry)) {
+        protection = armorDef.base_stats.protection;
+    }
+
+    // Daño final, mínimo de 0
+    damage = Math.max(damage - protection, 0);
+
+    return damage;
 };
 
 //Exporto las funciones de la librería
