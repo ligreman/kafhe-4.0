@@ -101,12 +101,39 @@ var hasSkill = function (user, idSkill) {
     }
 };
 
+/**
+ * Actualiza una habilidad dentro de la estructura del User
+ * @param user Objeto usuario
+ * @param idSkill ID skill a actualizar
+ * @param source Fuente de la skill: weapon o armor
+ * @param changes Objeto con la actualización: {uses: 5}
+ * @returns {*}
+ */
+var updateSkill = function (user, idSkill, source, changes) {
+    var skills;
+    skills = user.game.equipment[source].skills;
+
+    // Actualizo el listado de skills
+    skills = TAFFY(skills);
+    skills({id: idSkill}).update(changes); // TODO probar ,false
+
+    user.game.equipment[source].skills = skills;
+
+    return user;
+};
+
+var calcDamage = function (user, target) {
+
+};
+
 //Exporto las funciones de la librería
 module.exports = {
     getWeapon: getWeapon,
     getArmor: getArmor,
     getEquippedWeapon: getEquippedWeapon,
     getEquippedArmor: getEquippedArmor,
-    hasSkill: hasSkill
+    hasSkill: hasSkill,
+    updateSkill: updateSkill,
+    calcDamage: calcDamage
 };
 

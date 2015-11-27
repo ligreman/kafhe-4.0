@@ -150,8 +150,8 @@ module.exports = function (app) {
             return;
         }
 
-        // Compruebo que le queda usos a la habilidad
-        if (skill.uses <= 0) {
+        // Compruebo que le queda usos a la habilidad, si tenía
+        if (skill.uses !== null && skill.uses <= 0) {
             console.tag('SKILL-EXECUTE').error('No puedo usar la habilidad más');
             utils.error(res, 400, 'errSkillNoMoreUses');
             return;
@@ -199,13 +199,23 @@ module.exports = function (app) {
                 // Compruebo que están activos ya que no puedo hacer objetivo a uno inactivo
 
                 // Para cada target:
-                //      Calculo el daño y defensa
-                //      Resto vidas y si muere, reputación
+                targets.forEach(function (thisTarget) {
+                    // Calculo el daño y defensa
+                    var damage = utilsUser.calcDamage();
+
+                    // Resto vidas y si muere, reputación
+                });
+
 
                 // Resto puntos de habilidad
                 usuario.game.stats.action_points -= skill.cost;
 
-                // Resto usos de habilidad
+                // Resto usos de habilidad si tenía usos
+                if (skill.uses !== null) {
+                    var newUses = skill.uses - 1;
+                    usuario = utilsUser.updateSkill(usuario, skill.id, skill.source, {uses: newUses});
+                }
+
                 // Reputación de los usuarios involucrados
                 // Actualizo furia de los target
                 // Actualizo furia del usuario si estaba en modo furia
