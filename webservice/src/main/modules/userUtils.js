@@ -1,7 +1,10 @@
 'use strict';
 
-var TAFFY = require('taffy'),
-    utils = require('./utils');
+var console       = process.console,
+    TAFFY         = require('taffy'),
+    Q             = require('q'),
+    utils         = require('./utils'),
+    gameResources = require('./gameResources');
 
 
 /**
@@ -123,15 +126,20 @@ var updateSkill = function (user, idSkill, source, changes) {
     return user;
 };
 
-var calcDamage = function (user, skillUsed, target) {
+/**
+ * Calcula el resultado de un ataque con habilidad
+ * @param skillUsed Objeto habilidad usada por el atacante
+ * @param target Objeto user del defensor
+ * @returns {object} Objeto con { damage: Daño en número que recibe el defensor, protection: daño evitado por la protección}
+ */
+var combatResult = function (skillUsed, target) {
     var damage = 0, protection = 0;
 
     // Saco armadura del defensor
-    //var weaponAtk = getEquippedWeapon(user);
     var armorDef = getEquippedArmor(target);
 
     // Valor base de daño con precisión aplicada
-    damage = skillUsed.stats.damage + Math.round(skillUsed.stats.damage * skillUsed.stats.precision / 100);
+    damage = Math.round(skillUsed.stats.damage * (skillUsed.stats.precision + 100) / 100);
 
     // Calculo si el defensor bloquea y en ese caso miro la protección
     if (utils.dice100(100 - armorDef.base_stats.parry)) {
@@ -141,12 +149,37 @@ var calcDamage = function (user, skillUsed, target) {
     // Daño base final, mínimo de 0
     damage = Math.max(damage - protection, 0);
 
-    // Calculo variación por elemento
-    //var elemPercent =
+    // Calculo variación de daño por enfrentamiento de elementos
+    var elemPercent = gameResources.ELEMENT_DAMAGE[skillUsed.element][armorDef.element];
+    damage = Math.round(damage * elemPercent / 100);
 
-    // Calculo variación por tipos
+    // Calculo variación de daño por enfrentamiento de tipos
+    var typePercent = gameResources.WEAPON_DAMAGE[skillUsed.class][armorDef.class];
+    damage = Math.round(damage * typePercent / 100);
 
-    return damage;
+    return {
+        damage: damage,
+        protection: protection
+    };
+};
+
+/**
+ * Promise para salvar el usuario
+ * @param user
+ * @returns {*}
+ */
+var saveUser = function (user) {
+    var defer = Q.defer();
+
+    user.save(function (err) {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(user);
+        }
+    });
+
+    return defer.promise;
 };
 
 //Exporto las funciones de la librería
@@ -157,6 +190,7 @@ module.exports = {
     getEquippedArmor: getEquippedArmor,
     hasSkill: hasSkill,
     updateSkill: updateSkill,
-    calcDamage: calcDamage
+    combatResult: combatResult,
+    saveUser: saveUser
 };
 

@@ -3,15 +3,16 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        utils = require('../modules/utils'),
-        utilsUser = require('../modules/userUtils'),
+    var express     = require('express'),
+        passport    = require('passport'),
+        utils       = require('../modules/utils'),
+        utilsUser   = require('../modules/userUtils'),
+        Q           = require('q'),
         skillRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose),
-        config = require('../modules/config');
+        bodyParser  = require('body-parser'),
+        mongoose    = require('mongoose'),
+        models      = require('../models/models')(mongoose),
+        config      = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -116,9 +117,9 @@ module.exports = function (app) {
      */
     skillRouter.post('/execute', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idSkill = params.skill_id, skill,
+        var usuario   = req.user,
+            params    = req.body,
+            idSkill   = params.skill_id, skill,
             targetIds = params.target;
 
         // Compruebo que la partida está en estado que puedo ejecutar habilidades
@@ -196,14 +197,17 @@ module.exports = function (app) {
                     return;
                 }
 
-                // Compruebo que están activos ya que no puedo hacer objetivo a uno inactivo
+                // Objeto de promises para salvar los targets y el usuario
+                var promises = [];
 
                 // Para cada target:
                 targets.forEach(function (thisTarget) {
                     // Calculo el daño y defensa
-                    var damage = utilsUser.calcDamage();
+                    var combatResult = utilsUser.combatResult(skill, thisTarget);
 
                     // Resto vidas y si muere, reputación
+
+                    promises.push(utilsUser.saveUser(thisTarget));
                 });
 
 
@@ -224,13 +228,12 @@ module.exports = function (app) {
                 usuario.game.afk = false;
                 usuario.game.last_activity = new Date().getTime();
 
-                usuario.save(function (err) {
-                    if (err) {
-                        console.tag('MONGO').error(err);
-                        utils.error(res, 400, 'errMongoSave');
-                        return;
-                    } else {
-                        /* res.json({
+                promises.push(utilsUser.saveUser(usuario));
+
+                //Tengo que salvar los targets y el usuario
+                Q.all(promises)
+                    .then(function (results) {
+                        /*res.json({
                          "data": {
                          "user": usuario
                          },
@@ -240,8 +243,12 @@ module.exports = function (app) {
                          },
                          "error": ""
                          });*/
-                    }
-                });
+                    })
+                    .catch(function (error) {
+                        console.tag('MONGO').error(err);
+                        utils.error(res, 400, 'errMongoSave');
+                        return;
+                    }).done();
             });
     });
 

@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        events = require('events'),
+    var express      = require('express'),
+        passport     = require('passport'),
+        events       = require('events'),
         eventEmitter = new events.EventEmitter(),
-        mongoRouter = express.Router(),
-        mongoose = require('mongoose'),
-        utils = require('../modules/utils'),
-        models = require('../models/models')(mongoose);
+        mongoRouter  = express.Router(),
+        mongoose     = require('mongoose'),
+        utils        = require('../modules/utils'),
+        models       = require('../models/models')(mongoose);
 
     // Modelos
     var admins = [
@@ -206,10 +206,12 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            level: 2, base_stats: {
-                            damage: 14,
-                            precision: 6
-                        },
+                            level: 2,
+                            'class': 'bladed',
+                            base_stats: {
+                                damage: 14,
+                                precision: 6
+                            },
                             components: {
                                 rune: 'r001',
                                 tostem: 't001'
@@ -218,8 +220,9 @@ module.exports = function (app) {
                                 id: 's001',
                                 name: 'Papachiro in the face',
                                 element: 'fire',
+                                'class': 'bladed',
                                 level: 1,
-                                source: 'weapon', // common, weapon, armor
+                                source: 'weapon', // weapon, armor
                                 uses: 3,
                                 cost: 2, action: 'a001', duration: 2,
                                 stats: {

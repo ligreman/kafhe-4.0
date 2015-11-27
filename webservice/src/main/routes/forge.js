@@ -160,9 +160,10 @@ module.exports = function (app) {
         var weaponBasicSkill = new models.Skill({
             id: utils.generateId(),
             name: 'Ataque',
-            element: null,
-            level: null,
-            source: 'weapon', // common, weapon, armor
+            element: forgedWeapon.element,
+            'class': forgedWeapon.class,
+            level: 0,
+            source: 'weapon', // weapon, armor
             uses: null,
             duration: null,
             cost: 1,
@@ -226,6 +227,7 @@ module.exports = function (app) {
                     weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(formula);
 
                     weaponElementalSkill.level = tostem.level;
+                    weaponElementalSkill.class = forgedWeapon.class;
                     forgedWeapon.skills.push(weaponElementalSkill);
                 }
 

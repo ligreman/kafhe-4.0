@@ -155,7 +155,7 @@ module.exports = function (app) {
             // Lanzo la actualización de los usuarios
             Q.allSettled(promises)
                 .then(function (users) {
-
+                    //TODO
                 });
         }
 
