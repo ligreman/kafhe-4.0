@@ -138,8 +138,13 @@ var calcDamage = function (user, skillUsed, target) {
         protection = armorDef.base_stats.protection;
     }
 
-    // Daño final, mínimo de 0
+    // Daño base final, mínimo de 0
     damage = Math.max(damage - protection, 0);
+
+    // Calculo variación por elemento
+    //var elemPercent =
+
+    // Calculo variación por tipos
 
     return damage;
 };

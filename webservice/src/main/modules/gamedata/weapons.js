@@ -126,6 +126,24 @@ var LEGENDS = {
     ]
 };
 
+var DAMAGES = {
+    bladed: {
+        light: 100,
+        medium: 115,
+        heavy: 85
+    },
+    blunt: {
+        light: 85,
+        medium: 100,
+        heavy: 115
+    },
+    piercing: {
+        light: 115,
+        medium: 85,
+        heavy: 100
+    }
+};
+
 
 module.exports = {
     CLASSES: CLASSES,
@@ -133,5 +151,6 @@ module.exports = {
     CLASS_NAMES: CLASS_NAMES,
     FEATURE_NAMES: FEATURE_NAMES,
     OWNER_NAMES: OWNER_NAMES,
-    LEGEND_NAMES: LEGENDS
+    LEGEND_NAMES: LEGENDS,
+    WEAPON_DAMAGE: DAMAGES
 };

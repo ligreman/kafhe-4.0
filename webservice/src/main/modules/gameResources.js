@@ -1,12 +1,12 @@
 'use strict';
 
-var ELEMENTS_DATA    = require('../modules/gamedata/elements'),
+var ELEMENTS_DATA = require('../modules/gamedata/elements'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA       = require('../modules/gamedata/runes'),
-    WEAPON_DATA      = require('../modules/gamedata/weapons'),
-    ARMOR_DATA       = require('../modules/gamedata/armors'),
-    TAFFY            = require('taffy'),
-    utils            = require('../modules/utils');
+    RUNES_DATA = require('../modules/gamedata/runes'),
+    WEAPON_DATA = require('../modules/gamedata/weapons'),
+    ARMOR_DATA = require('../modules/gamedata/armors'),
+    TAFFY = require('taffy'),
+    utils = require('../modules/utils');
 
 
 /**
@@ -76,7 +76,7 @@ var upgradeFrecuency = function (current) {
  * @return object El objeto con la runa, o null si no la encuentra.
  */
 var findRuneByMaterial = function (materialSearch) {
-    var rune     = [],
+    var rune = [],
         allRunes = [];
 
     allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
@@ -108,9 +108,9 @@ var findRuneByMaterial = function (materialSearch) {
  * @returns {string}
  */
 var getRandomWeaponName = function (weapon, hasOwner) {
-    var classNames   = WEAPON_DATA.CLASS_NAMES,
+    var classNames = WEAPON_DATA.CLASS_NAMES,
         featureNames = WEAPON_DATA.FEATURE_NAMES,
-        legendNames  = WEAPON_DATA.LEGEND_NAMES;
+        legendNames = WEAPON_DATA.LEGEND_NAMES;
 
     // Si es arma legendaria directamente cojo una de entre los nombres ya creados
     if (weapon.frecuency === 'legendary') {
@@ -152,9 +152,9 @@ var getRandomWeaponName = function (weapon, hasOwner) {
  * @returns {string}
  */
 var getRandomArmorName = function (armor, hasOwner) {
-    var classNames   = ARMOR_DATA.CLASS_NAMES,
+    var classNames = ARMOR_DATA.CLASS_NAMES,
         featureNames = ARMOR_DATA.FEATURE_NAMES,
-        legendNames  = ARMOR_DATA.LEGEND_NAMES;
+        legendNames = ARMOR_DATA.LEGEND_NAMES;
 
     // Si es armadura legendaria directamente cojo una de entre los nombres ya creados
     if (armor.frecuency === 'legendary') {
@@ -220,5 +220,8 @@ module.exports = {
     ARMOR_CLASS_NAMES: ARMOR_DATA.CLASS_NAMES,
     ARMOR_FEATURE_NAMES: ARMOR_DATA.FEATURE_NAMES,
     ARMOR_OWNER_NAMES: ARMOR_DATA.OWNER_NAMES,
-    ARMOR_LEGEND_NAMES: ARMOR_DATA.LEGEND_NAMES
+    ARMOR_LEGEND_NAMES: ARMOR_DATA.LEGEND_NAMES,
+
+    WEAPON_DAMAGE: WEAPON_DATA.WEAPON_DAMAGE,
+    ELEMENT_DAMAGE: ELEMENTS_DATA.ELEMENT_DAMAGE
 };
