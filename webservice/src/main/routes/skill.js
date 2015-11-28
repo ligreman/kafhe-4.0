@@ -198,16 +198,34 @@ module.exports = function (app) {
                 }
 
                 // Objeto de promises para salvar los targets y el usuario
-                var promises = [];
+                var promises = [], combatResult, results = {damageDone: 0, kills: 0};
 
                 // Para cada target:
                 targets.forEach(function (thisTarget) {
-                    // Calculo el daño y defensa
-                    var combatResult = utilsUser.combatResult(skill, thisTarget);
+                    // Calculo el daño y defensa (me devuelve damage y protection)
+                    combatResult = utilsUser.combatResult(skill, thisTarget);
 
                     // Resto vidas y si muere, reputación
+                    var resTakeDamage = utilsUser.takeDamage(thisTarget, combatResult.damage);
+                    thisTarget = resTakeDamage.user;
+
+                    //Reputación por protección del defensor
+                    if (combatResult.protection > 0) {
+                        var resReputation = utilsUser.addReputation(thisTarget, combatResult.reputation, 'protection');
+                        thisTarget = resReputation.user;
+                    }
+
+                    // Calculo la diferencia de niveles arma/armadura para saber la reputación que gana el atacante
+
+                    // TODO notification para este usuario???
 
                     promises.push(utilsUser.saveUser(thisTarget));
+
+                    // Para el atacante, actualizo datos
+                    results.damageDone += combatResult.damage;
+                    if (resTakeDamage.hasDied) {
+                        results.kills++;
+                    }
                 });
 
 

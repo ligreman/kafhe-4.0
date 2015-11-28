@@ -4,6 +4,7 @@ var console       = process.console,
     TAFFY         = require('taffy'),
     Q             = require('q'),
     utils         = require('./utils'),
+    config        = require('./config'),
     gameResources = require('./gameResources');
 
 
@@ -182,6 +183,62 @@ var saveUser = function (user) {
     return defer.promise;
 };
 
+/**
+ * Hace daño al jugador
+ * @param user Objeto usuario
+ * @param damage Daño que recibe
+ * @returns {{user: *, hasDied: boolean, reputationLost}}
+ */
+var takeDamage = function (user, damage) {
+    var muere = false;
+    user.game.stats.life -= damage;
+
+    // ¿Muere?
+    if (user.game.stats.life <= 0) {
+        user.game.stats.life = config.MAX_LIFE + user.game.stats.life;
+
+        // Le quito reputación
+        user.game.stats.reputation -= config.REPUTATION_LOST_DEAD;
+
+        muere = true;
+    }
+
+    return {
+        user: user,
+        hasDied: muere,
+        reputationLost: config.REPUTATION_LOST_DEAD
+    };
+};
+
+/**
+ * Añade reputación al usuario dependiendo de qué lo haya causado
+ * @param user Objeto usuario
+ * @param sourceAmount Cantidad de causa que ha provocado el ganar reputación (daño, daño prevenido...)
+ * @param causa 'damage', 'protection'
+ * @returns {*}
+ */
+var addReputation = function (user, sourceAmount, causa) {
+    var ganancia = 0;
+
+    switch (causa) {
+        case 'damage':
+            //= ROUND(100 * J34 * $K$34 / 3500)
+
+
+            break;
+        case 'protection':
+            break;
+    }
+
+    // Sumo o resto lo ganado
+    user.game.stats.reputation += ganancia;
+
+    return {
+        user: user,
+        reputation: ganancia
+    };
+};
+
 //Exporto las funciones de la librería
 module.exports = {
     getWeapon: getWeapon,
@@ -191,6 +248,8 @@ module.exports = {
     hasSkill: hasSkill,
     updateSkill: updateSkill,
     combatResult: combatResult,
-    saveUser: saveUser
+    saveUser: saveUser,
+    takeDamage: takeDamage,
+    addReputation: addReputation
 };
 

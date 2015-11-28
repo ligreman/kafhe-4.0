@@ -3,6 +3,7 @@
 //Módulo para un modelo de Mongoose. Hay que pasarle el objeto mongoose ya creado antes.
 module.exports = function (mongoose) {
     var skillSchema = require('./skillSchema')(mongoose);
+    var notificationSchema = require('./notificationSchema')(mongoose);
 
     //Modelo para los usuarios, coleccion Users
     var UserSchema = mongoose.Schema({
@@ -94,7 +95,8 @@ module.exports = function (mongoose) {
                 meal: {type: mongoose.Schema.Types.ObjectId, ref: 'Meal'},
                 drink: {type: mongoose.Schema.Types.ObjectId, ref: 'Drink'},
                 ito: Boolean
-            }
+            },
+            notifications: [notificationSchema]
         }
     }, {versionKey: false});
 
