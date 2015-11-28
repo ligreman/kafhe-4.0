@@ -3,8 +3,10 @@
 var console       = process.console,
     TAFFY         = require('taffy'),
     Q             = require('q'),
+    math          = require('mathjs'),
     utils         = require('./utils'),
     config        = require('./config'),
+    formulas      = require('./formulas'),
     gameResources = require('./gameResources');
 
 
@@ -131,9 +133,10 @@ var updateSkill = function (user, idSkill, source, changes) {
  * Calcula el resultado de un ataque con habilidad
  * @param skillUsed Objeto habilidad usada por el atacante
  * @param target Objeto user del defensor
+ * @param furyMode Modo furia del atacante activo?
  * @returns {object} Objeto con { damage: Daño en número que recibe el defensor, protection: daño evitado por la protección}
  */
-var combatResult = function (skillUsed, target) {
+var combatResult = function (skillUsed, target, furyMode) {
     var damage = 0, protection = 0;
 
     // Saco armadura del defensor
@@ -142,14 +145,6 @@ var combatResult = function (skillUsed, target) {
     // Valor base de daño con precisión aplicada
     damage = Math.round(skillUsed.stats.damage * (skillUsed.stats.precision + 100) / 100);
 
-    // Calculo si el defensor bloquea y en ese caso miro la protección
-    if (utils.dice100(100 - armorDef.base_stats.parry)) {
-        protection = armorDef.base_stats.protection;
-    }
-
-    // Daño base final, mínimo de 0
-    damage = Math.max(damage - protection, 0);
-
     // Calculo variación de daño por enfrentamiento de elementos
     var elemPercent = gameResources.ELEMENT_DAMAGE[skillUsed.element][armorDef.element];
     damage = Math.round(damage * elemPercent / 100);
@@ -157,6 +152,19 @@ var combatResult = function (skillUsed, target) {
     // Calculo variación de daño por enfrentamiento de tipos
     var typePercent = gameResources.WEAPON_DAMAGE[skillUsed.class][armorDef.class];
     damage = Math.round(damage * typePercent / 100);
+
+    // Modo furia. Si está activo hace el doble de daño
+    if (furyMode) {
+        damage = damage * config.FURY_MODE_MULTIPLIER;
+    }
+
+    // Calculo si el defensor bloquea y en ese caso miro la protección
+    if (utils.dice100(100 - armorDef.base_stats.parry)) {
+        protection = armorDef.base_stats.protection;
+    }
+
+    // Daño base final, mínimo de 0
+    damage = Math.max(damage - protection, 0);
 
     return {
         damage: damage,
@@ -214,19 +222,36 @@ var takeDamage = function (user, damage) {
  * Añade reputación al usuario dependiendo de qué lo haya causado
  * @param user Objeto usuario
  * @param sourceAmount Cantidad de causa que ha provocado el ganar reputación (daño, daño prevenido...)
+ * @param levelDifference La diferencia de niveles devuelta por la función del mismo nombre
  * @param causa 'damage', 'protection'
  * @returns {*}
  */
-var addReputation = function (user, sourceAmount, causa) {
+var addReputation = function (user, sourceAmount, levelDifference, causa) {
     var ganancia = 0;
 
+    // La diferencia de nivel si es 0, le pongo 1 para evitar divisiones por 0 y resultados 0
+    if (levelDifference === 0) {
+        levelDifference = 1;
+    }
+
     switch (causa) {
-        case 'damage':
-            //= ROUND(100 * J34 * $K$34 / 3500)
-
-
+        case config.CAUSE.damage:
+            ganancia = math.eval(
+                formulas.FORMULA_REPUTATION_DAMAGE,
+                {
+                    damage: sourceAmount,
+                    levelDifference: -1 * levelDifference // Le cambio de signo porque tengo atk>def: positivo, y quiero lo contrario
+                });
             break;
-        case 'protection':
+        case config.CAUSE.protection:
+            // Gano un punto de reputación por cada 5 de daño prevenidos
+            ganancia = math.eval(
+                formulas.FORMULA_REPUTATION_DAMAGE_PREVENTED,
+                {
+                    damagePrevented: sourceAmount,
+                    levelDifference: levelDifference // Aquí quiero que sea positivo si el defensor está en desventaja
+                }
+            );
             break;
     }
 
@@ -236,6 +261,41 @@ var addReputation = function (user, sourceAmount, causa) {
     return {
         user: user,
         reputation: ganancia
+    };
+};
+
+/**
+ * Devuelve el cálculo de diferencia de niveles entre el arma del atacante y la armadura del defensor
+ * @param attacker
+ * @param defender
+ * @returns {number} Positivo si attacker > defender
+ */
+var levelDifference = function (attacker, defender) {
+    // Saco el arma del user y la armadura de target
+    var arma = getEquippedWeapon(attacker);
+    var armadura = getEquippedArmor(defender);
+
+    return arma.level - armadura.level;
+};
+
+/**
+ * Actualizo la furia del usuario
+ * @param user Objeto usuario
+ * @param amount Cantidad de furia que se ha usado
+ * @returns {{user: *, furyDisabled: boolean}}
+ */
+var updateFury = function (user, amount) {
+    var furyDisabled = false;
+    user.game.stats.fury -= amount;
+
+    // Si no queda furia suficiente para hacer otro ataque, desactivo el modo furia
+    if (user.game.stats.fury < config.FURY_MODE_USE_POINTS) {
+        user.game.stats.fury_mode = false;
+    }
+
+    return {
+        user: user,
+        furyDisabled: furyDisabled
     };
 };
 
@@ -250,6 +310,8 @@ module.exports = {
     combatResult: combatResult,
     saveUser: saveUser,
     takeDamage: takeDamage,
-    addReputation: addReputation
+    addReputation: addReputation,
+    levelDifference: levelDifference,
+    updateFury: updateFury
 };
 

@@ -220,11 +220,11 @@ module.exports = function (app) {
                     // Ejecuto la formula para calcular el damage final que hace
                     var formula = math.eval(weaponElementalSkill.stats.damage_formula, data);
 
-                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + Math.round(formula);
+                    weaponElementalSkill.stats.damage = forgedWeapon.base_stats.damage + formula;
 
                     // La precisión
                     formula = math.eval(weaponElementalSkill.stats.precision_formula, data);
-                    weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + Math.round(formula);
+                    weaponElementalSkill.stats.precision = forgedWeapon.base_stats.precision + formula;
 
                     weaponElementalSkill.level = tostem.level;
                     weaponElementalSkill.class = forgedWeapon.class;

@@ -61,8 +61,8 @@ module.exports = function (app) {
             uses: null, duration: null,
             cost: 2, action: 'a004',
             stats: {
-                precision_formula: 'basePrecision * (15 + (tostemLevel * 2)) / 100',
-                damage_formula: 'baseDamage * (20 + (tostemLevel * 10)) / 100'
+                precision_formula: 'round( basePrecision * (15 + (tostemLevel * 2)) / 100 )',
+                damage_formula: 'round( baseDamage * (20 + (tostemLevel * 10)) / 100 )'
             }
         },
         {

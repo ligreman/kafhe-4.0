@@ -76,7 +76,7 @@ module.exports = function (app) {
             return;
         }
         // Miro a ver si tiene al menos 100 puntos de furia para poder activarla
-        else if (usuario.game.stats.fury < config.FURY_MODE_MIN_POINTS) {
+        else if (usuario.game.stats.fury < config.FURY_MODE_ACTIVATE_MIN_POINTS) {
             console.tag('FURY').error('No tiene suficientes puntos de furia');
             //res.redirect('/error/errFuryNotEnoughPoints');
             utils.error(res, 400, 'errFuryNotEnoughPoints');
@@ -198,12 +198,12 @@ module.exports = function (app) {
                 }
 
                 // Objeto de promises para salvar los targets y el usuario
-                var promises = [], combatResult, results = {damageDone: 0, kills: 0};
+                var promises = [], combatResult, results = {damageDone: 0, kills: 0, reputation: 0};
 
                 // Para cada target:
                 targets.forEach(function (thisTarget) {
                     // Calculo el daño y defensa (me devuelve damage y protection)
-                    combatResult = utilsUser.combatResult(skill, thisTarget);
+                    combatResult = utilsUser.combatResult(skill, thisTarget, usuario.game.stats.fury_mode);
 
                     // Resto vidas y si muere, reputación
                     var resTakeDamage = utilsUser.takeDamage(thisTarget, combatResult.damage);
@@ -211,11 +211,21 @@ module.exports = function (app) {
 
                     //Reputación por protección del defensor
                     if (combatResult.protection > 0) {
-                        var resReputation = utilsUser.addReputation(thisTarget, combatResult.reputation, 'protection');
-                        thisTarget = resReputation.user;
+                        var targetReputation = utilsUser.addReputation(thisTarget, combatResult.reputation, null, config.CAUSE.protection);
+                        thisTarget = targetReputation.user;
                     }
 
+                    // Actualizo furia de los target
+                    thisTarget.game.stats.fury += combatResult.damage;
+
                     // Calculo la diferencia de niveles arma/armadura para saber la reputación que gana el atacante
+                    var levelDifference = utilsUser.levelDifference(usuario, thisTarget);
+                    // Si la diferencia es positiva es que el atacante es mayor que el defensor
+                    // Calculo la reputación para el atacante
+                    var atkReputation = utilsUser.addReputation(usuario, combatResult.damage, levelDifference, config.CAUSE.damage);
+                    usuario = atkReputation.user;
+                    results.reputation += atkReputation.reputation;
+
 
                     // TODO notification para este usuario???
 
@@ -238,19 +248,27 @@ module.exports = function (app) {
                     usuario = utilsUser.updateSkill(usuario, skill.id, skill.source, {uses: newUses});
                 }
 
-                // Reputación de los usuarios involucrados
-                // Actualizo furia de los target
+                // Reputación del atacante por el ataque en sí
+
                 // Actualizo furia del usuario si estaba en modo furia
+                if (usuario.game.stats.fury_mode) {
+                    var resFury = utilsUser.updateFury(user, config.FURY_MODE_USE_POINTS);
+                    usuario = resFury.user;
+                    results.furyDisabled = resFury.furyDisabled;
+                }
 
                 // Last activity y afk
                 usuario.game.afk = false;
                 usuario.game.last_activity = new Date().getTime();
+
+                // TODO notificación para el usuario atacante
 
                 promises.push(utilsUser.saveUser(usuario));
 
                 //Tengo que salvar los targets y el usuario
                 Q.all(promises)
                     .then(function (results) {
+                        //TODO notificación para la partida???
                         /*res.json({
                          "data": {
                          "user": usuario
