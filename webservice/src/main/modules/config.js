@@ -10,6 +10,9 @@ var FURY_MODE_USE_POINTS = 500;
 // Multiplicador del modo furia
 var FURY_MODE_MULTIPLIER = 2;
 
+// Daño que recibes si no tienes armadura, en %
+var DAMAGE_NO_ARMOR = 120;
+
 // Vida máxima
 var MAX_LIFE = 1000;
 
@@ -29,6 +32,7 @@ module.exports = {
     FURY_MODE_MULTIPLIER: FURY_MODE_MULTIPLIER,
     MAX_LIFE: MAX_LIFE,
     REPUTATION_LOST_DEAD: REPUTATION_LOST_DEAD,
-    CAUSE: CAUSE
+    CAUSE: CAUSE,
+    DAMAGE_NO_ARMOR: DAMAGE_NO_ARMOR
 };
 

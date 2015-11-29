@@ -207,6 +207,7 @@ module.exports = function (app) {
                             name: 'Ten Hedor',
                             frecuency: 'common',
                             level: 2,
+                            element: 'fire',
                             'class': 'bladed',
                             base_stats: {
                                 damage: 14,
@@ -222,6 +223,7 @@ module.exports = function (app) {
                                 element: 'fire',
                                 'class': 'bladed',
                                 level: 1,
+                                target_number: 1,
                                 source: 'weapon', // weapon, armor
                                 uses: 3,
                                 cost: 2, action: 'a001', duration: 2,
@@ -263,6 +265,8 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
+                        element: 'earth',
+                        'class': 'light',
                         level: 2, base_stats: {
                             protection: 4,
                             parry: 46
@@ -404,6 +408,8 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
+                            'class': 'bladed',
+                            element: 'fire',
                             level: 2, base_stats: {
                             damage: 14,
                             precision: 6
@@ -458,6 +464,8 @@ module.exports = function (app) {
                         id: 'a001',
                         name: 'Al Capa Ra',
                         frecuency: 'common',
+                        'class': 'medium',
+                        element: 'earth',
                         level: 2, base_stats: {
                             protection: 4,
                             parry: 46

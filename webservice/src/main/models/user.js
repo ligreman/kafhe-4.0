@@ -17,11 +17,11 @@ module.exports = function (mongoose) {
             level: Number,
             tostolares: Number,
             stats: {
-                life: Number,
-                fury: Number,
-                fury_mode: Boolean,
-                reputation: Number,
-                action_points: Number
+                life: {type: Number, default: 0},
+                fury: {type: Number, default: 0},
+                fury_mode: {type: Boolean, default: false},
+                reputation: {type: Number, default: 0},
+                action_points: {type: Number, default: 0}
             },
             equipment: {
                 weapon: {type: String, default: null},

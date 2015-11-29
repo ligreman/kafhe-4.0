@@ -79,8 +79,8 @@ var getEquippedArmor = function (user) {
  */
 var hasSkill = function (user, idSkill) {
     // Saco el arma y armadura equipadas
-    var weaponEquipped = utilsUser.getEquippedWeapon(user);
-    var armorEquipped = utilsUser.getEquippedArmor(user);
+    var weaponEquipped = getEquippedWeapon(user);
+    var armorEquipped = getEquippedArmor(user);
     var skills = [];
 
     // Skills del arma
@@ -146,11 +146,16 @@ var combatResult = function (skillUsed, target, furyMode) {
     damage = Math.round(skillUsed.stats.damage * (skillUsed.stats.precision + 100) / 100);
 
     // Calculo variación de daño por enfrentamiento de elementos
-    var elemPercent = gameResources.ELEMENT_DAMAGE[skillUsed.element][armorDef.element];
-    damage = Math.round(damage * elemPercent / 100);
+    if (armorDef) {
+        var elemPercent = gameResources.ELEMENT_DAMAGE[skillUsed.element][armorDef.element];
+        damage = Math.round(damage * elemPercent / 100);
+    }
 
     // Calculo variación de daño por enfrentamiento de tipos
-    var typePercent = gameResources.WEAPON_DAMAGE[skillUsed.class][armorDef.class];
+    var typePercent = config.DAMAGE_NO_ARMOR; // por defecto
+    if (armorDef) {
+        typePercent = gameResources.WEAPON_DAMAGE[skillUsed.class][armorDef.class];
+    }
     damage = Math.round(damage * typePercent / 100);
 
     // Modo furia. Si está activo hace el doble de daño
@@ -159,7 +164,7 @@ var combatResult = function (skillUsed, target, furyMode) {
     }
 
     // Calculo si el defensor bloquea y en ese caso miro la protección
-    if (utils.dice100(100 - armorDef.base_stats.parry)) {
+    if (armorDef && utils.dice100(100 - armorDef.base_stats.parry)) {
         protection = armorDef.base_stats.protection;
     }
 
@@ -274,6 +279,14 @@ var levelDifference = function (attacker, defender) {
     // Saco el arma del user y la armadura de target
     var arma = getEquippedWeapon(attacker);
     var armadura = getEquippedArmor(defender);
+
+    // Comprobaciones por si hay arma o armadura
+    if (!arma) {
+        arma = {level: 0}
+    }
+    if (!armadura) {
+        armadura = {level: 0}
+    }
 
     return arma.level - armadura.level;
 };

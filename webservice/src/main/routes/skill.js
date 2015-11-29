@@ -168,7 +168,6 @@ module.exports = function (app) {
         // Saco la lista de usuarios de mi partida para seguir haciendo cosas
         models.User
             .find({"_id": {"$in": usuario.game.gamedata.players}})
-            .select('game.afk')
             .exec(function (error, users) {
                 if (error) {
                     console.tag('MONGO').error(error);
@@ -179,9 +178,9 @@ module.exports = function (app) {
                 // Compruebo que los id de los objetivos están entre los posibles en mi partida
                 var targets = [];
                 users.forEach(function (thisUser) {
-                    if (targetIds.indexOf(thisUser._id) > -1) {
-                        // Este es un objetivo. Compruebo que está activo
-                        if (!thisUser.game.afk) {
+                    if (targetIds.indexOf(thisUser._id.toString()) > -1) {
+                        // Este es un objetivo. Compruebo que está activo (no AFK)
+                        if (thisUser.game.afk) {
                             console.tag('SKILL-EXECUTE').error('Alguno de los objetivos seleccionados no está activo y por lo tanto no es un objetivo válido');
                             utils.error(res, 400, 'errSkillTargetAfk');
                             return;
@@ -214,7 +213,7 @@ module.exports = function (app) {
                         var targetReputation = utilsUser.addReputation(thisTarget, combatResult.reputation, null, config.CAUSE.protection);
                         thisTarget = targetReputation.user;
                     }
-
+                    console.log(thisTarget.game);
                     // Actualizo furia de los target
                     thisTarget.game.stats.fury += combatResult.damage;
 
@@ -263,28 +262,28 @@ module.exports = function (app) {
 
                 // TODO notificación para el usuario atacante
 
-                promises.push(utilsUser.saveUser(usuario));
+                //promises.push(utilsUser.saveUser(usuario));
 
                 //Tengo que salvar los targets y el usuario
-                Q.all(promises)
-                    .then(function (results) {
-                        //TODO notificación para la partida???
-                        /*res.json({
-                         "data": {
-                         "user": usuario
-                         },
-                         "session": {
-                         "access_token": req.authInfo.access_token,
-                         "expire": 1000 * 60 * 60 * 24 * 30
-                         },
-                         "error": ""
-                         });*/
-                    })
-                    .catch(function (error) {
-                        console.tag('MONGO').error(err);
-                        utils.error(res, 400, 'errMongoSave');
-                        return;
-                    }).done();
+                /*Q.all(promises)
+                 .then(function (results) {
+                 //TODO notificación para la partida???
+                 /!*res.json({
+                 "data": {
+                 "user": usuario
+                 },
+                 "session": {
+                 "access_token": req.authInfo.access_token,
+                 "expire": 1000 * 60 * 60 * 24 * 30
+                 },
+                 "error": ""
+                 });*!/
+                 })
+                 .catch(function (error) {
+                 console.tag('MONGO').error(err);
+                 utils.error(res, 400, 'errMongoSave');
+                 return;
+                 }).done();*/
             });
     });
 
