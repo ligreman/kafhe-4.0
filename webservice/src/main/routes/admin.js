@@ -3,15 +3,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         adminRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        config      = require('../modules/config'),
-        utils       = require('../modules/utils'),
-        crypto      = require('crypto'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+        bodyParser = require('body-parser'),
+        config = require('../modules/config'),
+        utils = require('../modules/utils'),
+        crypto = require('crypto'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
@@ -65,7 +65,7 @@ module.exports = function (app) {
      */
     adminRouter.post('/user/new', function (req, res, next) {
         var params = req.body,
-            alias  = null;
+            alias = null;
 
         if (!params.username) {
             console.tag('ADMIN-USER-NEW').error('No se ha proporcionado el nombre de usuario a crear');
@@ -117,10 +117,11 @@ module.exports = function (app) {
      * Crea una nueva partida con una lista de usuarios
      */
     adminRouter.post('/game/new', function (req, res, next) {
-        var params        = req.body,
-            userIds       = params.users,
+        var params = req.body,
+            userIds = params.users,
             usersObjectId = [],
-            repeat        = params.repeat;
+            repeat = params.repeat,
+            gameId = null;
 
         // Creo un objeto partida nuevo
         var game = new models.Game({
@@ -136,7 +137,8 @@ module.exports = function (app) {
                 return;
             } else {
                 // Ahora actualizo los usuarios
-                saveUsers(gameId);
+                gameId = game._id;
+                saveUsers(userIds, res);
 
             }
         });
@@ -146,7 +148,7 @@ module.exports = function (app) {
 
 
         // Función que guarda los resultados en mongo
-        function saveUsers(gameId) {
+        function saveUsers(userIds, res) {
             var promises = [];
             userIds.forEach(function (idUser) {
                 promises.push(userPromise(idUser));
@@ -155,8 +157,10 @@ module.exports = function (app) {
             // Lanzo la actualización de los usuarios
             Q.allSettled(promises)
                 .then(function (users) {
-                    //TODO
-                });
+                    res.json({
+                        mongo: true
+                    });
+                }).done();
         }
 
         // Función que crea un promise
@@ -171,8 +175,8 @@ module.exports = function (app) {
                 })
                 .then(findUser) //TODO ver como iba eso del mongoose
                 .then(removeUserFromGame)
-                .done(function (access_token) {
-                    deferred.resolve(text);
+                .done(function () {
+                    deferred.resolve();
                 }, function (error) {
                     // We get here if any fails
                     console.tag('ADMIN-NEW-GAME').error('Error actualizando usuarios: ' + error);
@@ -186,10 +190,33 @@ module.exports = function (app) {
         function findUser(userId) {
             var deferred = Q.defer();
 
+            models.User.find({_id: userId})
+                .exec(function (error, user) {
+                    if (error) {
+                        deferred.reject(error);
+                    }
+
+                    deferred.resolve(user);
+                });
+
+            return deferred.promise;
         }
 
-        function removeUserFromGame(userId) {
+        function removeUserFromGame(user) {
             var deferred = Q.defer();
+
+            //Cambia al usuario de game
+            user.game.gamedata = gameId;
+
+            user.save(function (err) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve();
+                }
+            });
+
+            return deferred.promise;
         }
     });
 
