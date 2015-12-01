@@ -235,13 +235,14 @@ var takeDamage = function (user, damage) {
 var addReputation = function (user, sourceAmount, levelDifference, causa) {
     var ganancia = 0;
 
-    // La diferencia de nivel si es 0, le pongo 1 para evitar divisiones por 0 y resultados 0
-    if (levelDifference === 0) {
-        levelDifference = 1;
-    }
-
     switch (causa) {
         case config.CAUSE.damage:
+            // La diferencia de nivel si es 0, le pongo -1 para evitar divisiones por 0 y resultados 0
+            if (levelDifference === 0) {
+                // -1 porque quiero de resultado 1 a favor, y luego se multiplica por -1
+                levelDifference = -1;
+            }
+
             ganancia = math.eval(
                 formulas.FORMULA_REPUTATION_DAMAGE,
                 {
@@ -250,6 +251,11 @@ var addReputation = function (user, sourceAmount, levelDifference, causa) {
                 });
             break;
         case config.CAUSE.protection:
+            // La diferencia de nivel si es 0, le pongo 1 para evitar divisiones por 0 y resultados 0
+            if (levelDifference === 0) {
+                levelDifference = 1;
+            }
+
             // Gano un punto de reputación por cada 5 de daño prevenidos
             ganancia = math.eval(
                 formulas.FORMULA_REPUTATION_DAMAGE_PREVENTED,

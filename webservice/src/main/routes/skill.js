@@ -210,7 +210,7 @@ module.exports = function (app) {
 
                     //Reputación por protección del defensor
                     if (combatResult.protection > 0) {
-                        var targetReputation = utilsUser.addReputation(thisTarget, combatResult.reputation, null, config.CAUSE.protection);
+                        var targetReputation = utilsUser.addReputation(thisTarget, combatResult.protection, null, config.CAUSE.protection);
                         thisTarget = targetReputation.user;
                     }
                     console.log(thisTarget.game);
