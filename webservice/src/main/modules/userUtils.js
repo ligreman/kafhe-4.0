@@ -203,23 +203,24 @@ var saveUser = function (user) {
  * @returns {{user: *, hasDied: boolean, reputationLost}}
  */
 var takeDamage = function (user, damage) {
-    var muere = false;
+    var muere = false, muertes = 0;
     user.game.stats.life -= damage;
 
-    // ¿Muere?
-    if (user.game.stats.life <= 0) {
-        user.game.stats.life = config.MAX_LIFE + user.game.stats.life;
+    // ¿Muere más veces?
+    while (user.game.stats.life <= 0) {
+        user.game.stats.life = user.game.stats.life + config.MAX_LIFE;
 
         // Le quito reputación
         user.game.stats.reputation -= config.REPUTATION_LOST_DEAD;
 
         muere = true;
+        muertes++;
     }
 
     return {
         user: user,
         hasDied: muere,
-        reputationLost: config.REPUTATION_LOST_DEAD
+        reputationLost: muertes * config.REPUTATION_LOST_DEAD
     };
 };
 
