@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express      = require('express'),
-        passport     = require('passport'),
-        events       = require('events'),
+    var express = require('express'),
+        passport = require('passport'),
+        events = require('events'),
         eventEmitter = new events.EventEmitter(),
-        mongoRouter  = express.Router(),
-        mongoose     = require('mongoose'),
-        utils        = require('../modules/utils'),
-        models       = require('../models/models')(mongoose);
+        mongoRouter = express.Router(),
+        mongoose = require('mongoose'),
+        utils = require('../modules/utils'),
+        models = require('../models/models')(mongoose);
 
     // Modelos
     var admins = [
@@ -57,9 +57,64 @@ module.exports = function (app) {
             stats: {life: 5}
         },
         {
-            name: 'skillWeaponElementalAtack', element: 'water', source: 'weapon',
-            uses: null, duration: null,
-            cost: 2, action: 'a004',
+            name: 'Ataque elemental de fuego',
+            element: 'fire',
+            source: 'weapon',
+            'class': 'bladed',
+            level: 0, // Es el nivel del tostem
+            target_number: 1,
+            uses: null,
+            duration: null,
+            cost: 2,
+            action: 'skillWeaponElementalAttack',
+            stats: {
+                precision_formula: 'round( basePrecision * (15 + (tostemLevel * 2)) / 100 )',
+                damage_formula: 'round( baseDamage * (20 + (tostemLevel * 10)) / 100 )'
+            }
+        },
+        {
+            name: 'Ataque elemental de agua',
+            element: 'water',
+            source: 'weapon',
+            'class': 'bladed',
+            level: 0, // Es el nivel del tostem
+            target_number: 1,
+            uses: null,
+            duration: null,
+            cost: 2,
+            action: 'skillWeaponElementalAttack',
+            stats: {
+                precision_formula: 'round( basePrecision * (15 + (tostemLevel * 2)) / 100 )',
+                damage_formula: 'round( baseDamage * (20 + (tostemLevel * 10)) / 100 )'
+            }
+        },
+        {
+            name: 'Ataque elemental de tierra',
+            element: 'earth',
+            source: 'weapon',
+            'class': 'bladed',
+            level: 0, // Es el nivel del tostem
+            target_number: 1,
+            uses: null,
+            duration: null,
+            cost: 2,
+            action: 'skillWeaponElementalAttack',
+            stats: {
+                precision_formula: 'round( basePrecision * (15 + (tostemLevel * 2)) / 100 )',
+                damage_formula: 'round( baseDamage * (20 + (tostemLevel * 10)) / 100 )'
+            }
+        },
+        {
+            name: 'Ataque elemental de aire',
+            element: 'air',
+            source: 'weapon',
+            'class': 'bladed',
+            level: 0, // Es el nivel del tostem
+            target_number: 1,
+            uses: null,
+            duration: null,
+            cost: 2,
+            action: 'skillWeaponElementalAttack',
             stats: {
                 precision_formula: 'round( basePrecision * (15 + (tostemLevel * 2)) / 100 )',
                 damage_formula: 'round( baseDamage * (20 + (tostemLevel * 10)) / 100 )'
@@ -219,14 +274,16 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's001',
-                                name: 'Papachiro in the face',
+                                name: 'Ataque elemental de fuego',
                                 element: 'fire',
+                                source: 'weapon',
                                 'class': 'bladed',
-                                level: 1,
+                                level: 1, // Es el nivel del tostem
                                 target_number: 1,
-                                source: 'weapon', // weapon, armor
                                 uses: 3,
-                                cost: 2, action: 'a001', duration: 2,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
                                     damage: 20
                                 },
@@ -247,14 +304,18 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's003',
-                                name: 'Ataquito in the ice',
-                                element: 'water',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
-                                uses: 1,
-                                cost: 3, action: 'a001', duration: 2,
+                                name: 'Ataque elemental de tierra',
+                                element: 'earth',
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
+                                uses: 3,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
-                                    damage: 60
+                                    damage: 20
                                 },
                                 blocked: false
                             }],
@@ -408,24 +469,29 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            'class': 'bladed',
+                            level: 2,
                             element: 'fire',
-                            level: 2, base_stats: {
-                            damage: 14,
-                            precision: 6
-                        },
+                            'class': 'bladed',
+                            base_stats: {
+                                damage: 14,
+                                precision: 6
+                            },
                             components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
                             skills: [{
                                 id: 's001',
-                                name: 'Papachiro in the face',
+                                name: 'Ataque elemental de fuego',
                                 element: 'fire',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
                                 uses: 3,
-                                cost: 2, action: 'a001', duration: 2,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
                                     damage: 20
                                 },
@@ -446,14 +512,18 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's003',
-                                name: 'Ataquito in the ice',
-                                element: 'water',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
-                                uses: 1,
-                                cost: 3, action: 'a001', duration: 2,
+                                name: 'Ataque elemental de tierra',
+                                element: 'earth',
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
+                                uses: 3,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
-                                    damage: 60
+                                    damage: 20
                                 },
                                 blocked: false
                             }],
@@ -607,22 +677,29 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            level: 2, base_stats: {
-                            damage: 14,
-                            precision: 6
-                        },
+                            level: 2,
+                            element: 'fire',
+                            'class': 'bladed',
+                            base_stats: {
+                                damage: 14,
+                                precision: 6
+                            },
                             components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
                             skills: [{
                                 id: 's001',
-                                name: 'Papachiro in the face',
+                                name: 'Ataque elemental de fuego',
                                 element: 'fire',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
                                 uses: 3,
-                                cost: 2, action: 'a001', duration: 2,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
                                     damage: 20
                                 },
@@ -643,14 +720,18 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's003',
-                                name: 'Ataquito in the ice',
-                                element: 'water',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
-                                uses: 1,
-                                cost: 3, action: 'a001', duration: 2,
+                                name: 'Ataque elemental de tierra',
+                                element: 'earth',
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
+                                uses: 3,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
-                                    damage: 60
+                                    damage: 20
                                 },
                                 blocked: false
                             }],
@@ -802,22 +883,29 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            level: 2, base_stats: {
-                            damage: 14,
-                            precision: 6
-                        },
+                            level: 2,
+                            element: 'fire',
+                            'class': 'bladed',
+                            base_stats: {
+                                damage: 14,
+                                precision: 6
+                            },
                             components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
                             skills: [{
                                 id: 's001',
-                                name: 'Papachiro in the face',
+                                name: 'Ataque elemental de fuego',
                                 element: 'fire',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
                                 uses: 3,
-                                cost: 2, action: 'a001', duration: 2,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
                                     damage: 20
                                 },
@@ -838,14 +926,18 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's003',
-                                name: 'Ataquito in the ice',
-                                element: 'water',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
-                                uses: 1,
-                                cost: 3, action: 'a001', duration: 2,
+                                name: 'Ataque elemental de tierra',
+                                element: 'earth',
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
+                                uses: 3,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
-                                    damage: 60
+                                    damage: 20
                                 },
                                 blocked: false
                             }],
@@ -997,22 +1089,29 @@ module.exports = function (app) {
                             id: 'w001',
                             name: 'Ten Hedor',
                             frecuency: 'common',
-                            level: 2, base_stats: {
-                            damage: 14,
-                            precision: 6
-                        },
+                            level: 2,
+                            element: 'fire',
+                            'class': 'bladed',
+                            base_stats: {
+                                damage: 14,
+                                precision: 6
+                            },
                             components: {
                                 rune: 'r001',
                                 tostem: 't001'
                             },
                             skills: [{
                                 id: 's001',
-                                name: 'Papachiro in the face',
+                                name: 'Ataque elemental de fuego',
                                 element: 'fire',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
                                 uses: 3,
-                                cost: 2, action: 'a001', duration: 2,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
                                     damage: 20
                                 },
@@ -1033,14 +1132,18 @@ module.exports = function (app) {
                             },
                             skills: [{
                                 id: 's003',
-                                name: 'Ataquito in the ice',
-                                element: 'water',
-                                level: 1,
-                                source: 'weapon', // common, weapon, armor
-                                uses: 1,
-                                cost: 3, action: 'a001', duration: 2,
+                                name: 'Ataque elemental de tierra',
+                                element: 'earth',
+                                source: 'weapon',
+                                'class': 'bladed',
+                                level: 1, // Es el nivel del tostem
+                                target_number: 1,
+                                uses: 3,
+                                duration: null,
+                                cost: 2,
+                                action: 'skillWeaponElementalAttack',
                                 stats: {
-                                    damage: 60
+                                    damage: 20
                                 },
                                 blocked: false
                             }],

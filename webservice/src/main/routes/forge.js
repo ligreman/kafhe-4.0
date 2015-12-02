@@ -3,16 +3,16 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express       = require('express'),
-        passport      = require('passport'),
-        //validator = require('validator'),
-        math          = require('mathjs'),
-        forgeRouter   = express.Router(),
-        utils         = require('../modules/utils'),
+    var express = require('express'),
+        passport = require('passport'),
+    //validator = require('validator'),
+        math = require('mathjs'),
+        forgeRouter = express.Router(),
+        utils = require('../modules/utils'),
         gameResources = require('../modules/gameResources'),
-        bodyParser    = require('body-parser'),
-        mongoose      = require('mongoose'),
-        models        = require('../models/models')(mongoose);
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose);
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -29,11 +29,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var usuario      = req.user,
-            params       = req.body,
-            idTostem     = params.tostem, tostem,
-            idRune       = params.rune, rune,
-            clase        = params.class,
+        var usuario = req.user,
+            params = req.body,
+            idTostem = params.tostem, tostem,
+            idRune = params.rune, rune,
+            clase = params.class,
             forgedWeapon = {
                 id: utils.generateId(),
                 name: null,
@@ -52,7 +52,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta    = {
+            respuesta = {
                 generatedWeapon: null
             };
 
@@ -191,7 +191,7 @@ module.exports = function (app) {
                 var skillList = [], weaponElementalSkill;
                 elementSkills.forEach(function (skill) {
                     // Busco la que es la de ataque elemental básico
-                    if (skill.name === 'skillWeaponElementalAtack') {
+                    if (skill.action === 'skillWeaponElementalAttack') {
                         weaponElementalSkill = skill;
                     } else {
                         skillList.push(skill);
@@ -300,11 +300,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/armor', function (req, res, next) {
         // El objeto user
-        var usuario     = req.user,
-            params      = req.body,
-            idTostem    = params.tostem, tostem,
-            idRune      = params.rune, rune,
-            clase       = params.class,
+        var usuario = req.user,
+            params = req.body,
+            idTostem = params.tostem, tostem,
+            idRune = params.rune, rune,
+            clase = params.class,
             forgedArmor = {
                 id: utils.generateId(),
                 name: null,
@@ -323,7 +323,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta   = {
+            respuesta = {
                 generatedArmor: null
             };
 
