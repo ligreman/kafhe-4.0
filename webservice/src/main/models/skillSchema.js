@@ -5,7 +5,7 @@ module.exports = function (mongoose) {
         id: String,
         name: String,
         element: {type: String, default: null},
-        'class': {type: String, default: null},
+        'class': {type: String, default: null}, //bladed, blunt, piercing
         level: Number, // Es el nivel del tostem
         source: String, // weapon, armor
         target_number: Number,
