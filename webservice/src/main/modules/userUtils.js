@@ -109,6 +109,22 @@ var hasSkill = function (user, idSkill) {
 };
 
 /**
+ * Obtiene la lista de habilidades del inventario del usuario según equipo
+ * @param user Objeto usuario
+ * @param slot Hueco del inventario (weapons, armors)
+ */
+var getSkills = function (user, slot) {
+    var objetos = user.game.inventory[slot];
+    var skillList = [];
+
+    objetos.forEach(function (objeto) {
+        skillList = skillList.concat(objeto.skills);
+    });
+
+    return skillList;
+};
+
+/**
  * Actualiza una habilidad dentro de la estructura del User
  * @param user Objeto usuario
  * @param idSkill ID skill a actualizar
@@ -117,14 +133,28 @@ var hasSkill = function (user, idSkill) {
  * @returns {*}
  */
 var updateSkill = function (user, idSkill, source, changes) {
-    var skills;
-    skills = user.game.equipment[source].skills;
+    // Pongo en plurar, para consultar el inventario
+    if (source === 'weapon') {
+        source = 'weapons';
+    }
+    if (source === 'armor') {
+        source = 'armors';
+    }
+
+    var skills    = getSkills(user, source),
+        newSkills = [];
 
     // Actualizo el listado de skills
-    skills = TAFFY(skills);
-    skills({id: idSkill}).update(changes); // TODO probar ,false
+    skills.forEach(function (esta) {
+        if (esta.id === idSkill) {
+            for (var field in changes) {
+                esta[field] = changes[field];
+            }
+        }
+        newSkills.push(esta);
+    });
 
-    user.game.equipment[source].skills = skills;
+    user.game.inventory[source].skills = newSkills;
 
     return user;
 };

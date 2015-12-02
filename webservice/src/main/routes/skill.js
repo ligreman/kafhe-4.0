@@ -122,6 +122,8 @@ module.exports = function (app) {
             idSkill   = params.skill_id, skill,
             targetIds = params.target;
 
+        var tempoTargets = [], tempoOrigUser = JSON.parse(JSON.stringify(usuario)), tempoOrigTargets = [];
+
         // Compruebo que la partida está en estado que puedo ejecutar habilidades
         if (usuario.game.gamedata.status !== 1) {
             console.tag('SKILL-EXECUTE').error('No se permite esta acción en el estado actual de la partida');
@@ -187,6 +189,7 @@ module.exports = function (app) {
                         }
 
                         targets.push(thisUser);
+                        tempoOrigTargets.push(JSON.parse(JSON.stringify(thisUser)));
                     }
                 });
                 // A ver si existen todos
@@ -228,7 +231,8 @@ module.exports = function (app) {
 
                     // TODO notification para este usuario???
 
-                    promises.push(utilsUser.saveUser(thisTarget));
+                    //promises.push(utilsUser.saveUser(thisTarget));
+                    tempoTargets.push(thisTarget);
 
                     // Para el atacante, actualizo datos
                     results.damageDone += combatResult.damage;
@@ -262,11 +266,28 @@ module.exports = function (app) {
 
                 // TODO notificación para el usuario atacante
 
+
+                res.json({
+                    "data": {
+                        "user": usuario,
+                        "origUser": tempoOrigUser,
+                        "results": results,
+                        "targets": tempoTargets,
+                        "origTargets": tempoOrigTargets
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
+                });
+
+
                 //promises.push(utilsUser.saveUser(usuario));
 
                 //Tengo que salvar los targets y el usuario
                 /*Q.all(promises)
-                 .then(function (results) {
+                 .then(function (resultados) {
                  //TODO notificación para la partida???
                  /!*res.json({
                  "data": {
