@@ -224,9 +224,9 @@ module.exports = function (app) {
                     var levelDifference = utilsUser.levelDifference(usuario, thisTarget);
                     // Si la diferencia es positiva es que el atacante es mayor que el defensor
                     // Calculo la reputación para el atacante
-                    var atkReputation = utilsUser.addReputation(usuario, combatResult.damage, levelDifference, config.CAUSE.damage);
-                    usuario = atkReputation.user;
-                    results.reputation += atkReputation.reputation;
+                    var dmgReputation = utilsUser.addReputation(usuario, combatResult.damage, levelDifference, config.CAUSE.damage);
+                    usuario = dmgReputation.user;
+                    results.reputation += dmgReputation.reputation;
 
 
                     // TODO notification para este usuario???
@@ -251,7 +251,10 @@ module.exports = function (app) {
                     usuario = utilsUser.updateSkill(usuario, skill.id, skill.source, {uses: newUses});
                 }
 
-                // Reputación del atacante por el ataque en sí
+                // Reputación del atacante por usar la habilidad
+                var skillReputation = utilsUser.addReputation(usuario, skill.cost, skill.level, config.CAUSE.skill);
+                usuario = skillReputation.user;
+                results.reputation += skillReputation.reputation;
 
                 // Actualizo furia del usuario si estaba en modo furia
                 if (usuario.game.stats.fury_mode) {
@@ -265,7 +268,6 @@ module.exports = function (app) {
                 usuario.game.last_activity = new Date().getTime();
 
                 // TODO notificación para el usuario atacante
-
 
                 res.json({
                     "data": {

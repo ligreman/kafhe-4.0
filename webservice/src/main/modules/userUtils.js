@@ -257,15 +257,22 @@ var takeDamage = function (user, damage) {
 /**
  * Añade reputación al usuario dependiendo de qué lo haya causado
  * @param user Objeto usuario
- * @param sourceAmount Cantidad de causa que ha provocado el ganar reputación (daño, daño prevenido...)
- * @param levelDifference La diferencia de niveles devuelta por la función del mismo nombre
- * @param causa 'damage', 'protection'
+ * @param sourceAmount Cantidad de causa que ha provocado el ganar reputación (daño, daño prevenido,action points ...)
+ * @param levelDifference La diferencia de niveles devuelta por la función del mismo nombre, o nivel habilidad
+ * @param causa 'damage', 'protection', 'skill'
  * @returns {*}
  */
 var addReputation = function (user, sourceAmount, levelDifference, causa) {
     var ganancia = 0;
 
     switch (causa) {
+        case config.CAUSE.skill:
+            // Sumo un fijo por usar la habilidad, por cada punto de acción. Vienen en sourceAmount los ptos de acción
+            ganancia += config.REPUTATION.WIN_ACTION_POINT * sourceAmount;
+
+            // Por nivel de la habilidad. Viene en levelDifference el nivel de skill
+            ganancia += config.REPUTATION.WIN_SKILL_LEVEL * levelDifference;
+            break;
         case config.CAUSE.damage:
             // La diferencia de nivel si es 0, le pongo -1 para evitar divisiones por 0 y resultados 0
             if (levelDifference === 0) {
@@ -294,6 +301,10 @@ var addReputation = function (user, sourceAmount, levelDifference, causa) {
                     levelDifference: levelDifference // Aquí quiero que sea positivo si el defensor está en desventaja
                 }
             );
+
+            // Gano puntos fijos por haber bloqueado un ataque con éxito
+            ganancia += config.REPUTATION.WIN_PARRY_SUCCESS;
+
             break;
     }
 

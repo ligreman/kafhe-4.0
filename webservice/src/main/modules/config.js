@@ -16,10 +16,20 @@ var DAMAGE_NO_ARMOR = 120;
 // Vida máxima
 var MAX_LIFE = 1000;
 
-// Reputación que se pierde al morir
-var REPUTATION_LOST_DEAD = 100;
+// Tabla de ganancias de reputación
+var REPUTATION = {
+    // Reputación que se pierde al morir
+    LOST_DEAD: 100,
+    // Reputación ganada por cada punto de acción al usar una habilidad
+    WIN_ACTION_POINT: 10,
+    // Reputación ganada por cada nivel de la habilidad usada
+    WIN_SKILL_LEVEL: 10,
+    // Reputación ganada por bloquear un ataque con éxito
+    WIN_PARRY_SUCCESS: 10
+};
 
 var CAUSE = {
+    skill: 'skill',
     damage: 'damage',
     protection: 'protection'
 };
@@ -31,8 +41,8 @@ module.exports = {
     FURY_MODE_USE_POINTS: FURY_MODE_USE_POINTS,
     FURY_MODE_MULTIPLIER: FURY_MODE_MULTIPLIER,
     MAX_LIFE: MAX_LIFE,
-    REPUTATION_LOST_DEAD: REPUTATION_LOST_DEAD,
     CAUSE: CAUSE,
-    DAMAGE_NO_ARMOR: DAMAGE_NO_ARMOR
+    DAMAGE_NO_ARMOR: DAMAGE_NO_ARMOR,
+    REPUTATION: REPUTATION
 };
 
