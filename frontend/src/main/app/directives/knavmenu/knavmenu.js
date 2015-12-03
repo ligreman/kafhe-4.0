@@ -1,11 +1,13 @@
-'use strict';
+(function () {
+    'use strict';
 
-var app = angular.module('kafhe.directives');
+    var app = angular.module('kafhe.directives');
 
-app.directive('kNavMenu', function () {
-    return {
-        restrict: 'E',
-        replace: 'true',
-        templateUrl: 'app/directives/knavmenu/knavmenu.html'
-    };
-});
+    app.directive('kNavMenu', function () {
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: 'app/directives/knavmenu/knavmenu.html'
+        };
+    });
+})();

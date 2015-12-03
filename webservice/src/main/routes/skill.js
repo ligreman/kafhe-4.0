@@ -61,7 +61,7 @@ module.exports = function (app) {
         var usuario = req.user;
 
         // Compruebo el estado de la partida, si es 1. Si no, error
-        if (usuario.game.gamedata.status !== 1) {
+        if (usuario.game.gamedata.status !== config.GAME_STATUS.BATTLE) {
             console.tag('ORDER-DELETE').error('No se permite esta acción en el estado actual de la partida');
             //res.redirect('/error/errGameStatusNotAllowed');
             utils.error(res, 400, 'errGameStatusNotAllowed');
@@ -125,7 +125,7 @@ module.exports = function (app) {
         var tempoTargets = [], tempoOrigUser = JSON.parse(JSON.stringify(usuario)), tempoOrigTargets = [];
 
         // Compruebo que la partida está en estado que puedo ejecutar habilidades
-        if (usuario.game.gamedata.status !== 1) {
+        if (usuario.game.gamedata.status !== config.GAME_STATUS.BATTLE) {
             console.tag('SKILL-EXECUTE').error('No se permite esta acción en el estado actual de la partida');
             utils.error(res, 400, 'errGameStatusNotAllowed');
             return;

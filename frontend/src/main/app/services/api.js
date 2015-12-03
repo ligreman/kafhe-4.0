@@ -179,6 +179,39 @@
                         params: {
                             endpoint: 'fury'
                         }
+                    },
+                    // Ejecuta una habilidad
+                    execute: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'execute'
+                        }
+                    }
+                });
+            },
+
+            // API de desarrollo
+            'dev': function () {
+                return $resource(CONFIG.webServiceUrl + 'dev/:endpointA/:endpointB/:status', {
+                    endpointA: '',
+                    endpointB: ''
+                }, {
+                    resetmongo: {
+                        method: 'GET',
+                        params: {
+                            endpointA: 'mongo'
+                        }
+                    },
+                    gamestatus: {
+                        method: 'GET',
+                        params: {
+                            endpointA: 'game',
+                            endpointB: 'status'
+                        }
                     }
                 });
             }

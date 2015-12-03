@@ -3,14 +3,14 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        events = require('events'),
+    var express      = require('express'),
+        passport     = require('passport'),
+        events       = require('events'),
         eventEmitter = new events.EventEmitter(),
-        mongoRouter = express.Router(),
-        mongoose = require('mongoose'),
-        utils = require('../modules/utils'),
-        models = require('../models/models')(mongoose);
+        mongoRouter  = express.Router(),
+        mongoose     = require('mongoose'),
+        utils        = require('../modules/utils'),
+        models       = require('../models/models')(mongoose);
 
     // Modelos
     var admins = [
@@ -1197,7 +1197,7 @@ module.exports = function (app) {
     ];
 
     // ROUTER
-    mongoRouter.get('/', function (req, res, next) {
+    mongoRouter.get('/mongo', function (req, res, next) {
         console.log('Inicio');
         models.Admin.remove({}, function (err) {
             //Meto los nuevos valores
@@ -1357,12 +1357,12 @@ module.exports = function (app) {
             console.log("UPDATED GAMES");
             console.log(err);
 
-            data.res.json({"mongo": true});
+            res.json({"game": true});
         });
     });
 
     // Asigno los router a sus rutas
-    app.use('/mongo/fake', mongoRouter);
+    app.use('/dev', mongoRouter);
 
 
 }

@@ -37,7 +37,7 @@ module.exports = function (app) {
             };
 
         // Compruebo el estado de la partida, si es 1. Si no, error
-        if (usuario.game.gamedata.status !== 1) {
+        if (usuario.game.gamedata.status !== config.GAME_STATUS.BATTLE) {
             console.tag('FURNACE-TOSTEM').error('No se permite esta acción en el estado actual de la partida');
             //res.redirect('/error/errGameStatusNotAllowed');
             utils.error(res, 400, 'errGameStatusNotAllowed');
@@ -182,7 +182,7 @@ module.exports = function (app) {
             };
 
         // Compruebo el estado de la partida, si es 1. Si no, error
-        if (usuario.game.gamedata.status !== 1) {
+        if (usuario.game.gamedata.status !== config.GAME_STATUS.BATTLE) {
             console.tag('FURNACE-RUNE').error('No se permite esta acción en el estado actual de la partida');
             //res.redirect('/error/errGameStatusNotAllowed');
             utils.error(res, 400, 'errGameStatusNotAllowed');
