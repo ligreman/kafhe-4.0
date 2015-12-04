@@ -3,7 +3,7 @@
 
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>{{ 'overlayTitle' | translate }}</h2>
+                <h2>{{ skillId }}</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon>clear</md-icon>
@@ -11,10 +11,14 @@
             </div>
         </md-toolbar>
 
-        <!--style="max-width:800px;max-height:810px; "-->
         <md-dialog-content>
             <div class="md-dialog-content">
-                La id: {{skillId}}
+
+                <div ng-repeat="player in playerList | filter: filterTargets | orderBy: 'alias'">
+                    <md-checkbox ng-model="targetSelect[player.id]" aria-label="">
+                        {{ player.alias }}
+                    </md-checkbox>
+                </div>
             </div>
         </md-dialog-content>
 
@@ -24,7 +28,7 @@
             </md-button>
 
             <md-button ng-hide="csv.errors.file" type="button" class="md-raised md-accent md-hue-1"
-                       ng-disabled="!enableAccept" ng-click="accept()">
+                       ng-disabled="false && !enableAccept" ng-click="accept()">
                 {{'textAccept' | translate}}
             </md-button>
         </div>

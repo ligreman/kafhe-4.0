@@ -1180,7 +1180,7 @@ module.exports = function (app) {
                     }],
                     stones: 23
                 },
-                afk: false,
+                afk: true,
                 last_activity: date.getTime(),
                 order: {
                     meal: null,
