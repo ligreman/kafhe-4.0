@@ -1,0 +1,32 @@
+<md-dialog ng-cloak class="md-whiteframe-1dp">
+    <form class="form" name="targetSelect" novalidate>
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ 'overlayTitle' | translate }}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon>clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <!--style="max-width:800px;max-height:810px; "-->
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                La id: {{skillId}}
+            </div>
+        </md-dialog-content>
+
+        <div class="md-actions" layout="row">
+            <md-button ng-click="cancel()" type="button" class="md-warn">
+                {{'textCancel' | translate}}
+            </md-button>
+
+            <md-button ng-hide="csv.errors.file" type="button" class="md-raised md-accent md-hue-1"
+                       ng-disabled="!enableAccept" ng-click="accept()">
+                {{'textAccept' | translate}}
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

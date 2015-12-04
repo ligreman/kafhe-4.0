@@ -12,7 +12,9 @@
 
     <div flex>
         <ul>
-            <li ng-repeat="skill in global.skills track by id">{{ skill.name + ' ('+skill.uses+')' }}</li>
+            <li ng-repeat="skill in global.skills track by id">
+                <a href="#" ng-click="showTargets(skill.id, $event)">{{ skill.name + ' ('+skill.uses+')' }}</a>
+            </li>
         </ul>
     </div>
 </footer>
