@@ -5,8 +5,11 @@
         .controller('TargetSelect',
             ['$scope', '$rootScope', '$translate', '$mdDialog', 'skillId', 'playerList',
                 function ($scope, $rootScope, $translate, $mdDialog, skillId, playerList) {
+
                     $scope.skillId = skillId;
                     $scope.playerList = playerList;
+                    $scope.targetsSelected = [];
+
                     console.log(playerList);
                     /*********************************************************************/
                     /*********************** FUNCIONES ***********************************/
@@ -33,6 +36,16 @@
                         }
 
                         return retorno;
+                    };
+
+                    $scope.checkSelect = function (playerId) {
+                        // Si no lo tengo ya en el array de targets lo añado, si no lo quito
+                        var position = $scope.targetsSelected.indexOf(playerId);
+                        if (position === -1) {
+                            $scope.targetsSelected.push(playerId);
+                        } else {
+                            $scope.targetsSelected.splice(position, 1);
+                        }
                     };
                 }
             ]);

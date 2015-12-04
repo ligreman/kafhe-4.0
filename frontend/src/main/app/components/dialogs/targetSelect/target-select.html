@@ -15,7 +15,7 @@
             <div class="md-dialog-content">
 
                 <div ng-repeat="player in playerList | filter: filterTargets | orderBy: 'alias'">
-                    <md-checkbox ng-model="targetSelect[player.id]" aria-label="">
+                    <md-checkbox aria-label="" ng-click="checkSelect(player._id)">
                         {{ player.alias }}
                     </md-checkbox>
                 </div>
@@ -28,7 +28,7 @@
             </md-button>
 
             <md-button ng-hide="csv.errors.file" type="button" class="md-raised md-accent md-hue-1"
-                       ng-disabled="false && !enableAccept" ng-click="accept()">
+                       ng-disabled="targetsSelected.length !== 1" ng-click="accept()">
                 {{'textAccept' | translate}}
             </md-button>
         </div>
