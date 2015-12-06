@@ -13,7 +13,6 @@
                      * Una vez he terminado de actualizar los datos
                      */
                     function fnAfterUpdate() {
-                        $scope.scrollbar('.scrollbar-content');
                     }
                 }]);
 })();

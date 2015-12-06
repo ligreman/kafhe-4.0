@@ -7,7 +7,27 @@
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: 'app/directives/kprofilemenu/kprofilemenu.html'
+            scope: true,
+            templateUrl: 'app/directives/kprofilemenu/kprofilemenu.html',
+            controller: ['$scope', 'API', function ($scope, API) {
+
+                $scope.logout = fnLogout;
+
+                /*********************************************************************/
+                /*********************** FUNCIONES ***********************************/
+
+                /**
+                 * Hace logout de la aplicación
+                 */
+                function fnLogout() {
+                    API.session()
+                        .logout({},
+                            function (response) {
+                                if (response) {
+                                }
+                            });
+                }
+            }]
         };
     });
 })();

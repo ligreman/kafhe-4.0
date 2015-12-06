@@ -1,4 +1,4 @@
-<div id="profile-menu" ng-show="$root.kUserLogged" flex="20">
+<div id="profile-menu" ng-show="$root.kUserLogged && showProfileMenu" flex="30">
     <p>Level: {{global.user.game.level}}</p>
 
     <p>{{global.user.alias}}</p>
@@ -7,4 +7,5 @@
 
     <p>Armadura: {{global.equipment.armor.name}}</p>
 
+    <md-button ng-click="logout()" class="md-primary md-raised">Logout</md-button>
 </div>

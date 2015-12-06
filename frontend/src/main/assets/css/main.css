@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 header {
     background-color: royalblue;
     transition: all 1s ease 0s;

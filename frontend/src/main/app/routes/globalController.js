@@ -15,6 +15,8 @@
 
                     // Página actual
                     $scope.currentPage;
+                    // Muestro o no el menú profile
+                    $scope.showProfileMenu = false;
 
                     /************* MÉTODOS PÚBLICOS ******************/
                     $scope.clearGlobalVars = fnClearGlobalVars;
@@ -26,7 +28,7 @@
                     $scope.isCurrentPageForge = fnIsCurrentPageForge;
                     $scope.changeLang = fnChangeLang;
                     $scope.growlNotification = fnGrowlNotification;
-                    $scope.scrollbar = fnScroll;
+                    $scope.toggleProfileMenu = fnToggleProfile;
 
                     /************* FUNCIONES *************/
                     /**
@@ -189,21 +191,10 @@
                     }
 
                     /**
-                     * Crea una barra de scroll
+                     * Abre o cierra el menú lateral
                      */
-                    function fnScroll(element) {
-                        $(element).mCustomScrollbar({
-                            axis: "y",
-                            scrollInertia: 300,
-                            autoHideScrollbar: false,
-                            mouseWheel: {
-                                axis: "y"
-                            },
-                            scrollButtons: {
-                                enable: false
-                            },
-                            theme: "dark-thick"
-                        });
+                    function fnToggleProfile() {
+                        $scope.showProfileMenu = !$scope.showProfileMenu;
                     }
 
                 }]);

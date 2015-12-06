@@ -3,13 +3,28 @@
 
     var app = angular.module('kafhe.directives');
 
-    app.directive('kHeader', ['$mdSticky', function ($mdSticky) {
+    app.directive('kHeader', function () {
         return {
             restrict: 'E',
             replace: 'true',
             scope: true,
             templateUrl: 'app/directives/kheader/kheader.html',
             controller: ['$scope', 'API', function ($scope, API) {
+
+                // Funciones publicadas
+                $scope.btnProfileMenu = fnBtnProfileMenu;
+
+
+                /*********************************************************************/
+                /*********************** FUNCIONES ***********************************/
+
+
+                /**
+                 * Botón para mostrar u ocultar el menú profile
+                 */
+                function fnBtnProfileMenu() {
+                    $scope.toggleProfileMenu();
+                }
 
                 // Llamo al API para resetear la base de datos
                 $scope.resetBBDD = function () {
@@ -35,18 +50,7 @@
                         });
                 };
 
-                $scope.logout = function () {
-                    API.session()
-                        .logout({},
-                            function (response) {
-                                if (response) {
-                                    // Mensaje growl de OK
-                                    $scope.growlNotification('success', 'Hasta luego');
-                                }
-                            });
-                };
-
             }]
         };
-    }]);
+    });
 })();

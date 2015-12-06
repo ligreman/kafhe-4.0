@@ -1,3 +1,12 @@
 #profile-menu {
     background-color: #e66535;
+    flex-basis: 30%;
+}
+
+#profile-menu.ng-hide-add, #profile-menu.ng-hide-remove {
+    transition: all ease-out 0.5s;
+}
+
+#profile-menu.ng-hide {
+    flex-basis: 0;
 }
