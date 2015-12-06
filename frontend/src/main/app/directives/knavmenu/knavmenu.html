@@ -1,17 +1,17 @@
-<div id="nav-menu" flex="10" ng-show="$root.kUserLogged">
-    <a ng-click="goToPage('home')" class="menu-button">
+<md-content id="nav-menu" flex="10" ng-show="$root.kUserLogged" layout="column" layout-align="space-around center">
+    <a ng-click="goToPage('home')" class="menu-button" ng-class="{'active': isCurrentPageHome() }">
         <md-icon md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
 
         <p>Batalla</p>
     </a>
-    <a ng-click="goToPage('breakfast')" class="menu-button">
+    <a ng-click="goToPage('breakfast')" class="menu-button" ng-class="{'active': isCurrentPageBreakfast() }">
         <md-icon md-svg-icon="../../../assets/img/burn.svg"></md-icon>
 
         <p>Desayuno</p>
     </a>
-    <a ng-click="goToPage('forge')" class="menu-button">
+    <a ng-click="goToPage('forge')" class="menu-button" ng-class="{'active': isCurrentPageForge() }">
         <md-icon md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
 
         <p>Forja</p>
     </a>
-</div>
+</md-content>

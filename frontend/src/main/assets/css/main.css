@@ -3,14 +3,18 @@ body {
 }
 
 header {
-    background-color: royalblue;
     transition: all 1s ease 0s;
+    z-index: 20;
+}
+
+#main-container {
+    z-index: 10;
 }
 
 footer {
     transition: all 1s ease 0s;
-    background-color: #004d40;
     color: whitesmoke;
+    z-index: 1;
 }
 
 #content {
@@ -18,5 +22,5 @@ footer {
 }
 
 md-content {
-    background-color: #C7C7C7;
+    background-color: #f5f5f5;
 }

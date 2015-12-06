@@ -1,15 +1,25 @@
 #nav-menu {
-    background-color: #00E676;
+    border-right: 1px solid #e8e8e8;
 }
 
 .menu-button {
     display: block;
     cursor: pointer;
-    width: 100%;
+    width: 65%;
     position: relative;
     text-align: center;
     height: 96px;
-    margin-top: 15%;
+    /*margin: 15% auto 0 auto;*/
+    opacity: .5;
+    transition: all 0.25s ease 0s;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+.menu-button.active, .menu-button:hover {
+    opacity: 1;
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
 }
 
 .menu-button md-icon {
@@ -33,6 +43,7 @@
     bottom: 0;
     margin: 0;
     width: 100%;
+    color: #357a38;
 }
 
 .menu-button:hover p {

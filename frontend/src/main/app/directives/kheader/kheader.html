@@ -1,9 +1,7 @@
 <header flex="none" ng-show="$root.kUserLogged">
-    <md-toolbar class="md-accent">
+    <md-toolbar class="md-whiteframe-1dp">
         <div class="md-toolbar-tools">
-            <h1 flex>
-                Kafhe
-            </h1>
+            <img src="../../../assets/img/k256.png" class="logotipo" flex="none"/>
             <span flex></span>
 
             <p>{{global.user.username}}</p>
@@ -15,7 +13,7 @@
             <md-button ng-click="gameStatus(3)" class="md-icon-button">3</md-button>
             <md-button ng-click="gameStatus(4)" class="md-icon-button">4</md-button>
 
-            <md-button class="md-icon-button md-primary" ng-click="btnProfileMenu()">
+            <md-button class="profile-button md-fab md-accent" ng-click="btnProfileMenu()">
                 <md-icon>face</md-icon>
             </md-button>
         </div>

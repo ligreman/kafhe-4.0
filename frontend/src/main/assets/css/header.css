@@ -1,2 +1,9 @@
-.profile-button {
+header md-toolbar {
+    padding-right: 20px;
+}
+
+.logotipo {
+    width: 64px;
+    height: 64px;
+    margin-left: 20px;
 }
