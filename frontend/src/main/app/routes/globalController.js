@@ -26,9 +26,11 @@
                     $scope.isCurrentPageForge = fnIsCurrentPageForge;
                     $scope.changeLang = fnChangeLang;
                     $scope.growlNotification = fnGrowlNotification;
+                    $scope.scrollbar = fnScroll;
 
                     /************* FUNCIONES *************/
                     /**
+                     * Actualiza las variables de información estática de la partida.
                      * Si ya está la variable global cargada, no la recargo de nuevo
                      * @param callback: Función a ejecutar cuando se termine la actualización
                      */
@@ -77,26 +79,11 @@
                             $scope.global.equipment.armor = res[0];
                         }
 
-                        // Saco las habilidades que puedo ejecutar, primero las comunes
-                        /*selector = ':has(:root > .source:val("' + CONFIG.constCommonSkills + '"))';
-                         res = JSONSelect.match(selector, $scope.global.gamedata.skills);
-                         if (res.length === 1) {
-                         $scope.global.skills.push(res[0]);
-                         }*/
-
                         // Ahora saco las habilidades de arma equipada
                         if ($scope.global.equipment.weapon && $scope.global.equipment.weapon !== '') {
                             $scope.global.equipment.weapon.skills.forEach(function (skill) {
                                 $scope.global.skills.push(skill);
                             });
-
-                            /*var conjunto = $scope.global.equipment.weapon.skills.map(_generateSelector);
-
-                             selector = ':has(' + conjunto.join(',') + ')';
-                             res = JSONSelect.match(selector, $scope.global.gamedata.skills);
-                             if (res.length === 1) {
-
-                             }*/
                         }
 
                         // Ahora saco las habilidades de armadura equipada
@@ -104,19 +91,7 @@
                             $scope.global.equipment.armor.skills.forEach(function (skill) {
                                 $scope.global.skills.push(skill);
                             });
-                            /*var conjunto2 = $scope.global.equipment.armor.skills.map(_generateSelector);
-
-                             selector = ':has(' + conjunto2.join(',') + ')';
-                             res = JSONSelect.match(selector, $scope.global.gamedata.skills);
-                             if (res.length === 1) {
-                             $scope.global.skills.push(res[0]);
-                             }*/
                         }
-
-                        // Función para generar cadenas de selectores de este tipo
-                        //function _generateSelector(identifier) {
-                        //    return ':root > .id:val("' + identifier + '")';
-                        //}
 
                         // El inventario del jugador
                         $scope.global.inventory = user.game.inventory;
@@ -212,5 +187,24 @@
                             loaded: false
                         };
                     }
+
+                    /**
+                     * Crea una barra de scroll
+                     */
+                    function fnScroll(element) {
+                        $(element).mCustomScrollbar({
+                            axis: "y",
+                            scrollInertia: 300,
+                            autoHideScrollbar: false,
+                            mouseWheel: {
+                                axis: "y"
+                            },
+                            scrollButtons: {
+                                enable: false
+                            },
+                            theme: "dark-thick"
+                        });
+                    }
+
                 }]);
 })();

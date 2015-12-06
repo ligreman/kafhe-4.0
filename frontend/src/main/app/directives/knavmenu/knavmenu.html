@@ -1,7 +1,17 @@
 <div id="nav-menu" flex="10" ng-show="$root.kUserLogged">
-    <ul>
-        <li><a ng-click="goToPage('home')">Batalla</a></li>
-        <li><a ng-click="goToPage('breakfast')">Desayuno</a></li>
-        <li><a ng-click="goToPage('forge')">Forja</a></li>
-    </ul>
+    <a ng-click="goToPage('home')" class="menu-button">
+        <md-icon md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
+
+        <p>Batalla</p>
+    </a>
+    <a ng-click="goToPage('breakfast')" class="menu-button">
+        <md-icon md-svg-icon="../../../assets/img/burn.svg"></md-icon>
+
+        <p>Desayuno</p>
+    </a>
+    <a ng-click="goToPage('forge')" class="menu-button">
+        <md-icon md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
+
+        <p>Forja</p>
+    </a>
 </div>

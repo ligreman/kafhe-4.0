@@ -43,11 +43,20 @@
                             escapeToClose: true,
                             targetEvent: $event
                         }).then(function (result) {
-                            // Respuesta OK. Podría pasar un parámetro answer
-                            console.log("aceptao " + result);
+                            // Ha seleccionado a los objetivos así que llamo al API para ejecutar la skill
+                            API.skill()
+                                .execute({
+                                    skill_id: skillId,
+                                    targets: result.targets
+                                }, function (response) {
+                                    if (response && response.data && response.data.user) {
+                                        // Actualizo el objeto local del usuario con lo que me devuelve el servidor
+                                        $scope.updateUserObject(response.data.user);
+                                    }
+                                });
                         }, function (reason) {
                             // Ha respondido cancelar
-                            console.log("cancelao " + reason);
+                            console.log("cancelao ");
                         });
                     }
                 }]

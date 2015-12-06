@@ -1,4 +1,41 @@
 #nav-menu {
-    transition: all 1s ease 0s;
     background-color: #00E676;
+}
+
+.menu-button {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    height: 96px;
+    margin-top: 2em;
+}
+
+.menu-button md-icon {
+    position: relative;
+    transition: all 0.25s ease 0s;
+    width: 96px;
+    height: 96px;
+    color: transparent;
+    top: 0;
+}
+
+.menu-button:hover md-icon {
+    width: 50%;
+    top: -16px;
+}
+
+.menu-button p {
+    transition: all 0.25s ease 0s;
+    position: absolute;
+    opacity: 0;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu-button:hover p {
+    opacity: 1;
+    font-size: 1.5em;
 }

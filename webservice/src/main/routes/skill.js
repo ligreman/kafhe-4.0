@@ -113,14 +113,14 @@ module.exports = function (app) {
     /**
      * POST /skill/execute
      * Ejecuta una habilidad. Recibe por parámetros:
-     * skill_id: id de la habilidad, target: array de objetivos
+     * skill_id: id de la habilidad, targets: array de objetivos
      */
     skillRouter.post('/execute', function (req, res, next) {
         // El objeto user
         var usuario   = req.user,
             params    = req.body,
             idSkill   = params.skill_id, skill,
-            targetIds = params.target;
+            targetIds = params.targets;
 
         var tempoTargets = [], tempoOrigUser = JSON.parse(JSON.stringify(usuario)), tempoOrigTargets = [];
 

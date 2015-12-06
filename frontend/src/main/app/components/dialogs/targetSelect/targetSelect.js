@@ -15,11 +15,11 @@
                     /*********************** FUNCIONES ***********************************/
 
                     $scope.accept = function accept() {
-                        $mdDialog.hide("pozi acepto");
+                        $mdDialog.hide({targets: $scope.targetsSelected});
                     };
 
                     $scope.cancel = function cancel() {
-                        $mdDialog.cancel("pozi cancelo");
+                        $mdDialog.cancel();
                     };
 
                     $scope.filterTargets = function (player) {
