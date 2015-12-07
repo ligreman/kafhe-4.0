@@ -1,3 +1,65 @@
 footer {
+    transition: all 1s ease 0s;
     background: #c2c2c2;
+    color: whitesmoke;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#life-bar {
+    height: 1vh;
+    background: #210d0d;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+#life-bar .bar {
+    background: #F44336;
+    height: 1vh;
+    display: block;
+}
+
+#reputation-bar {
+    position: relative;
+    width: 12vh;
+    height: 12vh;
+}
+
+#reputation-bar p {
+    position: absolute;
+    margin: 0;
+    bottom: 1px;
+    left: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    z-index: 5;
+    color: #9C27B0;
+}
+
+#reputation-bar .circle-back, #reputation-bar .circle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 9vh;
+    height: 9vh;
+    border-right: 20px solid #9C27B0;
+    border-top: 20px solid #9C27B0;
+    border-top-right-radius: 100%;
+    transform-origin: 0% 100%;
+    z-index: 4;
+}
+
+#reputation-bar .circle-back {
+    border-color: #4A148C;
+    background-color: #211142;
+    z-index: 3;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+#skill-bar {
+    background: red;
+}
+
+#fury-bar {
+    background: purple;
+    width: 5vw;
 }

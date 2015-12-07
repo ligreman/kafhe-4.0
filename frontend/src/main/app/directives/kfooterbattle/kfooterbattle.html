@@ -1,12 +1,33 @@
-<footer flex="auto" layout="row">
-    <div flex="40">
-        <p>Reputation: {{global.user.game.stats.reputation}}</p>
+<footer flex="auto" layout="column">
+
+    <div flex="none" id="life-bar">
+        <span class="bar" ng-style="global.print.lifeBarStyle"></span>
+    </div>
+
+    <div layout="row" flex="auto" layout-align="start end">
+        <!-- Reputación -->
+        <div flex="none" id="reputation-bar">
+            <p>{{ global.print.toastPoints }}</p>
+
+            <div class="circle-back"></div>
+            <div class="circle" ng-style="global.print.reputationDegreeStyle"></div>
+        </div>
+
+        <!-- Lista de habilidades -->
+        <div flex="auto" id="skill-bar"></div>
+
+        <!-- Furia -->
+        <div flex="none" id="fury-bar"></div>
+    </div>
+
+    <!--<div flex="40">
+        &lt;!&ndash;<p>Reputation: {{global.user.game.stats.reputation}}</p>
 
         <p>Action Points: {{global.user.game.stats.action_points}}</p>
 
         <p>Fury: {{global.user.game.stats.fury}}</p>
 
-        <p>Life: {{global.user.game.stats.life}}</p>
+        <p>Life: }</p>&ndash;&gt;
     </div>
 
     <div flex>
@@ -15,5 +36,5 @@
                 <a href="#" ng-click="showTargets(skill.id, $event)">{{ skill.name + ' ('+skill.uses+')' }}</a>
             </li>
         </ul>
-    </div>
+    </div>-->
 </footer>

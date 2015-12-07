@@ -28,6 +28,7 @@
     <link href="assets/css/profileMenu.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/header.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/footer.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/transformations.css" type="text/css" rel="stylesheet"/>
     <!-- endbuild -->
 
     <style type="text/css">
@@ -51,12 +52,12 @@
     </div>
 
     <!-- Pie para la página de batalla -->
-    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="auto" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="15" layout="row">
         <k-footer-battle></k-footer-battle>
     </div>
 
     <!-- Pie para la página de forja -->
-    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="auto" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="15" layout="row">
         <k-footer-forge></k-footer-forge>
     </div>
 

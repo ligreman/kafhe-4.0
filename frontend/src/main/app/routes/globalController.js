@@ -13,6 +13,9 @@
                     //Idioma seleccionado por el usuario
                     $scope.lang = $translate.use();
 
+                    // Librería Math de javascript
+                    $scope.Math = window.Math;
+
                     // Página actual
                     $scope.currentPage;
                     // Muestro o no el menú profile
@@ -97,6 +100,20 @@
 
                         // El inventario del jugador
                         $scope.global.inventory = user.game.inventory;
+
+                        // Variables para pintar en el front
+                        // Reputación
+                        $scope.global.print.toastPoints = $scope.Math.floor(user.game.stats.reputation / CONFIG.constReputationToToastProportion);
+                        var cantidad = user.game.stats.reputation % CONFIG.constReputationToToastProportion;
+                        // Lo paso de (0 a config) a un valor 0-100%
+                        var proporcion = cantidad * 100 / CONFIG.constReputationToToastProportion;
+                        // Ahora, como mis grados van de 0 a 90, hago la regla de tres
+                        proporcion = proporcion * 90 / 100;
+                        // Para mí 90º es lo más bajo, por lo que tengo que invertirlo
+                        var degrees = $scope.Math.round(90 - proporcion);
+                        $scope.global.print.reputationDegreeStyle = {"transform": "rotate(" + degrees + "deg)"};
+                        // Vida
+                        $scope.global.print.lifeBarStyle = {"width": user.game.stats.life + "%"};
                     }
 
                     /**
@@ -182,6 +199,7 @@
                                 drinks: {},
                                 skills: {}
                             },
+                            print: {},
                             skills: [],
                             equipment: {},
                             inventory: {},

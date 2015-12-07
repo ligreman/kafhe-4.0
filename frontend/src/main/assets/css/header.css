@@ -1,9 +1,28 @@
+header {
+    transition: all 1s ease 0s;
+    z-index: 20;
+}
+
 header md-toolbar {
     padding-right: 20px;
+    min-height: 10vh;
+}
+
+header md-toolbar .md-toolbar-tools {
+    height: inherit;
+    max-height: none;
 }
 
 .logotipo {
-    width: 64px;
-    height: 64px;
+    height: 10vh;
     margin-left: 20px;
+}
+
+.profile-button {
+    position: relative;
+    top: 5vh;
+}
+
+.profile-button md-icon {
+    color: #F5F5F5 !important;
 }

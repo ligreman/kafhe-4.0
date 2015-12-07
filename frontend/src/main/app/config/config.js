@@ -22,6 +22,8 @@
             ],
 
             // CONSTANTES
+            constReputationToToastProportion: 100,
+
             constCommonSkills: 'common'
         });
 })();
