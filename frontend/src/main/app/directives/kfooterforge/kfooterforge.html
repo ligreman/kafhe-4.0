@@ -7,15 +7,20 @@
         <!--<p>Inventario {{global.inventory}}</p>-->
     </div>
 
-    <div flex>
-        <ul>
-            <li ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                {{ tostem.id + ' ('+tostem.element+')' }}
-            </li>
 
-            <li ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                {{ rune.id + ' ('+rune.material+')' }}
-            </li>
-        </ul>
+    <div flex="20">
+        <p>Armería</p>
+
+        <p>Armas</p>
+
+        <p ng-repeat="weapon in global.inventory.weapons | filter:{equipped:false}">
+            {{weapon.name}}
+        </p>
+
+        <p>Armaduras</p>
+
+        <p ng-repeat="armor in global.inventory.armors | filter:{equipped:false}">
+            {{armor.name}}
+        </p>
     </div>
 </footer>

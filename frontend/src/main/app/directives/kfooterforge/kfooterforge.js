@@ -5,7 +5,6 @@
 
     app.directive('kFooterForge', function () {
         var controlador = ['$scope', function ($scope) {
-            $scope.inventory = $scope.global.gamedata.inventory;
         }];
 
         return {

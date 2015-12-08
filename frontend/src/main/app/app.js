@@ -68,30 +68,40 @@
 
     // Configuración de color
     app.config(['$mdThemingProvider', function ($mdThemingProvider) {
+        var accent = $mdThemingProvider.extendPalette('purple', {
+            '500': '4682b4',
+            'A700': '4682b4'
+        });
+        // Register the new color palette map with the name <code>neonRed</code>
+        $mdThemingProvider.definePalette('myAccent', accent);
+
         $mdThemingProvider.theme('default')
-            .primaryPalette('green', {
-                'default': '500', // by default use shade 400 from the pink palette for primary intentions
-                'hue-1': '50', // use shade 100 for the <code>md-hue-1</code> class
-                'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
-                'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
-            })
-            .accentPalette('purple', {
-                'default': '500', // by default use shade 400 from the pink palette for primary intentions
-                'hue-1': 'A100', // use shade 100 for the <code>md-hue-1</code> class
-                'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
-                'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
-            })
-            .warnPalette('red', {
-                'default': '500', // by default use shade 400 from the pink palette for primary intentions
-                'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
-                'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
-                'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
-            })
-            .backgroundPalette('grey', {
-                'default': '500', // by default use shade 400 from the pink palette for primary intentions
-                'hue-1': '200', // use shade 100 for the <code>md-hue-1</code> class
-                'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
-                'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
-            })
+            .primaryPalette('teal')
+            .accentPalette('deep-purple')
+            .warnPalette('red');
+        /*.primaryPalette('teal', {
+         'default': '500', // by default use shade 400 from the pink palette for primary intentions
+         'hue-1': '50', // use shade 100 for the <code>md-hue-1</code> class
+         'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
+         'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
+         })
+         .accentPalette('blue', {
+         'default': '500', // by default use shade 400 from the pink palette for primary intentions
+         'hue-1': 'A100', // use shade 100 for the <code>md-hue-1</code> class
+         'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
+         'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
+         })
+         .warnPalette('red', {
+         'default': '500', // by default use shade 400 from the pink palette for primary intentions
+         'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+         'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+         'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+         })
+         .backgroundPalette('grey', {
+         'default': '500', // by default use shade 400 from the pink palette for primary intentions
+         'hue-1': '200', // use shade 100 for the <code>md-hue-1</code> class
+         'hue-2': '700', // use shade 600 for the <code>md-hue-2</code> class
+         'hue-3': '900' // use shade A100 for the <code>md-hue-3</code> class
+         })*/
     }]);
 })();
