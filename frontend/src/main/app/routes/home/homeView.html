@@ -1,5 +1,6 @@
 <md-content flex layout-padding ng-cloak class="scrollbar-content">
-    <div>
+    <!-- Durante la batalla -->
+    <div ng-show="global.user.game.gamedata.status === 1">
         <p>Estado de la partida: {{global.user.game.gamedata.status}}</p>
 
         <p>reputacion: {{global.user.game.stats.reputation}}</p>
@@ -77,6 +78,16 @@
         <p>Hola holita</p>
 
         <p>Hola holita</p>
+    </div>
+
+    <!-- Durante negociaciones -->
+    <div ng-show="global.user.game.gamedata.status === 2">
+        <p>2</p>
+    </div>
+
+    <!-- Durante estado cerrado -->
+    <div ng-show="global.user.game.gamedata.status === 3">
+        <p>3</p>
     </div>
 </md-content>
 

@@ -29,6 +29,7 @@
     <link href="assets/css/header.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/footer.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/transformations.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/breakfast.css" type="text/css" rel="stylesheet"/>
     <!-- endbuild -->
 
     <style type="text/css">
@@ -54,6 +55,11 @@
     <!-- Pie para la página de batalla -->
     <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="15" layout="row">
         <k-footer-battle></k-footer-battle>
+    </div>
+
+    <!-- Pie para la página de desayuno -->
+    <div ng-if="$root.kUserLogged && isCurrentPageBreakfast()" flex="15" layout="row">
+        <k-footer-breakfast></k-footer-breakfast>
     </div>
 
     <!-- Pie para la página de forja -->
@@ -103,6 +109,7 @@
 
     <script src="app/directives/kheader/kheader.js"></script>
     <script src="app/directives/kfooterbattle/kfooterbattle.js"></script>
+    <script src="app/directives/kfooterbreakfast/kfooterbreakfast.js"></script>
     <script src="app/directives/kfooterforge/kfooterforge.js"></script>
     <script src="app/directives/knavmenu/knavmenu.js"></script>
     <script src="app/directives/kprofilemenu/kprofilemenu.js"></script>

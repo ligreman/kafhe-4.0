@@ -1,7 +1,51 @@
 #nav-menu {
     border-right: 1px solid #e8e8e8;
     overflow: hidden;
+    background-color: #EEE;
+    box-shadow: 1px 0px 3px -2px rgba(0, 0, 0, .15), 1px 0px 3px -2px rgba(0, 0, 0, .45);
+    z-index: 15;
 }
+
+.md-button.md-icon-button.menu-button {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    opacity: .5;
+    transition: all .5s ease 0s;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    margin-top: 1.5em;
+}
+
+.md-button.md-icon-button.menu-button md-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.md-button.md-icon-button.menu-button.active, .md-button.md-icon-button.menu-button:hover {
+    opacity: 1;
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+}
+
+md-tooltip.menu-nav {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+md-tooltip.menu-nav .md-background {
+    width: 400px;
+    height: 180px;
+    background: rgba(76, 175, 80, 0.5);
+}
+
+md-tooltip.menu-nav .md-content {
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+}
+
+/*
 
 .menu-button {
     display: block;
@@ -10,7 +54,6 @@
     position: relative;
     text-align: center;
     height: 96px;
-    /*margin: 15% auto 0 auto;*/
     opacity: .5;
     transition: all 0.25s ease 0s;
     -webkit-filter: grayscale(1);
@@ -51,3 +94,4 @@
     opacity: 1;
     font-size: 1.3em;
 }
+*/

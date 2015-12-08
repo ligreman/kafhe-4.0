@@ -34,7 +34,7 @@
             'textNewOrder': 'Hacer pedido',
             'textChangeOrder': 'Cambiar el desayuno',
             'textCancelOrder': 'Eliminar el desayuno',
-            'textLastDayOrder': 'Lo del otro día',
+            'textLastDayOrder': 'Pedir lo del otro día',
             'textOrderNoItoTitle': 'El desayuno no es ITO',
             'textOrderNoItoContent': 'El desayuno que vas a pedir no es ITO, ¿es correcto o se te ha olvidado marcarlo?',
             'textYaMeParecia': 'Ya me parecía a mí...',

@@ -1,5 +1,6 @@
-<md-content id="nav-menu" flex="10" ng-show="$root.kUserLogged" layout="column" layout-align="space-around center">
-    <a ng-click="goToPage('home')" class="menu-button" ng-class="{'active': isCurrentPageHome() }">
+<md-content id="nav-menu" flex="5" ng-show="$root.kUserLogged" layout="column"
+            layout-align="start center">
+    <!--<a ng-click="goToPage('home')" class="menu-button" ng-class="{'active': isCurrentPageHome() }">
         <md-icon md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
 
         <p>Batalla</p>
@@ -13,5 +14,26 @@
         <md-icon md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
 
         <p>Forja</p>
-    </a>
+    </a>-->
+
+
+    <md-button ng-click="goToPage('home')" class="md-icon-button menu-button"
+               ng-class="{'active': isCurrentPageHome() }">
+        <md-icon md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
+        <md-tooltip md-direction="right" class="menu-nav">Batalla</md-tooltip>
+    </md-button>
+
+
+    <md-button ng-click="goToPage('breakfast')" class="md-icon-button menu-button"
+               ng-class="{'active': isCurrentPageBreakfast() }">
+        <md-icon md-svg-icon="../../../assets/img/burn.svg"></md-icon>
+        <md-tooltip md-direction="right" class="menu-nav">Pedido</md-tooltip>
+    </md-button>
+
+
+    <md-button ng-click="goToPage('forge')" class="md-icon-button menu-button"
+               ng-class="{'active': isCurrentPageForge() }">
+        <md-icon md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
+        <md-tooltip md-direction="right" class="menu-nav">Forja</md-tooltip>
+    </md-button>
 </md-content>

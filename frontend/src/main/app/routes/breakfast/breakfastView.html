@@ -1,35 +1,52 @@
 <md-content flex layout-padding ng-cloak>
 
-    <label>
-        <input type="checkbox" ng-model="selection.ito"/> ITO
-    </label>
+    <div layout="row" layout-align="center end" layout-padding>
+        <md-checkbox class="md-headline md-primary" ng-model="selection.ito" aria-label="">
+            Desayuno ITO
+        </md-checkbox>
+    </div>
 
-    <p>
-        <label>Comida
-            <select ng-model="selection.meal">
-                <option ng-repeat="meal in global.gamedata.meals" value="{{meal._id}}">{{meal.name}}</option>
-            </select>
-        </label>
-    </p>
+    <div layout="row" layout-sm="column" layout-align="space-around start">
+        <div>
+            <h2>Comida</h2>
+            <md-radio-group ng-model="selection.meal" class="md-primary">
+                <md-radio-button
+                        ng-repeat="meal in global.gamedata.meals | filter: itoSelected | orderBy: 'name'"
+                        value="{{meal._id}}">
+                    {{meal.name}}
+                </md-radio-button>
+            </md-radio-group>
+        </div>
 
-    <p>
-        <label>Bebida
-            <select ng-model="selection.drink">
-                <option ng-repeat="drink in global.gamedata.drinks" value="{{drink._id}}">{{drink.name}}</option>
-            </select>
-        </label>
-    </p>
+        <div>
+            <h2>Bebida</h2>
+            <md-radio-group ng-model="selection.drink" class="md-primary">
+                <md-radio-button
+                        ng-repeat="drink in global.gamedata.drinks | filter: itoSelected | orderBy: 'name'"
+                        value="{{drink._id}}">
+                    {{drink.name}}
+                </md-radio-button>
+            </md-radio-group>
+        </div>
 
-    <md-button class="md-raised" ng-click="btnMakeOrder()">
-        <md-icon>flight_land</md-icon>
-        {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
-    </md-button>
-    <md-button class="md-raised" ng-click="btnRemoveOrder()" ng-show="selection.meal !== ''">
-        <md-icon>flight_land</md-icon>
-        {{ 'textCancelOrder' | translate }}
-    </md-button>
-    <md-button class="md-raised" ng-click="btnLastDayOrder()">
-        <md-icon>flight_land</md-icon>
-        {{ 'textLastDayOrder' | translate }}
-    </md-button>
+        <div class="btn-breakfast-list" layout="column" layout-align="center center">
+            <md-button class="md-primary" ng-click="btnMakeOrder()">
+                <md-icon ng-show="selection.meal === ''">free_breakfast</md-icon>
+                <md-icon ng-show="selection.meal !== ''">sync</md-icon>
+                {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
+            </md-button>
+
+            <md-button class="md-warn" ng-click="btnRemoveOrder()" ng-show="selection.meal !== ''">
+                <md-icon>delete</md-icon>
+                {{ 'textCancelOrder' | translate }}
+            </md-button>
+
+            <md-button class="md-accent md-hue-3" ng-click="btnLastDayOrder()">
+                <md-icon>event</md-icon>
+                {{ 'textLastDayOrder' | translate }}
+            </md-button>
+        </div>
+    </div>
+
+    <!-- AQUI pone el desayuno anterior -->
 </md-content>

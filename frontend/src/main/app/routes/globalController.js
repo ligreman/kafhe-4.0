@@ -195,9 +195,9 @@
                         $scope.global = {
                             user: {},
                             gamedata: {
-                                meals: {},
-                                drinks: {},
-                                skills: {}
+                                meals: [],
+                                drinks: [],
+                                skills: []
                             },
                             print: {},
                             skills: [],
