@@ -215,27 +215,34 @@
 
     <!-- INVENTARIO DE TOSTEMS Y RUNAS -->
     <div flex="10" layout-padding>
+        <p>Inventario de tostems y runas</p>
         <md-grid-list
-                md-cols-sm="2" md-cols-md="6" md-cols-gt-md="10"
+                md-cols-sm="2" md-cols-md="5" md-cols-gt-md="10"
                 md-row-height-gt-md="1:1" md-row-height="4:3"
-                md-gutter="8px" md-gutter-gt-sm="4px">
+                md-gutter="8px" md-gutter-gt-sm="8px">
 
             <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
                           md-rowspan="1"
                           md-colspan="1"
                           md-colspan-sm="1"
-                          ng-class="tile.background">
-                <md-icon>gavel</md-icon>
+                          class="back-{{tostem.element}}">
+                <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
+                <md-icon class="element-{{tostem.element}}"
+                         md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
                 <md-grid-tile-footer><h3>{{tostem.element}}</h3></md-grid-tile-footer>
+                <!--<md-tooltip md-direction="top">Tostem de {{tostem.element}}</md-tooltip>-->
             </md-grid-tile>
 
             <md-grid-tile ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
                           md-rowspan="1"
                           md-colspan="1"
                           md-colspan-sm="1"
-                          ng-class="tile.background">
-                <md-icon md-svg-icon="gavel"></md-icon>
+                          class="back-{{rune.material}}">
+                <md-grid-tile-header class="text-right">{{rune.frecuency}}</md-grid-tile-header>
+                <md-icon class="material-{{rune.material}}"
+                         md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
                 <md-grid-tile-footer><h3>{{rune.material}}</h3></md-grid-tile-footer>
+                <!--<md-tooltip md-direction="top">Runa de {{rune.material}}</md-tooltip>-->
             </md-grid-tile>
         </md-grid-list>
     </div>

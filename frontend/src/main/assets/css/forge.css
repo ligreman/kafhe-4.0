@@ -30,3 +30,51 @@ p.title {
     vertical-align: bottom;
     color: inherit;
 }
+
+#forge md-grid-tile-header {
+    height: 24px;
+    background-color: transparent;
+}
+
+#forge md-grid-tile-header figcaption {
+    color: #666;
+    font-style: italic;
+    font-size: .9em;
+    width: 100%;
+}
+
+#forge md-grid-tile md-icon {
+    height: 65%;
+    width: 65%;
+}
+
+#forge md-grid-tile md-icon:hover {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+    /*cursor: move;*/
+    /*cursor: -webkit-grab;*/
+}
+
+#forge md-grid-tile-footer {
+    height: 32px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#forge md-grid-tile.back-water {
+    background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#331565c0', endColorstr='#001565c0', GradientType=1);
+}
+
+#forge md-grid-tile.back-madera {
+    background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#331565c0', endColorstr='#001565c0', GradientType=1);
+}
+
+
