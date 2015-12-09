@@ -4,21 +4,24 @@
 
 #forge md-tabs md-tab-item:not([disabled]).md-active {
     color: #673AB7;
+    background-color: rgba(103, 58, 183, 0.04);
 }
 
 #forge md-tabs md-ink-bar {
     background-color: #673AB7;
 }
 
+.forge-fill {
+    min-height: 10vh;
+}
+
 p.title {
     margin: 0;
     font-size: 1.4em;
-    color: #673AB7;
     font-weight: bold;
 }
 
 .stone {
-    color: #673AB7;
     font-weight: bold;
     margin: 0;
 }

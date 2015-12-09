@@ -1,12 +1,14 @@
 <md-content id="forge" layout-padding flex ng-cloak layout="column">
-    <div layout="row" flex="auto">
+    <div layout="column" layout-gt-md="row" layout-align="space-around center" flex="auto">
+
         <!-- FORJA -->
         <div flex="40" layout="column" class="md-padding">
             <div layout="row" flex="none" layout-align="space-between center" layout-padding>
-                <p class="title">Forja</p>
+                <p class="title kafhe-accent">Forja</p>
 
-                <p class="stone">{{global.inventory.stones}}
+                <p class="stone kafhe-accent">{{global.inventory.stones}}
                     <md-icon md-svg-icon="../../../assets/img/rock.svg"></md-icon>
+                    <md-tooltip md-direction="top">Piedras de forja</md-tooltip>
                 </p>
             </div>
 
@@ -15,9 +17,9 @@
 
                     <!-- ARMAS -->
                     <md-tab label="Arma">
-                        <md-content class="md-padding">
-                            <div layout="row" layout-align="space-around center">
-                                <md-radio-group class="md-accent nohue" ng-model="forge.weapon.class" layout="row">
+                        <md-content class="md-padding kafhe-accent-background">
+                            <div class="forge-fill" layout="row" layout-align="space-around center">
+                                <md-radio-group class="md-accent" ng-model="forge.weapon.class" layout="row">
                                     <md-radio-button ng-repeat="tipo in selectors.weapon" value="{{tipo}}">
                                         {{ tipo | translate}}
                                     </md-radio-button>
@@ -26,10 +28,10 @@
 
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
-                                    <md-input-container class="md-accent nohue">
+                                    <md-input-container class="md-accent">
                                         <label>Tostem</label>
-                                        <md-select ng-model="forge.weapon.tostem" class="md-accent nohue">
-                                            <md-option value="{{tostem.id}}" class="md-accent nohue"
+                                        <md-select ng-model="forge.weapon.tostem" class="md-accent">
+                                            <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
                                                 {{tostem.id}}
                                             </md-option>
@@ -38,10 +40,10 @@
                                     <p>Drop zone</p>
                                 </div>
                                 <div flex="50">
-                                    <md-input-container class="md-accent nohue">
+                                    <md-input-container class="md-accent">
                                         <label>Runa</label>
-                                        <md-select ng-model="forge.weapon.rune" class="md-accent nohue">
-                                            <md-option value="{{rune.id}}" class="md-accent nohue"
+                                        <md-select ng-model="forge.weapon.rune" class="md-accent">
+                                            <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
                                                 {{rune.id}}
                                             </md-option>
@@ -52,10 +54,11 @@
                             </div>
 
                             <div layout="row" layout-align="end end">
-                                <md-button class="md-raised md-icon-button md-accent nohue"
+                                <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnForgeWeapon()"
                                            ng-disabled="!forge.weapon.class || !forge.weapon.tostem || !forge.weapon.rune">
                                     <md-icon>gavel</md-icon>
+                                    <md-tooltip md-direction="bottom">Forjar arma</md-tooltip>
                                 </md-button>
                             </div>
                         </md-content>
@@ -63,9 +66,9 @@
 
                     <!-- ARMADURAS -->
                     <md-tab label="Armadura">
-                        <md-content class="md-padding">
-                            <div layout="row" layout-align="space-around center">
-                                <md-radio-group class="md-accent nohue" ng-model="forge.armor.class" layout="row">
+                        <md-content class="md-padding kafhe-accent-background">
+                            <div class="forge-fill" layout="row" layout-align="space-around center">
+                                <md-radio-group class="md-accent" ng-model="forge.armor.class" layout="row">
                                     <md-radio-button ng-repeat="tipo in selectors.armor" value="{{tipo}}">
                                         {{ tipo | translate}}
                                     </md-radio-button>
@@ -74,10 +77,10 @@
 
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
-                                    <md-input-container class="md-accent nohue">
+                                    <md-input-container class="md-accent">
                                         <label>Tostem</label>
-                                        <md-select ng-model="forge.armor.tostem" class="md-accent nohue">
-                                            <md-option value="{{tostem.id}}" class="md-accent nohue"
+                                        <md-select ng-model="forge.armor.tostem" class="md-accent">
+                                            <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
                                                 {{tostem.id}}
                                             </md-option>
@@ -86,10 +89,10 @@
                                     <p>Drop zone</p>
                                 </div>
                                 <div flex="50">
-                                    <md-input-container class="md-accent nohue">
+                                    <md-input-container class="md-accent">
                                         <label>Runa</label>
-                                        <md-select ng-model="forge.armor.rune" class="md-accent nohue">
-                                            <md-option value="{{rune.id}}" class="md-accent nohue"
+                                        <md-select ng-model="forge.armor.rune" class="md-accent">
+                                            <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
                                                 {{rune.id}}
                                             </md-option>
@@ -100,10 +103,11 @@
                             </div>
 
                             <div layout="row" layout-align="end end">
-                                <md-button class="md-raised md-icon-button md-accent nohue"
+                                <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnForgeArmor()"
                                            ng-disabled="!forge.armor.class || !forge.armor.tostem || !forge.armor.rune">
                                     <md-icon>gavel</md-icon>
+                                    <md-tooltip md-direction="bottom">Forjar armadura</md-tooltip>
                                 </md-button>
                             </div>
                         </md-content>
@@ -112,79 +116,128 @@
             </div>
         </div>
 
-        <div flex="50">
-            <p>Horno de tostems</p>
+        <!-- HORNO -->
+        <div flex="40" layout="column" class="md-padding">
+            <div layout="row" flex="none" layout-align="space-between center" layout-padding>
+                <p class="title kafhe-accent">Horno</p>
+            </div>
 
-            <p>
-                <label>Tostem 1
-                    <select ng-model="furnace.tostem.tostemA">
-                        <option ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
-                                value="{{tostem.id}}">{{tostem.id}}
-                        </option>
-                    </select>
-                </label>
-            </p>
+            <div class="md-whiteframe-1dp" flex>
+                <md-tabs md-border-bottom md-dynamic-height md-stretch-tabs="always">
 
-            <p>
-                <label>Tostem 2
-                    <select ng-model="furnace.tostem.tostemB">
-                        <option ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
-                                value="{{tostem.id}}">{{tostem.id}}
-                        </option>
-                    </select>
-                </label>
-            </p>
-            <p>
-                <md-button class="md-raised"
-                           ng-click="btnFurnaceTostem()"
-                           ng-disabled="(furnace.tostem.tostemA === furnace.tostem.tostemB) || !furnace.tostem.tostemA || !furnace.tostem.tostemB">
-                    <md-icon>flight_land</md-icon>
-                    {{ 'textCombineTostemsInFurnace' | translate }}
-                </md-button>
-            </p>
+                    <!-- TOSTEM -->
+                    <md-tab label="Tostem">
+                        <md-content class="md-padding kafhe-accent-background">
+                            <div class="forge-fill"></div>
+                            <div layout="row" layout-align="space-around center">
+                                <div flex="50">
+                                    <md-input-container class="md-accent">
+                                        <label>Tostem I</label>
+                                        <md-select ng-model="furnace.tostem.tostemA" class="md-accent">
+                                            <md-option value="{{tostem.id}}" class="md-accent"
+                                                       ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
+                                                {{tostem.id}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <p>Drop zone</p>
+                                </div>
+                                <div flex="50">
+                                    <md-input-container class="md-accent">
+                                        <label>Tostem II</label>
+                                        <md-select ng-model="furnace.tostem.tostemB" class="md-accent">
+                                            <md-option value="{{tostem.id}}" class="md-accent"
+                                                       ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
+                                                {{tostem.id}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <p>Drop zone</p>
+                                </div>
+                            </div>
 
-            <p>Horno de runas</p>
+                            <div layout="row" layout-align="end end">
+                                <md-button class="md-raised md-icon-button md-accent"
+                                           ng-click="btnFurnaceTostem()"
+                                           ng-disabled="(furnace.tostem.tostemA === furnace.tostem.tostemB) || !furnace.tostem.tostemA || !furnace.tostem.tostemB">
+                                    <md-icon>whatshot</md-icon>
+                                    <md-tooltip md-direction="bottom">Hornear tostem</md-tooltip>
+                                </md-button>
+                            </div>
+                        </md-content>
+                    </md-tab>
 
-            <p>
-                <label>Runa 1
-                    <select ng-model="furnace.rune.runeA">
-                        <option ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
-                                value="{{rune.id}}">{{rune.id}}
-                        </option>
-                    </select>
-                </label>
-            </p>
+                    <!-- RUNAS -->
+                    <md-tab label="Runa">
+                        <md-content class="md-padding kafhe-accent-background">
+                            <div class="forge-fill"></div>
+                            <div layout="row" layout-align="space-around center">
+                                <div flex="50">
+                                    <md-input-container class="md-accent">
+                                        <label>Runa I</label>
+                                        <md-select ng-model="furnace.rune.runeA" class="md-accent">
+                                            <md-option value="{{rune.id}}" class="md-accent"
+                                                       ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
+                                                {{rune.id}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <p>Drop zone</p>
+                                </div>
+                                <div flex="50">
+                                    <md-input-container class="md-accent">
+                                        <label>Runas II</label>
+                                        <md-select ng-model="furnace.rune.runeB" class="md-accent">
+                                            <md-option value="{{rune.id}}" class="md-accent"
+                                                       ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
+                                                {{rune.id}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <p>Drop zone</p>
+                                </div>
+                            </div>
 
-            <p>
-                <label>Runa 2
-                    <select ng-model="furnace.rune.runeB">
-                        <option ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
-                                value="{{rune.id}}">{{rune.id}}
-                        </option>
-                    </select>
-                </label>
-            </p>
-            <p>
-                <md-button class="md-raised"
-                           ng-click="btnFurnaceRune()"
-                           ng-disabled="(furnace.rune.runeA === furnace.rune.runeB) || !furnace.rune.runeA || !furnace.rune.runeB">
-                    <md-icon>flight_land</md-icon>
-                    {{ 'textCombineRunesInFurnace' | translate }}
-                </md-button>
-            </p>
+                            <div layout="row" layout-align="end end">
+                                <md-button class="md-raised md-icon-button md-accent"
+                                           ng-click="btnFurnaceRune()"
+                                           ng-disabled="(furnace.rune.runeA === furnace.rune.runeB) || !furnace.rune.runeA || !furnace.rune.runeB">
+                                    <md-icon>whatshot</md-icon>
+                                    <md-tooltip md-direction="bottom">Hornear runa</md-tooltip>
+                                </md-button>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </div>
         </div>
     </div>
 
-    <div flex="10">
-        <ul>
-            <li ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                {{ tostem.id + ' ('+tostem.element+')' }}
-            </li>
+    <!-- INVENTARIO DE TOSTEMS Y RUNAS -->
+    <div flex="10" layout-padding>
+        <md-grid-list
+                md-cols-sm="2" md-cols-md="6" md-cols-gt-md="10"
+                md-row-height-gt-md="1:1" md-row-height="4:3"
+                md-gutter="8px" md-gutter-gt-sm="4px">
 
-            <li ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                {{ rune.id + ' ('+rune.material+')' }}
-            </li>
-        </ul>
+            <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          ng-class="tile.background">
+                <md-icon>gavel</md-icon>
+                <md-grid-tile-footer><h3>{{tostem.element}}</h3></md-grid-tile-footer>
+            </md-grid-tile>
+
+            <md-grid-tile ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          ng-class="tile.background">
+                <md-icon md-svg-icon="gavel"></md-icon>
+                <md-grid-tile-footer><h3>{{rune.material}}</h3></md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
     </div>
 
 </md-content>

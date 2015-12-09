@@ -1,18 +1,18 @@
 <md-content flex layout-padding ng-cloak>
 
     <div layout="row" layout-align="center end" layout-padding>
-        <md-checkbox class="md-headline md-primary" ng-model="selection.ito" aria-label="">
+        <md-checkbox class="md-headline kafhe-orange-checkbox" ng-model="selection.ito" aria-label="">
             Desayuno ITO
         </md-checkbox>
     </div>
 
-    <div layout="row" layout-sm="column" layout-align="space-around start">
+    <div layout="row" layout-sm="column" layout-align="space-around start" layout-align-sm="center start">
         <div>
             <h2>Comida</h2>
-            <md-radio-group ng-model="selection.meal" class="md-primary">
-                <md-radio-button
-                        ng-repeat="meal in global.gamedata.meals | filter: itoSelected | orderBy: 'name'"
-                        value="{{meal._id}}">
+            <md-radio-group ng-model="selection.meal">
+                <md-radio-button class="kafhe-orange-radio"
+                                 ng-repeat="meal in global.gamedata.meals | filter: itoSelected | orderBy: 'name'"
+                                 value="{{meal._id}}">
                     {{meal.name}}
                 </md-radio-button>
             </md-radio-group>
@@ -21,9 +21,9 @@
         <div>
             <h2>Bebida</h2>
             <md-radio-group ng-model="selection.drink" class="md-primary">
-                <md-radio-button
-                        ng-repeat="drink in global.gamedata.drinks | filter: itoSelected | orderBy: 'name'"
-                        value="{{drink._id}}">
+                <md-radio-button class="kafhe-orange-radio"
+                                 ng-repeat="drink in global.gamedata.drinks | filter: itoSelected | orderBy: 'name'"
+                                 value="{{drink._id}}">
                     {{drink.name}}
                 </md-radio-button>
             </md-radio-group>
@@ -36,15 +36,16 @@
                 {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
             </md-button>
 
+            <md-button class="md-accent kafhe-orange" ng-click="btnLastDayOrder()">
+                <md-icon class="kafhe-orange">event</md-icon>
+                {{ 'textLastDayOrder' | translate }}
+            </md-button>
+
             <md-button class="md-warn" ng-click="btnRemoveOrder()" ng-show="selection.meal !== ''">
                 <md-icon>delete</md-icon>
                 {{ 'textCancelOrder' | translate }}
             </md-button>
 
-            <md-button class="md-accent md-hue-3" ng-click="btnLastDayOrder()">
-                <md-icon>event</md-icon>
-                {{ 'textLastDayOrder' | translate }}
-            </md-button>
         </div>
     </div>
 

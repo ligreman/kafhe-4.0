@@ -36,13 +36,11 @@ md-tooltip.menu-nav {
 md-tooltip.menu-nav .md-background {
     width: 400px;
     height: 180px;
-    background: rgba(76, 175, 80, 0.5);
 }
 
 md-tooltip.menu-nav .md-content {
     height: 30px;
     line-height: 30px;
-    color: #000;
 }
 
 /*

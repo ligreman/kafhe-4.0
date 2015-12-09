@@ -14,7 +14,46 @@ md-content {
 }
 
 @media (max-width: 600px) {
+    #nav-menu {
+        padding-top: 0.5em;
+    }
+
     #content md-content {
-        padding-top: 2em;
+        padding-top: 1em;
     }
 }
+
+/* Colores */
+.kafhe-primary {
+    color: #009688 !important;
+}
+
+.kafhe-accent {
+    color: #673AB7 !important;
+}
+
+.kafhe-accent-background {
+    background-color: rgba(103, 58, 183, 0.04) !important;
+}
+
+.kafhe-warn {
+    color: #F44336 !important;
+}
+
+.kafhe-orange {
+    color: #EF6C00 !important;
+}
+
+.kafhe-orange-checkbox.md-checked .md-icon {
+    background-color: rgba(239, 108, 0, 0.87) !important;
+    border-color: rgba(239, 108, 0, 0.87) !important;
+}
+
+.kafhe-orange-radio.md-checked .md-off {
+    border-color: rgba(239, 108, 0, 0.87) !important;
+}
+
+.kafhe-orange-radio .md-on {
+    background-color: rgba(239, 108, 0, 0.87) !important;
+}
+
