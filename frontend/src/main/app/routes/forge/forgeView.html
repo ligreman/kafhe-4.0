@@ -1,13 +1,17 @@
-<md-content id="forge" layout-padding flex ng-cloak layout="column">
-    <div layout="column" layout-gt-md="row" layout-align="space-around center" flex="auto">
+<md-content id="forge" layout-padding flex ng-cloak layout="column"
+            layout-gt-md="row" layout-align-gt-md="space-around start">
 
+    <!---->
+    <!-- COLUMNA UNO -->
+    <!---->
+    <div flex layout="column">
         <!-- FORJA -->
-        <div flex="40" layout="column" class="md-padding">
+        <div flex="70" layout="column" class="md-padding">
             <div layout="row" flex="none" layout-align="space-between center" layout-padding>
-                <p class="title kafhe-accent">Forja</p>
+                <p class="title">Forja</p>
 
-                <p class="stone kafhe-accent">{{global.inventory.stones}}
-                    <md-icon md-svg-icon="../../../assets/img/rock.svg"></md-icon>
+                <p class="stone">{{global.inventory.stones}}
+                    <md-icon class="kafhe-accent" md-svg-icon="../../../assets/img/rock.svg"></md-icon>
                     <md-tooltip md-direction="top">Piedras de forja</md-tooltip>
                 </p>
             </div>
@@ -116,10 +120,43 @@
             </div>
         </div>
 
+        <!-- INVENTARIO TOSTEMS -->
+        <div flex="30" class="md-padding" hide-sm>
+            <p>Inventario de tostems</p>
+            <md-grid-list
+                    md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
+                    md-row-height-gt-md="1:1" md-row-height="4:3"
+                    md-gutter="6px" md-gutter-gt-sm="8px">
+
+                <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
+                              md-rowspan="1"
+                              md-colspan="1"
+                              md-colspan-sm="1"
+                              class="back-{{tostem.element}}">
+                    <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
+                    <div class="text-center"
+                         ng-drag="true"
+                         ng-drag-data="{pepe:1234}"
+                         ng-drag-success="onDragComplete($data,$event)"
+                         ng-center-anchor="true">
+                        <md-icon class="element-{{tostem.element}}"
+                                 md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                    </div>
+                    <md-grid-tile-footer><h3>{{tostem.element | translate}}</h3></md-grid-tile-footer>
+                    <!--<md-tooltip md-direction="top">Tostem de {{tostem.element}}</md-tooltip>-->
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
+    </div>
+
+    <!---->
+    <!-- COLUMNA DOS -->
+    <!---->
+    <div flex layout="column">
         <!-- HORNO -->
-        <div flex="40" layout="column" class="md-padding">
+        <div flex="70" layout="column" class="md-padding">
             <div layout="row" flex="none" layout-align="space-between center" layout-padding>
-                <p class="title kafhe-accent">Horno</p>
+                <p class="title">Horno</p>
             </div>
 
             <div class="md-whiteframe-1dp" flex>
@@ -211,42 +248,14 @@
                 </md-tabs>
             </div>
         </div>
-    </div>
 
-    <!-- INVENTARIO DE TOSTEMS Y RUNAS -->
-    <div flex="10" layout-padding layout="row" layout-sm="column" layout-align="center start">
-        <div flex="45" flex-sm="100">
-            <p>Inventario de tostems</p>
-            <md-grid-list
-                    md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
-                    md-row-height-gt-md="1:1" md-row-height="4:3"
-                    md-gutter="8px" md-gutter-gt-sm="8px">
-
-                <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
-                              md-rowspan="1"
-                              md-colspan="1"
-                              md-colspan-sm="1"
-                              class="back-{{tostem.element}}">
-                    <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
-                    <div class="text-center"
-                         ng-drag="true"
-                         ng-drag-data="{pepe:1234}"
-                         ng-drag-success="onDragComplete($data,$event)"
-                         ng-center-anchor="true">
-                        <md-icon class="element-{{tostem.element}}"
-                                 md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
-                    </div>
-                    <md-grid-tile-footer><h3>{{tostem.element | translate}}</h3></md-grid-tile-footer>
-                    <!--<md-tooltip md-direction="top">Tostem de {{tostem.element}}</md-tooltip>-->
-                </md-grid-tile>
-            </md-grid-list>
-        </div>
-        <div flex="45" flex-sm="100">
+        <!-- INVENTARIO DE RUNAS -->
+        <div flex="30" class="md-padding" hide-sm>
             <p>Inventario de runas</p>
             <md-grid-list
                     md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
                     md-row-height-gt-md="1:1" md-row-height="4:3"
-                    md-gutter="8px" md-gutter-gt-sm="8px">
+                    md-gutter="6px" md-gutter-gt-sm="8px">
 
                 <md-grid-tile ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
                               md-rowspan="1"

@@ -3,7 +3,8 @@
 }
 
 #forge md-tabs md-tab-item:not([disabled]).md-active {
-    color: #673AB7;
+    /*color: #673AB7;*/
+    color: #000;
     background-color: rgba(103, 58, 183, 0.04);
 }
 
