@@ -63,18 +63,34 @@ p.title {
     background: rgba(0, 0, 0, 0.5);
 }
 
+#forge md-grid-tile.back-fire {
+    background: -moz-linear-gradient(-45deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
 #forge md-grid-tile.back-water {
-    background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#331565c0', endColorstr='#001565c0', GradientType=1);
+    background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+#forge md-grid-tile.back-air {
+    background: -moz-linear-gradient(-45deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+#forge md-grid-tile.back-earth {
+    background: -moz-linear-gradient(-45deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
 #forge md-grid-tile.back-madera {
-    background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(21, 101, 192, 0) 40%, rgba(21, 101, 192, 0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#331565c0', endColorstr='#001565c0', GradientType=1);
+    background: -moz-linear-gradient(-45deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
 

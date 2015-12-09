@@ -8,6 +8,7 @@
         'ngCookies',
         'ngMaterial',
         'ngMessages',
+        'ngDraggable',
         'kafhe.config',
         'kafhe.controllers',
         'kafhe.services',
@@ -36,9 +37,14 @@
 
     }]);
 
+    app.config(['$logProvider', function ($logProvider) {
+        // DEBUG - $log.debug()
+        $logProvider.debugEnabled(true);
+    }]);
+
 
     //Configuramos el idioma por defecto
-    app.config(['$translateProvider', '$logProvider', 'CONFIG', function ($translateProvider, $logProvider, CONFIG) {
+    app.config(['$translateProvider', 'CONFIG', function ($translateProvider, CONFIG) {
         //Indicamos que sanee las cadenas usadas, el idioma por defecto, el idioma
         // de fallback (si no encuentra una cadena en el idioma actual la busca en el de fallback,
         // e indicamos que usaremos cookies para guardar la elección del usuario
@@ -48,8 +54,8 @@
             .fallbackLanguage(CONFIG.fallbackLanguage)
             .useCookieStorage();
 
-        // DEBUG - $log.debug()
-        $logProvider.debugEnabled(true);
+        // Otra itnerpolación para plurarles y genero
+        $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
     }]);
 
     //Configuración de httpProvider y growls

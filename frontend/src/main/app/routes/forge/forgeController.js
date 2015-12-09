@@ -22,6 +22,12 @@
                 $scope.updateGameData(fnAfterUpdate);
                 cleanForm();
 
+                $scope.onDragComplete = function (data, evt) {
+                    console.log("drag success, data:", data);
+                }
+                $scope.onDropComplete = function (data, evt) {
+                    console.log("drop success, data:", data);
+                }
 
                 /****** FUNCIONES ********/
 

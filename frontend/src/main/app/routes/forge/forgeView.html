@@ -33,11 +33,11 @@
                                         <md-select ng-model="forge.weapon.tostem" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                                                {{tostem.id}}
+                                                [Nv. {{tostem.level}}] {{tostem.element | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <p>Drop zone {{'rare' | translate:"{GENDER:'male'}":"messageformat" }}</p>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
@@ -140,7 +140,7 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <p ng-drop="true" ng-drop-success="onDropComplete($data,$event)">Drop zone</p>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
@@ -152,7 +152,7 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <p ng-drop="true" ng-drop-success="onDropComplete($data,$event)">Drop zone</p>
                                 </div>
                             </div>
 
@@ -214,37 +214,53 @@
     </div>
 
     <!-- INVENTARIO DE TOSTEMS Y RUNAS -->
-    <div flex="10" layout-padding>
-        <p>Inventario de tostems y runas</p>
-        <md-grid-list
-                md-cols-sm="2" md-cols-md="5" md-cols-gt-md="10"
-                md-row-height-gt-md="1:1" md-row-height="4:3"
-                md-gutter="8px" md-gutter-gt-sm="8px">
+    <div flex="10" layout-padding layout="row" layout-sm="column" layout-align="center start">
+        <div flex="45" flex-sm="100">
+            <p>Inventario de tostems</p>
+            <md-grid-list
+                    md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
+                    md-row-height-gt-md="1:1" md-row-height="4:3"
+                    md-gutter="8px" md-gutter-gt-sm="8px">
 
-            <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
-                          md-rowspan="1"
-                          md-colspan="1"
-                          md-colspan-sm="1"
-                          class="back-{{tostem.element}}">
-                <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
-                <md-icon class="element-{{tostem.element}}"
-                         md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
-                <md-grid-tile-footer><h3>{{tostem.element}}</h3></md-grid-tile-footer>
-                <!--<md-tooltip md-direction="top">Tostem de {{tostem.element}}</md-tooltip>-->
-            </md-grid-tile>
+                <md-grid-tile ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}"
+                              md-rowspan="1"
+                              md-colspan="1"
+                              md-colspan-sm="1"
+                              class="back-{{tostem.element}}">
+                    <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
+                    <div class="text-center"
+                         ng-drag="true"
+                         ng-drag-data="{pepe:1234}"
+                         ng-drag-success="onDragComplete($data,$event)"
+                         ng-center-anchor="true">
+                        <md-icon class="element-{{tostem.element}}"
+                                 md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                    </div>
+                    <md-grid-tile-footer><h3>{{tostem.element | translate}}</h3></md-grid-tile-footer>
+                    <!--<md-tooltip md-direction="top">Tostem de {{tostem.element}}</md-tooltip>-->
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
+        <div flex="45" flex-sm="100">
+            <p>Inventario de runas</p>
+            <md-grid-list
+                    md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
+                    md-row-height-gt-md="1:1" md-row-height="4:3"
+                    md-gutter="8px" md-gutter-gt-sm="8px">
 
-            <md-grid-tile ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
-                          md-rowspan="1"
-                          md-colspan="1"
-                          md-colspan-sm="1"
-                          class="back-{{rune.material}}">
-                <md-grid-tile-header class="text-right">{{rune.frecuency}}</md-grid-tile-header>
-                <md-icon class="material-{{rune.material}}"
-                         md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
-                <md-grid-tile-footer><h3>{{rune.material}}</h3></md-grid-tile-footer>
-                <!--<md-tooltip md-direction="top">Runa de {{rune.material}}</md-tooltip>-->
-            </md-grid-tile>
-        </md-grid-list>
+                <md-grid-tile ng-repeat="rune in global.inventory.runes | filter:{in_use:false}"
+                              md-rowspan="1"
+                              md-colspan="1"
+                              md-colspan-sm="1"
+                              class="back-{{rune.material}}">
+                    <md-grid-tile-header class="text-right">{{rune.frecuency}}</md-grid-tile-header>
+                    <md-icon class="material-{{rune.material}}"
+                             md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                    <md-grid-tile-footer><h3>{{rune.material | translate}}</h3></md-grid-tile-footer>
+                    <!--<md-tooltip md-direction="top">Runa de {{rune.material}}</md-tooltip>-->
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
     </div>
 
 </md-content>

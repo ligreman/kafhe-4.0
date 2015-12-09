@@ -21,6 +21,22 @@
             'medium': 'Media',
             'heavy': 'Pesada',
 
+            // ELEMENTOS
+            'fire': 'Fuego',
+            'water': 'Agua',
+            'earth': 'Tierra',
+            'air': 'Aire',
+
+            // MATERIALES
+            'madera': 'Madera',
+
+            // FRECUENCIAS
+            'common': 'Común',
+            'uncommon': 'Infrecuente',
+            'rare': '{GENDER, select, male{Raro} female{Rara} other{}}',
+            'extraordinary': '{GENDER, select, male{Extraordinario} female{Extraordinaria} other{}}',
+            'legendary': '{GENDER, select, male{Extraordinario} female{Extraordinaria} other{}}Legendario',
+
             // INTERFAZ - HEADER
             'headerUser': 'Usuario: ',
             'headerLogout': 'Salir',
