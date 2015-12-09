@@ -1,4 +1,4 @@
-<md-content id="forge" layout-padding flex ng-cloak layout="column"
+<md-content id="forge" class="grey" layout-padding flex ng-cloak layout="column"
             layout-gt-md="row" layout-align-gt-md="space-around start">
 
     <!---->
@@ -21,7 +21,7 @@
 
                     <!-- ARMAS -->
                     <md-tab label="Arma">
-                        <md-content class="md-padding kafhe-accent-background">
+                        <md-content class="md-padding kafhe-white-background">
                             <div class="forge-fill" layout="row" layout-align="space-around center">
                                 <md-radio-group class="md-accent" ng-model="forge.weapon.class" layout="row">
                                     <md-radio-button ng-repeat="tipo in selectors.weapon" value="{{tipo}}">
@@ -33,7 +33,7 @@
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Tostem</label>
+                                        <label>{{ 'tostem' | translate }}</label>
                                         <md-select ng-model="forge.weapon.tostem" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
@@ -41,11 +41,15 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone {{'rare' | translate:"{GENDER:'male'}":"messageformat" }}</p>
+                                    <!--<p>Drop zone {{'rare' | translate:"{GENDER:'male'}":"messageformat" }}</p>-->
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'forge', 'weapon', 'tostem', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                                    </div>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Runa</label>
+                                        <label>{{ 'runa' | translate }}</label>
                                         <md-select ng-model="forge.weapon.rune" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
@@ -53,11 +57,19 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'forge', 'weapon', 'rune', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/Stone-tablet.svg"></md-icon>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div layout="row" layout-align="end end">
+                            <div layout="row" layout-align="space-between end">
+                                <md-button class="md-icon-button md-warn btnClean" ng-click="cleanForm()">
+                                    <md-icon>clear</md-icon>
+                                    <md-tooltip md-direction="bottom">Limpiar</md-tooltip>
+                                </md-button>
+
                                 <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnForgeWeapon()"
                                            ng-disabled="!forge.weapon.class || !forge.weapon.tostem || !forge.weapon.rune">
@@ -70,7 +82,7 @@
 
                     <!-- ARMADURAS -->
                     <md-tab label="Armadura">
-                        <md-content class="md-padding kafhe-accent-background">
+                        <md-content class="md-padding kafhe-white-background">
                             <div class="forge-fill" layout="row" layout-align="space-around center">
                                 <md-radio-group class="md-accent" ng-model="forge.armor.class" layout="row">
                                     <md-radio-button ng-repeat="tipo in selectors.armor" value="{{tipo}}">
@@ -82,7 +94,7 @@
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Tostem</label>
+                                        <label>{{ 'tostem' | translate }}</label>
                                         <md-select ng-model="forge.armor.tostem" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
@@ -90,11 +102,14 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'forge', 'armor', 'tostem', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                                    </div>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Runa</label>
+                                        <label>{{ 'runa' | translate }}</label>
                                         <md-select ng-model="forge.armor.rune" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
@@ -102,11 +117,19 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'forge', 'armor', 'rune', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div layout="row" layout-align="end end">
+                            <div layout="row" layout-align="space-between end">
+                                <md-button class="md-icon-button md-warn btnClean" ng-click="cleanForm()">
+                                    <md-icon>clear</md-icon>
+                                    <md-tooltip md-direction="bottom">Limpiar</md-tooltip>
+                                </md-button>
+
                                 <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnForgeArmor()"
                                            ng-disabled="!forge.armor.class || !forge.armor.tostem || !forge.armor.rune">
@@ -122,7 +145,7 @@
 
         <!-- INVENTARIO TOSTEMS -->
         <div flex="30" class="md-padding" hide-sm>
-            <p>Inventario de tostems</p>
+            <p><strong>Inventario de tostems</strong></p>
             <md-grid-list
                     md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
                     md-row-height-gt-md="1:1" md-row-height="4:3"
@@ -132,12 +155,11 @@
                               md-rowspan="1"
                               md-colspan="1"
                               md-colspan-sm="1"
-                              class="back-{{tostem.element}}">
+                              class="back-{{tostem.element}} md-whiteframe-1dp">
                     <md-grid-tile-header class="text-right">Nivel {{tostem.level}}</md-grid-tile-header>
                     <div class="text-center"
                          ng-drag="true"
-                         ng-drag-data="{pepe:1234}"
-                         ng-drag-success="onDragComplete($data,$event)"
+                         ng-drag-data="tostem"
                          ng-center-anchor="true">
                         <md-icon class="element-{{tostem.element}}"
                                  md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
@@ -163,13 +185,13 @@
                 <md-tabs md-border-bottom md-dynamic-height md-stretch-tabs="always">
 
                     <!-- TOSTEM -->
-                    <md-tab label="Tostem">
-                        <md-content class="md-padding kafhe-accent-background">
+                    <md-tab label="{{ 'tostem' | translate }}">
+                        <md-content class="md-padding kafhe-white-background">
                             <div class="forge-fill"></div>
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Tostem I</label>
+                                        <label>{{ 'tostem' | translate }} I</label>
                                         <md-select ng-model="furnace.tostem.tostemA" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
@@ -177,11 +199,14 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p ng-drop="true" ng-drop-success="onDropComplete($data,$event)">Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'furnace', 'tostem', 'tostemA', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                                    </div>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Tostem II</label>
+                                        <label>{{ 'tostem' | translate }} II</label>
                                         <md-select ng-model="furnace.tostem.tostemB" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
@@ -189,11 +214,19 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p ng-drop="true" ng-drop-success="onDropComplete($data,$event)">Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'furnace', 'tostem', 'tostemB', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div layout="row" layout-align="end end">
+                            <div layout="row" layout-align="space-between end">
+                                <md-button class="md-icon-button md-warn btnClean" ng-click="cleanForm()">
+                                    <md-icon>clear</md-icon>
+                                    <md-tooltip md-direction="bottom">Limpiar</md-tooltip>
+                                </md-button>
+
                                 <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnFurnaceTostem()"
                                            ng-disabled="(furnace.tostem.tostemA === furnace.tostem.tostemB) || !furnace.tostem.tostemA || !furnace.tostem.tostemB">
@@ -205,13 +238,13 @@
                     </md-tab>
 
                     <!-- RUNAS -->
-                    <md-tab label="Runa">
-                        <md-content class="md-padding kafhe-accent-background">
+                    <md-tab label="{{ 'runa' | translate }}">
+                        <md-content class="md-padding kafhe-white-background">
                             <div class="forge-fill"></div>
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Runa I</label>
+                                        <label>{{ 'runa' | translate }} I</label>
                                         <md-select ng-model="furnace.rune.runeA" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
@@ -219,11 +252,14 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'furnace', 'rune', 'runeA', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                                    </div>
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>Runas II</label>
+                                        <label>{{ 'runa' | translate }} II</label>
                                         <md-select ng-model="furnace.rune.runeB" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
@@ -231,11 +267,19 @@
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
-                                    <p>Drop zone</p>
+                                    <div class="dropzone" ng-drop="true"
+                                         ng-drop-success="onDropComplete($data, 'furnace', 'rune', 'runeB', $event)">
+                                        <md-icon md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div layout="row" layout-align="end end">
+                            <div layout="row" layout-align="space-between end">
+                                <md-button class="md-icon-button md-warn btnClean" ng-click="cleanForm()">
+                                    <md-icon>clear</md-icon>
+                                    <md-tooltip md-direction="bottom">Limpiar</md-tooltip>
+                                </md-button>
+
                                 <md-button class="md-raised md-icon-button md-accent"
                                            ng-click="btnFurnaceRune()"
                                            ng-disabled="(furnace.rune.runeA === furnace.rune.runeB) || !furnace.rune.runeA || !furnace.rune.runeB">
@@ -251,7 +295,7 @@
 
         <!-- INVENTARIO DE RUNAS -->
         <div flex="30" class="md-padding" hide-sm>
-            <p>Inventario de runas</p>
+            <p><strong>Inventario de runas</strong></p>
             <md-grid-list
                     md-cols-sm="2" md-cols-md="3" md-cols-gt-md="5"
                     md-row-height-gt-md="1:1" md-row-height="4:3"
@@ -261,10 +305,15 @@
                               md-rowspan="1"
                               md-colspan="1"
                               md-colspan-sm="1"
-                              class="back-{{rune.material}}">
-                    <md-grid-tile-header class="text-right">{{rune.frecuency}}</md-grid-tile-header>
-                    <md-icon class="material-{{rune.material}}"
-                             md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                              class="back-{{rune.material}} md-whiteframe-1dp">
+                    <md-grid-tile-header class="text-right">{{rune.frecuency | translate}}</md-grid-tile-header>
+                    <div class="text-center"
+                         ng-drag="true"
+                         ng-drag-data="rune"
+                         ng-center-anchor="true">
+                        <md-icon class="material-{{rune.material}}"
+                                 md-svg-icon="../../../assets/img/stone-tablet.svg"></md-icon>
+                    </div>
                     <md-grid-tile-footer><h3>{{rune.material | translate}}</h3></md-grid-tile-footer>
                     <!--<md-tooltip md-direction="top">Runa de {{rune.material}}</md-tooltip>-->
                 </md-grid-tile>

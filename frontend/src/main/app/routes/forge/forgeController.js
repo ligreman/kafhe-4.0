@@ -17,22 +17,17 @@
                 $scope.btnFurnaceRune = fnFurnaceRune;
                 $scope.btnForgeWeapon = fnForgeWeapon;
                 $scope.btnForgeArmor = fnForgeArmor;
+                $scope.cleanForm = fnCleanForm;
+                $scope.onDropComplete = fnOnDropComplete;
 
                 // Actualizamos los datos si hace falta
                 $scope.updateGameData(fnAfterUpdate);
-                cleanForm();
-
-                $scope.onDragComplete = function (data, evt) {
-                    console.log("drag success, data:", data);
-                }
-                $scope.onDropComplete = function (data, evt) {
-                    console.log("drop success, data:", data);
-                }
+                fnCleanForm();
 
                 /****** FUNCIONES ********/
 
                 /**
-                 *
+                 * Hornea un tostem
                  */
                 function fnFurnaceTostem() {
                     // Compruebo que los dos tostem están informados y no son el mismo
@@ -56,13 +51,13 @@
 
                                 // Mensaje growl de OK
                                 $scope.growlNotification('success', $translate.instant('okFurnaceTostems'));
-                                cleanForm();
+                                fnCleanForm();
                             }
                         });
                 }
 
                 /**
-                 *
+                 * Hornea una runa
                  */
                 function fnFurnaceRune() {
                     // Compruebo que las dos runas están informados y no son la misma
@@ -86,13 +81,13 @@
 
                                 // Mensaje growl de OK
                                 $scope.growlNotification('success', $translate.instant('okFurnaceRunes'));
-                                cleanForm();
+                                fnCleanForm();
                             }
                         });
                 }
 
                 /**
-                 *
+                 * Forja un arma
                  */
                 function fnForgeWeapon() {
                     // Compruebo que los componentes están informados
@@ -117,13 +112,13 @@
 
                                 // Mensaje growl de OK
                                 $scope.growlNotification('success', $translate.instant('okForgeWeapon'));
-                                cleanForm();
+                                fnCleanForm();
                             }
                         });
                 }
 
                 /**
-                 *
+                 * Forja una armadura
                  */
                 function fnForgeArmor() {
                     // Compruebo que los componentes están informados
@@ -148,12 +143,15 @@
 
                                 // Mensaje growl de OK
                                 $scope.growlNotification('success', $translate.instant('okForgeArmor'));
-                                cleanForm();
+                                fnCleanForm();
                             }
                         });
                 }
 
-                function cleanForm() {
+                /**
+                 * Limpia los formularios
+                 */
+                function fnCleanForm() {
                     $scope.furnace = {
                         tostem: {tostemA: '', tostemB: ''},
                         rune: {runeA: '', runeB: ''}
@@ -162,7 +160,31 @@
                         weapon: {tostem: '', rune: '', class: ''},
                         armor: {tostem: '', rune: '', class: ''}
                     };
-                };
+                }
+
+                /**
+                 * Evento al terminar de hacer un drag & drop
+                 * @param data Información interna de lo que se ha soltado
+                 * @param zone Dónde: furnace o forge
+                 * @param where En qué parte de la zona: tostem, rune, weapon, armor
+                 * @param what Qué: tostem o rune, tostemA/B, runeA/B
+                 * @param evt
+                 */
+                function fnOnDropComplete(data, zone, where, what, evt) {
+                    if (zone === 'furnace' || zone === 'forge' && (where === 'rune' || where === 'tostem' || where === 'weapon' || where === 'armor')) {
+                        if (what === 'tostemA' || what === 'tostemB' || what === 'runeA' || what === 'runeB' || what === 'tostem' || what === 'rune') {
+                            // Compruebo que si he dropeado en runa, tiene material
+                            if (what.indexOf('rune') !== -1 && data.material) {
+                                $scope[zone][where][what] = data.id;
+                            }
+
+                            // Compruebo que si he dropeado en tostem, tiene elemento
+                            if (what.indexOf('tostem') !== -1 && data.element) {
+                                $scope[zone][where][what] = data.id;
+                            }
+                        }
+                    }
+                }
 
                 /**
                  * Callback ejecutado después de actualizar los datos

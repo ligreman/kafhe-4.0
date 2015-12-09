@@ -1,8 +1,8 @@
 /* DESAYUNO */
 .btn-breakfast-list button {
-    margin: 2em 0;
+    /*margin: 1em 0;*/
 }
 
 .btn-breakfast-list button:first-child {
-    margin-top: 4em;
+    /*margin-top: 4em;*/
 }

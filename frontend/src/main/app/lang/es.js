@@ -12,6 +12,8 @@
             'textContinue': 'Continuar',
             'textYes': 'Sí',
             'textNo': 'No',
+            'tostem': 'Tostem',
+            'rune': 'Runa',
 
             // TIPOS
             'bladed': 'Cortante',

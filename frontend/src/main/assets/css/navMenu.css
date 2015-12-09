@@ -1,7 +1,6 @@
 #nav-menu {
-    border-right: 1px solid #e8e8e8;
     overflow: hidden;
-    background-color: #EEE;
+    background-color: #d9d9d9;
     box-shadow: 1px 0px 3px -2px rgba(0, 0, 0, .15), 1px 0px 3px -2px rgba(0, 0, 0, .45);
     z-index: 15;
 }

@@ -1,19 +1,23 @@
 #forge md-tabs md-tab-item:not([disabled]) {
     color: #999;
+    background-color: #f5f5f5;
 }
 
 #forge md-tabs md-tab-item:not([disabled]).md-active {
-    /*color: #673AB7;*/
     color: #000;
-    background-color: rgba(103, 58, 183, 0.04);
 }
 
 #forge md-tabs md-ink-bar {
     background-color: #673AB7;
 }
 
+#forge md-radio-button {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .forge-fill {
-    min-height: 10vh;
+    min-height: 2.5vh;
 }
 
 p.title {
@@ -42,6 +46,7 @@ p.title {
     font-style: italic;
     font-size: .9em;
     width: 100%;
+    padding-right: 5px;
 }
 
 #forge md-grid-tile md-icon {
@@ -55,8 +60,8 @@ p.title {
     -ms-animation: rotating 2s linear infinite;
     -o-animation: rotating 2s linear infinite;
     animation: rotating 2s linear infinite;
-    /*cursor: move;*/
-    /*cursor: -webkit-grab;*/
+    cursor: move;
+    cursor: -webkit-grab;
 }
 
 #forge md-grid-tile-footer {
@@ -64,31 +69,62 @@ p.title {
     background: rgba(0, 0, 0, 0.5);
 }
 
-#forge md-grid-tile.back-fire {
+#forge .btnClean {
+    position: relative;
+    top: 14px;
+    right: 20px;
+}
+
+#forge .dropzone {
+    width: 80%;
+    height: 15vh;
+    margin: 0 auto 1.5em auto;
+    border: 2px dashed #CCC;
+}
+
+#forge .dropzone.drag-enter {
+    border-color: #999;
+}
+
+#forge .dropzone md-icon {
+    width: 100%;
+    height: 100%;
+    color: #CCC;
+}
+
+#forge .dropzone.drag-enter md-icon {
+    color: #999;
+}
+
+#forge md-grid-tile {
+    background-color: #f5f5f5;
+}
+
+#forge md-grid-tile.back-fire figure {
     background: -moz-linear-gradient(-45deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(135deg, rgba(216, 67, 21, 0.2) 0%, rgba(216, 67, 21, 0.2) 1%, rgba(231, 141, 113, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
-#forge md-grid-tile.back-water {
+#forge md-grid-tile.back-water figure {
     background: -moz-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(135deg, rgba(21, 101, 192, 0.2) 0%, rgba(115, 163, 217, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
-#forge md-grid-tile.back-air {
+#forge md-grid-tile.back-air figure {
     background: -moz-linear-gradient(-45deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(135deg, rgba(144, 164, 174, 0.2) 0%, rgba(188, 200, 206, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
-#forge md-grid-tile.back-earth {
+#forge md-grid-tile.back-earth figure {
     background: -moz-linear-gradient(-45deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(135deg, rgba(93, 64, 55, 0.2) 0%, rgba(158, 140, 135, 0) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
-#forge md-grid-tile.back-madera {
+#forge md-grid-tile.back-madera figure {
     background: -moz-linear-gradient(-45deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
     background: linear-gradient(135deg, rgba(121, 85, 72, 0.2) 0%, rgba(175, 153, 145, 0) 40%, rgba(255, 255, 255, 0) 100%);
