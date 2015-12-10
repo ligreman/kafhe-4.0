@@ -2,6 +2,9 @@
             ng-show="$root.kUserLogged" layout="column"
             layout-align="start center"
             layout-align-sm="">
+
+    <div class="semibackground"></div>
+
     <!--<a ng-click="goToPage('home')" class="menu-button" ng-class="{'active': isCurrentPageHome() }">
         <md-icon md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
 
@@ -19,23 +22,23 @@
     </a>-->
 
 
-    <md-button ng-click="goToPage('home')" class="md-icon-button menu-button"
+    <md-button ng-click="goToPage('home')" class="md-fab md-primary md-hue-2 menu-button"
                ng-class="{'active': isCurrentPageHome() }">
-        <md-icon class="kafhe-primary" md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
+        <md-icon class="kafhe-primary2" md-svg-icon="../../../assets/img/crossed-swords.svg"></md-icon>
         <md-tooltip md-direction="right" md-delay="1000" class="menu-nav">Batalla</md-tooltip>
     </md-button>
 
 
-    <md-button ng-click="goToPage('breakfast')" class="md-icon-button menu-button breakfast"
+    <md-button ng-click="goToPage('breakfast')" class="md-fab md-primary md-hue-2 menu-button breakfast"
                ng-class="{'active': isCurrentPageBreakfast() }">
-        <md-icon class="kafhe-orange" md-svg-icon="../../../assets/img/burn.svg"></md-icon>
+        <md-icon class="kafhe-orange2" md-svg-icon="../../../assets/img/burn.svg"></md-icon>
         <md-tooltip md-direction="right" md-delay="1000" class="menu-nav">Pedido</md-tooltip>
     </md-button>
 
 
-    <md-button ng-click="goToPage('forge')" class="md-icon-button menu-button"
-               ng-class="{'active': isCurrentPageForge() }">
-        <md-icon class="kafhe-accent" md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
+    <md-button ng-click="goToPage('forge')" class="md-fab md-primary md-hue-2 menu-button"
+               ng-class="{'md-accent': isCurrentPageForge() }">
+        <md-icon class="kafhe-accen2t" md-svg-icon="../../../assets/img/anvil.svg"></md-icon>
         <md-tooltip md-direction="right" md-delay="1000" class="menu-nav">Forja</md-tooltip>
     </md-button>
 </md-content>
