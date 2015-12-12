@@ -45,10 +45,6 @@
                                  aria-label="" ng-click="checkSelect(player._id)">
                         {{ player.alias }}
                     </md-checkbox>
-                    <md-checkbox flex="40" ng-repeat="player in playerList | filter: filterTargets | orderBy: 'alias'"
-                                 aria-label="" ng-click="checkSelect(player._id)">
-                        {{ player.alias }}
-                    </md-checkbox>
                 </div>
 
                 <div class="skill-stats" layout="row" layout-fill>

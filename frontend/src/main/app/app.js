@@ -84,7 +84,7 @@
 
         $mdThemingProvider.theme('default')
             .primaryPalette('teal')
-            .accentPalette('deep-purple')
+            .accentPalette('indigo')
             .warnPalette('red');
         /*.primaryPalette('teal', {
          'default': '500', // by default use shade 400 from the pink palette for primary intentions

@@ -8,12 +8,11 @@
 }
 
 #forge md-tabs md-ink-bar {
-    background-color: #673AB7;
+    /*background-color: #673AB7;*/
 }
 
 #forge md-radio-button {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .forge-fill {

@@ -2,16 +2,18 @@
 
     <div flex="none" id="life-bar">
         <span class="bar" ng-style="global.print.lifeBarStyle"></span>
+        <md-tooltip md-direction="left">{{ 'lifeBar' | translate}}</md-tooltip>
     </div>
 
     <div flex="none" id="action-points-bar" layout="row" layout-align="space-around center" layout-padding>
-        <p class="align-stretch no-margin">AP</p>
+        <!--<p class="align-stretch no-margin">AP</p>-->
         <div ng-repeat="n in [] | range:15">
             <md-icon class="md-accent" ng-if="$index < global.user.game.stats.action_points">
                 radio_button_checked
             </md-icon>
             <md-icon ng-if="$index >= global.user.game.stats.action_points">radio_button_unchecked</md-icon>
         </div>
+        <md-tooltip md-direction="left">{{ 'actionPointsBar' | translate}}</md-tooltip>
     </div>
 
     <div layout="row" flex="auto">
@@ -34,6 +36,7 @@
                     </a>-->
                     <md-button class="md-fab" ng-click="showTargets(skill, $event)">
                         <md-icon>face</md-icon>
+                        <md-tooltip md-direction="top">{{ skill.name }}</md-tooltip>
                     </md-button>
                 </li>
             </ul>

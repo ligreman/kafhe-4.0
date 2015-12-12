@@ -22,8 +22,9 @@
                     <!-- ARMAS -->
                     <md-tab label="Arma">
                         <md-content class="md-padding kafhe-white-background">
-                            <div class="forge-fill" layout="row" layout-align="space-around center">
-                                <md-radio-group class="md-accent" ng-model="forge.weapon.class" layout="row">
+                            <div class="forge-fill" layout="row" layout-align="center center">
+                                <md-radio-group class="md-accent" ng-model="forge.weapon.class" layout="row"
+                                                layout-align="space-around center" layout-fill>
                                     <md-radio-button ng-repeat="tipo in selectors.weapon" value="{{tipo}}">
                                         {{ tipo | translate}}
                                     </md-radio-button>
@@ -83,8 +84,9 @@
                     <!-- ARMADURAS -->
                     <md-tab label="Armadura">
                         <md-content class="md-padding kafhe-white-background">
-                            <div class="forge-fill" layout="row" layout-align="space-around center">
-                                <md-radio-group class="md-accent" ng-model="forge.armor.class" layout="row">
+                            <div class="forge-fill" layout="row" layout-align="center center">
+                                <md-radio-group class="md-accent" ng-model="forge.armor.class" layout="row"
+                                                layout-align="space-around center" layout-fill>
                                     <md-radio-button ng-repeat="tipo in selectors.armor" value="{{tipo}}">
                                         {{ tipo | translate}}
                                     </md-radio-button>
