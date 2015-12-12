@@ -3,12 +3,13 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express    = require('express'),
-        passport   = require('passport'),
-        utils      = require('../modules/utils'),
-        userRouter = express.Router(),
-        mongoose   = require('mongoose'),
-        models     = require('../models/models')(mongoose);
+    var express       = require('express'),
+        passport      = require('passport'),
+        utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
+        userRouter    = express.Router(),
+        mongoose      = require('mongoose'),
+        models        = require('../models/models')(mongoose);
 
     //**************** USER ROUTER **********************
     //Middleware para estas rutas
@@ -24,6 +25,7 @@ module.exports = function (app) {
     userRouter.get('/', function (req, res, next) {
         res.json({
             "data": {
+                //"user": responseUtils.censureUser(req.user)
                 "user": req.user
             },
             "session": {
