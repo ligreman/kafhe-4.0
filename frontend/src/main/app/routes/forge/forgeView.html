@@ -49,11 +49,11 @@
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>{{ 'runa' | translate }}</label>
+                                        <label>{{ 'rune' | translate }}</label>
                                         <md-select ng-model="forge.weapon.rune" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                                                {{rune.id}}
+                                                [{{rune.frecuency | translate}}] {{rune.material | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -98,7 +98,7 @@
                                         <md-select ng-model="forge.armor.tostem" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                                                {{tostem.id}}
+                                                [Nv. {{tostem.level}}] {{tostem.element | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -109,11 +109,11 @@
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>{{ 'runa' | translate }}</label>
+                                        <label>{{ 'rune' | translate }}</label>
                                         <md-select ng-model="forge.armor.rune" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                                                {{rune.id}}
+                                                [{{rune.frecuency | translate}}] {{rune.material | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -195,7 +195,7 @@
                                         <md-select ng-model="furnace.tostem.tostemA" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                                                {{tostem.id}}
+                                                [Nv. {{tostem.level}}] {{tostem.element | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -210,7 +210,7 @@
                                         <md-select ng-model="furnace.tostem.tostemB" class="md-accent">
                                             <md-option value="{{tostem.id}}" class="md-accent"
                                                        ng-repeat="tostem in global.inventory.tostems | filter:{in_use:false}">
-                                                {{tostem.id}}
+                                                [Nv. {{tostem.level}}] {{tostem.element | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -238,17 +238,17 @@
                     </md-tab>
 
                     <!-- RUNAS -->
-                    <md-tab label="{{ 'runa' | translate }}">
+                    <md-tab label="{{ 'rune' | translate }}">
                         <md-content class="md-padding kafhe-white-background">
                             <div class="forge-fill"></div>
                             <div layout="row" layout-align="space-around center">
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>{{ 'runa' | translate }} I</label>
+                                        <label>{{ 'rune' | translate }} I</label>
                                         <md-select ng-model="furnace.rune.runeA" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                                                {{rune.id}}
+                                                [{{rune.frecuency | translate}}] {{rune.material | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -259,11 +259,11 @@
                                 </div>
                                 <div flex="50">
                                     <md-input-container class="md-accent">
-                                        <label>{{ 'runa' | translate }} II</label>
+                                        <label>{{ 'rune' | translate }} II</label>
                                         <md-select ng-model="furnace.rune.runeB" class="md-accent">
                                             <md-option value="{{rune.id}}" class="md-accent"
                                                        ng-repeat="rune in global.inventory.runes | filter:{in_use:false}">
-                                                {{rune.id}}
+                                                [{{rune.frecuency | translate}}] {{rune.material | translate}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>

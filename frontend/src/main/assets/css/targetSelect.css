@@ -1,0 +1,20 @@
+.skill-stats {
+    margin-top: 10px
+}
+
+.skill-stats .heading {
+    background: #777;
+    color: #F5F5F5;
+    padding: 5px 10px;
+    text-transform: lowercase;
+    text-align: center;
+}
+
+.skill-stats p {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.target-select .targets {
+    padding: 0 1em;
+}

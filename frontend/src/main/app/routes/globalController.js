@@ -84,6 +84,8 @@
                             $scope.global.equipment.armor = res[0];
                         }
 
+                        // Limpio las skills para generar el array de nuevo
+                        $scope.global.skills = [];
                         // Ahora saco las habilidades de arma equipada
                         if ($scope.global.equipment.weapon && $scope.global.equipment.weapon !== '') {
                             $scope.global.equipment.weapon.skills.forEach(function (skill) {

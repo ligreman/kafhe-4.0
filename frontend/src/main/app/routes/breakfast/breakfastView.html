@@ -7,8 +7,8 @@
         </div>
 
         <div layout="row" layout-sm="column" layout-align="space-around start" layout-align-sm="center start">
-            <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch">
-                <h2>Comida</h2>
+            <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch" flex="grow">
+                <h2 class="text-center">Comida</h2>
                 <md-radio-group ng-model="selection.meal">
                     <md-radio-button class=""
                                      ng-repeat="meal in global.gamedata.meals | filter: itoSelected | orderBy: 'name'"
@@ -18,8 +18,8 @@
                 </md-radio-group>
             </div>
 
-            <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch">
-                <h2>Bebida</h2>
+            <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch" flex="grow">
+                <h2 class="text-center">Bebida</h2>
                 <md-radio-group ng-model="selection.drink" class="">
                     <md-radio-button class=""
                                      ng-repeat="drink in global.gamedata.drinks | filter: itoSelected | orderBy: 'name'"
@@ -30,7 +30,7 @@
             </div>
 
             <div class="btn-breakfast-list md-whiteframe-1dp md-padding kafhe-white-background align-stretch"
-                 layout="column" layout-align="space-around center">
+                 layout="column" layout-align="space-around center" flex="grow">
                 <md-button class="md-primary" ng-click="btnMakeOrder()" flex="none">
                     <md-icon ng-show="selection.meal === ''">free_breakfast</md-icon>
                     <md-icon ng-show="selection.meal !== ''">sync</md-icon>

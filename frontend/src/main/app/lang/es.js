@@ -60,6 +60,13 @@
             'textOrderDeleted': 'Pedido del desayuno retirado',
             'textNoLastOrder': 'Omelettus no tiene constancia de que el otro día tomaras desayuno alguno, ¡hereje!',
 
+            // INTERFAZ - HABILIDADES
+            'textDuration': 'Duración',
+            'textUses': 'Usos restantes',
+            'textTargets': 'Nº de objetivos',
+            'textCost': 'Coste en puntos de acción',
+            'textExecute': 'Ejecutar habilidad',
+
             // INTERFAZ - PANTALLA FORJA
             'textCombineTostemsInFurnace': 'Hornear tostems',
             'textCombineRunesInFurnace': 'Hornear runas',
