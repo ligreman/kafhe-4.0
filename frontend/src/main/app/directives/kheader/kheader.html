@@ -1,4 +1,4 @@
-<header flex="10" ng-show="$root.kUserLogged">
+<header flex="10" flex-sm="5" ng-show="$root.kUserLogged">
     <md-toolbar class="md-whiteframe-1dp md-primary">
         <div class="md-toolbar-tools">
             <img src="../../../assets/img/k256.png" class="logotipo" flex="none"/>
@@ -6,7 +6,7 @@
 
             <p>{{global.user.username}}</p>
             <md-button ng-click="resetBBDD()" class="md-warn md-raised">Reset BBDD</md-button>
-            <p>Estado partida: </p>
+            <p>partida: </p>
             <md-button ng-click="gameStatus(0)" class="md-icon-button">0</md-button>
             <md-button ng-click="gameStatus(1)" class="md-icon-button">1</md-button>
             <md-button ng-click="gameStatus(2)" class="md-icon-button">2</md-button>

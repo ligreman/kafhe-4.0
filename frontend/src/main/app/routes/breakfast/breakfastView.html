@@ -1,7 +1,7 @@
 <md-content class="grey" flex layout-padding layout="row" layout-align="center start" ng-cloak>
     <div class="md-padding" flex="90">
         <div layout="row" layout-align="center end" layout-padding>
-            <md-checkbox class="md-headline kafhe-orange-checkbox" ng-model="selection.ito" aria-label="">
+            <md-checkbox class="md-headline" ng-model="selection.ito" aria-label="">
                 Desayuno ITO
             </md-checkbox>
         </div>
@@ -10,7 +10,7 @@
             <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch">
                 <h2>Comida</h2>
                 <md-radio-group ng-model="selection.meal">
-                    <md-radio-button class="kafhe-orange-radio"
+                    <md-radio-button class=""
                                      ng-repeat="meal in global.gamedata.meals | filter: itoSelected | orderBy: 'name'"
                                      value="{{meal._id}}">
                         {{meal.name}}
@@ -20,8 +20,8 @@
 
             <div class="md-whiteframe-1dp md-padding kafhe-white-background align-stretch">
                 <h2>Bebida</h2>
-                <md-radio-group ng-model="selection.drink" class="md-primary">
-                    <md-radio-button class="kafhe-orange-radio"
+                <md-radio-group ng-model="selection.drink" class="">
+                    <md-radio-button class=""
                                      ng-repeat="drink in global.gamedata.drinks | filter: itoSelected | orderBy: 'name'"
                                      value="{{drink._id}}">
                         {{drink.name}}
@@ -37,8 +37,8 @@
                     {{ (selection.meal !== '' ? 'textChangeOrder' : 'textNewOrder') | translate }}
                 </md-button>
 
-                <md-button class="md-accent kafhe-orange" ng-click="btnLastDayOrder()" flex="none">
-                    <md-icon class="kafhe-orange">event</md-icon>
+                <md-button class="md-accent" ng-click="btnLastDayOrder()" flex="none">
+                    <md-icon class="">event</md-icon>
                     {{ 'textLastDayOrder' | translate }}
                 </md-button>
 

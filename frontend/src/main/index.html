@@ -55,17 +55,17 @@
     </div>
 
     <!-- Pie para la página de batalla -->
-    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="15" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="15" flex-sm="20" layout="row">
         <k-footer-battle></k-footer-battle>
     </div>
 
     <!-- Pie para la página de desayuno -->
-    <div ng-if="$root.kUserLogged && isCurrentPageBreakfast()" flex="15" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPageBreakfast()" flex="15" flex-sm="20" layout="row">
         <k-footer-breakfast></k-footer-breakfast>
     </div>
 
     <!-- Pie para la página de forja -->
-    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="15" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="15" flex-sm="20" layout="row">
         <k-footer-forge></k-footer-forge>
     </div>
 
@@ -113,6 +113,7 @@
     <script src="app/services/session.js"></script>
     <script src="app/services/game.js"></script>
     <script src="app/services/interceptors.js"></script>
+    <script src="app/services/filters.js"></script>
     <script src="app/services/utils/share.js"></script>
 
     <script src="app/directives/kheader/kheader.js"></script>

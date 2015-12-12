@@ -16,6 +16,11 @@
 
                     /*********************************************************************/
                     /*********************** FUNCIONES ***********************************/
+                    /**
+                     * Lanza el proceso de mostrar la ventana de selección de objetivos
+                     * @param skillId
+                     * @param $event
+                     */
                     function fnShowTargets(skillId, $event) {
                         $event.preventDefault();
                         console.log(skillId);
@@ -27,12 +32,15 @@
                                     showDialog(skillId, response.data.players, $event);
                                 }
                             });
-                    };
+                    }
 
-                    function showDialog(skillId, playerList, $event) {
+                    /**
+                     * Muestra el cuadro de diálogo
+                     */
+                    function showDialog(skill, playerList, $event) {
                         $mdDialog.show({
                             locals: {
-                                skillId: skillId,
+                                skill: skill,
                                 playerList: playerList
                             },
                             controller: 'TargetSelect',
@@ -46,7 +54,7 @@
                             // Ha seleccionado a los objetivos así que llamo al API para ejecutar la skill
                             API.skill()
                                 .execute({
-                                    skill_id: skillId,
+                                    skill_id: skill.id,
                                     targets: result.targets
                                 }, function (response) {
                                     if (response && response.data && response.data.user) {
@@ -59,7 +67,22 @@
                             console.log("cancelao ");
                         });
                     }
-                }]
+                }],
+            // Manipulamos el DOM
+            link: function (scope, element, attrs) {
+                $(element).find('#skill-bar').mCustomScrollbar({
+                    axis: "x",
+                    scrollInertia: 300,
+                    autoHideScrollbar: false,
+                    mouseWheel: {
+                        axis: "x"
+                    },
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+            }
         };
     });
 })();

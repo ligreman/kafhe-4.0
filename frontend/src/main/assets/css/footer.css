@@ -1,5 +1,5 @@
 footer {
-    transition: all 1s ease 0s;
+    /*transition: all 1s ease 0s;*/
     background: #d9d9d9;
     color: whitesmoke;
     z-index: 1;
@@ -56,7 +56,12 @@ footer {
 }
 
 #skill-bar {
-    background: red;
+    overflow-x: auto;
+}
+
+#skill-bar li {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #fury-bar {
@@ -64,3 +69,99 @@ footer {
     width: 5vw;
 }
 
+.hi-icon {
+    display: inline-block;
+    font-size: 90px;
+    cursor: pointer;
+    margin: 15px 30px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+
+.hi-icon:after {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    content: '';
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.hi-icon:before {
+    speak: none;
+    font-size: 48px;
+    line-height: 90px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Effect 1 */
+.hi-icon-effect-1 .hi-icon {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+    transform: rotate(0deg);
+}
+
+.hi-icon-effect-1 .hi-icon:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #41ab6b;
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+    transform: rotate(130deg);
+}
+
+.hi-icon-effect-1 .hi-icon:after {
+    top: -7px;
+    left: -7px;
+    padding: 7px;
+    box-shadow: 0 0 0 4px #fff;
+    -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+    -webkit-transform: scale(1.2);
+    -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transition: transform 0.2s, opacity 0.2s;
+    transform: scale(1.2);
+    opacity: 0;
+}
+
+.hi-icon-effect-1 .hi-icon:hover:after {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+.btn-skill {
+}
+
+.btn-skill md-icon {
+}
+
+.btn-skill {
+}
+
+.btn-skill {
+}
+
+.btn-skill {
+}
+
+.btn-skill {
+}

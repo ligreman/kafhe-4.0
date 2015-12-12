@@ -4,20 +4,66 @@
         <span class="bar" ng-style="global.print.lifeBarStyle"></span>
     </div>
 
-    <div layout="row" flex="auto" layout-align="start end">
+    <div flex="none" id="action-points-bar" layout="row" layout-align="space-around center" layout-padding>
+        <p class="align-stretch no-margin">AP</p>
+        <div ng-repeat="n in [] | range:15">
+            <md-icon class="md-accent" ng-if="$index < global.user.game.stats.action_points">
+                radio_button_checked
+            </md-icon>
+            <md-icon ng-if="$index >= global.user.game.stats.action_points">radio_button_unchecked</md-icon>
+        </div>
+    </div>
+
+    <div layout="row" flex="auto">
         <!-- Reputación -->
-        <div flex="none" id="reputation-bar">
+        <!--<div flex="none" id="reputation-bar">
             <p>{{ global.print.toastPoints }}</p>
 
             <div class="circle-back"></div>
             <div class="circle" ng-style="global.print.reputationDegreeStyle"></div>
+        </div>-->
+        <!--<div flex="5"></div>-->
+
+
+        <div flex id="skill-bar">
+            <ul layout="row" layout-align="center start">
+                <li ng-repeat="skill in global.skills track by id">
+                    <!--<a class="hi-icon-effect-1" href="#"
+                       ng-click="showTargets(skill, $event)">
+                        <md-icon class="hi-icon" style="color:red">star</md-icon>
+                    </a>-->
+                    <md-button class="md-fab" ng-click="showTargets(skill, $event)">
+                        <md-icon>face</md-icon>
+                    </md-button>
+                </li>
+                <li ng-repeat="skill in global.skills track by id">
+                    <md-button class="md-fab" ng-click="showTargets(skill, $event)">
+                        <md-icon>face</md-icon>
+                    </md-button>
+                </li>
+                <li ng-repeat="skill in global.skills track by id">
+                    <md-button class="md-fab" ng-click="showTargets(skill, $event)">
+                        <md-icon>face</md-icon>
+                    </md-button>
+                </li>
+                <li ng-repeat="skill in global.skills track by id">
+                    <md-button class="md-fab" ng-click="showTargets(skill, $event)">
+                        <md-icon>face</md-icon>
+                    </md-button>
+                </li>
+                <li ng-repeat="skill in global.skills track by id">
+                    <md-button class="md-fab" ng-click="showTargets(skill, $event)">
+                        <md-icon>face</md-icon>
+                    </md-button>
+                </li>
+            </ul>
         </div>
 
-        <!-- Lista de habilidades -->
-        <div flex="auto" id="skill-bar"></div>
+        <!--<div flex="5"></div>-->
 
         <!-- Furia -->
-        <div flex="none" id="fury-bar"></div>
+        <!--<div flex="none" id="fury-bar"></div>-->
+
 
         <!--<div flex="40">
             &lt;!&ndash;<p>Reputation: {{global.user.game.stats.reputation}}</p>

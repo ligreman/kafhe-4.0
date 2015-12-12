@@ -3,10 +3,10 @@
 
     angular.module('kafhe.controllers')
         .controller('TargetSelect',
-            ['$scope', '$rootScope', '$translate', '$mdDialog', 'skillId', 'playerList',
-                function ($scope, $rootScope, $translate, $mdDialog, skillId, playerList) {
+            ['$scope', '$rootScope', '$translate', '$mdDialog', 'skill', 'playerList',
+                function ($scope, $rootScope, $translate, $mdDialog, skill, playerList) {
 
-                    $scope.skillId = skillId;
+                    $scope.skill = skill;
                     $scope.playerList = playerList;
                     $scope.targetsSelected = [];
 
