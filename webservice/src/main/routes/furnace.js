@@ -7,6 +7,7 @@ module.exports = function (app) {
         passport      = require('passport'),
         furnaceRouter = express.Router(),
         utils         = require('../modules/utils'),
+        config        = require('../modules/config'),
         gameResources = require('../modules/gameResources'),
         bodyParser    = require('body-parser'),
         mongoose      = require('mongoose');
@@ -170,12 +171,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/rune', function (req, res, next) {
         // El objeto user
-        var usuario     = req.user,
-            params      = req.body,
-            idRuneA     = params.inventory_a, runeA = null,
-            idRuneB     = params.inventory_b, runeB = null,
-            newRuneList = [],
-            respuesta   = {
+        var usuario                             = req.user,
+            params                              = req.body,
+            idRuneA = params.inventory_a, runeA = null,
+            idRuneB                             = params.inventory_b, runeB = null,
+            newRuneList                         = [],
+            respuesta                           = {
                 success: null,
                 upgraded: false,
                 generatedRune: null
