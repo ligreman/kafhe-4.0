@@ -15,7 +15,7 @@ module.exports = function (mongoose) {
         game: {
             gamedata: {type: mongoose.Schema.Types.ObjectId, ref: 'Game'},
             level: Number,
-            tostolares: Number,
+            tostolares: {type: Number, default: 0},
             stats: {
                 life: {type: Number, default: 0},
                 fury: {type: Number, default: 0},
