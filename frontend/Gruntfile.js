@@ -215,7 +215,14 @@ module.exports = function (grunt) {
         // additional tasks can operate on them
         useminPrepare: {
             options: {
-                dest: '<%= config.dist %>'
+                dest: '<%= config.dist %>',
+                flow: {
+                    steps: {
+                        js: ['concat', 'uglify'],
+                        css: ['concat']
+                    },
+                    post: {}
+                }
             },
             html: '<%= config.app %>/index.html'
         },
@@ -358,7 +365,7 @@ module.exports = function (grunt) {
         'copy:dist',
         'useminPrepare',
         'concat:generated',
-        'cssmin:generated',
+        //'cssmin:generated',
         'uglify:generated',
         'usemin',
         'cleanempty',

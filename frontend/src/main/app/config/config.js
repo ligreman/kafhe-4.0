@@ -4,6 +4,7 @@
     // módulo que contiene Strings de configuración
     angular.module('kafhe.config')
         .constant('CONFIG', {
+            //webServiceUrl: 'http://okapi-lovehinaesp.rhcloud.com/',
             webServiceUrl: 'http://localhost:8080/',
 
             // IDIOMAS
