@@ -43,11 +43,11 @@ var FEATURE_NAMES = {
         {text: {m: 'jugoso', f: 'jugosa'}}
     ],
     earth: [
-        {text: {m: 'de plástico', f: 'de plástico'}},
+        {text: {m: 'plástificado', f: 'plástificada'}},
         {text: {m: 'de látex', f: 'de látex'}},
-        {text: {m: 'de caucho', f: 'de caucho'}},
-        {text: {m: 'de paja', f: 'de paja'}},
-        {text: {m: 'de papel', f: 'de papel'}},
+        {text: {m: 'recauchutado', f: 'recauchutada'}},
+        {text: {m: 'pajizo', f: 'pajiza'}},
+        {text: {m: 'papiráceo', f: 'papirácea'}},
         {text: {m: 'de celofán', f: 'de celofán'}},
         {text: {m: 'protector', f: 'protectora'}},
         {text: {m: 'absorbente', f: 'absorbente'}}
@@ -61,7 +61,7 @@ var FEATURE_NAMES = {
         {text: {m: 'etéreo', f: 'etérea'}},
         {text: {m: 'onírico', f: 'onírica'}},
         {text: {m: 'de los cielos', f: 'de los cielos'}},
-        {text: {m: 'de los vientos', f: 'de los vientos'}}
+        {text: {m: 'ventoso', f: 'ventosa'}}
     ],
     adjetives: [
         {text: {m: 'superchulo', f: 'superchula'}},
@@ -107,7 +107,7 @@ var OWNER_NAMES = {
     extraordinary: []
 };
 
-var LEGENDS = {
+var LEGEND_NAMES = {
     fire: [
         {text: ""}
     ],
@@ -128,5 +128,5 @@ module.exports = {
     CLASS_NAMES: CLASS_NAMES,
     FEATURE_NAMES: FEATURE_NAMES,
     OWNER_NAMES: OWNER_NAMES,
-    LEGEND_NAMES: LEGENDS
+    LEGEND_NAMES: LEGEND_NAMES
 };

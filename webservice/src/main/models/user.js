@@ -53,6 +53,7 @@ module.exports = function (mongoose) {
                     level: Number,
                     'class': String, // cortante, perforante, contundente
                     element: String,
+                    material: String,
                     base_stats: {
                         damage: Number,
                         precision: Number
@@ -71,6 +72,7 @@ module.exports = function (mongoose) {
                     level: Number,
                     'class': String, // pesada, media, ligera
                     element: String,
+                    material: String,
                     base_stats: {
                         protection: Number,
                         parry: Number

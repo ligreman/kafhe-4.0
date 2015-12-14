@@ -47,8 +47,8 @@ var FEATURE_NAMES = {
     ],
     earth: [
         {text: {m: 'de tierra', f: 'de tierra'}},
-        {text: {m: 'de plomo', f: 'de plomo'}},
-        {text: {m: 'de mierda', f: 'de mierda'}},
+        {text: {m: 'vegetal', f: 'vegetal'}},
+        {text: {m: 'de abono', f: 'de abono'}},
         {text: {m: 'cromático', f: 'cromática'}},
         {text: {m: 'de polvo', f: 'de polvo'}},
         {text: {m: 'terráqueo', f: 'terráquea'}},
@@ -59,9 +59,9 @@ var FEATURE_NAMES = {
     air: [
         {text: {m: 'de aire', f: 'de aire'}},
         {text: {m: 'de biruji', f: 'de biruji'}},
-        {text: {m: 'de protones', f: 'de protones'}},
+        {text: {m: 'protónico', f: 'protónica'}},
         {text: {m: 'de los tifones', f: 'de los tifones'}},
-        {text: {m: 'de las tempestades', f: 'de las tempestades'}},
+        {text: {m: 'tempestuoso', f: 'tempestuosa'}},
         {text: {m: 'soplador', f: 'sopladora'}},
         {text: {m: 'atmosférico', f: 'atmosférica'}},
         {text: {m: 'trifásico', f: 'trifásica'}},
@@ -111,7 +111,7 @@ var OWNER_NAMES = {
     extraordinary: []
 };
 
-var LEGENDS = {
+var LEGEND_NAMES = {
     fire: [
         {text: ""}
     ],
@@ -151,6 +151,6 @@ module.exports = {
     CLASS_NAMES: CLASS_NAMES,
     FEATURE_NAMES: FEATURE_NAMES,
     OWNER_NAMES: OWNER_NAMES,
-    LEGEND_NAMES: LEGENDS,
+    LEGEND_NAMES: LEGEND_NAMES,
     WEAPON_DAMAGE: DAMAGES
 };

@@ -1,12 +1,12 @@
 'use strict';
 
-var ELEMENTS_DATA = require('../modules/gamedata/elements'),
+var ELEMENTS_DATA    = require('gamedata/tostems'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
-    RUNES_DATA = require('../modules/gamedata/runes'),
-    WEAPON_DATA = require('../modules/gamedata/weapons'),
-    ARMOR_DATA = require('../modules/gamedata/armors'),
-    TAFFY = require('taffy'),
-    utils = require('../modules/utils');
+    RUNES_DATA       = require('../modules/gamedata/runes'),
+    WEAPON_DATA      = require('../modules/gamedata/weapons'),
+    ARMOR_DATA       = require('../modules/gamedata/armors'),
+    TAFFY            = require('taffy'),
+    utils            = require('../modules/utils');
 
 
 /**
@@ -76,7 +76,7 @@ var upgradeFrecuency = function (current) {
  * @return object El objeto con la runa, o null si no la encuentra.
  */
 var findRuneByMaterial = function (materialSearch) {
-    var rune = [],
+    var rune     = [],
         allRunes = [];
 
     allRunes.push(TAFFY(RUNES_DATA.RUNES['common']));
@@ -108,9 +108,10 @@ var findRuneByMaterial = function (materialSearch) {
  * @returns {string}
  */
 var getRandomWeaponName = function (weapon, hasOwner) {
-    var classNames = WEAPON_DATA.CLASS_NAMES,
-        featureNames = WEAPON_DATA.FEATURE_NAMES,
-        legendNames = WEAPON_DATA.LEGEND_NAMES;
+    var classNames    = WEAPON_DATA.CLASS_NAMES,
+        featureNames  = WEAPON_DATA.FEATURE_NAMES,
+        legendNames   = WEAPON_DATA.LEGEND_NAMES,
+        materialNames = RUNES_DATA.MATERIAL_NAMES;
 
     // Si es arma legendaria directamente cojo una de entre los nombres ya creados
     if (weapon.frecuency === 'legendary') {
@@ -121,7 +122,11 @@ var getRandomWeaponName = function (weapon, hasOwner) {
     // Cojo según la clase de arma un nombre de clase
     var className = classNames[weapon.class][Math.floor(Math.random() * classNames[weapon.class].length)];
 
-    //Ahora la feature del arma según elemento y género
+    // Según el material de la runa y el género
+    var materialName = materialNames[weapon.material][Math.floor(Math.random() * materialNames[weapon.material].length)];
+    materialName = ' ' + materialName.text[className.gender];
+
+    //Ahora la parte relativa al elemento del tostem del arma
     var featureName = featureNames[weapon.element][Math.floor(Math.random() * featureNames[weapon.element].length)];
     featureName = ' ' + featureName.text[className.gender];
 
@@ -142,7 +147,7 @@ var getRandomWeaponName = function (weapon, hasOwner) {
     }
 
     // Compongo el nombre
-    return className.text + featureName + adjetive + ownerName;
+    return className.text + materialName + featureName + adjetive + ownerName;
 };
 
 /**
@@ -152,9 +157,10 @@ var getRandomWeaponName = function (weapon, hasOwner) {
  * @returns {string}
  */
 var getRandomArmorName = function (armor, hasOwner) {
-    var classNames = ARMOR_DATA.CLASS_NAMES,
-        featureNames = ARMOR_DATA.FEATURE_NAMES,
-        legendNames = ARMOR_DATA.LEGEND_NAMES;
+    var classNames    = ARMOR_DATA.CLASS_NAMES,
+        featureNames  = ARMOR_DATA.FEATURE_NAMES,
+        legendNames   = ARMOR_DATA.LEGEND_NAMES,
+        materialNames = RUNES_DATA.MATERIAL_NAMES;
 
     // Si es armadura legendaria directamente cojo una de entre los nombres ya creados
     if (armor.frecuency === 'legendary') {
@@ -165,7 +171,11 @@ var getRandomArmorName = function (armor, hasOwner) {
     // Cojo según la clase de armadura un nombre de clase
     var className = classNames[armor.class][Math.floor(Math.random() * classNames[armor.class].length)];
 
-    //Ahora la feature del armadura según elemento y género
+    // Según el material de la runa y el género
+    var materialName = materialNames[armor.material][Math.floor(Math.random() * materialNames[armor.material].length)];
+    materialName = ' ' + materialName.text[className.gender];
+
+    //Ahora la parte relativa al elemento del tostem del armadura
     var featureName = featureNames[armor.element][Math.floor(Math.random() * featureNames[armor.element].length)];
     featureName = ' ' + featureName.text[className.gender];
 
@@ -186,7 +196,7 @@ var getRandomArmorName = function (armor, hasOwner) {
     }
 
     // Compongo el nombre
-    return className.text + featureName + adjetive + ownerName;
+    return className.text + materialName + featureName + adjetive + ownerName;
 };
 
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera

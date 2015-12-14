@@ -237,8 +237,32 @@ var UPGRADES = {
     extraordinary: 10
 };
 
+var MATERIAL_NAMES = {
+    madera: {text: {m: 'de madera', f: 'de madera'}},
+    hierro: {text: {m: 'férreo', f: 'férrea'}},
+    piedra: {text: {m: 'pétreo', f: 'pétrea'}},
+    plomo: {text: {m: 'plúmbeo', f: 'plúmbea'}},
+    bronce: {text: {m: 'de bronce', f: 'de bronce'}},
+    latón: {text: {m: 'de latón', f: 'de latón'}},
+    cobre: {text: {m: 'cúprico', f: 'cúprica'}},
+    zinc: {text: {m: 'cincado', f: 'cincada'}},
+    niquel: {text: {m: 'niquelado', f: 'niquelada'}},
+    plata: {text: {m: 'argéntico', f: 'argéntica'}},
+    acero: {text: {m: 'de acero', f: 'de acero'}},
+    cobalto: {text: {m: 'de cobalto', f: 'de cobalto'}},
+    tungsteno: {text: {m: 'de tungsteno', f: 'de tungsteno'}},
+    iridio: {text: {m: 'iridiscente', f: 'iridiscente'}},
+    paladio: {text: {m: 'de paladio', f: 'de paladio'}},
+    mithril: {text: {m: 'de mithril', f: 'de mithril'}},
+    titanio: {text: {m: 'titánico', f: 'titánica'}},
+    oro: {text: {m: 'áurico', f: 'áurico'}},
+    platino: {text: {m: 'de platino', f: 'de platino'}},
+    adamantio: {text: {m: 'de adamantio', f: 'de adamantio'}}
+};
+
 module.exports = {
     RUNES: RUNES,
     RUNE_BASE_STATS: BASE_STATS,
-    RUNE_UPGRADE: UPGRADES
+    RUNE_UPGRADE: UPGRADES,
+    MATERIAL_NAMES: MATERIAL_NAMES
 };
