@@ -15,10 +15,27 @@ var CLASS_NAMES = {
     bladed: [
         {text: 'Espada', gender: 'f'},
         {text: 'Machete', gender: 'm'},
-        {text: 'Cuchillo de cocina', gender: 'm'}
+        {text: 'Cuchillo de cocina', gender: 'm'},
+        {text: 'Cuchillo jamonero', gender: 'm'},
+        {text: 'Daga', gender: 'f'},
+        {text: 'Navaja', gender: 'f'},
+        {text: 'Espátula', gender: 'f'}
     ],
-    blunt: [],
-    piercing: []
+    blunt: [
+        {text: 'Martillo', gender: 'm'},
+        {text: 'Palo de escoba', gender: 'm'},
+        {text: 'Bate', gender: 'm'},
+        {text: 'Palo de golf', gender: 'm'},
+        {text: 'Factura', gender: 'f'},
+        {text: 'Maza', gender: 'f'}
+    ],
+    piercing: [
+        {text: 'Lanza', gender: 'f'},
+        {text: 'Aguja', gender: 'f'},
+        {text: 'Flecha', gender: 'f'},
+        {text: 'Taladro', gender: 'm'},
+        {text: 'Pica', gender: 'f'}
+    ]
 };
 
 var FEATURE_NAMES = {

@@ -35,6 +35,25 @@ module.exports = function (app) {
         {name: 'Zumo de pera', ito: true}
     ];
 
+    var shop = [
+        {
+            id: '1412343',
+            name: 'Botella de peperoni',
+            price: 12,
+            icono: 'bottle',
+            cantidad: 2,
+            min_level: 0
+        },
+        {
+            id: '1412344',
+            name: 'Botella de pistacho',
+            price: 8,
+            icono: 'bottle2',
+            cantidad: 1,
+            min_level: 4
+        }
+    ];
+
     var skills = [
         {
             name: 'Ataque de pértiga',
@@ -1235,10 +1254,31 @@ module.exports = function (app) {
             //Meto los nuevos valores
             models.Drink.create(drinks, function (err, drinks) {
                 //res.json({"mongo": true, meals: meals});
-                eventEmitter.emit('#3', {
+                console.log("Emit #2.5");
+                eventEmitter.emit('#2.5', {
                     res: data.res,
                     meals: data.meals,
                     drinks: drinks
+                });
+
+            });
+        });
+    });
+
+    eventEmitter.on('#2.5', function (data) {
+        console.log('#2.5');
+        //models.Skill.remove({}, function (err) {
+        mongoose.connection.collections['shops'].drop(function (err) {
+
+            //Meto los nuevos valores
+            models.Shop.create(shop, function (err, shop) {
+                //res.json({"mongo": true, meals: meals});
+                console.log("Emit #3");
+                eventEmitter.emit('#3', {
+                    res: data.res,
+                    meals: data.meals,
+                    drinks: data.drinks,
+                    shop: shop
                 });
 
             });
@@ -1257,6 +1297,7 @@ module.exports = function (app) {
                     res: data.res,
                     meals: data.meals,
                     drinks: data.drinks,
+                    shop: data.shop,
                     skills: skills
                 });
 
@@ -1278,6 +1319,7 @@ module.exports = function (app) {
                     res: data.res,
                     meals: data.meals,
                     drinks: data.drinks,
+                    shop: data.shop,
                     skills: data.skills,
                     game: game
                 });
@@ -1300,6 +1342,7 @@ module.exports = function (app) {
                     res: data.res,
                     meals: data.meals,
                     drinks: data.drinks,
+                    shop: data.shop,
                     skills: data.skills,
                     game: data.game,
                     users: users

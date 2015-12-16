@@ -1,6 +1,6 @@
 'use strict';
 
-var ELEMENTS_DATA    = require('gamedata/tostems'),
+var ELEMENTS_DATA    = require('../modules/gamedata/tostems'),
     FRECUENCIES_DATA = require('../modules/gamedata/frecuencies'),
     RUNES_DATA       = require('../modules/gamedata/runes'),
     WEAPON_DATA      = require('../modules/gamedata/weapons'),
@@ -123,7 +123,7 @@ var getRandomWeaponName = function (weapon, hasOwner) {
     var className = classNames[weapon.class][Math.floor(Math.random() * classNames[weapon.class].length)];
 
     // Según el material de la runa y el género
-    var materialName = materialNames[weapon.material][Math.floor(Math.random() * materialNames[weapon.material].length)];
+    var materialName = materialNames[weapon.material];
     materialName = ' ' + materialName.text[className.gender];
 
     //Ahora la parte relativa al elemento del tostem del arma
@@ -172,7 +172,7 @@ var getRandomArmorName = function (armor, hasOwner) {
     var className = classNames[armor.class][Math.floor(Math.random() * classNames[armor.class].length)];
 
     // Según el material de la runa y el género
-    var materialName = materialNames[armor.material][Math.floor(Math.random() * materialNames[armor.material].length)];
+    var materialName = materialNames[armor.material];
     materialName = ' ' + materialName.text[className.gender];
 
     //Ahora la parte relativa al elemento del tostem del armadura

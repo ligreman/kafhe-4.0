@@ -13,12 +13,23 @@ var BASE_STATS = {
 
 var CLASS_NAMES = {
     light: [
-        {text: 'Espada', gender: 'f'},
-        {text: 'Machete', gender: 'm'},
-        {text: 'Cuchillo de cocina', gender: 'm'}
+        {text: 'Túnica', gender: 'f'},
+        {text: 'Delantal', gender: 'm'},
+        {text: 'Toalla', gender: 'f'},
+        {text: 'Kleanex', gender: 'm'}
     ],
-    medium: [],
-    heavy: []
+    medium: [
+        {text: 'Peto', gender: 'f'},
+        {text: 'Cota', gender: 'f'},
+        {text: 'Batamanta', gender: 'f'},
+        {text: 'Jubón', gender: 'm'}
+    ],
+    heavy: [
+        {text: 'Coraza', gender: 'f'},
+        {text: 'Plumífero', gender: 'm'},
+        {text: 'Escafandra', gender: 'f'},
+        {text: 'Lorica', gender: 'f'}
+    ]
 };
 
 var FEATURE_NAMES = {

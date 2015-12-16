@@ -12,7 +12,8 @@ module.exports = function (app) {
         gameResources = require('../modules/gameResources'),
         bodyParser    = require('body-parser'),
         mongoose      = require('mongoose'),
-        models        = require('../models/models')(mongoose);
+        models        = require('../models/models')(mongoose),
+        config        = require('../modules/config');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
