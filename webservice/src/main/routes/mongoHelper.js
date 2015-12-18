@@ -37,19 +37,17 @@ module.exports = function (app) {
 
     var shop = [
         {
-            id: '1412343',
             name: 'Botella de peperoni',
             price: 12,
-            icono: 'bottle',
-            cantidad: 2,
+            icon: 'bottle',
+            amount: 2,
             min_level: 0
         },
         {
-            id: '1412344',
             name: 'Botella de pistacho',
             price: 8,
-            icono: 'bottle2',
-            cantidad: 1,
+            icon: 'bottle2',
+            amount: 1,
             min_level: 4
         }
     ];

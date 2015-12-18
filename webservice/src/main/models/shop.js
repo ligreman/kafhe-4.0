@@ -5,11 +5,11 @@ module.exports = function (mongoose) {
 
     //Modelo para los objetos de la tienda, coleccion Shops
     var ShopSchema = mongoose.Schema({
-        id: String,
         name: String,
+        action: String,
         price: Number,
-        icono: String,
-        cantidad: Number,
+        icon: String,
+        amount: Number,
         min_level: {type: Number, default: 0}
     }, {versionKey: false});
 

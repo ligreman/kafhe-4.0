@@ -84,6 +84,12 @@ module.exports = function (mongoose) {
                     skills: [skillSchema],
                     equipped: Boolean
                 }],
+                items: [{
+                    _id: String,
+                    name: String,
+                    icon: String,
+                    amount: Number
+                }],
                 stones: Number
             },
             afk: Boolean,
