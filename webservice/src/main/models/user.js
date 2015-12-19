@@ -88,7 +88,8 @@ module.exports = function (mongoose) {
                     _id: String,
                     name: String,
                     icon: String,
-                    amount: Number
+                    amount: Number,
+                    action: String
                 }],
                 stones: Number
             },

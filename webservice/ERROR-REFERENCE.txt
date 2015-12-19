@@ -1,5 +1,6 @@
 errUserPassNotValid - Usuario o contraseña no válidos
 errSession - Error en la sesión
+errMongo - Error de mongo
 
 errEquipNoItem - No he encontrado el objeto a equipar en el inventario
 errEquipNoSpace - No puedo equipar el objeto porque ya tengo equipado algo en ese hueco (arma/armadura)
@@ -48,3 +49,9 @@ errSkillTargetsNotFound - No se han encontrado todos los objetivos seleccionados
 errSkillTargetAfk - Alguno de los objetivos seleccionados no está activo y por lo tanto no es un objetivo válido
 
 errShopList - Error al obtener la lista de objetos de la tienda
+errShopItemNotFound - No se ha encontrado el objeto a comprar
+errShopFindItem - Error al buscar en mongo el objeto
+errShopBuyItemNotFound - No se encuentra el objeto en Mongo
+errShopBuyItemNoStock - No hay stock en la tienda
+errShopBuyItemNoMinLevel - No tienes nivel suficiente para comprar este objeto
+errShopBuyNoTostolares - No tienes tostólares suficientes
