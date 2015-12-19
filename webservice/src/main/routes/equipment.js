@@ -8,6 +8,7 @@ module.exports = function (app) {
         validator       = require('validator'),
         utils           = require('../modules/utils'),
         utilsUser       = require('../modules/userUtils'),
+        responseUtils   = require('../modules/responseUtils'),
         equipmentRouter = express.Router(),
         bodyParser      = require('body-parser'),
         gameResources   = require('../modules/gameResources'),
@@ -158,7 +159,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario
+                        "user": responseUtils.censureUser(usuario)
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,
@@ -319,7 +320,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario,
+                        "user": responseUtils.censureUser(usuario),
                         "result": respuesta
                     },
                     "session": {

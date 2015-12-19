@@ -9,6 +9,7 @@ module.exports = function (app) {
         math          = require('mathjs'),
         forgeRouter   = express.Router(),
         utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
         gameResources = require('../modules/gameResources'),
         bodyParser    = require('body-parser'),
         mongoose      = require('mongoose'),
@@ -262,7 +263,7 @@ module.exports = function (app) {
 
                 res.json({
                     "data": {
-                        "user": usuario,
+                        "user": responseUtils.censureUser(usuario),
                         "result": respuesta
                     },
                     "session": {
@@ -272,26 +273,26 @@ module.exports = function (app) {
                     "error": ""
                 });
 
-                //TODO Guardo el usuario
-                /*usuario.save(function (err) {
-                 if (err) {
-                 console.tag('MONGO').error(err);
-                 res.redirect('/error/errMongoSave');
-                 return;
-                 } else {
-                 res.json({
-                 "data": {
-                 "user": usuario,
-                 "result": respuesta
-                 },
-                 "session": {
-                 "access_token": req.authInfo.access_token,
-                 "expire": 1000 * 60 * 60 * 24 * 30
-                 },
-                 "error": ""
-                 });
-                 }
-                 });*/
+                // Guardo el usuario
+                usuario.save(function (err) {
+                    if (err) {
+                        console.tag('MONGO').error(err);
+                        res.redirect('/error/errMongoSave');
+                        return;
+                    } else {
+                        res.json({
+                            "data": {
+                                "user": responseUtils.censureUser(usuario),
+                                "result": respuesta
+                            },
+                            "session": {
+                                "access_token": req.authInfo.access_token,
+                                "expire": 1000 * 60 * 60 * 24 * 30
+                            },
+                            "error": ""
+                        });
+                    }
+                });
             });
     });
 
@@ -460,7 +461,7 @@ module.exports = function (app) {
 
         res.json({
             "data": {
-                "user": usuario,
+                "user": responseUtils.censureUser(usuario),
                 "result": respuesta
             },
             "session": {
@@ -470,26 +471,26 @@ module.exports = function (app) {
             "error": ""
         });
 
-        //TODO Guardo el usuario
-        /*usuario.save(function (err) {
-         if (err) {
-         console.tag('MONGO').error(err);
-         res.redirect('/error/errMongoSave');
-         return;
-         } else {
-         res.json({
-         "data": {
-         "user": usuario,
-         "result": respuesta
-         },
-         "session": {
-         "access_token": req.authInfo.access_token,
-         "expire": 1000 * 60 * 60 * 24 * 30
-         },
-         "error": ""
-         });
-         }
-         });*/
+        // Guardo el usuario
+        usuario.save(function (err) {
+            if (err) {
+                console.tag('MONGO').error(err);
+                res.redirect('/error/errMongoSave');
+                return;
+            } else {
+                res.json({
+                    "data": {
+                        "user": responseUtils.censureUser(usuario),
+                        "result": respuesta
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
+                });
+            }
+        });
     });
 
     // Asigno los router a sus rutas

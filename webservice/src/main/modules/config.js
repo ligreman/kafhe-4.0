@@ -2,6 +2,7 @@
 
 // Contraseña por defecto de los usuarios
 var DEFAULT_PASSWORD = '1234';
+var CENSURE_USER = false;
 
 // Mínima cantidad de puntos para activar el modo furia. Cada estos puntos es una barra de furia
 var FURY_MODE_ACTIVATE_MIN_POINTS = 1000;
@@ -51,6 +52,7 @@ var CAUSE = {
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     DEFAULT_PASSWORD: DEFAULT_PASSWORD,
+    CENSURE_USER: CENSURE_USER,
     FURY_MODE_ACTIVATE_MIN_POINTS: FURY_MODE_ACTIVATE_MIN_POINTS,
     FURY_MODE_USE_POINTS: FURY_MODE_USE_POINTS,
     FURY_MODE_MULTIPLIER: FURY_MODE_MULTIPLIER,

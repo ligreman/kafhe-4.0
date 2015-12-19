@@ -3,14 +3,15 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
-        utils       = require('../modules/utils'),
-        orderRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        Q           = require('q'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose);
+    var express       = require('express'),
+        passport      = require('passport'),
+        utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
+        orderRouter   = express.Router(),
+        bodyParser    = require('body-parser'),
+        Q             = require('q'),
+        mongoose      = require('mongoose'),
+        models        = require('../models/models')(mongoose);
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -90,7 +91,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": user
+                        "user": responseUtils.censureUser(user)
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,
@@ -161,7 +162,7 @@ module.exports = function (app) {
                     } else {
                         res.json({
                             "data": {
-                                "user": user
+                                "user": responseUtils.censureUser(user)
                             },
                             "session": {
                                 "access_token": req.authInfo.access_token,

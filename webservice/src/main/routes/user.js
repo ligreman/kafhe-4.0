@@ -25,8 +25,7 @@ module.exports = function (app) {
     userRouter.get('/', function (req, res, next) {
         res.json({
             "data": {
-                //"user": responseUtils.censureUser(req.user) //TODO
-                "user": req.user
+                "user": responseUtils.censureUser(req.user)
             },
             "session": {
                 "access_token": req.authInfo.access_token,

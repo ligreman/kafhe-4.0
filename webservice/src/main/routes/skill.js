@@ -3,16 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express     = require('express'),
-        passport    = require('passport'),
-        utils       = require('../modules/utils'),
-        utilsUser   = require('../modules/userUtils'),
-        Q           = require('q'),
-        skillRouter = express.Router(),
-        bodyParser  = require('body-parser'),
-        mongoose    = require('mongoose'),
-        models      = require('../models/models')(mongoose),
-        config      = require('../modules/config');
+    var express       = require('express'),
+        passport      = require('passport'),
+        utils         = require('../modules/utils'),
+        utilsUser     = require('../modules/userUtils'),
+        responseUtils = require('../modules/responseUtils'),
+        Q             = require('q'),
+        skillRouter   = express.Router(),
+        bodyParser    = require('body-parser'),
+        mongoose      = require('mongoose'),
+        models        = require('../models/models')(mongoose),
+        config        = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -97,7 +98,7 @@ module.exports = function (app) {
                 } else {
                     res.json({
                         "data": {
-                            "user": usuario
+                            "user": responseUtils.censureUser(usuario)
                         },
                         "session": {
                             "access_token": req.authInfo.access_token,
@@ -271,11 +272,11 @@ module.exports = function (app) {
 
                 res.json({
                     "data": {
-                        "user": usuario,
-                        "origUser": tempoOrigUser,
+                        "user": responseUtils.censureUser(usuario),
+                        "origUser": tempoOrigUser, //TODO quitar
                         "results": results,
-                        "targets": tempoTargets,
-                        "origTargets": tempoOrigTargets
+                        "targets": tempoTargets, //TODO quitar
+                        "origTargets": tempoOrigTargets //TODO quitar
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,
@@ -287,13 +288,14 @@ module.exports = function (app) {
 
                 //promises.push(utilsUser.saveUser(usuario));
 
+                //TODO descomentar
                 //Tengo que salvar los targets y el usuario
                 /*Q.all(promises)
                  .then(function (resultados) {
                  //TODO notificación para la partida???
                  /!*res.json({
                  "data": {
-                 "user": usuario
+                 "user": responseUtils.censureUser(usuario)
                  },
                  "session": {
                  "access_token": req.authInfo.access_token,

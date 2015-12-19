@@ -7,6 +7,7 @@ module.exports = function (app) {
         passport      = require('passport'),
         validator     = require('validator'),
         utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
         profileRouter = express.Router(),
         bodyParser    = require('body-parser'),
         mongoose      = require('mongoose');
@@ -61,7 +62,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario
+                        "user": responseUtils.censureUser(usuario)
                     },
                     "session": {
                         "access_token": req.authInfo.access_token,

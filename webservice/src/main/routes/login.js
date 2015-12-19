@@ -27,7 +27,6 @@ module.exports = function (app) {
     loginRouter.post('/', function (req, res, next) {
         res.json({
             "login": true,
-            //"user": req.user,
             "session": {
                 "access_token": req.authInfo.access_token,
                 // 30 días de expiración. Le paso el tiempo que le queda al token

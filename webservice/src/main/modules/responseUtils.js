@@ -1,5 +1,8 @@
 'use strict';
 
+var config = require('../modules/config');
+
+
 /**
  * Se encarga de censurar aquéllos datos que no quiero devolver al frontend porque no los necesita. En concreto:
  * - Valor de reputación. No lo voy a usar en el front.
@@ -10,6 +13,10 @@
  * @returns {*}
  */
 var censureUser = function (user) {
+    if (!config.CENSURE_USER) {
+        return user;
+    }
+
     // Censuro la reputación
     user.game.stats.reputation = null;
 

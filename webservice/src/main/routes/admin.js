@@ -173,7 +173,7 @@ module.exports = function (app) {
                 function () {
                     return userId;
                 })
-                .then(findUser) //TODO ver como iba eso del mongoose
+                .then(findUser)
                 .then(removeUserFromGame)
                 .done(function () {
                     deferred.resolve();
@@ -186,7 +186,7 @@ module.exports = function (app) {
             return deferred.promise;
         }
 
-        //TODO meter esto en un modulo de usuarios o algo así
+        //TODO  esto en un modulo de usuarios o algo así
         function findUser(userId) {
             var deferred = Q.defer();
 

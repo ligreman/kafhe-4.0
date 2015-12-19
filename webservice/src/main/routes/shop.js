@@ -3,15 +3,16 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express    = require('express'),
-        passport   = require('passport'),
-        utils      = require('../modules/utils'),
-        shopRouter = express.Router(),
-        bodyParser = require('body-parser'),
+    var express       = require('express'),
+        passport      = require('passport'),
+        utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
+        shopRouter    = express.Router(),
+        bodyParser    = require('body-parser'),
         //Q          = require('q'),
-        mongoose   = require('mongoose'),
-        models     = require('../models/models')(mongoose),
-        config     = require('../modules/config');
+        mongoose      = require('mongoose'),
+        models        = require('../models/models')(mongoose),
+        config        = require('../modules/config');
 
     //**************** ORDER ROUTER **********************
     //Middleware para estas rutas
@@ -123,6 +124,7 @@ module.exports = function (app) {
                 if (!shopItem) {
                     console.tag('SHOP-BUY').error('No se encuentra el objeto en Mongo');
                     utils.error(res, 400, 'errShopBuyItemNotFound');
+                    return;
                 }
 
                 // Compruebo que hay stock para comprarlo. He de restar la cantidad de Mongo con lo que tiene ya el user
@@ -130,18 +132,21 @@ module.exports = function (app) {
                 if (esteItem && esteItem.amount >= stock) {
                     console.tag('SHOP-BUY').error('No hay stock en la tienda');
                     utils.error(res, 400, 'errShopBuyItemNoStock');
+                    return;
                 }
 
                 // Compruebo que puedo comprarlo por requisito de nivel
                 if (shopItem.min_level > usuario.game.level) {
                     console.tag('SHOP-BUY').error('No tienes nivel suficiente para comprar este objeto');
                     utils.error(res, 400, 'errShopBuyItemNoMinLevel');
+                    return;
                 }
 
                 // Compruebo que tengo tostolares para comprarlo
                 if (shopItem.price > usuario.game.tostolares) {
                     console.tag('SHOP-BUY').error('No tienes tostólares suficientes');
                     utils.error(res, 400, 'errShopBuyNoTostolares');
+                    return;
                 }
 
                 // Lo compro. Es decir, creo una entrada en el inventario del usuario con el objeto
@@ -175,7 +180,7 @@ module.exports = function (app) {
                     } else {
                         res.json({
                             "data": {
-                                "user": usuario,
+                                "user": responseUtils.censureUser(usuario)
                             },
                             "session": {
                                 "access_token": req.authInfo.access_token,

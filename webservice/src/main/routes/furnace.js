@@ -7,6 +7,7 @@ module.exports = function (app) {
         passport      = require('passport'),
         furnaceRouter = express.Router(),
         utils         = require('../modules/utils'),
+        responseUtils = require('../modules/responseUtils'),
         config        = require('../modules/config'),
         gameResources = require('../modules/gameResources'),
         bodyParser    = require('body-parser'),
@@ -150,7 +151,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario,
+                        "user": responseUtils.censureUser(usuario),
                         "result": respuesta
                     },
                     "session": {
@@ -314,7 +315,7 @@ module.exports = function (app) {
             } else {
                 res.json({
                     "data": {
-                        "user": usuario,
+                        "user": responseUtils.censureUser(usuario),
                         "result": respuesta
                     },
                     "session": {
