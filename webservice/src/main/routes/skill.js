@@ -77,7 +77,7 @@ module.exports = function (app) {
             return;
         }
         // Miro a ver si tiene al menos 100 puntos de furia para poder activarla
-        else if (usuario.game.stats.fury < config.FURY_MODE_ACTIVATE_MIN_POINTS) {
+        else if (usuario.game.stats.fury < config.FURY.FURY_MODE_ACTIVATE_MIN_POINTS) {
             console.tag('FURY').error('No tiene suficientes puntos de furia');
             //res.redirect('/error/errFuryNotEnoughPoints');
             utils.error(res, 400, 'errFuryNotEnoughPoints');
@@ -259,7 +259,7 @@ module.exports = function (app) {
 
                 // Actualizo furia del usuario si estaba en modo furia
                 if (usuario.game.stats.fury_mode) {
-                    var resFury = utilsUser.updateFury(user, config.FURY_MODE_USE_POINTS);
+                    var resFury = utilsUser.updateFury(user, config.FURY.FURY_MODE_USE_POINTS);
                     usuario = resFury.user;
                     results.furyDisabled = resFury.furyDisabled;
                 }

@@ -5,18 +5,24 @@ var DEFAULT_PASSWORD = '1234';
 // TODO activar en PRO
 var CENSURE_USER = false;
 
-// Mínima cantidad de puntos para activar el modo furia. Cada estos puntos es una barra de furia
-var FURY_MODE_ACTIVATE_MIN_POINTS = 1000;
-// Cuanto consume un ataque de furia
-var FURY_MODE_USE_POINTS = 500;
-// Multiplicador del modo furia
-var FURY_MODE_MULTIPLIER = 2;
+var FURY = {
+    // Mínima cantidad de puntos para activar el modo furia. Cada estos puntos es una barra de furia
+    FURY_MODE_ACTIVATE_MIN_POINTS: 1000,
+    // Cuanto consume un ataque de furia
+    FURY_MODE_USE_POINTS: 500,
+    // Multiplicador del modo furia
+    FURY_MODE_MULTIPLIER: 2
+}
 
 // Daño que recibes si no tienes armadura, en %
 var DAMAGE_NO_ARMOR = 120;
 
-// Vida máxima
-var MAX_LIFE = 1000;
+// Valores por defecto
+var DEFAULTS = {
+    // Vida máxima
+    MAX_LIFE: 1000,
+    TOAST_POINTS: 10
+};
 
 // Tabla de estados de partida
 var GAME_STATUS = {
@@ -54,13 +60,11 @@ var CAUSE = {
 module.exports = {
     DEFAULT_PASSWORD: DEFAULT_PASSWORD,
     CENSURE_USER: CENSURE_USER,
-    FURY_MODE_ACTIVATE_MIN_POINTS: FURY_MODE_ACTIVATE_MIN_POINTS,
-    FURY_MODE_USE_POINTS: FURY_MODE_USE_POINTS,
-    FURY_MODE_MULTIPLIER: FURY_MODE_MULTIPLIER,
     GAME_STATUS: GAME_STATUS,
-    MAX_LIFE: MAX_LIFE,
     CAUSE: CAUSE,
     DAMAGE_NO_ARMOR: DAMAGE_NO_ARMOR,
-    REPUTATION: REPUTATION
+    REPUTATION: REPUTATION,
+    FURY: FURY,
+    DEFAULTS: DEFAULTS
 };
 

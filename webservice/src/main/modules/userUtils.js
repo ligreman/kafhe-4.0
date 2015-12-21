@@ -190,7 +190,7 @@ var combatResult = function (skillUsed, target, furyMode) {
 
     // Modo furia. Si está activo hace el doble de daño
     if (furyMode) {
-        damage = damage * config.FURY_MODE_MULTIPLIER;
+        damage = damage * config.FURY.FURY_MODE_MULTIPLIER;
     }
 
     // Calculo si el defensor bloquea y en ese caso miro la protección
@@ -238,7 +238,7 @@ var takeDamage = function (user, damage) {
 
     // ¿Muere más veces?
     while (user.game.stats.life <= 0) {
-        user.game.stats.life = user.game.stats.life + config.MAX_LIFE;
+        user.game.stats.life = user.game.stats.life + config.DEFAULTS.MAX_LIFE;
 
         // Le quito reputación
         user.game.stats.reputation -= config.REPUTATION_LOST_DEAD;
@@ -350,7 +350,7 @@ var updateFury = function (user, amount) {
     user.game.stats.fury -= amount;
 
     // Si no queda furia suficiente para hacer otro ataque, desactivo el modo furia
-    if (user.game.stats.fury < config.FURY_MODE_USE_POINTS) {
+    if (user.game.stats.fury < config.FURY.FURY_MODE_USE_POINTS) {
         user.game.stats.fury_mode = false;
     }
 
