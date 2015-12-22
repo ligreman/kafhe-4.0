@@ -26,7 +26,7 @@ hora = 1;
 if (hora !== 1) {
     process.exit();
 }
-dia = 5;
+dia = 6;
 switch (dia) {
     case 1: // Los lunes pongo las partidas en estado batalla, las que están en estado WEEKEND
         Game.update({"status": config.GAME_STATUS.WEEKEND}, {"status": config.GAME_STATUS.BATTLE}, {multi: true},
@@ -36,7 +36,7 @@ switch (dia) {
                     process.exit();
                 }
 
-                console.log('Partidas en estado BATALLA después del fin de semana.');
+                console.log('Partidas en estado WEEKEND después del fin de semana se ponen en BATALLA.');
                 process.exit();
             }
         );
@@ -49,7 +49,7 @@ switch (dia) {
                     process.exit();
                 }
 
-                console.log('Partidas en estado NEGOCIACION después del fin de semana.');
+                console.log('Partidas en estado BATALLA el viernes se ponen en NEGOCIACION.');
                 process.exit();
             }
         );
@@ -108,6 +108,7 @@ function gameFridayCloseAndCreate() {
                         process.exit();
                     }
 
+                    console.log('Partidas que estaban RESUELTAS las CIERRO y creo las nuevas si eran recursivas');
                     eventEmitter.emit('gameFridayContinue');
                 });
         });
