@@ -1,6 +1,11 @@
 'use strict';
 
-var fecha = new Date(),
+var b = new Date();
+var amas = b.getTimezoneOffset();
+// Sumo la hora para obtener GMT+1
+amas += 60;
+
+var fecha = new Date(b.getTime() + (amas * 60 * 1000)),
     hora  = fecha.getHours(), //0-23
     dia   = fecha.getDay(); //0-6 siendo 0 domingo
 
@@ -13,15 +18,15 @@ var User   = require('../models/user')(mongoose),
 
 
 // A las 2am todos los días
-if (hora === 13) {
+if (hora === 2) {
     User.update({}, {"game.stats.action_points": config.DEFAULTS.TOAST_POINTS}, {multi: true},
         function (error, num) {
             if (error) {
-                console.tag('MONGO').error(error);
+                console.error(error);
                 return;
             }
 
-            console.tag('CRON-USER-MAINTENANCE').log('Puntos de tueste de los usuarios recargados.');
+            console.log('Puntos de tueste de los usuarios recargados.');
             process.exit();
         }
     );
