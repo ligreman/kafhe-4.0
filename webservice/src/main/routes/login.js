@@ -11,6 +11,10 @@ module.exports = function (app) {
         loginRouter  = express.Router(),
         logoutRouter = express.Router();
 
+    var notificationEvent = require('../modules/notificationEvent'),
+        notifications     = new notificationEvent();
+
+
     //**************** LOGIN ROUTER **********************
     //Middleware para estas rutas
     loginRouter.use(bodyParser.urlencoded({extended: false}));
@@ -25,6 +29,9 @@ module.exports = function (app) {
      * Si se hace login correctamente, pasará aquí
      */
     loginRouter.post('/', function (req, res, next) {
+        //notifications.notifyUser();
+        //notifications.emit('paco');
+
         res.json({
             "login": true,
             "session": {
