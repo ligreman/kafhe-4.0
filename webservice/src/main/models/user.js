@@ -23,6 +23,12 @@ module.exports = function (mongoose) {
                 reputation: {type: Number, default: 0},
                 action_points: {type: Number, default: 0}
             },
+            conditions: [{
+                'type': String,
+                life: {type: Number, default: 0},
+                fury: {type: Number, default: 0},
+                charges: {type: Number, default: 0}
+            }],
             equipment: {
                 weapon: {type: String, default: null},
                 armor: {type: String, default: null}

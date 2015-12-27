@@ -9,12 +9,13 @@ var fecha = new Date(b.getTime() + (amas * 60 * 1000)),
     hora  = fecha.getHours(), //0-23
     dia   = fecha.getDay(); //0-6 siendo 0 domingo
 
+var basePath = process.env.OPENSHIFT_REPO_DIR || 'D:\\Workspace\\www\\kafhe_4.0\\development\\webservice\\';
 var mongoose = require('mongoose');
 var mongoHost = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/kafhe';
 mongoose.connect(mongoHost, {});
 
-var Game   = require('../models/game')(mongoose),
-    config = require('../modules/config'),
+var Game   = require(basePath + 'src/main/models/game')(mongoose),
+    config = require(basePath + 'src/main/modules/config'),
     events = require('events'),
     Q      = require('q');
 
@@ -130,6 +131,7 @@ eventEmitter.on('gameFridayContinue', function () {
         }
     );
 
+    // Esto no me hace falta de momento
     /*Game.find({"status": config.GAME_STATUS.BUSINESS})
      .exec(function (error, games) {
      if (error) {
