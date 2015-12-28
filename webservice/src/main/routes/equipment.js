@@ -3,17 +3,20 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express         = require('express'),
-        passport        = require('passport'),
-        validator       = require('validator'),
-        utils           = require('../modules/utils'),
-        utilsUser       = require('../modules/userUtils'),
-        responseUtils   = require('../modules/responseUtils'),
+    var express = require('express'),
+        passport = require('passport'),
+        validator = require('validator'),
+        utils = require('../modules/utils'),
+        utilsUser = require('../modules/userUtils'),
+        responseUtils = require('../modules/responseUtils'),
         equipmentRouter = express.Router(),
-        bodyParser      = require('body-parser'),
-        gameResources   = require('../modules/gameResources'),
-        //TAFFY           = require('taffy'),
-        mongoose        = require('mongoose');
+        bodyParser = require('body-parser'),
+        gameResources = require('../modules/gameResources'),
+        notificationEvent = require('../modules/notificationEvent'),
+        notifications = new notificationEvent(),
+    //TAFFY           = require('taffy'),
+        mongoose = require('mongoose');
+
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -30,10 +33,10 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/equip', function (req, res, next) {
         // El objeto user
-        var usuario    = req.user,
-            params     = req.body,
-            idObject   = null,
-            type       = null,
+        var usuario = req.user,
+            params = req.body,
+            idObject = null,
+            type = null, nName = null,
             components = {rune: null, tostem: null};
 
         // Compruebo el estado de la partida, si es 1. Si no, error
@@ -55,6 +58,7 @@ module.exports = function (app) {
             idObject = armor.id;
             components.rune = armor.components.rune;
             components.tostem = armor.components.tostem;
+            nName = armor.name;
         }
 
         // Busco en armas
@@ -67,6 +71,7 @@ module.exports = function (app) {
             idObject = weapon.id;
             components.rune = weapon.components.rune;
             components.tostem = weapon.components.tostem;
+            nName = weapon.name;
         }
 
         // Si no lo he encontrado, mal rollo
@@ -75,6 +80,8 @@ module.exports = function (app) {
             utils.error(res, 400, 'errEquipNoItem');
             return;
         }
+
+        var msg = '';
 
         // Compruebo que no tengo nada equipado en ese hueco de objeto
         switch (type) {
@@ -98,6 +105,8 @@ module.exports = function (app) {
                         newArmors.push(thisArmor);
                     });
                     usuario.game.inventory.armors = newArmors;
+
+                    msg = 'nEquipArmor';
                 }
                 break;
             case 'weapon':
@@ -120,6 +129,8 @@ module.exports = function (app) {
                         newWeapons.push(thisWeapon);
                     });
                     usuario.game.inventory.weapons = newWeapons;
+
+                    msg = 'nEquipWeapon';
                 }
                 break;
         }
@@ -157,6 +168,11 @@ module.exports = function (app) {
                 utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
+                // Notificación para el usuario
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: nName
+                    }), 'equipment');
+
                 res.json({
                     "data": {
                         "user": responseUtils.censureUser(usuario)
@@ -179,11 +195,12 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/destroy', function (req, res, next) {
         // El objeto user
-        var usuario    = req.user,
-            params     = req.body,
-            idObject   = null,
+        var usuario = req.user,
+            params = req.body,
+            idObject = null, msg = null,
+            nName = null, nRune = null, nRune2 = null, nTostem = null, nTostemLvl = null,
             components = {rune: null, tostem: null},
-            respuesta  = {
+            respuesta = {
                 generatedRunes: [],
                 generatedTostem: null
             };
@@ -208,6 +225,8 @@ module.exports = function (app) {
                 idObject = armor.id;
                 components.rune = armor.components.rune;
                 components.tostem = armor.components.tostem;
+                nName = armor.name;
+                msg = 'nEquipDestroyArmor';
 
                 // Borro el objeto del inventario
                 var newArmors = [];
@@ -233,6 +252,8 @@ module.exports = function (app) {
                 idObject = weapon.id;
                 components.rune = weapon.components.rune;
                 components.tostem = weapon.components.tostem;
+                nName = weapon.name;
+                msg = 'nEquipDestroyWeapon';
 
                 // Borro el objeto del inventario
                 var newWeapons = [];
@@ -266,6 +287,9 @@ module.exports = function (app) {
                     var newRune = gameResources.getRandomRune(frecuency);
                     newRunes.push(newRune);
 
+                    //Datos para la notificacion
+                    nRune = newRune.material;
+
                     // Para devolver la runa generada al frontend
                     respuesta.generatedRunes.push(newRune);
                 }
@@ -280,6 +304,10 @@ module.exports = function (app) {
                     var newRune2 = gameResources.getRandomRune(frecuency);
                     newRunes.push(newRune);
                     newRunes.push(newRune2);
+
+                    //Datos para la notificacion
+                    nRune = newRune.material;
+                    nRune2 = newRune2.material;
 
                     // Para devolver la runa generada al frontend
                     respuesta.generatedRunes.push(newRune);
@@ -298,6 +326,9 @@ module.exports = function (app) {
                 // Genero un tostem aleatorio nuevo
                 var newTostem = gameResources.getRandomTostem(nivel);
                 newTostems.push(newTostem);
+
+                nTostem = newTostem.element;
+                nTostemLvl = newTostem.level;
 
                 // Para devolver el tostem generado al frontend
                 respuesta.generatedTostem = newTostem;
@@ -318,6 +349,15 @@ module.exports = function (app) {
                 utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
+                // Notificación para el usuario
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: nName,
+                        rune: nRune,
+                        rune2: nRune2,
+                        tostem: nTostem,
+                        tostemLvl: nTostemLvl
+                    }), 'equipment');
+
                 res.json({
                     "data": {
                         "user": responseUtils.censureUser(usuario),

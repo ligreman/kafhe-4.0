@@ -55,3 +55,6 @@ errShopBuyItemNotFound - No se encuentra el objeto en Mongo
 errShopBuyItemNoStock - No hay stock en la tienda
 errShopBuyItemNoMinLevel - No tienes nivel suficiente para comprar este objeto
 errShopBuyNoTostolares - No tienes tostólares suficientes
+
+errNotificationUser - Error al crear una notificación para el usuario
+errNotificationGame - Error al crear una notificación para la partida
