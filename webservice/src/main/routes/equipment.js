@@ -3,19 +3,20 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        validator = require('validator'),
-        utils = require('../modules/utils'),
-        utilsUser = require('../modules/userUtils'),
-        responseUtils = require('../modules/responseUtils'),
-        equipmentRouter = express.Router(),
-        bodyParser = require('body-parser'),
-        gameResources = require('../modules/gameResources'),
+    var express           = require('express'),
+        passport          = require('passport'),
+        validator         = require('validator'),
+        utils             = require('../modules/utils'),
+        utilsUser         = require('../modules/userUtils'),
+        responseUtils     = require('../modules/responseUtils'),
+        equipmentRouter   = express.Router(),
+        bodyParser        = require('body-parser'),
+        gameResources     = require('../modules/gameResources'),
         notificationEvent = require('../modules/notificationEvent'),
-        notifications = new notificationEvent(),
-    //TAFFY           = require('taffy'),
-        mongoose = require('mongoose');
+        notifications     = new notificationEvent(),
+        //TAFFY           = require('taffy'),
+        mongoose          = require('mongoose'),
+        config            = require('../modules/config');
 
 
     //**************** SKILL ROUTER **********************
@@ -33,11 +34,11 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/equip', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idObject = null,
+        var usuario            = req.user,
+            params             = req.body,
+            idObject           = null,
             type = null, nName = null,
-            components = {rune: null, tostem: null};
+            components         = {rune: null, tostem: null};
 
         // Compruebo el estado de la partida, si es 1. Si no, error
         if (usuario.game.gamedata.status !== config.GAME_STATUS.BATTLE) {
@@ -169,9 +170,10 @@ module.exports = function (app) {
                 return;
             } else {
                 // Notificación para el usuario
-                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
-                        name: nName
-                    }), 'equipment');
+                notifications.notifyUser(usuario._id, {
+                    message: msg,
+                    name: nName
+                }, 'equipment');
 
                 res.json({
                     "data": {
@@ -195,12 +197,12 @@ module.exports = function (app) {
      */
     equipmentRouter.post('/destroy', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idObject = null, msg = null,
+        var usuario                                                               = req.user,
+            params                                                                = req.body,
+            idObject                                                              = null, msg                                                  = null,
             nName = null, nRune = null, nRune2 = null, nTostem = null, nTostemLvl = null,
-            components = {rune: null, tostem: null},
-            respuesta = {
+            components                                                            = {rune: null, tostem: null},
+            respuesta                                                             = {
                 generatedRunes: [],
                 generatedTostem: null
             };
@@ -350,13 +352,14 @@ module.exports = function (app) {
                 return;
             } else {
                 // Notificación para el usuario
-                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
-                        name: nName,
-                        rune: nRune,
-                        rune2: nRune2,
-                        tostem: nTostem,
-                        tostemLvl: nTostemLvl
-                    }), 'equipment');
+                notifications.notifyUser(usuario._id, {
+                    message: msg,
+                    name: nName,
+                    rune: nRune,
+                    rune2: nRune2,
+                    tostem: nTostem,
+                    tostemLvl: nTostemLvl
+                }, 'equipment');
 
                 res.json({
                     "data": {

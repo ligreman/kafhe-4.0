@@ -2,8 +2,8 @@
 
 module.exports = function (mongoose) {
     var NotificationSchema = mongoose.Schema({
-        message: String,
-        source: {type: String, default: null}, // ID del usuario
+        message: mongoose.Schema.Types.Mixed,
+        //source: mongoose.Schema.Types.ObjectId,
         'type': String,
         timestamp: Number
     }, {versionKey: false});
