@@ -1,9 +1,9 @@
 'use strict';
 
-var console = process.console,
-    mongoose = require('mongoose'),
-    modelos = require('../models/models')(mongoose),
-    util = require('util'),
+var console      = process.console,
+    mongoose     = require('mongoose'),
+    modelos      = require('../models/models')(mongoose),
+    util         = require('util'),
     EventEmitter = require('events').EventEmitter;
 
 function NotificationEvent() {
@@ -24,10 +24,9 @@ util.inherits(NotificationEvent, EventEmitter);
 /**
  * Notificación personal de un usuario
  */
-NotificationEvent.prototype.notifyUser = function (idUser, message, type) {
+NotificationEvent.prototype.notifyUser = function (idUser, json, type) {
     var notification = {
-        message: message,
-        source: idUser,
+        message: json,
         type: type,
         timestamp: new Date().getTime()
     };
@@ -36,7 +35,7 @@ NotificationEvent.prototype.notifyUser = function (idUser, message, type) {
     modelos.User
         .findByIdAndUpdate(
             idUser,
-            {$push: {notifications: notification}}
+            {$push: {"game.notifications": notification}}
         )
         .exec(function (error, user) {
             if (error) {
@@ -44,16 +43,16 @@ NotificationEvent.prototype.notifyUser = function (idUser, message, type) {
                 utils.error(res, 400, 'errNotificationUser');
                 return;
             }
+            console.log(user);
         });
 };
 
 /**
  * Notificación de sistema
  */
-NotificationEvent.prototype.notifyGame = function (idGame, message, type) {
+NotificationEvent.prototype.notifyGame = function (idGame, json, type) {
     var notification = {
-        message: message,
-        source: idGame,
+        message: json,
         type: type,
         timestamp: new Date().getTime()
     };
