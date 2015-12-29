@@ -3,17 +3,19 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express       = require('express'),
-        passport      = require('passport'),
-        utils         = require('../modules/utils'),
-        utilsUser     = require('../modules/userUtils'),
+    var express = require('express'),
+        passport = require('passport'),
+        utils = require('../modules/utils'),
+        utilsUser = require('../modules/userUtils'),
         responseUtils = require('../modules/responseUtils'),
-        Q             = require('q'),
-        skillRouter   = express.Router(),
-        bodyParser    = require('body-parser'),
-        mongoose      = require('mongoose'),
-        models        = require('../models/models')(mongoose),
-        config        = require('../modules/config');
+        Q = require('q'),
+        skillRouter = express.Router(),
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        models = require('../models/models')(mongoose),
+        notificationEvent = require('../modules/notificationEvent'),
+        notifications = new notificationEvent(),
+        config = require('../modules/config');
 
     //**************** SKILL ROUTER **********************
     //Middleware para estas rutas
@@ -96,6 +98,15 @@ module.exports = function (app) {
                     utils.error(res, 400, 'errMongoSave');
                     return;
                 } else {
+                    // Notificación para el usuario
+                    notifications.notifyUser(usuario._id, 'nFuryMode#' + JSON.stringify({}), 'fury');
+
+                    // Notificación para todos
+                    notifications.notifyGame(usuario.game.gamedata._id, 'nFuryMode#' + JSON.stringify({
+                            name: usuario.alias,
+                            avatar: usuario.avatar
+                        }), 'fury');
+
                     res.json({
                         "data": {
                             "user": responseUtils.censureUser(usuario)
@@ -118,9 +129,9 @@ module.exports = function (app) {
      */
     skillRouter.post('/execute', function (req, res, next) {
         // El objeto user
-        var usuario   = req.user,
-            params    = req.body,
-            idSkill   = params.skill_id, skill,
+        var usuario = req.user,
+            params = req.body,
+            idSkill = params.skill_id, skill,
             targetIds = params.targets;
 
         var tempoTargets = [], tempoOrigUser = JSON.parse(JSON.stringify(usuario)), tempoOrigTargets = [];

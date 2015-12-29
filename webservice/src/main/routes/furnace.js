@@ -3,15 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express       = require('express'),
-        passport      = require('passport'),
+    var express = require('express'),
+        passport = require('passport'),
         furnaceRouter = express.Router(),
-        utils         = require('../modules/utils'),
+        utils = require('../modules/utils'),
         responseUtils = require('../modules/responseUtils'),
-        config        = require('../modules/config'),
+        config = require('../modules/config'),
         gameResources = require('../modules/gameResources'),
-        bodyParser    = require('body-parser'),
-        mongoose      = require('mongoose');
+        bodyParser = require('body-parser'),
+        notificationEvent = require('../modules/notificationEvent'),
+        notifications = new notificationEvent(),
+        mongoose = require('mongoose');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -28,12 +30,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/tostem', function (req, res, next) {
         // El objeto user
-        var usuario       = req.user,
-            params        = req.body,
-            idTostemA     = params.inventory_a, tostemA,
-            idTostemB     = params.inventory_b, tostemB,
-            newTostemList = [],
-            respuesta     = {
+        var usuario = req.user,
+            params = req.body,
+            idTostemA = params.inventory_a, tostemA,
+            idTostemB = params.inventory_b, tostemB,
+            newTostemList = [], msg = null, nTostemElement = null, nTostemLevel = null,
+            respuesta = {
                 success: null,
                 generatedTostem: null
             };
@@ -110,6 +112,11 @@ module.exports = function (app) {
             // La respuesta para el frontend
             respuesta.success = true;
             respuesta.generatedTostem = newTostem;
+
+            // Para notificacion
+            msg = 'nFurnaceTostemSuccess';
+            nTostemElement = newTostem.element;
+            nTostemLevel = newTostem.level;
         } else {
             // Fracaso. Recupero uno de los dos tostem: el de más nivel o uno aleatorio en caso de empate
             var tostemRecuperado;
@@ -133,6 +140,11 @@ module.exports = function (app) {
             // La respuesta para el frontend
             respuesta.success = false;
             respuesta.generatedTostem = tostemRecuperado;
+
+            // Para notificacion
+            msg = 'nFurnaceTostemFailure';
+            nTostemElement = tostemRecuperado.element;
+            nTostemLevel = tostemRecuperado.level;
         }
 
         // Guardo la nueva lista de tostems del usuario
@@ -149,6 +161,13 @@ module.exports = function (app) {
                 utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
+                // Notificación para el usuario
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: forgedArmor.name,
+                        element: nTostemElement,
+                        level: nTostemLevel
+                    }), 'furnace');
+
                 res.json({
                     "data": {
                         "user": responseUtils.censureUser(usuario),
@@ -172,12 +191,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/rune', function (req, res, next) {
         // El objeto user
-        var usuario                             = req.user,
-            params                              = req.body,
+        var usuario = req.user,
+            params = req.body,
             idRuneA = params.inventory_a, runeA = null,
-            idRuneB                             = params.inventory_b, runeB = null,
-            newRuneList                         = [],
-            respuesta                           = {
+            idRuneB = params.inventory_b, runeB = null,
+            newRuneList = [], msg = null, nRuneMaterial = null,
+            respuesta = {
                 success: null,
                 upgraded: false,
                 generatedRune: null
@@ -288,6 +307,10 @@ module.exports = function (app) {
             // La respuesta para el frontend
             respuesta.success = true;
             respuesta.generatedRune = newRune;
+
+            // Notification data
+            msg = 'nFurnaceRuneSuccess';
+            nRuneMaterial = newRune.material;
         } else {
             // Fracaso. Recupero una de las dos runas: el de más nivel de rareza o uno aleatorio en caso de empate
             // Ya hice estos cálculos antes
@@ -297,6 +320,10 @@ module.exports = function (app) {
             // La respuesta para el frontend
             respuesta.success = false;
             respuesta.generatedRune = runeRecuperado;
+
+            // Notification data
+            msg = 'nFurnaceRuneFailure';
+            nRuneMaterial = runeRecuperado.material;
         }
 
         // Guardo la nueva lista de runas del usuario
@@ -313,6 +340,12 @@ module.exports = function (app) {
                 utils.error(res, 400, 'errMongoSave');
                 return;
             } else {
+                // Notificación para el usuario
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: forgedArmor.name,
+                        material: nRuneMaterial
+                    }), 'furnace');
+
                 res.json({
                     "data": {
                         "user": responseUtils.censureUser(usuario),

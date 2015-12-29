@@ -90,6 +90,7 @@ function valueToStars(value, minValue, maxValue) {
 
 //Exporto las funciones de la librería
 module.exports = {
-    censureUser: censureUser
+    censureUser: censureUser,
+    valueToStars: valueToStars
 };
 
