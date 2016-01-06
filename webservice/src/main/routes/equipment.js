@@ -170,10 +170,9 @@ module.exports = function (app) {
                 return;
             } else {
                 // Notificación para el usuario
-                notifications.notifyUser(usuario._id, {
-                    message: msg,
-                    name: nName
-                }, 'equipment');
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: nName
+                    }), 'equipment');
 
                 res.json({
                     "data": {
@@ -352,14 +351,13 @@ module.exports = function (app) {
                 return;
             } else {
                 // Notificación para el usuario
-                notifications.notifyUser(usuario._id, {
-                    message: msg,
-                    name: nName,
-                    rune: nRune,
-                    rune2: nRune2,
-                    tostem: nTostem,
-                    tostemLvl: nTostemLvl
-                }, 'equipment');
+                notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
+                        name: nName,
+                        rune: nRune,
+                        rune2: nRune2,
+                        tostem: nTostem,
+                        tostemLvl: nTostemLvl
+                    }), 'equipment');
 
                 res.json({
                     "data": {

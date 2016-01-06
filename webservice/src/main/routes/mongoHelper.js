@@ -160,19 +160,19 @@ module.exports = function (app) {
         players: null,
         notifications: [
             {
-                message: '5 orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id augue odio. Integer luctus, lacus nec facilisis euismod, diam nisl auctor lorem, eleifend imperdiet urna nunc et velit. Maecenas mollis in urna vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
-                type: 'system',
+                message: 'nFuryModeGame#' + JSON.stringify({"name": "Pepito"}),
+                type: 'fury',
                 timestamp: date.getTime() + 10000
             }, {
-                message: '3 orem ipsum dolor sit er luctus, lacus nec facilend imperdiet urna nunc et velit. Maecenas mollis in urna vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
+                message: 'nFuryModeGame#' + JSON.stringify({"name": "Pepito"}),
                 type: 'system',
                 timestamp: date.getTime() + 1000
             }, {
-                message: '2 orem ipsum dolor sit amet, consecteer luctus, lacus ne auctor lorem, eleifend imperdiet urna nunc et velit. Maecenas mollis in urna vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
-                type: 'system',
+                message: 'nFuryModeGame#' + JSON.stringify({"name": "Pepito"}),
+                type: 'breakfast',
                 timestamp: date.getTime() + 100
             }, {
-                message: '1 orem elit. Morbi id augue odio. Integer luctus, lei vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
+                message: 'nFuryModeGame#' + JSON.stringify({"name": "Pepito"}),
                 type: 'system',
                 timestamp: date.getTime() + 10
             }
@@ -388,12 +388,17 @@ module.exports = function (app) {
                     ito: false
                 },
                 notifications: [{
-                    message: '6 PLAYER orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id augue odio. Integer luctus, lacus nec facilisis euismod, diam nisl auctor lorem, eleifend imperdiet urna nunc et velit. Maecenas mollis in urna vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
-                    type: 'player',
+                    message: 'nForgeWeapon#' + JSON.stringify({"name": "Arma de todos los tiempos"}),
+                    type: 'forge',
                     timestamp: date.getTime() + 10500
                 }, {
-                    message: '4 PLAYER orem ipsum dolor sit er luctus, lacus nec facilend imperdiet urna nunc et velit. Maecenas mollis in urna vitae accumsan. Pellentesque viverra odio id nisl lacinia, nec pharetra nunc ullamcorper. Ut laoreet, nibh eu accumsan lacinia, tellus sem lacinia ante, id bibendum ante metus ut nunc.',
-                    type: 'player',
+                    message: 'nEquipDestroyArmor#' + JSON.stringify({"name": "Armadura caca",
+                        "tostem": "fuego",
+                        "tostemLvl": "3",
+                        "rune": "cebolla",
+                        "rune2": "alcachofa"
+                    }),
+                    type: 'equipment',
                     timestamp: date.getTime() + 1500
                 }]
             }

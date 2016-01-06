@@ -1,12 +1,22 @@
-<md-content flex layout-padding ng-cloak class="grey scrollbar-content">
+<md-content flex ng-cloak class="grey scrollbar-content">
     <!-- Durante la batalla muestor las notificaciones -->
     <div ng-show="global.user.game.gamedata.status === 1">
         <p>Estado de la partida: {{global.user.game.gamedata.status}}</p>
-        <div id="notifications">
-            <div ng-repeat="notification in global.notifications">
-                <p>{{notification.message}}</p>
-                <p>{{notification.timestamp}}</p>
-            </div>
+
+        <div layout="row" layout-align="center center">
+            <timeline ng-init="side=''" flex="70" flex-sm="100" flex-md="90">
+                <timeline-event ng-repeat="notification in global.notifications">
+                    <timeline-badge class="{{notification.type}} md-whiteframe-2dp">
+                        <md-icon class="big white">{{iconize(notification.type)}}</md-icon>
+                    </timeline-badge>
+                    <timeline-panel class="{{notification.type}}">
+                        <timeline-heading>
+                            <h4>{{notification.timestamp | date : 'dd-MM-yyyy HH:mm:ss'}}</h4>
+                        </timeline-heading>
+                        <p>{{notification.key | translate:notification.params}}</p>
+                    </timeline-panel>
+                </timeline-event>
+            </timeline>
         </div>
     </div>
 

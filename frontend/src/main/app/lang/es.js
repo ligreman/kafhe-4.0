@@ -89,10 +89,23 @@
             'errUserPassNotValid': 'Usuario o contraseña no válidos',
 
             // ERRORES - SESSION
-            'errSession': 'No se ha encontrado una sesión válida'
+            'errSession': 'No se ha encontrado una sesión válida',
             //'errSessionUtils0002': 'La sesión ha caducado'
 
 
+            // MENSAJES DE NOTIFICACIONES
+            'nEquipArmor': 'Te has equipado la armadura: {{name}}.',
+            'nEquipWeapon': 'Te has equipado el arma: {{name}}.',
+            'nEquipDestroyArmor': 'Has destruido tu armadura {{name}}, recuperando un Tostem de {{tostem}} de nivel {{tostemLvl}}; y Runas de: {{rune}} - {{rune2}}.',
+            'nEquipDestroyWeapon': 'Has destruido tu arma {{name}}, recuperando un Tostem de {{tostem}} de nivel {{tostemLvl}}; y Runas de: {{rune}} - {{rune2}}.',
+            'nFurnaceTostemSuccess': 'Has horneado con éxito un nuevo Tostem de {{element}} de nivel {{level}}.',
+            'nFurnaceTostemFailure': 'Has fracasado horneando el Tostem. Has podido recuperar un Tostem de {{element}} de nivel {{level}}.',
+            'nFurnaceRuneSuccess': 'Has horneado con éxito una nueva Runa de {{material}}.',
+            'nFurnaceRuneFailure': 'Has fracasado horneando la Runa. Has podido recuperar una Runa de {{material}}.',
+            'nForgeWeapon': 'Has forjado el arma {{name}}.',
+            'nForgeArmor': 'Has forjado la armadura {{name}}.',
+            'nFuryMode': '¡Has activado el modo furia!',
+            'nFuryModeGame': 'Os habéis pasado con el pobre {{name}}. ¡Está furioso, os vais a enterar!'
         };
 
         $translateProvider.translations('es', espanol);

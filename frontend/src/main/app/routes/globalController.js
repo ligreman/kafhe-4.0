@@ -26,9 +26,7 @@
                     $scope.updateGameData = fnUpdateGameData;
                     $scope.updateUserObject = fnUpdateUserObject;
                     $scope.goToPage = fnGoToPage;
-                    $scope.isCurrentPageHome = fnIsCurrentPageHome;
-                    $scope.isCurrentPageBreakfast = fnIsCurrentPageBreakfast;
-                    $scope.isCurrentPageForge = fnIsCurrentPageForge;
+                    $scope.isCurrentPage = fnIsCurrentPage;
                     $scope.changeLang = fnChangeLang;
                     $scope.growlNotification = fnGrowlNotification;
                     $scope.toggleProfileMenu = fnToggleProfile;
@@ -99,7 +97,7 @@
                                 $scope.global.skills.push(skill);
                             });
                         }
-
+                        console.log($scope.global.skills);
                         // El inventario del jugador
                         $scope.global.inventory = user.game.inventory;
 
@@ -123,14 +121,22 @@
                         // Ahora tengo que ordenar las notificaciones por fecha
                         notifications.sort(function (a, b) {
                             if (a.timestamp > b.timestamp) {
-                                return 1;
-                            } else if (a.timestamp < b.timestamp) {
                                 return -1;
+                            } else if (a.timestamp < b.timestamp) {
+                                return 1;
                             } else {
                                 return 0;
                             }
                         });
-                        $scope.global.notifications = notifications;
+                        notifications.forEach(function (notif) {
+                            var data = notif.message.split('#');
+                            $scope.global.notifications.push({
+                                type: notif.type,
+                                timestamp: notif.timestamp,
+                                key: data[0],
+                                params: data[1]
+                            });
+                        });
                     }
 
                     /**
@@ -143,24 +149,25 @@
                     }
 
                     /**
-                     * Comprueba si estoy en la home
+                     * Comprueba si estoy en la pagina esta
                      */
-                    function fnIsCurrentPageHome() {
-                        return ($location.path() === null || $location.path() === ROUTES.home);
-                    }
-
-                    /**
-                     * Comprueba si estoy en la página de desayunos
-                     */
-                    function fnIsCurrentPageBreakfast() {
-                        return ($location.path() === ROUTES.breakfast);
-                    }
-
-                    /**
-                     * Comprueba si estoy en la página de forja
-                     */
-                    function fnIsCurrentPageForge() {
-                        return ($location.path() === ROUTES.forge);
+                    function fnIsCurrentPage(page) {
+                        var donde = null;
+                        switch (page) {
+                            case 'home':
+                                donde = ROUTES.home;
+                                break;
+                            case 'breakfast':
+                                donde = ROUTES.breakfast;
+                                break;
+                            case 'forge':
+                                donde = ROUTES.forge;
+                                break;
+                            case 'login':
+                                donde = ROUTES.login;
+                                break;
+                        }
+                        return ($location.path() === null || $location.path() === donde);
                     }
 
                     /**

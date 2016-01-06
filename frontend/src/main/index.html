@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Starter Template</title>
+    <title>The Legend of Kafhe - Kafheina of Time</title>
 
     <link type="icon" rel="shortcut icon" href="assets/img/favicon.gif"/>
 
@@ -14,6 +14,7 @@
     <!-- Third party CSS -->
     <!-- build:css assets/css/vendor.css -->
     <link href="../../bower_components/normalize-css/normalize.css" type="text/css" rel="stylesheet"/>
+    <link href="../../bower_components/angular-timeline/dist/angular-timeline.css" rel="stylesheet">
     <link href="../../bower_components/angular-material/angular-material.min.css" type="text/css" rel="stylesheet"
           media="screen,projection"/>
     <link href="../../bower_components/angular-growl-v2/build/angular-growl.min.css" rel="stylesheet">
@@ -55,18 +56,23 @@
         <k-profile-menu></k-profile-menu>
     </div>
 
+    <!-- Pie para la página login -->
+    <div ng-if="isCurrentPage('login')" flex="15" flex-sm="20" layout="row">
+        <k-footer-default></k-footer-default>
+    </div>
+
     <!-- Pie para la página de batalla -->
-    <div ng-if="$root.kUserLogged && isCurrentPageHome()" flex="15" flex-sm="20" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPage('home')" flex="15" flex-sm="20" layout="row">
         <k-footer-battle></k-footer-battle>
     </div>
 
     <!-- Pie para la página de desayuno -->
-    <div ng-if="$root.kUserLogged && isCurrentPageBreakfast()" flex="15" flex-sm="20" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPage('breakfast')" flex="15" flex-sm="20" layout="row">
         <k-footer-breakfast></k-footer-breakfast>
     </div>
 
     <!-- Pie para la página de forja -->
-    <div ng-if="$root.kUserLogged && isCurrentPageForge()" flex="15" flex-sm="20" layout="row">
+    <div ng-if="$root.kUserLogged && isCurrentPage('forge')" flex="15" flex-sm="20" layout="row">
         <k-footer-forge></k-footer-forge>
     </div>
 
@@ -91,6 +97,7 @@
 
     <script src="../../bower_components/jshashes/hashes.min.js"></script>
     <script src="../../bower_components/ngDraggable/ngDraggable.js"></script>
+    <script src="../../bower_components/angular-timeline/dist/angular-timeline.js"></script>
     <script src="app/vendor/customscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="app/vendor/jsonselect.min.js"></script>
     <!-- endbuild -->
@@ -118,6 +125,7 @@
     <script src="app/services/utils/share.js"></script>
 
     <script src="app/directives/kheader/kheader.js"></script>
+    <script src="app/directives/kfooterdefault/kfooterdefault.js"></script>
     <script src="app/directives/kfooterbattle/kfooterbattle.js"></script>
     <script src="app/directives/kfooterbreakfast/kfooterbreakfast.js"></script>
     <script src="app/directives/kfooterforge/kfooterforge.js"></script>

@@ -6,7 +6,7 @@
         function ($routeProvider, ROUTES) {
             $routeProvider.
             // Login
-            when('/', {
+            when(ROUTES.login, {
                 templateUrl: 'app/routes/login/loginView.html',
                 controller: 'LoginController'
             }).

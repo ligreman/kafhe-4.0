@@ -3,17 +3,17 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-        furnaceRouter = express.Router(),
-        utils = require('../modules/utils'),
-        responseUtils = require('../modules/responseUtils'),
-        config = require('../modules/config'),
-        gameResources = require('../modules/gameResources'),
-        bodyParser = require('body-parser'),
+    var express           = require('express'),
+        passport          = require('passport'),
+        furnaceRouter     = express.Router(),
+        utils             = require('../modules/utils'),
+        responseUtils     = require('../modules/responseUtils'),
+        config            = require('../modules/config'),
+        gameResources     = require('../modules/gameResources'),
+        bodyParser        = require('body-parser'),
         notificationEvent = require('../modules/notificationEvent'),
-        notifications = new notificationEvent(),
-        mongoose = require('mongoose');
+        notifications     = new notificationEvent(),
+        mongoose          = require('mongoose');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -30,12 +30,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/tostem', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idTostemA = params.inventory_a, tostemA,
-            idTostemB = params.inventory_b, tostemB,
+        var usuario                                                             = req.user,
+            params                                                              = req.body,
+            idTostemA                                                           = params.inventory_a, tostemA,
+            idTostemB                                                           = params.inventory_b, tostemB,
             newTostemList = [], msg = null, nTostemElement = null, nTostemLevel = null,
-            respuesta = {
+            respuesta                                                           = {
                 success: null,
                 generatedTostem: null
             };
@@ -163,7 +163,6 @@ module.exports = function (app) {
             } else {
                 // Notificación para el usuario
                 notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
-                        name: forgedArmor.name,
                         element: nTostemElement,
                         level: nTostemLevel
                     }), 'furnace');
@@ -191,12 +190,12 @@ module.exports = function (app) {
      */
     furnaceRouter.post('/rune', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idRuneA = params.inventory_a, runeA = null,
-            idRuneB = params.inventory_b, runeB = null,
+        var usuario                                     = req.user,
+            params                                      = req.body,
+            idRuneA                                     = params.inventory_a, runeA = null,
+            idRuneB                                     = params.inventory_b, runeB         = null,
             newRuneList = [], msg = null, nRuneMaterial = null,
-            respuesta = {
+            respuesta                                   = {
                 success: null,
                 upgraded: false,
                 generatedRune: null
@@ -342,7 +341,6 @@ module.exports = function (app) {
             } else {
                 // Notificación para el usuario
                 notifications.notifyUser(usuario._id, msg + '#' + JSON.stringify({
-                        name: forgedArmor.name,
                         material: nRuneMaterial
                     }), 'furnace');
 

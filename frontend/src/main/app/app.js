@@ -14,6 +14,7 @@
         'kafhe.services',
         'kafhe.directives',
         'angular-growl',
+        'angular-timeline',
         'pascalprecht.translate'
     ]);
 

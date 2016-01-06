@@ -7,3 +7,8 @@ nFurnaceTostemSuccess
 nFurnaceTostemFailure
 nFurnaceRuneSuccess
 nFurnaceRuneFailure
+
+nForgeWeapon
+nForgeArmor
+nFuryMode
+nFuryModeGame
