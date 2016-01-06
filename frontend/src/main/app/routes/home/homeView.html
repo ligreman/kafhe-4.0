@@ -1,91 +1,21 @@
 <md-content flex layout-padding ng-cloak class="grey scrollbar-content">
-    <!-- Durante la batalla -->
+    <!-- Durante la batalla muestor las notificaciones -->
     <div ng-show="global.user.game.gamedata.status === 1">
         <p>Estado de la partida: {{global.user.game.gamedata.status}}</p>
-
-        <p>reputacion: {{global.user.game.stats.reputation}}</p>
-
-        <p>Vida: {{global.user.game.stats.life}}</p>
-
-
-        <p>Hola holita</p>
-
-        <p>Hola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola
-            holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holitaHola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>{{ global.user.alias }}</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
-
-        <p>Hola holita</p>
+        <div id="notifications">
+            <div ng-repeat="notification in global.notifications">
+                <p>{{notification.message}}</p>
+                <p>{{notification.timestamp}}</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Durante negociaciones -->
+    <!-- Durante negociaciones muestro la tienda -->
     <div ng-show="global.user.game.gamedata.status === 2">
         <p>2</p>
     </div>
 
-    <!-- Durante estado cerrado -->
+    <!-- Durante estado cerrado muestro el resultado del lanzamiento si hay -->
     <div ng-show="global.user.game.gamedata.status === 3">
         <p>3</p>
     </div>

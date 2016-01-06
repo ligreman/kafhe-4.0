@@ -1,5 +1,10 @@
 'use strict';
 
+var CONSTANTS = {
+    life: 1000,
+    action_points: 12
+};
+
 var b = new Date();
 var amas = b.getTimezoneOffset();
 // Sumo la hora para obtener GMT+1
@@ -15,6 +20,7 @@ var mongoHost = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP
 mongoose.connect(mongoHost, {});
 
 var Game   = require(basePath + 'src/main/models/game')(mongoose),
+    User   = require(basePath + 'src/main/models/user')(mongoose),
     config = require(basePath + 'src/main/modules/config'),
     events = require('events'),
     Q      = require('q');
@@ -63,7 +69,8 @@ switch (dia) {
 }
 
 /**
- * Las partidas en estado 3 las cierro y creo una nueva si era recursiva, en estado 0
+ * Las partidas en estado 3 las cierro. Si era recursiva en su lugar la reseteo, y a los jugadores reseteo:
+ * notificaciones, cambio el pedido actual y el anterior, y el objeto game.
  */
 function gameFridayCloseAndCreate() {
     Game.find({"status": config.GAME_STATUS.RESOLUTION})
@@ -73,26 +80,99 @@ function gameFridayCloseAndCreate() {
                 process.exit();
             }
 
-            var promises = [];
+            var promises = [], jugadoresReset = [], jugadoresClean = [];
 
             games.forEach(function (game) {
-                // Lo cierro y creo uno nuevo si es que era recursivo
-                game.status = config.GAME_STATUS.CLOSED;
-                promises.push(game.save());
-
-                // Si era repetitivo creo uno nuevo
+                // Si es recursivo lo reseteo
                 if (game.repeat) {
-                    var nuevo = new Game({
-                        repeat: true,
-                        status: config.GAME_STATUS.WEEKEND,
-                        caller: null,
-                        players: game.players,
-                        notifications: []
-                    });
+                    game.status = config.GAME_STATUS.WEEKEND;
+                    game.caller = null;
+                    game.notifications = [];
 
-                    promises.push(nuevo.save());
+                    // Jugadores a resetear
+                    jugadoresReset.concat(game.players);
+                } else {
+                    // Si no lo cierro y punto
+                    game.status = config.GAME_STATUS.CLOSED;
+
+                    // Jugadores a limpiar
+                    jugadoresClean.concat(game.players);
                 }
+
+                promises.push(game.save());
             });
+
+            // Quito duplicados en el array de jugadores a resetear
+            jugadoresReset = jugadoresReset.filter(function (elem, pos) {
+                return jugadoresReset.indexOf(elem) == pos;
+            });
+            jugadoresClean = jugadoresClean.filter(function (elem, pos) {
+                return jugadoresClean.indexOf(elem) == pos;
+            });
+
+            // Reseteo jugadores
+            User.find({'_id': {$in: jugadoresReset}})
+                .exec(function (error, jugadores) {
+                    if (error) {
+                        console.error(error);
+                        process.exit();
+                    }
+
+                    jugadores.forEach(function (jugador) {
+                        // Hago el reset
+                        jugador.game.stats = {
+                            life: CONSTANTS.life,
+                            fury: 0,
+                            fury_mode: 0,
+                            reputation: 0,
+                            action_points: CONSTANTS.action_points
+                        };
+                        jugador.game.conditions = [];
+                        jugador.game.afk = false;
+                        jugador.game.last_order = jugador.game.order;
+                        jugador.game.order = {
+                            meal: null,
+                            drink: null,
+                            ito: false
+                        };
+                        jugador.game.notifications = [];
+
+                        promises.push(jugador.save());
+                    });
+                });
+
+            // Limpio jugadores
+            User.find({'_id': {$in: jugadoresClean}})
+                .exec(function (error, jugadores) {
+                    if (error) {
+                        console.error(error);
+                        process.exit();
+                    }
+
+                    jugadores.forEach(function (jugador) {
+                        // Hago el clean
+                        jugador.leader = false;
+                        jugador.game.gamedata = null;
+                        jugador.game.stats = {
+                            life: CONSTANTS.life,
+                            fury: 0,
+                            fury_mode: 0,
+                            reputation: 0,
+                            action_points: CONSTANTS.action_points
+                        };
+                        jugador.game.conditions = [];
+                        jugador.game.afk = false;
+                        jugador.game.last_order = jugador.game.order;
+                        jugador.game.order = {
+                            meal: null,
+                            drink: null,
+                            ito: false
+                        };
+                        jugador.game.notifications = [];
+
+                        promises.push(jugador.save());
+                    });
+                });
 
             Q.allSettled(promises)
                 .then(function (results) {

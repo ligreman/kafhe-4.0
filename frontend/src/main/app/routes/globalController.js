@@ -116,6 +116,21 @@
                         $scope.global.print.reputationDegreeStyle = {"transform": "rotate(" + degrees + "deg)"};
                         // Vida
                         $scope.global.print.lifeBarStyle = {"width": user.game.stats.life + "%"};
+
+                        // Las notificaciones, tanto de la partida como del jugador
+                        var notifications = user.game.notifications;
+                        notifications = notifications.concat(user.game.gamedata.notifications);
+                        // Ahora tengo que ordenar las notificaciones por fecha
+                        notifications.sort(function (a, b) {
+                            if (a.timestamp > b.timestamp) {
+                                return 1;
+                            } else if (a.timestamp < b.timestamp) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        });
+                        $scope.global.notifications = notifications;
                     }
 
                     /**
@@ -205,6 +220,7 @@
                             skills: [],
                             equipment: {},
                             inventory: {},
+                            notifications: [],
                             navigation: {},
                             loaded: false
                         };

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/opt/rh/nodejs010/root/usr/bin/node $OPENSHIFT_REPO_DIR/src/main/scrips/daily_game_maintenance.js
-/opt/rh/nodejs010/root/usr/bin/node $OPENSHIFT_REPO_DIR/src/main/scrips/daily_game_maintenance.js
+node $OPENSHIFT_REPO_DIR/src/main/scrips/daily_game_maintenance.js
+node $OPENSHIFT_REPO_DIR/src/main/scrips/daily_user_maintenance.js
