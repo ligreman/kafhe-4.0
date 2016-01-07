@@ -1,6 +1,6 @@
 <md-content flex ng-cloak class="grey scrollbar-content">
     <!-- Durante la batalla muestor las notificaciones -->
-    <div ng-show="global.user.game.gamedata.status === 1">
+    <div ng-show="global.user.game.gamedata.status === 1" layout-padding>
         <p>Estado de la partida: {{global.user.game.gamedata.status}}</p>
 
         <div layout="row" layout-align="center center">
@@ -21,8 +21,36 @@
     </div>
 
     <!-- Durante negociaciones muestro la tienda -->
-    <div ng-show="global.user.game.gamedata.status === 2">
-        <p>2</p>
+    <div ng-show="global.user.game.gamedata.status === 2" layout-padding>
+        <p ng-show="itemList.length === 0">No hay objetos que comprar</p>
+
+        <md-grid-list ng-show="itemList.length > 0"
+                      md-cols-sm="2" md-cols-md="5" md-cols-gt-md="10"
+                      md-row-height-gt-md="1:1" md-row-height="1:1"
+                      md-gutter="12px" md-gutter-gt-sm="8px">
+            <md-grid-tile ng-repeat="item in itemList" md-rowspan="1" md-colspan="1">
+                <md-grid-tile-header>
+                    <h3>
+                        {{item.info.key}}
+                        <md-tooltip>Decription</md-tooltip>
+                    </h3>
+                </md-grid-tile-header>
+
+                <md-icon class="w50" md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+
+                <md-grid-tile-footer class="width100">
+                    <div layout="row" layout-align="space-between center">
+                        <p flex="20" class="text-center">{{item.stock_amount}}
+                            <md-tooltip>Stock</md-tooltip>
+                        </p>
+                        <md-button class="md-icon-button md-primary" ng-disabled="!item.stock" flex="none">
+                            <md-icon>attach_money</md-icon>
+                            <md-tooltip>Comprar por {{item.info.price}}</md-tooltip>
+                        </md-button>
+                    </div>
+                </md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
     </div>
 
     <!-- Durante estado cerrado muestro el resultado del lanzamiento si hay -->

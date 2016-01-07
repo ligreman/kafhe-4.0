@@ -94,6 +94,11 @@ md-icon.big {
     height: 32px;
 }
 
+md-icon.w50 {
+    width: 50%;
+    height: 50%;
+}
+
 .timeline li timeline-badge.system {
     background-color: #00897B !important;
 }

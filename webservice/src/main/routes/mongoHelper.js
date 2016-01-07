@@ -37,14 +37,14 @@ module.exports = function (app) {
 
     var shop = [
         {
-            name: 'Botella de peperoni',
+            key: 'shopItemBottle',
             price: 12,
             icon: 'bottle',
             amount: 2,
             min_level: 0
         },
         {
-            name: 'Botella de pistacho',
+            name: 'shopItemBottle2',
             price: 8,
             icon: 'bottle2',
             amount: 1,
@@ -392,7 +392,8 @@ module.exports = function (app) {
                     type: 'forge',
                     timestamp: date.getTime() + 10500
                 }, {
-                    message: 'nEquipDestroyArmor#' + JSON.stringify({"name": "Armadura caca",
+                    message: 'nEquipDestroyArmor#' + JSON.stringify({
+                        "name": "Armadura caca",
                         "tostem": "fuego",
                         "tostemLvl": "3",
                         "rune": "cebolla",

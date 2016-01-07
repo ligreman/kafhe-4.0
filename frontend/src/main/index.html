@@ -63,7 +63,8 @@
 
     <!-- Pie para la página de batalla -->
     <div ng-if="$root.kUserLogged && isCurrentPage('home')" flex="15" flex-sm="20" layout="row">
-        <k-footer-battle></k-footer-battle>
+        <k-footer-battle ng-if="global.user.game.gamedata.status === 1"></k-footer-battle>
+        <k-footer-shop ng-if="global.user.game.gamedata.status === 2"></k-footer-shop>
     </div>
 
     <!-- Pie para la página de desayuno -->
@@ -129,6 +130,7 @@
     <script src="app/directives/kfooterbattle/kfooterbattle.js"></script>
     <script src="app/directives/kfooterbreakfast/kfooterbreakfast.js"></script>
     <script src="app/directives/kfooterforge/kfooterforge.js"></script>
+    <script src="app/directives/kfootershop/kfootershop.js"></script>
     <script src="app/directives/knavmenu/knavmenu.js"></script>
     <script src="app/directives/kprofilemenu/kprofilemenu.js"></script>
 

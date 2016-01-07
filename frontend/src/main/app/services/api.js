@@ -194,6 +194,33 @@
                 });
             },
 
+            // API de Shop
+            'shop': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
+                return $resource(CONFIG.webServiceUrl + 'shop/:endpoint', {endpoint: ''}, {
+                    // Obtener todos los objetos
+                    list: {
+                        method: 'GET',
+                        headers: {'Authorization': 'Bearer ' + access_token},
+                        params: {
+                            endpoint: 'list'
+                        }
+                    },
+                    // Compra un objeto
+                    execute: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'buy'
+                        }
+                    }
+                });
+            },
+
             // API de desarrollo
             'dev': function () {
                 return $resource(CONFIG.webServiceUrl + 'dev/:endpointA/:endpointB/:status', {

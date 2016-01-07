@@ -4,13 +4,18 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('HomeController',
-            ['$scope',
-                function ($scope) {
-                    // Actualizamos los datos si hace falta
-                    $scope.updateGameData(fnAfterUpdate);
+            ['$scope', 'API',
+                function ($scope, API) {
+                    // Variables
+                    $scope.itemList = [];
 
                     // Funciones
                     $scope.iconize = fnIconize;
+                    $scope.getShopItems = fnGetShopItems;
+
+                    // Actualizamos los datos obligatoriamente por las notificaciones
+                    $scope.updateGameData(fnAfterUpdate);
+                    $scope.getShopItems();
 
                     /**
                      * Una vez he terminado de actualizar los datos
@@ -47,6 +52,19 @@
                                 icon = 'info_outline';
                         }
                         return icon;
+                    }
+
+                    /**
+                     * Obtiene los objetos comprables
+                     */
+                    function fnGetShopItems() {
+                        API.shop()
+                            .list({}, function (response) {
+                                if (response) {
+                                    $scope.itemList = response.data.items;
+                                    console.log();
+                                }
+                            });
                     }
                 }]);
 })();

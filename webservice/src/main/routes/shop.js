@@ -65,8 +65,8 @@ module.exports = function (app) {
 
                     items.push({
                         stock: stock,
-                        real_amount: item.amount - tengo,
-                        item: item
+                        stock_amount: item.amount - tengo,
+                        info: item
                     });
                 });
 
@@ -158,7 +158,7 @@ module.exports = function (app) {
                 else {
                     esteItem = {
                         _id: shopItem._id,
-                        name: shopItem.name,
+                        key: shopItem.key,
                         icon: shopItem.icon,
                         amount: 1,
                         action: shopItem.action
