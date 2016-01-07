@@ -208,7 +208,7 @@
                         }
                     },
                     // Compra un objeto
-                    execute: {
+                    buy: {
                         method: 'POST',
                         headers: {
                             'Authorization': 'Bearer ' + access_token,

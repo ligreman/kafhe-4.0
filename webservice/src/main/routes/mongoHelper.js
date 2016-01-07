@@ -194,7 +194,7 @@ module.exports = function (app) {
                     life: 100,
                     fury: 76,
                     fury_mode: false,
-                    reputation: 23,
+                    reputation: 1520,
                     action_points: 12
                 },
                 equipment: {

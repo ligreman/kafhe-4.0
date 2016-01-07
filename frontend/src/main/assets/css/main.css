@@ -88,6 +88,12 @@ body {
 
 /***************************** HOME ******************************/
 
+.shopTitle {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
 md-icon.big {
     font-size: 32px;
     width: 32px;
@@ -95,8 +101,15 @@ md-icon.big {
 }
 
 md-icon.w50 {
+    transition: all .25s ease-out;
     width: 50%;
     height: 50%;
+}
+
+.hoverable:hover md-icon.hoverzone {
+    width: 60%;
+    height: 60%;
+    transform: rotate(15deg);
 }
 
 .timeline li timeline-badge.system {
@@ -135,6 +148,22 @@ timeline-heading h4 {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
     border-radius: 0;
     border: none;
+}
+
+.stock {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.soldout {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 100%;
+    height: 100%;
+    color: red;
+    transform: rotate(-45deg);
+    font-size: 2.5em;
 }
 
 /*****************************************************************************/

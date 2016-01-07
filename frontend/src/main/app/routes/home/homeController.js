@@ -4,14 +4,15 @@
     //Controlador de la pantalla de login
     angular.module('kafhe.controllers')
         .controller('HomeController',
-            ['$scope', 'API',
-                function ($scope, API) {
+            ['$scope', 'API', '$mdDialog', '$translate',
+                function ($scope, API, $mdDialog, $translate) {
                     // Variables
                     $scope.itemList = [];
 
                     // Funciones
                     $scope.iconize = fnIconize;
                     $scope.getShopItems = fnGetShopItems;
+                    $scope.confirmBuyItem = fnConfirmBuyItem;
 
                     // Actualizamos los datos obligatoriamente por las notificaciones
                     $scope.updateGameData(fnAfterUpdate);
@@ -62,7 +63,36 @@
                             .list({}, function (response) {
                                 if (response) {
                                     $scope.itemList = response.data.items;
-                                    console.log();
+                                }
+                            });
+                    }
+
+                    /**
+                     * Confirma la Compra un objeto
+                     * @param item
+                     */
+                    function fnConfirmBuyItem(item) {
+                        var name = $translate.instant(item.info.key);
+                        var confirm = $mdDialog.confirm()
+                            .title($translate.instant('textShopBuyTitle'))
+                            .content($translate.instant('textShopBuy', {name: name, points: item.info.price}))
+                            .ok($translate.instant('textContinue'))
+                            .cancel($translate.instant('textCancel'))
+                            .targetEvent(event);
+
+                        $mdDialog.show(confirm).then(function () {
+                            // OK, compro
+                            buyItem(item);
+                        });
+                    }
+
+                    function buyItem(item) {
+                        // Llamo al API
+                        API.shop()
+                            .buy({item_id: item.info._id}, function (response) {
+                                if (response) {
+                                    //Recargo la tienda
+                                    fnGetShopItems();
                                 }
                             });
                     }

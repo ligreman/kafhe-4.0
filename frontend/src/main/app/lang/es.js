@@ -60,6 +60,10 @@
             'textOrderDeleted': 'Pedido del desayuno retirado',
             'textNoLastOrder': 'Omelettus no tiene constancia de que el otro día tomaras desayuno alguno, ¡hereje!',
 
+            // INTERFAZ - SHOP
+            'textShopBuyTitle': 'Confirma la compra',
+            'textShopBuy': '¿Quieres comprar {{name}} por {{points}} puntos de tueste?',
+
             // INTERFAZ - HABILIDADES
             'textDuration': 'Duración',
             'textUses': 'Usos restantes',
