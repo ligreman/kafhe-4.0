@@ -159,7 +159,7 @@ module.exports = function (app) {
         }
 
         // Compruebo que tengo puntos de acción para ejecutarla
-        if (usuario.game.stats.action_points < skill.cost) {
+        if (usuario.game.stats.toast_points < skill.cost) {
             console.tag('SKILL-EXECUTE').error('No tengo puntos de acción para ejecutar esa habilidad');
             utils.error(res, 400, 'errSkillNoActionPoints');
             return;
@@ -255,7 +255,7 @@ module.exports = function (app) {
 
 
                 // Resto puntos de habilidad
-                usuario.game.stats.action_points -= skill.cost;
+                usuario.game.stats.toast_points -= skill.cost;
 
                 // Resto usos de habilidad si tenía usos
                 if (skill.uses !== null) {

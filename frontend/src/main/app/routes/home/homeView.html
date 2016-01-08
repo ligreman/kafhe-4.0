@@ -22,7 +22,7 @@
 
     <!-- Durante negociaciones muestro la tienda -->
     <div ng-show="global.user.game.gamedata.status === 2" layout-padding>
-        <h2 class="shopTitle">Dispones de {{global.print.toastPoints}} puntos de tueste</h2>
+        <h2 class="shopTitle">Dispones de {{global.print.tostolares}} tostólares</h2>
 
         <p ng-show="itemList.length === 0">No hay objetos que comprar</p>
 
@@ -41,15 +41,15 @@
                 <span class="soldout" ng-if="item.stock_amount <= 0">Vendido</span>
                 <md-icon class="w50 hoverzone" md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
 
-                <md-grid-tile-footer class="width100">
-                    <div layout="row" layout-align="space-between center">
+                <md-grid-tile-footer class="width100 no-background">
+                    <div layout="row" layout-align="space-between end">
                         <p flex="30" class="text-center stock kafhe-primary">x{{item.stock_amount}}
                             <md-tooltip>Stock</md-tooltip>
                         </p>
-                        <md-button class="md-icon-button md-primary" ng-disabled="!item.stock" flex="none"
+                        <md-button class="md-raised md-primary btn-mini" ng-disabled="!item.stock" flex="none"
                                    ng-click="confirmBuyItem(item)">
                             <md-icon>attach_money</md-icon>
-                            <md-tooltip>Comprar por {{item.info.price}} puntos de tueste</md-tooltip>
+                            <md-tooltip>{{'textShopButtonBuy' | translate:{cost:item.info.price} }}</md-tooltip>
                         </md-button>
                     </div>
                 </md-grid-tile-footer>

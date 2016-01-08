@@ -1,10 +1,5 @@
 'use strict';
 
-var CONSTANTS = {
-    life: 1000,
-    action_points: 12
-};
-
 var b = new Date();
 var amas = b.getTimezoneOffset();
 // Sumo la hora para obtener GMT+1
@@ -31,7 +26,7 @@ var eventEmitter = new events.EventEmitter();
 // Esto se ejecutará a la 1 de la mañana
 hora = 1;
 if (hora !== 1) {
-    process.exit();
+    salir();
 }
 dia = 6;
 switch (dia) {
@@ -40,11 +35,11 @@ switch (dia) {
             function (error, num) {
                 if (error) {
                     console.error(error);
-                    process.exit();
+                    salir();
                 }
 
                 console.log('Partidas en estado WEEKEND después del fin de semana se ponen en BATALLA.');
-                process.exit();
+                salir();
             }
         );
         break;
@@ -53,11 +48,15 @@ switch (dia) {
             function (error, num) {
                 if (error) {
                     console.error(error);
-                    process.exit();
+                    salir();
                 }
 
                 console.log('Partidas en estado BATALLA el viernes se ponen en NEGOCIACION.');
-                process.exit();
+
+                //Ahora hago la conversión reputación a tostólares para los jugadores
+                givePlayersTostolares();
+
+                salir();
             }
         );
         break;
@@ -65,7 +64,69 @@ switch (dia) {
         gameFridayCloseAndCreate();
         break;
     default:
-        process.exit();
+        salir();
+}
+
+/**
+ * Da a los jugadores sus tostólares, dependiendo de la reputación que hayan logrado
+ */
+function givePlayersTostolares() {
+    // Saco las partidas en negocio
+    Game.find({"status": config.GAME_STATUS.BUSINESS})
+        .exec(function (error, games) {
+            if (error) {
+                console.error(error);
+                salir();
+            }
+
+            var promises = [], jugadores = [];
+
+            // Saco todos los jugadores
+            games.forEach(function (game) {
+                // Si es recursivo lo reseteo
+                jugadores.concat(game.players);
+            });
+
+            // Quito duplicados en el array de jugadores
+            jugadores = jugadores.filter(function (elem, pos) {
+                return jugadores.indexOf(elem) == pos;
+            });
+
+            // Doy tostolares
+            User.find({'_id': {$in: jugadores}})
+                .exec(function (error, jugadores) {
+                    if (error) {
+                        console.error(error);
+                        salir();
+                    }
+
+                    jugadores.forEach(function (jugador) {
+                        jugador.game.tostolares = Math.round(jugador.game.stats.reputation / config.DEFAULTS.REPUTATION_TO_TOSTOLARES_CONVERSION);
+                        jugador.game.stats.reputation -= jugador.game.tostolares * config.DEFAULTS.REPUTATION_TO_TOSTOLARES_CONVERSION;
+
+                        promises.push(jugador.save());
+                    });
+                });
+
+            Q.allSettled(promises)
+                .then(function (results) {
+                    var resultado = true, razon;
+                    results.forEach(function (result) {
+                        if (result.state !== "fulfilled") {
+                            resultado = result.value;
+                            razon = result.reason;
+                        }
+                    });
+
+                    if (resultado !== true) {
+                        console.error(razon);
+                        salir();
+                    }
+
+                    console.log('Hemos dado los tostólares a los jugadores');
+                    salir();
+                });
+        });
 }
 
 /**
@@ -77,7 +138,7 @@ function gameFridayCloseAndCreate() {
         .exec(function (error, games) {
             if (error) {
                 console.error(error);
-                process.exit();
+                salir();
             }
 
             var promises = [], jugadoresReset = [], jugadoresClean = [];
@@ -115,17 +176,17 @@ function gameFridayCloseAndCreate() {
                 .exec(function (error, jugadores) {
                     if (error) {
                         console.error(error);
-                        process.exit();
+                        salir();
                     }
 
                     jugadores.forEach(function (jugador) {
                         // Hago el reset
                         jugador.game.stats = {
-                            life: CONSTANTS.life,
+                            life: config.DEFAULTS.MAX_LIFE,
                             fury: 0,
                             fury_mode: 0,
                             reputation: 0,
-                            action_points: CONSTANTS.action_points
+                            action_points: config.DEFAULTS.TOAST_POINTS
                         };
                         jugador.game.conditions = [];
                         jugador.game.afk = false;
@@ -146,19 +207,20 @@ function gameFridayCloseAndCreate() {
                 .exec(function (error, jugadores) {
                     if (error) {
                         console.error(error);
-                        process.exit();
+                        salir();
                     }
 
                     jugadores.forEach(function (jugador) {
                         // Hago el clean
                         jugador.leader = false;
+                        jugador.game.tostolares = 0;
                         jugador.game.gamedata = null;
                         jugador.game.stats = {
-                            life: CONSTANTS.life,
+                            life: config.DEFAULTS.MAX_LIFE,
                             fury: 0,
                             fury_mode: 0,
                             reputation: 0,
-                            action_points: CONSTANTS.action_points
+                            action_points: config.DEFAULTS.TOAST_POINTS
                         };
                         jugador.game.conditions = [];
                         jugador.game.afk = false;
@@ -186,7 +248,7 @@ function gameFridayCloseAndCreate() {
 
                     if (resultado !== true) {
                         console.error(razon);
-                        process.exit();
+                        salir();
                     }
 
                     console.log('Partidas que estaban RESUELTAS las CIERRO y creo las nuevas si eran recursivas');
@@ -203,11 +265,11 @@ eventEmitter.on('gameFridayContinue', function () {
         function (error, num) {
             if (error) {
                 console.error(error);
-                process.exit();
+                salir();
             }
 
             console.log('Partidas en estado NEGOCIACIONES no se cerraron y pasan a WEEKEND para continuar la semana que viene.');
-            process.exit();
+            salir();
         }
     );
 
@@ -216,7 +278,7 @@ eventEmitter.on('gameFridayContinue', function () {
      .exec(function (error, games) {
      if (error) {
      console.error(error);
-     process.exit();
+     salir();
      }
 
      var promises = [];
@@ -228,3 +290,8 @@ eventEmitter.on('gameFridayContinue', function () {
      });
      });*/
 });
+
+function salir() {
+    mongoose.disconnect();
+    process.exit();
+}

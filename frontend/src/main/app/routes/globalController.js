@@ -97,13 +97,15 @@
                                 $scope.global.skills.push(skill);
                             });
                         }
-                        console.log($scope.global.skills);
+
                         // El inventario del jugador
                         $scope.global.inventory = user.game.inventory;
 
                         // Variables para pintar en el front
                         // Reputación
-                        $scope.global.print.toastPoints = $scope.Math.floor(user.game.stats.reputation / CONFIG.constReputationToToastProportion);
+                        //$scope.global.print.toastPoints = $scope.Math.floor(user.game.stats.reputation / CONFIG.constReputationToToastProportion);
+                        $scope.global.print.tostolares = user.game.tostolares;
+
                         var cantidad = user.game.stats.reputation % CONFIG.constReputationToToastProportion;
                         // Lo paso de (0 a config) a un valor 0-100%
                         var proporcion = cantidad * 100 / CONFIG.constReputationToToastProportion;

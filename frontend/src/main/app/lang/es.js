@@ -62,13 +62,14 @@
 
             // INTERFAZ - SHOP
             'textShopBuyTitle': 'Confirma la compra',
-            'textShopBuy': '¿Quieres comprar {{name}} por {{points}} puntos de tueste?',
+            'textShopBuy': '¿Quieres comprar {{name}} por {{points}} tostólares?',
+            'textShopButtonBuy': 'Comprar por {{cost}} tostólares',
 
             // INTERFAZ - HABILIDADES
             'textDuration': 'Duración',
             'textUses': 'Usos restantes',
             'textTargets': 'Nº de objetivos',
-            'textCost': 'Coste en puntos de acción',
+            'textCost': 'Coste en puntos de tueste',
             'textExecute': 'Ejecutar habilidad',
 
             // INTERFAZ - PANTALLA FORJA

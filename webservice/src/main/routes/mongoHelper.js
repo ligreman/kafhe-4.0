@@ -195,7 +195,7 @@ module.exports = function (app) {
                     fury: 76,
                     fury_mode: false,
                     reputation: 1520,
-                    action_points: 12
+                    toast_points: 12
                 },
                 equipment: {
                     weapon: 'w001',
@@ -418,7 +418,7 @@ module.exports = function (app) {
                     fury: 76,
                     fury_mode: false,
                     reputation: 23,
-                    action_points: 12
+                    toast_points: 12
                 },
                 equipment: {
                     weapon: 'w001',
@@ -626,7 +626,7 @@ module.exports = function (app) {
                     fury: 76,
                     fury_mode: false,
                     reputation: 23,
-                    action_points: 12
+                    toast_points: 12
                 },
                 equipment: {
                     weapon: 'w001',
@@ -832,7 +832,7 @@ module.exports = function (app) {
                     fury: 76,
                     fury_mode: false,
                     reputation: 23,
-                    action_points: 12
+                    toast_points: 12
                 },
                 equipment: {
                     weapon: 'w001',
@@ -1038,7 +1038,7 @@ module.exports = function (app) {
                     fury: 76,
                     fury_mode: false,
                     reputation: 23,
-                    action_points: 12
+                    toast_points: 12
                 },
                 equipment: {
                     weapon: 'w001',

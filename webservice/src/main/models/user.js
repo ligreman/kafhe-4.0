@@ -21,7 +21,7 @@ module.exports = function (mongoose) {
                 fury: {type: Number, default: 0},
                 fury_mode: {type: Boolean, default: false},
                 reputation: {type: Number, default: 0},
-                action_points: {type: Number, default: 0}
+                toast_points: {type: Number, default: 0}
             },
             conditions: [{
                 'type': String,

@@ -12,7 +12,7 @@ var FURY = {
     FURY_MODE_USE_POINTS: 500,
     // Multiplicador del modo furia
     FURY_MODE_MULTIPLIER: 2
-}
+};
 
 // Daño que recibes si no tienes armadura, en %
 var DAMAGE_NO_ARMOR = 120;
@@ -21,7 +21,8 @@ var DAMAGE_NO_ARMOR = 120;
 var DEFAULTS = {
     // Vida máxima
     MAX_LIFE: 1000,
-    TOAST_POINTS: 10
+    TOAST_POINTS: 10,
+    REPUTATION_TO_TOSTOLARES_CONVERSION: 100 // 100 de repu = 1 tostólar
 };
 
 // Tabla de estados de partida
@@ -43,7 +44,7 @@ var REPUTATION = {
     // Reputación que se pierde al morir
     LOST_DEAD: 100,
     // Reputación ganada por cada punto de acción al usar una habilidad
-    WIN_ACTION_POINT: 10,
+    WIN_TOAST_POINT: 10,
     // Reputación ganada por cada nivel de la habilidad usada
     WIN_SKILL_LEVEL: 10,
     // Reputación ganada por bloquear un ataque con éxito

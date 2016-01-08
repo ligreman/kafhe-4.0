@@ -8,10 +8,10 @@
     <div flex="none" id="action-points-bar" layout="row" layout-align="space-around center" layout-padding>
         <!--<p class="align-stretch no-margin">AP</p>-->
         <div ng-repeat="n in [] | range:15">
-            <md-icon class="md-accent" ng-if="$index < global.user.game.stats.action_points">
+            <md-icon class="md-accent" ng-if="$index < global.user.game.stats.toast_points">
                 radio_button_checked
             </md-icon>
-            <md-icon ng-if="$index >= global.user.game.stats.action_points">radio_button_unchecked</md-icon>
+            <md-icon ng-if="$index >= global.user.game.stats.toast_points">radio_button_unchecked</md-icon>
         </div>
         <md-tooltip md-direction="left">{{ 'actionPointsBar' | translate}}</md-tooltip>
     </div>
@@ -51,7 +51,7 @@
         <!--<div flex="40">
             &lt;!&ndash;<p>Reputation: {{global.user.game.stats.reputation}}</p>
 
-            <p>Action Points: {{global.user.game.stats.action_points}}</p>
+            <p>Action Points: {{global.user.game.stats.toast_points}}</p>
 
             <p>Fury: {{global.user.game.stats.fury}}</p>
 

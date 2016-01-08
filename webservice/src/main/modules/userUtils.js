@@ -268,7 +268,7 @@ var addReputation = function (user, sourceAmount, levelDifference, causa) {
     switch (causa) {
         case config.CAUSE.skill:
             // Sumo un fijo por usar la habilidad, por cada punto de acción. Vienen en sourceAmount los ptos de acción
-            ganancia += config.REPUTATION.WIN_ACTION_POINT * sourceAmount;
+            ganancia += config.REPUTATION.WIN_TOAST_POINT * sourceAmount;
 
             // Por nivel de la habilidad. Viene en levelDifference el nivel de skill
             ganancia += config.REPUTATION.WIN_SKILL_LEVEL * levelDifference;
