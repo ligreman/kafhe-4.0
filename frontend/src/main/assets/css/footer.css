@@ -148,24 +148,29 @@ footer {
     opacity: 1;
 }
 
-.btn-skill {
-}
-
-.btn-skill md-icon {
-}
-
-.btn-skill {
-}
-
-.btn-skill {
-}
-
-.btn-skill {
-}
-
-.btn-skill {
-}
-
 md-grid-tile-footer.width100 figcaption {
     width: 100%;
+}
+
+/** SHOP **/
+.inventory-item {
+    position: relative;
+}
+
+.inventory-item .amount {
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    color: #777;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.inventory-item md-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.x-scroll {
+    overflow-x: scroll;
 }

@@ -36,10 +36,10 @@
                         {{item.info.key}}
                     </h3>
                 </md-grid-tile-header>
-                <md-tooltip md-direction="top">Decription</md-tooltip>
+                <md-tooltip md-direction="top">{{item.info.key + 'Description' | translate}}</md-tooltip>
 
                 <span class="soldout" ng-if="item.stock_amount <= 0">Vendido</span>
-                <md-icon class="w50 hoverzone" md-svg-icon="../../../assets/img/floating-crystal.svg"></md-icon>
+                <md-icon class="w50 hoverzone" md-svg-icon="../../../assets/img/{{item.info.icon}}.svg"></md-icon>
 
                 <md-grid-tile-footer class="width100 no-background">
                     <div layout="row" layout-align="space-between end">

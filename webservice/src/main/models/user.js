@@ -92,7 +92,7 @@ module.exports = function (mongoose) {
                 }],
                 items: [{
                     _id: String,
-                    name: String,
+                    key: String,
                     icon: String,
                     amount: Number,
                     action: String

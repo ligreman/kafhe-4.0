@@ -39,15 +39,17 @@ module.exports = function (app) {
         {
             key: 'shopItemBottle',
             price: 12,
-            icon: 'bottle',
+            icon: 'air',
             amount: 2,
+            action: 'item001',
             min_level: 0
         },
         {
-            name: 'shopItemBottle2',
+            key: 'shopItemBottle2',
             price: 8,
-            icon: 'bottle2',
+            icon: 'burn',
             amount: 1,
+            action: 'item002',
             min_level: 4
         }
     ];

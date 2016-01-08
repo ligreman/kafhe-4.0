@@ -93,6 +93,9 @@
                                 if (response) {
                                     //Recargo la tienda
                                     fnGetShopItems();
+
+                                    // Recargo el objeto user con el de la respuesta
+                                    $scope.updateUserObject(response.data.user);
                                 }
                             });
                     }
