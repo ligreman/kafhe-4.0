@@ -11,6 +11,8 @@ module.exports = function (mongoose) {
         password: {type: String, select: false, required: true},
         alias: String,
         leader: Boolean,
+        times: Number,
+        calls: Number,
         avatar: String,
         game: {
             gamedata: {type: mongoose.Schema.Types.ObjectId, ref: 'Game'},

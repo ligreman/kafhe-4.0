@@ -4,6 +4,7 @@
 
         <p ng-repeat="weapon in global.inventory.weapons | filter:{equipped:false}">
             [{{weapon.level}}] {{weapon.name}}
+            <md-button ng-click="equip(weapon)">Equipar</md-button>
         </p>
     </div>
 
@@ -13,6 +14,7 @@
 
         <p ng-repeat="armor in global.inventory.armors | filter:{equipped:false}">
             {{armor.name}}
+            <md-button ng-click="equip(armor)">Equipar</md-button>
         </p>
     </div>
 </footer>

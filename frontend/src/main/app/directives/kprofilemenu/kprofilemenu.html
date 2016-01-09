@@ -1,9 +1,9 @@
 <div id="profile-menu" class="md-whiteframe-3dp" ng-show="$root.kUserLogged && showProfileMenu" flex="30"
-     layout="column" layout-align="space-between start" layout-padding>
-
-    <span class="level">{{global.user.game.level}}</span>
-    <h2 class="white" flex="none">{{global.user.alias}}</h2>
-
+     layout="column" layout-align="start start" layout-padding>
+    <div flex="10">
+        <span class="level">{{global.user.game.level}}</span>
+        <h2 class="white">{{global.user.alias}}</h2>
+    </div>
     <div class="equipo md-whiteframe-1dp kafhe-white-background" flex layout-margin>
         <p>Arma</p>
         <div ng-if="global.equipment.weapon">
@@ -17,6 +17,7 @@
                     {{skill.name}}
                 </p>
             </div>
+            <md-button class="md-warn" ng-click="destroy(global.equipment.weapon)">Destruir</md-button>
         </div>
     </div>
 
@@ -33,11 +34,17 @@
                     {{skill.name}}
                 </p>
             </div>
+            <md-button class="md-warn" ng-click="destroy(global.equipment.armor)">Destruir</md-button>
         </div>
     </div>
 
-    <md-button ng-click="logout()" class="md-warn md-raised" flex="none">
-        Desconectarse
-        <md-icon>exit_to_app</md-icon>
-    </md-button>
+    <div flex="5" layout="row" layout-align="space-between center" layout-fill>
+        <md-button ng-click="leaderPanel($event)" ng-if="global.leader" class="md-icon-button md-primary md-hue-1">
+            <md-icon>pets</md-icon>
+        </md-button>
+        <md-button ng-click="logout()" class="md-warn md-raised">
+            Desconectarse
+            <md-icon>exit_to_app</md-icon>
+        </md-button>
+    </div>
 </div>

@@ -3,20 +3,20 @@
 module.exports = function (app) {
     var console = process.console;
 
-    var express = require('express'),
-        passport = require('passport'),
-    //validator = require('validator'),
-        math = require('mathjs'),
-        forgeRouter = express.Router(),
-        utils = require('../modules/utils'),
-        responseUtils = require('../modules/responseUtils'),
-        gameResources = require('../modules/gameResources'),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose'),
-        models = require('../models/models')(mongoose),
+    var express           = require('express'),
+        passport          = require('passport'),
+        //validator = require('validator'),
+        math              = require('mathjs'),
+        forgeRouter       = express.Router(),
+        utils             = require('../modules/utils'),
+        responseUtils     = require('../modules/responseUtils'),
+        gameResources     = require('../modules/gameResources'),
+        bodyParser        = require('body-parser'),
+        mongoose          = require('mongoose'),
+        models            = require('../models/models')(mongoose),
         notificationEvent = require('../modules/notificationEvent'),
-        notifications = new notificationEvent(),
-        config = require('../modules/config');
+        notifications     = new notificationEvent(),
+        config            = require('../modules/config');
 
     //**************** FURNACE ROUTER **********************
     //Middleware para estas rutas
@@ -33,11 +33,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/weapon', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idTostem = params.tostem, tostem,
-            idRune = params.rune, rune,
-            clase = params.class,
+        var usuario      = req.user,
+            params       = req.body,
+            idTostem     = params.tostem, tostem,
+            idRune       = params.rune, rune,
+            clase        = params.class,
             forgedWeapon = {
                 id: utils.generateId(),
                 name: null,
@@ -57,7 +57,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta = {
+            respuesta    = {
                 generatedWeapon: null
             };
 
@@ -263,19 +263,6 @@ module.exports = function (app) {
                 usuario.game.afk = false;
                 usuario.game.last_activity = new Date().getTime();
 
-                // TODO quitar
-                res.json({
-                    "data": {
-                        "user": responseUtils.censureUser(usuario),
-                        "result": respuesta
-                    },
-                    "session": {
-                        "access_token": req.authInfo.access_token,
-                        "expire": 1000 * 60 * 60 * 24 * 30
-                    },
-                    "error": ""
-                });
-
                 // Guardo el usuario
                 usuario.save(function (err) {
                     if (err) {
@@ -312,11 +299,11 @@ module.exports = function (app) {
      */
     forgeRouter.post('/armor', function (req, res, next) {
         // El objeto user
-        var usuario = req.user,
-            params = req.body,
-            idTostem = params.tostem, tostem,
-            idRune = params.rune, rune,
-            clase = params.class,
+        var usuario     = req.user,
+            params      = req.body,
+            idTostem    = params.tostem, tostem,
+            idRune      = params.rune, rune,
+            clase       = params.class,
             forgedArmor = {
                 id: utils.generateId(),
                 name: null,
@@ -336,7 +323,7 @@ module.exports = function (app) {
                 skills: [],
                 equipped: false
             },
-            respuesta = {
+            respuesta   = {
                 generatedArmor: null
             };
 
@@ -466,19 +453,6 @@ module.exports = function (app) {
         // AFK y last_activity
         usuario.game.afk = false;
         usuario.game.last_activity = new Date().getTime();
-
-        // TODO quitar
-        res.json({
-            "data": {
-                "user": responseUtils.censureUser(usuario),
-                "result": respuesta
-            },
-            "session": {
-                "access_token": req.authInfo.access_token,
-                "expire": 1000 * 60 * 60 * 24 * 30
-            },
-            "error": ""
-        });
 
         // Guardo el usuario
         usuario.save(function (err) {

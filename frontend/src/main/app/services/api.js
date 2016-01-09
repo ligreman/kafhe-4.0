@@ -168,6 +168,36 @@
                 });
             },
 
+            // API de Equipo
+            'equipment': function () {
+                var access_token = $cookies.get(CONFIG.sessionCookieName);
+
+                return $resource(CONFIG.webServiceUrl + 'equipment/:endpoint', {endpoint: ''}, {
+                    // Equipar objeto
+                    equip: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'equip'
+                        }
+                    },
+                    // Destruir objeto
+                    destroy: {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token,
+                            'Content-Type': 'application/json'
+                        },
+                        params: {
+                            endpoint: 'destroy'
+                        }
+                    }
+                });
+            },
+
             // API de Skill
             'skill': function () {
                 var access_token = $cookies.get(CONFIG.sessionCookieName);

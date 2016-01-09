@@ -73,6 +73,8 @@
                         var res = JSONSelect.match(selector, user.game.inventory.weapons);
                         if (res.length === 1) {
                             $scope.global.equipment.weapon = res[0];
+                        } else {
+                            $scope.global.equipment.weapon = null;
                         }
 
                         // Saco la armadura equipada
@@ -80,6 +82,8 @@
                         res = JSONSelect.match(selector, user.game.inventory.armors);
                         if (res.length === 1) {
                             $scope.global.equipment.armor = res[0];
+                        } else {
+                            $scope.global.equipment.armor = null;
                         }
 
                         // Limpio las skills para generar el array de nuevo
@@ -106,6 +110,8 @@
                         //$scope.global.print.toastPoints = $scope.Math.floor(user.game.stats.reputation / CONFIG.constReputationToToastProportion);
                         $scope.global.print.tostolares = user.game.tostolares;
 
+                        $scope.global.leader = user.leader;
+
                         var cantidad = user.game.stats.reputation % CONFIG.constReputationToToastProportion;
                         // Lo paso de (0 a config) a un valor 0-100%
                         var proporcion = cantidad * 100 / CONFIG.constReputationToToastProportion;
@@ -130,8 +136,12 @@
                                 return 0;
                             }
                         });
+
+                        // Creo de nuevo el array de notificaciones globales
+                        $scope.global.notifications = [];
                         notifications.forEach(function (notif) {
                             var data = notif.message.split('#');
+
                             $scope.global.notifications.push({
                                 type: notif.type,
                                 timestamp: notif.timestamp,
@@ -220,6 +230,7 @@
                     function fnClearGlobalVars() {
                         $scope.global = {
                             user: {},
+                            leader: false,
                             gamedata: {
                                 meals: [],
                                 drinks: [],

@@ -8,14 +8,16 @@
                 function ($scope, API, $mdDialog, $translate) {
                     // Variables
                     $scope.itemList = [];
+                    $scope.updateGameData(fnAfterUpdate);
 
                     // Funciones
                     $scope.iconize = fnIconize;
                     $scope.getShopItems = fnGetShopItems;
+                    $scope.getNotifications = fnGetNotifications;
                     $scope.confirmBuyItem = fnConfirmBuyItem;
 
                     // Actualizamos los datos obligatoriamente por las notificaciones
-                    $scope.updateGameData(fnAfterUpdate);
+                    $scope.getNotifications();
                     $scope.getShopItems();
 
                     /**
@@ -53,6 +55,18 @@
                                 icon = 'info_outline';
                         }
                         return icon;
+                    }
+
+                    /**
+                     * Obtiene las notificaciones
+                     */
+                    function fnGetNotifications() {
+                        API.user()
+                            .me({}, function (response) {
+                                if (response) {
+                                    $scope.updateUserObject(response.data.user);
+                                }
+                            });
                     }
 
                     /**
