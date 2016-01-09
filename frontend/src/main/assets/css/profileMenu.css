@@ -2,6 +2,7 @@
     background-color: #00897B;
     flex-basis: 30%;
     z-index: 15;
+    position: relative;
 }
 
 #profile-menu.ng-hide-add, #profile-menu.ng-hide-remove {
@@ -10,5 +11,31 @@
 
 #profile-menu.ng-hide {
     flex-basis: 0;
+}
+
+.level {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0 0 40px 0;
+    border: 1px solid #f5f5f5;
+    background: #f5f5f5;
+    padding-right: 0px;
+    padding-top: 5px;
+    padding-left: 10px;
+    text-indent: 2px;
+    color: #009688;
+    font-weight: bold;
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+}
+
+#profile-menu h2 {
+    padding-left: 50px;
+}
+
+.equipo {
+    width: 95%;
 }
 

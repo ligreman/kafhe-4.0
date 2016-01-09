@@ -1,8 +1,6 @@
 <md-content flex ng-cloak class="grey scrollbar-content">
     <!-- Durante la batalla muestor las notificaciones -->
-    <div ng-show="global.user.game.gamedata.status === 1" layout-padding>
-        <p>Estado de la partida: {{global.user.game.gamedata.status}}</p>
-
+    <div ng-show="global.user.game.gamedata.status === 1" layout-padding layout-margin>
         <div layout="row" layout-align="center center">
             <timeline ng-init="side=''" flex="70" flex-sm="100" flex-md="90">
                 <timeline-event ng-repeat="notification in global.notifications">
@@ -22,14 +20,14 @@
 
     <!-- Durante negociaciones muestro la tienda -->
     <div ng-show="global.user.game.gamedata.status === 2" layout-padding>
-        <h2 class="shopTitle">Dispones de {{global.print.tostolares}} tostólares</h2>
+        <h2 class="shopTitle">Bazar <span>{{global.print.tostolares}} tostólares</span></h2>
 
         <p ng-show="itemList.length === 0">No hay objetos que comprar</p>
 
         <md-grid-list ng-show="itemList.length > 0"
-                      md-cols-sm="2" md-cols-md="4" md-cols-gt-md="8"
+                      md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
                       md-row-height-gt-md="1:1" md-row-height="1:1"
-                      md-gutter="12px" md-gutter-gt-sm="8px">
+                      md-gutter="1px" md-gutter-gt-sm="15px">
             <md-grid-tile ng-repeat="item in itemList" md-rowspan="1" md-colspan="1" class="hoverable">
                 <md-grid-tile-header>
                     <h3>

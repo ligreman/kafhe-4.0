@@ -1,7 +1,7 @@
 <md-dialog ng-cloak class="md-whiteframe-1dp">
-    <form class="form" name="targetSelect" novalidate>
+    <form class="form min-width500" name="targetSelect" novalidate>
 
-        <md-toolbar class="">
+        <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>
                     <md-icon class="vertical-bottom" md-svg-icon="../../../assets/img/{{skill.element}}.svg"></md-icon>
@@ -39,12 +39,15 @@
                     </p>
                 </div>
 
-                <p class="targets">Selecciona {{ skill.target_number - targetsSelected.length }} objetivos más:</p>
-                <div layout="row" layout-wrap layout-padding flex-offset="5">
-                    <md-checkbox flex="40" ng-repeat="player in playerList | filter: filterTargets | orderBy: 'alias'"
-                                 aria-label="" ng-click="checkSelect(player._id)">
-                        {{ player.alias }}
-                    </md-checkbox>
+                <div ng-if="skill.target_number > 0">
+                    <p class="targets">Selecciona {{ skill.target_number - targetsSelected.length }} objetivos más:</p>
+                    <div layout="row" layout-wrap layout-padding flex-offset="5">
+                        <md-checkbox flex="40"
+                                     ng-repeat="player in playerList | filter: filterTargets | orderBy: 'alias'"
+                                     aria-label="" ng-click="checkSelect(player._id)">
+                            {{ player.alias }}
+                        </md-checkbox>
+                    </div>
                 </div>
 
                 <div class="skill-stats" layout="row" layout-fill>

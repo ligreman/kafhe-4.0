@@ -1,11 +1,43 @@
-<div id="profile-menu" class="md-whiteframe-3dp" ng-show="$root.kUserLogged && showProfileMenu" flex="30">
-    <p>Level: {{global.user.game.level}}</p>
+<div id="profile-menu" class="md-whiteframe-3dp" ng-show="$root.kUserLogged && showProfileMenu" flex="30"
+     layout="column" layout-align="space-between start" layout-padding>
 
-    <p>{{global.user.alias}}</p>
+    <span class="level">{{global.user.game.level}}</span>
+    <h2 class="white" flex="none">{{global.user.alias}}</h2>
 
-    <p>Arma: {{global.equipment.weapon.name}}</p>
+    <div class="equipo md-whiteframe-1dp kafhe-white-background" flex layout-margin>
+        <p>Arma</p>
+        <div ng-if="global.equipment.weapon">
+            <p>[{{global.equipment.weapon.level}}] {{global.equipment.weapon.name}}</p>
+            <p>{{global.equipment.weapon.class}} - {{global.equipment.weapon.element}}</p>
+            <p>Daño: {{global.equipment.weapon.base_stats.damage}}</p>
+            <p>Precisión: {{global.equipment.weapon.base_stats.precision}}</p>
 
-    <p>Armadura: {{global.equipment.armor.name}}</p>
+            <div>
+                <p ng-repeat="skill in global.equipment.weapon.skills">
+                    {{skill.name}}
+                </p>
+            </div>
+        </div>
+    </div>
 
-    <md-button ng-click="logout()" class="md-primary md-raised">Logout</md-button>
+    <div class="equipo md-whiteframe-1dp kafhe-white-background" flex layout-margin>
+        <p>Armadura</p>
+        <div ng-if="global.equipment.armor">
+            <p>[{{global.equipment.armor.level}}] {{global.equipment.armor.name}}</p>
+            <p>{{global.equipment.armor.class}} - {{global.equipment.armor.element}}</p>
+            <p>Protección: {{global.equipment.armor.base_stats.protection}}</p>
+            <p>Bloqueo: {{global.equipment.armor.base_stats.parry}}</p>
+
+            <div>
+                <p ng-repeat="skill in global.equipment.armor.skills">
+                    {{skill.name}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <md-button ng-click="logout()" class="md-warn md-raised" flex="none">
+        Desconectarse
+        <md-icon>exit_to_app</md-icon>
+    </md-button>
 </div>

@@ -29,7 +29,7 @@
 
         <div flex id="skill-bar">
             <ul layout="row" layout-align="center start">
-                <li ng-repeat="skill in global.skills track by skill.id">
+                <li ng-repeat="skill in global.skills track by skill.id" class="relative">
                     <!--<a class="hi-icon-effect-1" href="#"
                        ng-click="showTargets(skill, $event)">
                         <md-icon class="hi-icon" style="color:red">star</md-icon>
@@ -38,6 +38,7 @@
                         <md-icon>face</md-icon>
                         <md-tooltip md-direction="top">{{ skill.name }}</md-tooltip>
                     </md-button>
+                    <span class="usos-restantes">{{skill.uses}}</span>
                 </li>
             </ul>
         </div>

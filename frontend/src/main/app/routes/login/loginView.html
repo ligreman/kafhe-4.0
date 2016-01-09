@@ -1,4 +1,4 @@
-<form name="loginForm">
+<form name="loginForm" layout="column" layout-align="center center" flex="grow">
 
     <md-input-container>
         <label>{{ 'loginUserLabel' | translate }}</label>
@@ -18,8 +18,8 @@
         </div>
     </md-input-container>
 
-    <md-button type="submit" class="md-raised" ng-click="btnLogin()">
-        <md-icon>flight_takeoff</md-icon>
+    <md-button type="submit" class="md-raised md-primary" ng-click="btnLogin()">
+        <md-icon>perm_identity</md-icon>
         {{ 'loginSignInButton' | translate }}
     </md-button>
 </form>

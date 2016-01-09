@@ -85,6 +85,15 @@
                         }
                     },
 
+                    // Obtener lista de jugadores que ya metieron desayuno
+                    status: {
+                        method: 'GET',
+                        headers: {'Authorization': 'Bearer ' + access_token},
+                        params: {
+                            endpoint: 'status'
+                        }
+                    },
+
                     // Envía un nuevo pedido
                     create: {
                         method: 'POST',

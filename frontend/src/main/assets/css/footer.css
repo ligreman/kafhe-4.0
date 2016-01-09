@@ -69,6 +69,15 @@ footer {
     width: 5vw;
 }
 
+.usos-restantes {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #009688;
+}
+
 .hi-icon {
     display: inline-block;
     font-size: 90px;

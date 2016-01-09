@@ -10,7 +10,7 @@
                     $scope.playerList = playerList;
                     $scope.targetsSelected = [];
 
-                    console.log(playerList);
+
                     /*********************************************************************/
                     /*********************** FUNCIONES ***********************************/
 

@@ -1,23 +1,15 @@
-<footer layout="row" flex="auto">
-    <div flex="40">
-        <p>Esta es la forja {{global.user.username}}</p>
-
-        <p>Pedruscos {{global.inventory.stones}}</p>
-
-        <!--<p>Inventario {{global.inventory}}</p>-->
-    </div>
-
-
+<footer layout="row" flex="auto" layout-align="space-around center" class="kafhe-primary">
     <div flex="20">
-        <p>Armería</p>
-
-        <p>Armas</p>
+        <p>Armas:</p>
 
         <p ng-repeat="weapon in global.inventory.weapons | filter:{equipped:false}">
-            {{weapon.name}}
+            [{{weapon.level}}] {{weapon.name}}
         </p>
+    </div>
 
-        <p>Armaduras</p>
+    <div flex="20">
+
+        <p>Armaduras:</p>
 
         <p ng-repeat="armor in global.inventory.armors | filter:{equipped:false}">
             {{armor.name}}

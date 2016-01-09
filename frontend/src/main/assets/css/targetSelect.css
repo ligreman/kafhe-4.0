@@ -18,3 +18,7 @@
 .target-select .targets {
     padding: 0 1em;
 }
+
+.min-width500 {
+    min-width: 500px;
+}

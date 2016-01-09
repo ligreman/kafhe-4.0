@@ -3,7 +3,7 @@
 // Contraseña por defecto de los usuarios
 var DEFAULT_PASSWORD = '1234';
 // TODO activar en PRO
-var CENSURE_USER = false;
+var CENSURE_USER = true;
 
 var FURY = {
     // Mínima cantidad de puntos para activar el modo furia. Cada estos puntos es una barra de furia

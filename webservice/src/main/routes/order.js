@@ -32,7 +32,7 @@ module.exports = function (app) {
         // Hago una búsqueda de esa lista de usuarios
         models.User
             .find({"_id": {"$in": players}})
-            .select('game.order alias')
+            .select('game.order alias avatar')
             .populate('game.order.meal game.order.drink')
             .exec(function (error, playerList) {
                 if (error) {
@@ -47,7 +47,8 @@ module.exports = function (app) {
                 // Recorro la lista de usuarios y extraigo sus pedidos
                 playerList.forEach(function (player) {
                     pedidos.push({
-                        player_alias: player.alias,
+                        alias: player.alias,
+                        avatar: player.avatar,
                         meal: player.game.order.meal,
                         drink: player.game.order.drink,
                         ito: player.game.order.ito
@@ -57,6 +58,59 @@ module.exports = function (app) {
                 res.json({
                     "data": {
                         "orders": pedidos
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
+                    },
+                    "error": ""
+                });
+            });
+    });
+
+    /**
+     * GET /order/status
+     * Obtiene la lista de usuarios que han metido ya el desayuno y los que no
+     */
+    orderRouter.get('/status', function (req, res, next) {
+        // Saco la lista de jugadores de la partida
+        var players = req.user.game.gamedata.players;
+
+        // Hago una búsqueda de esa lista de usuarios
+        models.User
+            .find({"_id": {"$in": players}})
+            .select('game.order alias avatar')
+            //.populate('game.order.meal game.order.drink')
+            .exec(function (error, playerList) {
+                if (error) {
+                    console.tag('MONGO').error(error);
+                    utils.error(res, 400, 'errOrderList');
+                    return;
+                }
+
+                var pedidos = [];
+
+                // Recorro la lista de usuarios y extraigo sus pedidos
+                playerList.forEach(function (player) {
+                    var breakfast = false;
+                    if (player.game.order.meal !== null && player.game.order.drink !== null) {
+                        breakfast = true;
+                    }
+
+                    pedidos.push({
+                        alias: player.alias,
+                        avatar: player.avatar,
+                        breakfast: breakfast
+                    });
+                });
+
+                res.json({
+                    "data": {
+                        "players": pedidos
+                    },
+                    "session": {
+                        "access_token": req.authInfo.access_token,
+                        "expire": 1000 * 60 * 60 * 24 * 30
                     },
                     "error": ""
                 });
