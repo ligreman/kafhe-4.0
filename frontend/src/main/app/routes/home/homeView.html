@@ -2,8 +2,9 @@
     <!-- Durante la batalla muestor las notificaciones -->
     <div ng-show="global.user.game.gamedata.status === 1" layout-padding layout-margin>
         <div layout="row" layout-align="center center">
-            <timeline ng-init="side=''" flex="70" flex-sm="100" flex-md="90">
-                <timeline-event ng-repeat="notification in global.notifications">
+            <timeline ng-init="side='left'" flex="70" flex-sm="100" flex-md="90">
+                <timeline-event ng-repeat="notification in global.notifications"
+                                ng-class="{'inverted':isMine(notification)}">
                     <timeline-badge class="{{notification.type}} md-whiteframe-2dp">
                         <md-icon class="big white">{{iconize(notification.type)}}</md-icon>
                     </timeline-badge>

@@ -152,6 +152,24 @@ md-icon.w50 {
     background-color: #db0305 !important;
 }
 
+.timeline timeline-event.inverted li timeline-panel {
+    float: right;
+}
+
+.timeline timeline-event.inverted li timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+}
+
+.timeline timeline-event.inverted li timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+}
+
 timeline-heading h4 {
     font-style: italic;
     font-weight: normal;

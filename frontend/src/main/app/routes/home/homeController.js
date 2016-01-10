@@ -15,6 +15,7 @@
                     $scope.getShopItems = fnGetShopItems;
                     $scope.getNotifications = fnGetNotifications;
                     $scope.confirmBuyItem = fnConfirmBuyItem;
+                    $scope.isMine = fnIsMine;
 
                     // Actualizamos los datos obligatoriamente por las notificaciones
                     $scope.getNotifications();
@@ -55,6 +56,24 @@
                                 icon = 'info_outline';
                         }
                         return icon;
+                    }
+
+                    /**
+                     * Comprueba si la notificación es algo mío para mostrarla a la derecha del timeline
+                     * @param notification
+                     */
+                    function fnIsMine(notification) {
+                        var mine = false;
+
+                        switch (notification.type) {
+                            case 'equipment':
+                            case 'forge':
+                            case 'furnace':
+                                mine = true;
+                                break;
+                        }
+
+                        return mine;
                     }
 
                     /**
